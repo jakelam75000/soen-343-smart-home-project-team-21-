@@ -22,6 +22,6 @@ public class window extends Smartobj  {
 
     @Override
     public String toString() {
-        return "this is a window and its name is " + name +".\n";
+        return "this is a window and its name is " + super.name +".\n";
     }
 }

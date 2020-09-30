@@ -72,7 +72,6 @@ public class HouseReader {
             e.printStackTrace();
             return ;
         }
-        return;
     }
 }
 
