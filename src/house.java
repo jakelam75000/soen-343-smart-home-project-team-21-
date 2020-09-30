@@ -1,17 +1,42 @@
+/*
+class house, holds the house rooms, name and smartobjects by extension
+@author Jake Lamothe
+@version 0.1
+@since 2020-09-30
+ */
 public class house {
     room[] rooms;
     String name;
+    /*
+    constructor
+     */
     public house(room[] listrom, String nam ){
         rooms = listrom;
         name = nam;
     }
     //shouldnt be used for now
+    /*
+    a mutator function which for now shouldn't be used
+    @param newroom This is the newest single room object to be added
+     */
     public void addrooms(room newroom){
-        rooms[rooms.length] = newroom;
+        room[] temprooms = new room[rooms.length+1];
+        for (int i =0; i< rooms.length; i++){
+            temprooms[i] = rooms[i];
+        }
+        temprooms[temprooms.length] = newroom;
+        rooms = temprooms;
     }
+    /*
+    a mutator function which for now shouldn't be used
+    @param newroom This is the newest list of room object to be added
+     */
     public void setlistrooms(room[] listorooms){
         rooms = listorooms;
     }
+    /*
+    to string override
+     */
     public String toString(){
         String s = name + " has " + rooms.length + " rooms.\n\n";
         for (int i =0; i< rooms.length; i++){
