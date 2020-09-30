@@ -1,15 +1,25 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+/*
+temporary main driver that reads a house layout file (no error checking) and puts the information into a house class, its corresponding room arrays and
+the rooms corresponding smartobj array
 
+will eventually be convered to a function call like public house HouseReader ()
+@author Jake Lamothe
+@version 0.1
+@since 2020-09-30
+ */
 public class HouseReader {
     public static void main(String[] args) {
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
+        //these variables are storages for the objects
         house mainhouse;
         room[] listofrooms;
         Smartobj[] smartobjByRoom;
         //temporary string for holding return values
         String s = null;
+        //temp variables for storing values to be sent to constructors
         String temphousename = null;
         int tempnumrooms = 0;
         String temproomname = null;
@@ -48,7 +58,7 @@ public class HouseReader {
                         smartobjType = s.substring(s.indexOf(':')+2);
                         s = lineReader.nextLine();
                         smartobjName = s.substring(s.indexOf(':')+2);
-                        //to be exapnded with more types and if statements
+                        //to be exapanded with more types and if statements
                         if (smartobjType.equalsIgnoreCase("window")) smartobjtypenum = 1;
                         switch(smartobjtypenum){
                             case 1:
