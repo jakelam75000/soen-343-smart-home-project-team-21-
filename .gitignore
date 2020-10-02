@@ -1,0 +1,12 @@
+# These are files and directory to be ignored by git
+
+# Directories to ignore
+out/
+output/
+Output/
+.idea/
+
+# Compiled class file
+*.class
+
+*.iml
