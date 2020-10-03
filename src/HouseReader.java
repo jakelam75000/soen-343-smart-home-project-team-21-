@@ -20,8 +20,12 @@ public class HouseReader {
     //Bounds variables
     private static int xPos = 300;
     private static int yPos = 200;
+    private static int xPosD = 100;
+    private static int yPosD = 100;
     private static int frameWidth = 400;
     private static int frameHeight = 500;
+    private static int DashWidth = 1000;
+    private static int DashHeight = 600;
 
 
     public static void loginClicked(){
@@ -29,7 +33,7 @@ public class HouseReader {
 
         loginFrame.setVisible(false);
 
-        dashboard.setBounds(xPos, yPos, frameWidth, frameHeight);
+        dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
         dashboard.setVisible(true);
 
     }

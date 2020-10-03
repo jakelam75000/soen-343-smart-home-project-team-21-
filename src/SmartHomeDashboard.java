@@ -7,6 +7,10 @@ public class SmartHomeDashboard extends JFrame{
     private JButton edit;
     private JTabbedPane tabbedPane1;
     private JTable table1;
+    private JPanel MIDPanel;
+    private JPanel HouseLayout;
+    private JPanel Console;
+    private JTextArea consoleDvSvSdvTextArea;
 
 
     public SmartHomeDashboard(String title) {
@@ -23,5 +27,4 @@ public class SmartHomeDashboard extends JFrame{
         frame.setVisible(true);
 
     }
-
 }
