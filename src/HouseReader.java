@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -11,6 +12,28 @@ will eventually be convered to a function call like public house HouseReader ()
 @since 2020-09-30
  */
 public class HouseReader {
+
+    //Frames
+    private static JFrame loginFrame = new Login("Login");
+    private static JFrame dashboard = new SmartHomeDashboard("Smart Home Simulator");
+
+    //Bounds variables
+    private static int xPos = 300;
+    private static int yPos = 200;
+    private static int frameWidth = 400;
+    private static int frameHeight = 500;
+
+
+    public static void loginClicked(){
+        //Validate user info
+
+        loginFrame.setVisible(false);
+
+        dashboard.setBounds(xPos, yPos, frameWidth, frameHeight);
+        dashboard.setVisible(true);
+
+    }
+
     public static void main(String[] args) {
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
@@ -80,8 +103,13 @@ public class HouseReader {
         catch (FileNotFoundException e){
             System.out.println("an error has occured, file may be missing or misspelled");
             e.printStackTrace();
-            return ;
+            return;
         }
+
+        loginFrame.setBounds(xPos, yPos, frameWidth, frameHeight);
+        loginFrame.setVisible(true);
+
+
     }
 }
 
