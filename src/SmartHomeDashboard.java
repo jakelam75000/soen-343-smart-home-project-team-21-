@@ -3,8 +3,10 @@ import javax.swing.*;
 public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
     private JButton onOff;
-    private JButton editProfile;
     private JPanel Simulation;
+    private JButton edit;
+    private JTabbedPane tabbedPane1;
+    private JTable table1;
 
 
     public SmartHomeDashboard(String title) {
