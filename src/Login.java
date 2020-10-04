@@ -23,7 +23,7 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HouseReader.loginClicked();
+                HouseReader.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
     }
