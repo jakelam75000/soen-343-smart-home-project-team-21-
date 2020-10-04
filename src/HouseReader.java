@@ -15,7 +15,7 @@ public class HouseReader {
 
     //Frames
     private static JFrame loginFrame = new Login("Login");
-    private static JFrame dashboard = new SmartHomeDashboard("Smart Home Simulator");
+    private static JFrame dashboard;
 
     //Bounds variables
     private static int xPos = 300;
@@ -34,16 +34,19 @@ public class HouseReader {
         if(user != null) {
             loginFrame.setVisible(false);
 
-            dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
-            dashboard.setVisible(true);
-
             // User type
             if(user instanceof Child) {
                 System.out.println("It is a child");
                 // Show house simulator for child
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Child");
+                dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
+                dashboard.setVisible(true);
             } else if (user instanceof Parent) {
                 System.out.println("It is a parent");
                 // Show house simulator for parent
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Parent");
+                dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
+                dashboard.setVisible(true);
             }
         } else {
             System.out.println("Login failed");
