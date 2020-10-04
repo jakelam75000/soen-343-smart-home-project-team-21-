@@ -12,9 +12,10 @@ public class SmartHomeDashboard extends JFrame{
     private JTextArea consoleDvSvSdvTextArea;
     private JLabel Image;
     private JLabel Type;
+    private JLabel Username;
 
 
-    public SmartHomeDashboard(String title, String type) {
+    public SmartHomeDashboard(String title, String type, String username) {
         super(title);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,11 +23,12 @@ public class SmartHomeDashboard extends JFrame{
         this.pack();
 
         Type.setText(type);
+        Username.setText(username);
     }
 
     public static void main(String[] args) {
 
-        JFrame frame = new SmartHomeDashboard("Smart Home Simulator", "");
+        JFrame frame = new SmartHomeDashboard("Smart Home Simulator", "", "");
         frame.setVisible(true);
 
 
