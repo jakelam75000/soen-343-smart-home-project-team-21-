@@ -28,17 +28,34 @@ public class HouseReader {
     private static int DashHeight = 600;
 
 
-    public static void loginClicked(){
-        //Validate user info
+    public static void loginClicked(String username, String password){
+        // User Authentication
+        User user = UserManager.findUser(username, password);
+        if(user != null) {
+            loginFrame.setVisible(false);
 
-        loginFrame.setVisible(false);
+            dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
+            dashboard.setVisible(true);
 
-        dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
-        dashboard.setVisible(true);
+            // User type
+            if(user instanceof Child) {
+                System.out.println("It is a child");
+                // Show house simulator for child
+            } else if (user instanceof Parent) {
+                System.out.println("It is a parent");
+                // Show house simulator for parent
+            }
+        } else {
+            System.out.println("Login failed");
+            //display failed login message
+        }
 
     }
 
     public static void main(String[] args) {
+        // Creates users
+        UserManager.initialUserSetup();
+
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
         house mainhouse;
