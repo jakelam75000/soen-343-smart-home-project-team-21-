@@ -38,13 +38,13 @@ public class HouseReader {
             if(user instanceof Child) {
                 System.out.println("It is a child");
                 // Show house simulator for child
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Child");
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Child", username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
             } else if (user instanceof Parent) {
                 System.out.println("It is a parent");
                 // Show house simulator for parent
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Parent");
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Parent", username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
             }
