@@ -10,20 +10,26 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel HouseLayout;
     private JPanel Console;
     private JTextArea consoleDvSvSdvTextArea;
+    private JLabel Image;
+    private JLabel Type;
 
 
-    public SmartHomeDashboard(String title) {
+    public SmartHomeDashboard(String title, String type) {
         super(title);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
+
+        Type.setText(type);
     }
 
     public static void main(String[] args) {
 
-        JFrame frame = new SmartHomeDashboard("Smart Home Simulator");
+        JFrame frame = new SmartHomeDashboard("Smart Home Simulator", "");
         frame.setVisible(true);
+
+
 
     }
 }
