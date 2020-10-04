@@ -25,6 +25,7 @@
           <alignmentY value="0.0"/>
           <autoscrolls value="false"/>
           <background color="-6398032"/>
+          <doubleBuffered value="true"/>
           <enabled value="true"/>
           <focusCycleRoot value="false"/>
           <focusTraversalPolicyProvider value="false"/>
@@ -42,16 +43,37 @@
         <children>
           <component id="f90fe" class="javax.swing.JButton" binding="onOff">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="32" height="32"/>
+                <preferred-size width="32" height="32"/>
+                <maximum-size width="32" height="32"/>
+              </grid>
             </constraints>
             <properties>
               <borderPainted value="false"/>
               <contentAreaFilled value="false"/>
+              <defaultCapable value="false"/>
+              <disabledIcon value="icons/icons8-toggle_off.png"/>
+              <disabledSelectedIcon value="icons/icons8-toggle_off.png"/>
               <doubleBuffered value="false"/>
               <enabled value="true"/>
+              <focusCycleRoot value="true"/>
+              <focusable value="false"/>
+              <horizontalTextPosition value="0"/>
               <icon value="icons/icons8-toggle_off.png"/>
+              <inheritsPopupMenu value="false"/>
+              <multiClickThreshhold value="0"/>
+              <opaque value="false"/>
+              <pressedIcon value="icons/icons8-toggle_on.png"/>
+              <requestFocusEnabled value="true"/>
+              <rolloverEnabled value="false"/>
+              <selected value="false"/>
+              <selectedIcon value="icons/icons8-toggle_on.png"/>
               <text value=""/>
             </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
           </component>
           <vspacer id="d7f36">
             <constraints>
@@ -160,23 +182,28 @@
             <preferred-size width="24" height="323"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-1315861"/>
+        </properties>
         <border type="none"/>
         <children>
           <tabbedpane id="50243" binding="tabbedPane1" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="200"/>
               </grid>
             </constraints>
             <properties>
-              <name value="SHS"/>
+              <name value="Tab"/>
               <opaque value="false"/>
               <requestFocusEnabled value="true"/>
               <tabLayoutPolicy value="0"/>
               <verifyInputWhenFocusTarget value="false"/>
             </properties>
-            <border type="none"/>
+            <border type="none" title-justification="1">
+              <font/>
+              <title-color color="-6398032"/>
+            </border>
             <children>
               <grid id="cfba6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
@@ -184,29 +211,41 @@
                   <tabbedpane title="SHS"/>
                 </constraints>
                 <properties>
+                  <background color="-1315861"/>
                   <name value=""/>
                 </properties>
                 <border type="none">
                   <font/>
-                  <title-color color="-4473925"/>
+                  <title-color color="-6398032"/>
                 </border>
-                <children>
-                  <component id="2bc8b" class="javax.swing.JTable" binding="table1" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="50"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <autoCreateColumnsFromModel value="true"/>
-                      <autoCreateRowSorter value="false"/>
-                      <dropMode value="ON"/>
-                      <editingRow value="1"/>
-                      <selectionBackground color="-3488570"/>
-                      <showVerticalLines value="true"/>
-                    </properties>
-                  </component>
-                </children>
+                <children/>
+              </grid>
+              <grid id="51071" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="SHC"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="64273" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="SHP"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+              <grid id="73a3d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <tabbedpane title="SHH"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children/>
               </grid>
             </children>
           </tabbedpane>

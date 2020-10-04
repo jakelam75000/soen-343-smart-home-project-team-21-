@@ -6,7 +6,6 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel Simulation;
     private JButton edit;
     private JTabbedPane tabbedPane1;
-    private JTable table1;
     private JPanel MIDPanel;
     private JPanel HouseLayout;
     private JPanel Console;

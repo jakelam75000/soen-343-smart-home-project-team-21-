@@ -23,7 +23,7 @@ public class HouseReader {
     private static int xPosD = 100;
     private static int yPosD = 100;
     private static int frameWidth = 400;
-    private static int frameHeight = 500;
+    private static int frameHeight = 300;
     private static int DashWidth = 1000;
     private static int DashHeight = 600;
 
