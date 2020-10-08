@@ -47,6 +47,12 @@ public class HouseReader {
                 dashboard = new SmartHomeDashboard("Smart Home Simulator", "Parent", username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
+            } else if (user instanceof Guest) {
+                System.out.println("It is a guest");
+                // Show house simulator for guest
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Guest", username);
+                dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
+                dashboard.setVisible(true);
             }
         } else {
             System.out.println("Login failed");

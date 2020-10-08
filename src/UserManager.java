@@ -66,6 +66,7 @@ public class UserManager {
         addUser("Parent2", "password123", "parent");
         addUser("Child1", "abc", "child");
         addUser("Child2", "123", "child");
+        addUser("Guest", "password", "guest");
     }
 
     public static HashMap<String, String> getAuthenticate() {
