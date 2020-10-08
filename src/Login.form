@@ -75,6 +75,7 @@
               <foreground color="-12895679"/>
               <selectedTextColor color="-15108"/>
               <selectionColor color="-6398032"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="46f06" class="javax.swing.JTextField" binding="userText">
@@ -88,6 +89,7 @@
               <caretColor color="-12895679"/>
               <selectedTextColor color="-15108"/>
               <selectionColor color="-7256372"/>
+              <text value=""/>
             </properties>
           </component>
           <hspacer id="2f6b0">

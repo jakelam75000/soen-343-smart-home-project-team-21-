@@ -1,11 +1,13 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AddUser extends JFrame{
     private JPanel mainPanel;
     private JLabel usernameAdd;
     private JLabel passwordAdd;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JPasswordField passwordText;
+    private JTextField userText;
     private JRadioButton addParent;
     private JRadioButton addChild;
     private JRadioButton addGuest;
@@ -19,6 +21,20 @@ public class AddUser extends JFrame{
 
         this.setContentPane(mainPanel);
         this.pack();
+
+        createUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(addParent.isSelected()) {
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "parent");
+                } else if(addChild.isSelected()) {
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "child");
+                } else {
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "guest");
+                }
+
+            }
+        });
     }
 
     public static void main(String[] args) {

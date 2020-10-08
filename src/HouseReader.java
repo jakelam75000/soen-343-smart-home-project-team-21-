@@ -57,7 +57,7 @@ public class HouseReader {
 
     public static void main(String[] args) {
         // Creates users
-        UserManager.initialUserSetup();
+        UserManager.initialize();
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
