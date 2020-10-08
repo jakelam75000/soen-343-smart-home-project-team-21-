@@ -61,7 +61,7 @@
               <focusable value="false"/>
               <horizontalTextPosition value="0"/>
               <icon value="icons/icons8-toggle_off.png"/>
-              <inheritsPopupMenu value="false"/>
+              <inheritsPopupMenu value="true"/>
               <multiClickThreshhold value="0"/>
               <opaque value="false"/>
               <pressedIcon value="icons/icons8-toggle_on.png"/>

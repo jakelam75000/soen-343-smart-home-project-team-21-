@@ -33,6 +33,8 @@ public class AddUser extends JFrame{
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "guest");
                 }
 
+                System.out.print(UserManager.getUserGuest());
+
             }
         });
     }

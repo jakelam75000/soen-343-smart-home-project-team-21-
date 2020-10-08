@@ -65,6 +65,15 @@ public class SmartHomeDashboard extends JFrame{
                 new Edit("Edit").setVisible(true);
             }
         });
+        onOff.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(onOff.isSelected())
+                    onOff.setSelected(false);
+                else
+                    onOff.setSelected(true);
+            }
+        });
     }
 
     public static void main(String[] args) {
