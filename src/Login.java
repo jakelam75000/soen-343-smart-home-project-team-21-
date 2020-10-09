@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login extends JFrame {
     private JPanel mainPanel;
@@ -23,7 +25,26 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HouseReader.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+            }
+        });
+
+        passwordText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+                if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+            }
+        });
+        userText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+
+                if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
     }
