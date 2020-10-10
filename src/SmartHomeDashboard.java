@@ -11,7 +11,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel MIDPanel;
     private JPanel HouseLayout;
     private JPanel Console;
-    private JTextArea consoleDvSvSdvTextArea;
+    private JTextArea consoleText;
     private JLabel Image;
     private JLabel Type;
     private JLabel Username;
@@ -40,6 +40,15 @@ public class SmartHomeDashboard extends JFrame{
     private JButton addAccessButton;
     private JButton removeAccessButton;
     private JComboBox comboBox3;
+    private JButton button1;
+    private JPanel SHS;
+    private JPanel SHC;
+    private JPanel SHP;
+    private JPanel SHH;
+    private JList listItems;
+    private JList listOpenClose;
+    private JSpinner outSideTemp;
+    private JLabel imageLayout;
 
 
     public SmartHomeDashboard(String title, String type, String username) {
@@ -68,13 +77,25 @@ public class SmartHomeDashboard extends JFrame{
         onOff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(onOff.isSelected())
+                if(onOff.isSelected()) {
                     onOff.setSelected(false);
-                else
+                    tabbedPane1.setEnabledAt(0, true);
+                    tabbedPane1.setEnabledAt(3, true);
+                    tabbedPane1.setEnabledAt(1, false);
+                    tabbedPane1.setSelectedIndex(0);
+                }
+                else {
+                    tabbedPane1.setEnabledAt(1, true);
+                    tabbedPane1.setEnabledAt(0, false);
+                    tabbedPane1.setEnabledAt(3, false);
+                    tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
+                }
             }
         });
     }
+
+
 
     public static void main(String[] args) {
 
