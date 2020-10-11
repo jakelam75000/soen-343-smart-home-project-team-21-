@@ -52,6 +52,7 @@ public class SmartHomeDashboard extends JFrame{
     private JList listOpenClose;
     private JSpinner outSideTemp;
     private JLabel imageLayout;
+    Timer timer;
 
 
     public SmartHomeDashboard(String title, String type, String username) {
@@ -111,6 +112,7 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setEnabledAt(3, true);
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
+                    timer.stop();
                 }
                 else {
                     tabbedPane1.setEnabledAt(1, true);
@@ -119,7 +121,16 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
+                    timer.start();
                 }
+            }
+        });
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s =timeLabel.getText();
+                s = timetest.updatetime(s);
+                timeLabel.setText(s);
             }
         });
     }
