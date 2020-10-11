@@ -54,16 +54,19 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel imageLayout;
 
 
-
     public SmartHomeDashboard(String title, String type, String username) {
         super(title);
 
+
         //Setting up items in "Date" section comboboxes
-        String[] weekDays = {"Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String[] months = {"January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"};
 
-        comboDay.addItem("Monday");
+
+        comboDay.addItem("Something"); //Without this the first for loop does not add any item to comboDay.
+        comboDay.removeAllItems();
+
         for(String x : weekDays) comboDay.addItem(x);
         for(String x : months) comboMonth.addItem(x);
         for(int i=1; i<32; i++) comboDate.addItem(""+i);
@@ -77,6 +80,7 @@ public class SmartHomeDashboard extends JFrame{
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -117,9 +121,6 @@ public class SmartHomeDashboard extends JFrame{
                     setUpSimulation();
                 }
             }
-
-
-
         });
     }
 
@@ -151,10 +152,6 @@ public class SmartHomeDashboard extends JFrame{
         second = ((secondInt < 10) ? "0"+secondInt : ""+secondInt);
 
         timeLabel.setText(hour + ":" + minute + ":" + second);
-
-
-
-
     }
 
 
@@ -166,5 +163,4 @@ public class SmartHomeDashboard extends JFrame{
 
 
     }
-
 }
