@@ -42,4 +42,19 @@ public class timetest {
             System.out.println(s);
         }
     }
+    static int[] Breakdowntime(String inputime){
+        int[] a = new int[3];
+        int temphr;
+        int tempmin;
+        int tempsec;
+        int indexmid = inputime.indexOf(":");
+        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
+        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
+        temphr = Integer.parseInt(inputime.substring(0, indexmid));
+        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
+        a[0] = tempsec;
+        a[1] = tempmin;
+        a[2] = temphr;
+        return a;
+    }
 }

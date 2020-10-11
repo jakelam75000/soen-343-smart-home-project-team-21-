@@ -113,6 +113,11 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
                     timer.stop();
+                    String curtime = timeLabel.getText();
+                    int[] times =timetest.Breakdowntime(curtime);
+                    hourSpinner.setValue((double)times[2]);
+                    minuteSpinner.setValue((double)times[1]);
+                    secondSpinner.setValue((double)times[0]);
                 }
                 else {
                     tabbedPane1.setEnabledAt(1, true);
