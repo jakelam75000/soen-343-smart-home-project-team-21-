@@ -27,19 +27,19 @@ public class Main {
             if(user instanceof Child) {
                 System.out.println("It is a child");
                 // Show house simulator for child
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Child", username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
             } else if (user instanceof Parent) {
                 System.out.println("It is a parent");
                 // Show house simulator for parent
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Parent", username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
             } else if (user instanceof Guest) {
                 System.out.println("It is a guest");
                 // Show house simulator for guest
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", "Guest", username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username);
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
             }
