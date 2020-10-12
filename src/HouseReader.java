@@ -11,23 +11,29 @@ will eventually be convered to a function call like public house HouseReader ()
 @since 2020-09-30
  */
 public class HouseReader {
+    public static house loadhouse(String filename) {
 
-    private static house mainhouse;
-    private static room[] listofrooms;
-    private static Smartobj[] smartobjByRoom;
-
-    private static File houseFile;
-    private static Scanner lineReader;
-
-    public static void readHouseLayout(String path) {
+        //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
+        //these variables are storages for the objects
+        house mainhouse = null;
+        room[] listofrooms;
+        Smartobj[] smartobjByRoom;
+        //temporary string for holding return values
+        String s = null;
+        //temp variables for storing values to be sent to constructors
+        String temphousename = null;
+        int tempnumrooms = 0;
+        String temproomname = null;
+        double temproomwidth = 0.0;
+        double temproomtempreture = 0.0;
+        double temproomlength = 0.0;
+        int tempnumsmartobj;
+        String smartobjType = null;
+        String smartobjName = null;
+        int smartobjtypenum = 0;
         try {
-            houseFile = new File(path);
-            lineReader = new Scanner(houseFile);
-
-            //temporary string for holding return values
-            String s = null;
-            //temp variables for storing values to be sent to constructors
-            String temphousename = null;
+            File houseFile = new File(filename+".txt");
+            Scanner lineReader = new Scanner(houseFile);
 
             if (lineReader.hasNextLine()){
                 s = lineReader.nextLine();
@@ -76,7 +82,6 @@ public class HouseReader {
                     listofrooms[i] = new room(smartobjByRoom,temproomname,temproomtempreture,temproomwidth,temproomlength);
                 }
                 mainhouse = new house(listofrooms,temphousename);
-                System.out.println(mainhouse);
             }
 
             lineReader.close();
@@ -84,8 +89,9 @@ public class HouseReader {
         catch (FileNotFoundException e) {
             System.out.println("an error has occured, file may be missing or misspelled");
             e.printStackTrace();
-            return;
+            return null;
         }
+        return  mainhouse;
     }
 }
 

@@ -52,6 +52,7 @@ public class SmartHomeDashboard extends JFrame{
     private JList listOpenClose;
     private JSpinner outSideTemp;
     private JLabel imageLayout;
+    Timer timer;
 
     //Frames
     private static JFrame loginFrame = new Login("Login");
@@ -98,7 +99,9 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
         //Setting the "Location" combobox (Temporary, might need to make it depend on house reader)
-        String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        house currenthouse = HouseReader.loadhouse("Houselayout");
+        //String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        String[] locations =currenthouse.getroomnames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners
@@ -130,6 +133,12 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setEnabledAt(3, true);
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
+                    timer.stop();
+                    String curtime = timeLabel.getText();
+                    int[] times =timetest.Breakdowntime(curtime);
+                    hourSpinner.setValue((double)times[2]);
+                    minuteSpinner.setValue((double)times[1]);
+                    secondSpinner.setValue((double)times[0]);
                 }
                 else {
                     tabbedPane1.setEnabledAt(1, true);
@@ -138,7 +147,16 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
+                    timer.start();
                 }
+            }
+        });
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s =timeLabel.getText();
+                s = timetest.updatetime(s);
+                timeLabel.setText(s);
             }
         });
     }

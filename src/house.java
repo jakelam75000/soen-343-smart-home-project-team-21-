@@ -44,4 +44,11 @@ public class house {
         }
         return s;
     }
+    public String[] getroomnames(){
+        String[] s = new String[rooms.length];
+        for (int i=0;i< rooms.length; i++){
+            s[i]=rooms[i].getName();
+        }
+        return s;
+    }
 }
