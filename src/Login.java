@@ -22,6 +22,10 @@ public class Login extends JFrame {
         this.setContentPane(mainPanel);
         this.pack();
 
+        addActionListeners();
+    }
+
+    public void addActionListeners() {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

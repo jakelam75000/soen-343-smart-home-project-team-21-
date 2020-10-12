@@ -22,6 +22,10 @@ public class AddUser extends JFrame{
         this.setContentPane(mainPanel);
         this.pack();
 
+        addActionListeners();
+    }
+
+    public void addActionListeners() {
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,7 +39,6 @@ public class AddUser extends JFrame{
             }
         });
     }
-
     public static void main(String[] args) {
 
         JFrame frame = new AddUser("Add User");
