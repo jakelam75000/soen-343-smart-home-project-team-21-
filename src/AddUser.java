@@ -14,6 +14,7 @@ public class AddUser extends JFrame{
     private JLabel addTypeLabel;
     private JButton createUserButton;
     private JButton goBackButton;
+    private JRadioButton strangerRadioButton;
 
     public AddUser(String title) {
         super(title);
