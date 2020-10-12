@@ -43,6 +43,7 @@ public class AddUser extends JFrame{
     public static void main(String[] args) {
 
         JFrame frame = new AddUser("Add User");
+        frame.setSize(300,400);
         frame.setVisible(true);
 
     }

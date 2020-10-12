@@ -36,7 +36,7 @@ public class SmartHomeDashboard extends JFrame{
     private JButton addUserButton;
     private JLabel userAccessLabel;
     private JComboBox<String> comboBox2;
-    private JButton deleteUsrButton;
+    private JButton editUsrButton;
     private JButton addAccessButton;
     private JButton removeAccessButton;
     private JComboBox<String> comboLocation;
@@ -81,6 +81,12 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDateTime();
         addActionListeners();
+        editUsrButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EditUserProfile("Edit User Profile").setVisible(true);
+            }
+        });
     }
 
     public void setUpDateTime() {

@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="34" width="1079" height="580"/>
+      <xy x="20" y="34" width="1289" height="580"/>
     </constraints>
     <properties>
       <alignmentX value="0.5"/>
@@ -503,12 +503,12 @@
                             <border type="none"/>
                             <children/>
                           </grid>
-                          <component id="d3be" class="javax.swing.JButton" binding="deleteUsrButton">
+                          <component id="d3be" class="javax.swing.JButton" binding="editUsrButton">
                             <constraints>
                               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Delete User"/>
+                              <text value="Edit User"/>
                             </properties>
                           </component>
                           <vspacer id="5d6ae">
