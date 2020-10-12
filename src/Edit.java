@@ -8,7 +8,7 @@ public class Edit extends JFrame {
     private JComboBox comboBox2;
     private JButton confirmButton;
     private JComboBox comboBox3;
-    private JCheckBox addObjectCheckBox;
+    private JCheckBox blockedCheckBox;
     private JButton confirmObjButton;
 
 
