@@ -34,14 +34,6 @@ public class timetest {
         outputtime = hour+":"+minute+":"+second;
         return outputtime;
     }
-
-    public static void main(String[] args) {
-        String s = "3:3:4";
-        for(int i=0;i<1000;i++){
-            s = updatetime(s);
-            System.out.println(s);
-        }
-    }
     static int[] Breakdowntime(String inputime){
         int[] a = new int[3];
         int temphr;
