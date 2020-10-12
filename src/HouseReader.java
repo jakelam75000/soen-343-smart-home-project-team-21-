@@ -44,16 +44,6 @@ public class HouseReader {
 
                 listofrooms = new room[Integer.parseInt(s)];
 
-                // Variables needed for outer for loop
-                String temproomname;
-                double temproomtempreture;
-                double temproomwidth;
-                double temproomlength;
-
-                // Variables needed for inner for loop
-                String smartobjType;
-                String smartobjName;
-
                 for (int i= 0; i < listofrooms.length; i++){
                     s = lineReader.nextLine();
                     temproomname = s.substring(s.indexOf(':')+2);
