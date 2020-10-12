@@ -23,22 +23,17 @@ public class UserManager {
         return null;
     }
 
-
     public static void addUser(String username, String password, String type) {
         if(authenticate.get(username) == null) {
             authenticate.put(username, password);
-            if(type.equals("parent")) {
+            if(type.equals(UserTypes.PARENT.toString())) {
                 userParent.put(username, new Parent(username, password));
-                System.out.println("Successfully added");
-            } else if(type.equals("child")) {
+            } else if(type.equals(UserTypes.CHILD.toString())) {
                 userChild.put(username, new Child(username, password));
-                System.out.println("Successfully added");
-            } else if(type.equals("guest")){
+            } else if(type.equals(UserTypes.GUEST.toString())){
                 userGuest.put(username, new Guest(username, password));
-                System.out.println("Successfully added");
-            } else {
-                System.out.println("User already exists");
             }
+            System.out.println("Successfully added");
         } else {
             System.out.println("Username already exists");
         }
@@ -56,17 +51,17 @@ public class UserManager {
             }
             System.out.println("Successfully removed");
         }
-         else {
+        else {
             System.out.println("User doesn't exist");
         }
     }
 
     public static void initialize() {
-        addUser("Parent1", "passwordabc", "parent");
-        addUser("Parent2", "password123", "parent");
-        addUser("Child1", "abc", "child");
-        addUser("Child2", "123", "child");
-        addUser("Guest", "password", "guest");
+        addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
+        addUser("Parent2", "password123", UserTypes.PARENT.toString());
+        addUser("Child1", "abc", UserTypes.CHILD.toString());
+        addUser("Child2", "123", UserTypes.CHILD.toString());
+        addUser("Guest", "password", UserTypes.GUEST.toString());
     }
 
     public static HashMap<String, String> getAuthenticate() {

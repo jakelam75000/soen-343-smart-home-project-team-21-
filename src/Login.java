@@ -22,10 +22,14 @@ public class Login extends JFrame {
         this.setContentPane(mainPanel);
         this.pack();
 
+        addActionListeners();
+    }
+
+    public void addActionListeners() {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
 
@@ -35,7 +39,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
         userText.addKeyListener(new KeyAdapter() {
@@ -44,7 +48,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
     }
