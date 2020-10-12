@@ -65,7 +65,7 @@ public class SmartHomeDashboard extends JFrame{
     private static int yPosD = 100;
     private static int frameWidth = 400;
     private static int frameHeight = 300;
-    private static int DashWidth = 1000;
+    private static int DashWidth = 1100;
     private static int DashHeight = 600;
 
 
@@ -214,6 +214,7 @@ public class SmartHomeDashboard extends JFrame{
             if(dashboard != null) {
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
+                dashboard.setResizable(false);
             }
         } else {
             System.out.println("Login failed");
