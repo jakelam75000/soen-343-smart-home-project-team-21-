@@ -22,23 +22,23 @@ public class AddUser extends JFrame{
         this.setContentPane(mainPanel);
         this.pack();
 
+        addActionListeners();
+    }
+
+    public void addActionListeners() {
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(addParent.isSelected()) {
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "parent");
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.PARENT.toString());
                 } else if(addChild.isSelected()) {
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "child");
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.CHILD.toString());
                 } else {
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), "guest");
+                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
                 }
-
-                System.out.print(UserManager.getUserGuest());
-
             }
         });
     }
-
     public static void main(String[] args) {
 
         JFrame frame = new AddUser("Add User");

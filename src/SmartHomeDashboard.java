@@ -53,11 +53,36 @@ public class SmartHomeDashboard extends JFrame{
     private JSpinner outSideTemp;
     private JLabel imageLayout;
 
+    //Frames
+    private static JFrame loginFrame = new Login("Login");
+    private static JFrame dashboard;
+
+    //Bounds variables
+    private static int xPos = 300;
+    private static int yPos = 200;
+    private static int xPosD = 100;
+    private static int yPosD = 100;
+    private static int frameWidth = 400;
+    private static int frameHeight = 300;
+    private static int DashWidth = 1000;
+    private static int DashHeight = 600;
+
 
     public SmartHomeDashboard(String title, String type, String username) {
+        // Set up dashboard with correct parameters
         super(title);
+        Type.setText(type);
+        Username.setText(username);
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(mainPanel);
+        this.pack();
 
+        setUpDateTime();
+        addActionListeners();
+    }
+
+    public void setUpDateTime() {
         //Setting up items in "Date" section comboboxes
         String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String[] months = {"January", "February", "March", "April", "May", "June", "July",
@@ -80,15 +105,9 @@ public class SmartHomeDashboard extends JFrame{
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
+    }
 
-
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(mainPanel);
-        this.pack();
-
-        Type.setText(type);
-        Username.setText(username);
-
+    public void addActionListeners() {
         addUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,13 +173,44 @@ public class SmartHomeDashboard extends JFrame{
         timeLabel.setText(hour + ":" + minute + ":" + second);
     }
 
+    public static void loginClicked(String username, String password){
+        // User Authentication
+        User user = UserManager.findUser(username, password);
+        if(user != null) {
+            loginFrame.setVisible(false);
+
+            // User type
+            if(user instanceof Child) {
+                System.out.println("It is a child");
+                // Show house simulator for child
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username);
+            } else if (user instanceof Parent) {
+                System.out.println("It is a parent");
+                // Show house simulator for parent
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username);
+            } else if (user instanceof Guest) {
+                System.out.println("It is a guest");
+                // Show house simulator for guest
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username);
+            }
+            if(dashboard != null) {
+                dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
+                dashboard.setVisible(true);
+            }
+        } else {
+            System.out.println("Login failed");
+            //display failed login message
+        }
+    }
+
+    public static void setUpLoginFrame() {
+        //Show login frame
+        loginFrame.setBounds(xPos, yPos, frameWidth, frameHeight);
+        loginFrame.setVisible(true);
+    }
 
     public static void main(String[] args) {
-
         JFrame frame = new SmartHomeDashboard("Smart Home Simulator", "", "");
         frame.setVisible(true);
-
-
-
     }
 }
