@@ -20,7 +20,7 @@ public class timetest {
             tempsec = 0;
             tempmin++;
         } else tempsec++;
-        if (tempmin > 58){
+        if (tempmin > 59){
             tempmin =0;
             temphr++;
         }
