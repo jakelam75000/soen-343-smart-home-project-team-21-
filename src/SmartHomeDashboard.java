@@ -74,7 +74,9 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
         //Setting the "Location" combobox (Temporary, might need to make it depend on house reader)
-        String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        house currenthouse = HouseReader.loadhouse("Houselayout");
+        //String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        String[] locations =currenthouse.getroomnames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners

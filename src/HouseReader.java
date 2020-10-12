@@ -12,11 +12,11 @@ will eventually be convered to a function call like public house HouseReader ()
  */
 public class HouseReader {
 
-    public static void main(String[] args) {
+    public static house loadhouse(String filename) {
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
-        house mainhouse;
+        house mainhouse = null;
         room[] listofrooms;
         Smartobj[] smartobjByRoom;
         //temporary string for holding return values
@@ -33,7 +33,7 @@ public class HouseReader {
         String smartobjName = null;
         int smartobjtypenum = 0;
         try {
-            File houseFile = new File("Houselayout.txt");
+            File houseFile = new File(filename+".txt");
             Scanner lineReader = new Scanner(houseFile);
             if (lineReader.hasNextLine()){
                 s = lineReader.nextLine();
@@ -74,7 +74,6 @@ public class HouseReader {
                     listofrooms[i] = new room(smartobjByRoom,temproomname,temproomtempreture,temproomwidth,temproomlength);
                 }
                 mainhouse = new house(listofrooms,temphousename);
-                System.out.println(mainhouse);
             }
 
             lineReader.close();
@@ -82,10 +81,9 @@ public class HouseReader {
         catch (FileNotFoundException e) {
             System.out.println("an error has occured, file may be missing or misspelled");
             e.printStackTrace();
-            return;
+            return null;
         }
-
-
+        return  mainhouse;
     }
 }
 
