@@ -52,6 +52,8 @@ public class SmartHomeDashboard extends JFrame{
     private JList listOpenClose;
     private JSpinner outSideTemp;
     private JLabel imageLayout;
+    private JLabel Outsidetemplabel;
+    private JLabel outsidetempvalue;
     Timer timer;
 
     //Frames
@@ -114,6 +116,7 @@ public class SmartHomeDashboard extends JFrame{
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
+        outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
     }
 
     public void addActionListeners() {
@@ -154,6 +157,8 @@ public class SmartHomeDashboard extends JFrame{
                     onOff.setSelected(true);
                     setUpSimulation();
                     timer.start();
+                    int temp = (int)outSideTemp.getValue();
+                    outsidetempvalue.setText(temp +"°C");
                 }
             }
         });
