@@ -34,6 +34,7 @@ public class timetest {
         outputtime = hour+":"+minute+":"+second;
         return outputtime;
     }
+
     static int[] Breakdowntime(String inputime){
         int[] a = new int[3];
         int temphr;
