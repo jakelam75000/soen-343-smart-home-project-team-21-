@@ -265,7 +265,7 @@
                   <minimumSize width="374" height="300"/>
                   <name value=""/>
                   <opaque value="true"/>
-                  <visible value="true"/>
+                  <visible value="false"/>
                 </properties>
                 <border type="none">
                   <font/>
@@ -623,7 +623,7 @@
                       </component>
                     </children>
                   </grid>
-                  <component id="a553" class="javax.swing.JLabel">
+                  <component id="a553" class="javax.swing.JLabel" binding="itemsLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>

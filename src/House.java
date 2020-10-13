@@ -4,13 +4,13 @@ class house, holds the house rooms, name and smartobjects by extension
 @version 0.1
 @since 2020-09-30
  */
-public class house {
-    room[] rooms;
+public class House {
+    Room[] rooms;
     String name;
     /*
     constructor
      */
-    public house(room[] listrom, String nam ){
+    public House(Room[] listrom, String nam ){
         rooms = listrom;
         name = nam;
     }
@@ -19,8 +19,8 @@ public class house {
     a mutator function which for now shouldn't be used
     @param newroom This is the newest single room object to be added
      */
-    public void addrooms(room newroom){
-        room[] temprooms = new room[rooms.length+1];
+    public void addrooms(Room newroom){
+        Room[] temprooms = new Room[rooms.length+1];
         for (int i =0; i< rooms.length; i++){
             temprooms[i] = rooms[i];
         }
@@ -31,7 +31,7 @@ public class house {
     a mutator function which for now shouldn't be used
     @param newroom This is the newest list of room object to be added
      */
-    public void setlistrooms(room[] listorooms){
+    public void setlistrooms(Room[] listorooms){
         rooms = listorooms;
     }
     /*

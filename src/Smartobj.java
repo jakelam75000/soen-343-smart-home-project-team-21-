@@ -8,15 +8,34 @@ child class
  */
 public abstract class Smartobj {
     String name;
+    SmartObjectType type;
     /*
     constructor
      */
-    public Smartobj (String nam){
+    public Smartobj (String nam, SmartObjectType typ){
         name = nam;
+        type = typ;
     }
+
+    public Smartobj (Smartobj so){
+        this.name = so.getName();
+        this.type = so.getType();
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public SmartObjectType getType(){
+        return type;
+    }
+
 
     @Override
     public String toString() {
         return " this object is named "+ name+ "\n";
     }
+
+    public abstract Smartobj clone();
+
 }

@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
@@ -48,13 +50,15 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel SHC;
     private JPanel SHP;
     private JPanel SHH;
-    private JList listItems;
-    private JList listOpenClose;
+    private JList<SmartObjectType> listItems;
+    private JList<String> listOpenClose;
     private JSpinner outSideTemp;
     private JLabel imageLayout;
     private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
+    private JLabel itemsLabel;
     Timer timer;
+    private House currentHouse;
 
     //Frames
     private static JFrame loginFrame = new Login("Login");
@@ -76,12 +80,13 @@ public class SmartHomeDashboard extends JFrame{
         super(title);
         Type.setText(type);
         Username.setText(username);
+        currentHouse = HouseReader.loadhouse("Houselayout");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
 
-        setUpDateTime();
+        setUpDashboardOptions();
         addActionListeners();
         editUsrButton.addActionListener(new ActionListener() {
             @Override
@@ -91,14 +96,17 @@ public class SmartHomeDashboard extends JFrame{
         });
     }
 
-    public void setUpDateTime() {
+    /**
+     * Method that sets up all the comboboxes and spinner in the SHC and SHH tabs when dashboard is created.
+     */
+    public void setUpDashboardOptions() {
         //Setting up items in "Date" section comboboxes
         String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         String[] months = {"January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"};
 
 
-        comboDay.addItem("Something"); //Without this the first for loop does not add any item to comboDay.
+        comboDay.addItem("Something"); //Without this the first the for loop does not add any item to comboDay.
         comboDay.removeAllItems();
 
         for(String x : weekDays) comboDay.addItem(x);
@@ -106,10 +114,8 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=1; i<32; i++) comboDate.addItem(""+i);
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
-        //Setting the "Location" combobox (Temporary, might need to make it depend on house reader)
-        house currenthouse = HouseReader.loadhouse("Houselayout");
-        //String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
-        String[] locations =currenthouse.getroomnames();
+        //Setting the "Location" combobox
+        String[] locations = currentHouse.getroomnames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners
@@ -200,8 +206,77 @@ public class SmartHomeDashboard extends JFrame{
         second = ((secondInt < 10) ? "0"+secondInt : ""+secondInt);
 
         timeLabel.setText(hour + ":" + minute + ":" + second);
+
+        setUpSHCItems();
     }
 
+    /**
+     * Updates the SHC with the items in the room the user is currently located.
+     */
+    public void setUpSHCItems(){
+
+        String currentLocation = currentLocLabel.getText();
+        String[] roomNames = currentHouse.getroomnames();
+        Room currentRoom = null;
+        List<SmartObjectType> roomItems;
+        List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
+
+        for(int i=0; i<roomNames.length; i++){
+            if(roomNames[i].equalsIgnoreCase(currentLocation)){
+                currentRoom = currentHouse.rooms[i];
+                break;
+            }
+        }
+        if(currentRoom != null){
+
+            roomItems = currentRoom.getItemMapKeys();
+
+            SmartObjectType[] roomItemsArr = new SmartObjectType[roomItems.size()];
+
+            for(int i=0; i<roomItems.size(); i++){
+                roomItemsArr[i] = roomItems.get(i);
+            }
+
+            listItems.setListData(roomItemsArr);
+
+            if(listItems.getFirstVisibleIndex() != -1){
+                listItems.setSelectedIndex(0);
+            }
+
+        }
+
+        itemsLabel.setText("Items in "+currentLocation);
+
+        setSHCOpenClose();
+    }
+
+    public void setSHCOpenClose(){
+
+        String currentLocation = currentLocLabel.getText();
+        String[] roomNames = currentHouse.getroomnames();
+        Room currentRoom = null;
+
+        for(int i=0; i<roomNames.length; i++){
+            if(roomNames[i].equalsIgnoreCase(currentLocation)){
+                currentRoom = currentHouse.rooms[i];
+                break;
+            }
+        }
+
+        if(currentRoom != null){
+            SmartObjectType selectedItem = listItems.getSelectedValue();
+            List<String> items = currentRoom.getItemMapValue(selectedItem);
+
+            String[] itemsArr = new String[items.size()];
+            for(int i=0; i<items.size(); i++){
+                itemsArr[i] = items.get(i);
+            }
+
+            listOpenClose.setListData(itemsArr);
+
+
+        }
+    }
     public static void loginClicked(String username, String password){
         // User Authentication
         User user = UserManager.findUser(username, password);
