@@ -199,7 +199,8 @@ public class SmartHomeDashboard extends JFrame{
 
         //Setting current location
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
-
+        UserManager.ChangeUserLocation(Username.getText(),currentLocLabel.getText());
+       // UserManager.TestLocation(Username.getText());
         //Setting time
         hourInt = (int)Math.round((double)hourSpinner.getValue());
         minuteInt = (int)Math.round((double)minuteSpinner.getValue());
