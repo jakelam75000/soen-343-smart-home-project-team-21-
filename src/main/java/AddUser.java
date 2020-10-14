@@ -37,6 +37,9 @@ public class AddUser extends JFrame{
                 } else {
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
                 }
+                if(strangerRadioButton.isSelected()){
+                    UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
+                }
             }
         });
     }
