@@ -36,7 +36,7 @@ public class SmartHomeDashboard extends JFrame{
     private JButton addUserButton;
     private JLabel userAccessLabel;
     private JComboBox<String> comboBox2;
-    private JButton deleteUsrButton;
+    private JButton editUsrButton;
     private JButton addAccessButton;
     private JButton removeAccessButton;
     private JComboBox<String> comboLocation;
@@ -52,6 +52,9 @@ public class SmartHomeDashboard extends JFrame{
     private JList listOpenClose;
     private JSpinner outSideTemp;
     private JLabel imageLayout;
+    private JLabel Outsidetemplabel;
+    private JLabel outsidetempvalue;
+    Timer timer;
 
     //Frames
     private static JFrame loginFrame = new Login("Login");
@@ -64,7 +67,7 @@ public class SmartHomeDashboard extends JFrame{
     private static int yPosD = 100;
     private static int frameWidth = 400;
     private static int frameHeight = 300;
-    private static int DashWidth = 1000;
+    private static int DashWidth = 1100;
     private static int DashHeight = 600;
 
 
@@ -80,6 +83,12 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDateTime();
         addActionListeners();
+        editUsrButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EditUserProfile("Edit User Profile").setVisible(true);
+            }
+        });
     }
 
     public void setUpDateTime() {
@@ -98,13 +107,16 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
         //Setting the "Location" combobox (Temporary, might need to make it depend on house reader)
-        String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        house currenthouse = HouseReader.loadhouse("Houselayout");
+        //String[] locations = {"Master Bedroom", "Kid's Bedroom", "Kitchen", "Living Room", "Outside House"};
+        String[] locations =currenthouse.getroomnames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
+        outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
     }
 
     public void addActionListeners() {
@@ -130,6 +142,12 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setEnabledAt(3, true);
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
+                    timer.stop();
+                    String curtime = timeLabel.getText();
+                    int[] times =timetest.Breakdowntime(curtime);
+                    hourSpinner.setValue((double)times[2]);
+                    minuteSpinner.setValue((double)times[1]);
+                    secondSpinner.setValue((double)times[0]);
                 }
                 else {
                     tabbedPane1.setEnabledAt(1, true);
@@ -138,7 +156,18 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
+                    timer.start();
+                    int temp = (int)outSideTemp.getValue();
+                    outsidetempvalue.setText(temp +"°C");
                 }
+            }
+        });
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s =timeLabel.getText();
+                s = timetest.updatetime(s);
+                timeLabel.setText(s);
             }
         });
     }
@@ -196,6 +225,7 @@ public class SmartHomeDashboard extends JFrame{
             if(dashboard != null) {
                 dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
                 dashboard.setVisible(true);
+                dashboard.setResizable(false);
             }
         } else {
             System.out.println("Login failed");

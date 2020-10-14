@@ -37,12 +37,12 @@
             </constraints>
             <properties/>
           </component>
-          <component id="df6f5" class="javax.swing.JCheckBox" binding="addObjectCheckBox" default-binding="true">
+          <component id="df6f5" class="javax.swing.JCheckBox" binding="blockedCheckBox" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Add Object"/>
+              <text value="Blocked"/>
             </properties>
           </component>
           <component id="82c24" class="javax.swing.JButton" binding="confirmObjButton">

@@ -14,6 +14,7 @@ public class AddUser extends JFrame{
     private JLabel addTypeLabel;
     private JButton createUserButton;
     private JButton goBackButton;
+    private JRadioButton strangerRadioButton;
 
     public AddUser(String title) {
         super(title);
@@ -42,6 +43,7 @@ public class AddUser extends JFrame{
     public static void main(String[] args) {
 
         JFrame frame = new AddUser("Add User");
+        frame.setSize(300,400);
         frame.setVisible(true);
 
     }
