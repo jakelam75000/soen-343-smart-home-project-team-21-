@@ -66,7 +66,6 @@ public class UserManager {
     }
 
     public static String[] getUsernames() {
-        System.out.println(authenticate.keySet().toArray(new String[authenticate.size()]));
         return authenticate.keySet().toArray(new String[authenticate.size()]);
     }
 
