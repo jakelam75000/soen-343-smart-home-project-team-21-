@@ -136,7 +136,9 @@ public class Room {
         s = s.concat("\n");
         return s;
     }
-    /*
+
+
+    /**
     temporary mutator function
     @param desiredtemp is the new temperature of the room
      */

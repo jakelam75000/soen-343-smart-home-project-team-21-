@@ -104,6 +104,7 @@ public class SmartHomeDashboard extends JFrame{
         //Setting the "Location" combobox
         String[] locations = house.getRoomNames();
         for(String x : locations) comboLocation.addItem(x);
+        comboLocation.addItem("Outside");
 
         //Setting "Time" spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
@@ -111,10 +112,18 @@ public class SmartHomeDashboard extends JFrame{
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
 
-        String[] users = UserManager.getUsernames();
-        for(String user : users){
-            comboUsers.addItem(user);
+        if(Type.getText().equalsIgnoreCase("parent")){
+            String[] users = UserManager.getUsernames();
+            for (String user : users) {
+                comboUsers.addItem(user);
+            }
         }
+        else{
+            comboUsers.addItem(Username.getText());
+            addUserButton.setEnabled(false);
+        }
+
+
     }
 
     public void addActionListeners() {
@@ -223,11 +232,19 @@ public class SmartHomeDashboard extends JFrame{
         //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
         if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
 
+
             String currentLocation = currentLocLabel.getText();
             String[] roomNames = house.getRoomNames();
             Room currentRoom = null;
             List<SmartObjectType> roomItems;
             List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
+
+            if(currentLocation.equalsIgnoreCase("Outside")){
+                listItems.setVisible(false);
+                itemsLabel.setText("Items " + currentLocation);
+                setSHCOpenClose();
+                return;
+            }else listItems.setVisible(true);
 
             //Figuring out which room object we are currently in.
             for (int i = 0; i < roomNames.length; i++) {
@@ -275,10 +292,11 @@ public class SmartHomeDashboard extends JFrame{
             //Changing the items back to items in case it was changed for child user.
             itemsLabel.setText("Items");
 
+
         }
 
-
         setSHCOpenClose();
+
     }
 
     /**
@@ -291,6 +309,14 @@ public class SmartHomeDashboard extends JFrame{
             String currentLocation = currentLocLabel.getText();
             String[] roomNames = house.getRoomNames();
             Room currentRoom = null;
+
+            if(currentLocation.equalsIgnoreCase("Outside")){
+                listOpenClose.setVisible(false);
+                return;
+            } else {
+                listOpenClose.setVisible(true);
+            }
+
 
             for (int i = 0; i < roomNames.length; i++) {
                 if (roomNames[i].equalsIgnoreCase(currentLocation)) {
