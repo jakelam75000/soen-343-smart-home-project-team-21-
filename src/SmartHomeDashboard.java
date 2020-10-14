@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SmartHomeDashboard extends JFrame{
@@ -34,7 +35,7 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel setDateLabel;
     private JLabel editUserLabel;
     private JLabel selectUserLabel;
-    private JComboBox<String> comboBox1;
+    private JComboBox<String> comboUsers;
     private JButton addUserButton;
     private JLabel userAccessLabel;
     private JComboBox<String> comboBox2;
@@ -57,30 +58,22 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;
-    Timer timer;
-    private House currentHouse;
+    private Timer timer;
+    private House house;
 
-    //Frames
-    private static JFrame loginFrame = new Login("Login");
-    private static JFrame dashboard;
+    private static Edit editFrame = new Edit("Edit");
 
-    //Bounds variables
-    private static int xPos = 300;
-    private static int yPos = 200;
-    private static int xPosD = 100;
-    private static int yPosD = 100;
-    private static int frameWidth = 400;
-    private static int frameHeight = 300;
-    private static int DashWidth = 1100;
-    private static int DashHeight = 600;
-
+    private static final int xEdit = 300;
+    private static final int yEdit = 200;
+    private static final int widthEdit = 600;
+    private static final int heightEdit = 300;
 
     public SmartHomeDashboard(String title, String type, String username) {
         // Set up dashboard with correct parameters
         super(title);
         Type.setText(type);
         Username.setText(username);
-        currentHouse = HouseReader.loadhouse("Houselayout");
+        house = HouseReader.loadhouse("Houselayout");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -88,7 +81,6 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDashboardOptions();
         addActionListeners();
-
     }
 
     /**
@@ -110,7 +102,7 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
         //Setting the "Location" combobox
-        String[] locations = currentHouse.getRoomNames();
+        String[] locations = house.getRoomNames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners
@@ -118,6 +110,14 @@ public class SmartHomeDashboard extends JFrame{
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
+
+        HashMap<String, Parent> parents = UserManager.getUserParent();
+        HashMap<String, Child> children = UserManager.getUserChild();
+        HashMap<String, Guest> guests = UserManager.getUserGuest();
+
+        parents.forEach((k, v) -> comboUsers.addItem(k));
+        children.forEach((k, v) -> comboUsers.addItem(k));
+        guests.forEach((k, v) -> comboUsers.addItem(k));
     }
 
     public void addActionListeners() {
@@ -131,7 +131,7 @@ public class SmartHomeDashboard extends JFrame{
         editUserLocation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Edit("Edit").setVisible(true);
+                setUpEditFrame();
             }
         });
         onOff.addActionListener(new ActionListener() {
@@ -180,9 +180,7 @@ public class SmartHomeDashboard extends JFrame{
         LogOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dashboard.setVisible(false);
-                loginFrame = new Login("Login");
-                setUpLoginFrame();
+                Main.logoutClicked();
             }
         });
     }
@@ -228,7 +226,7 @@ public class SmartHomeDashboard extends JFrame{
         if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
 
             String currentLocation = currentLocLabel.getText();
-            String[] roomNames = currentHouse.getRoomNames();
+            String[] roomNames = house.getRoomNames();
             Room currentRoom = null;
             List<SmartObjectType> roomItems;
             List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
@@ -236,7 +234,7 @@ public class SmartHomeDashboard extends JFrame{
             //Figuring out which room object we are currently in.
             for (int i = 0; i < roomNames.length; i++) {
                 if (roomNames[i].equalsIgnoreCase(currentLocation)) {
-                    currentRoom = currentHouse.rooms[i];
+                    currentRoom = house.rooms[i];
                     break;
                 }
             }
@@ -263,7 +261,7 @@ public class SmartHomeDashboard extends JFrame{
         }
         else{
             //Getting all the different item categories in the room and displaying them.
-            List<SmartObjectType> houseItems = currentHouse.getHouseItemsKeys();
+            List<SmartObjectType> houseItems = house.getHouseItemsKeys();
             SmartObjectType[] houseItemsArr = new SmartObjectType[houseItems.size()];
 
             for (int i = 0; i < houseItems.size(); i++) {
@@ -293,12 +291,12 @@ public class SmartHomeDashboard extends JFrame{
         //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
         if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
             String currentLocation = currentLocLabel.getText();
-            String[] roomNames = currentHouse.getRoomNames();
+            String[] roomNames = house.getRoomNames();
             Room currentRoom = null;
 
             for (int i = 0; i < roomNames.length; i++) {
                 if (roomNames[i].equalsIgnoreCase(currentLocation)) {
-                    currentRoom = currentHouse.rooms[i];
+                    currentRoom = house.rooms[i];
                     break;
                 }
             }
@@ -318,7 +316,7 @@ public class SmartHomeDashboard extends JFrame{
         }
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
-            List<String> items = currentHouse.getHouseItemValue(selectedItem);
+            List<String> items = house.getHouseItemValue(selectedItem);
 
             String[] itemsArr = new String[items.size()];
             for (int i = 0; i < items.size(); i++) {
@@ -328,45 +326,34 @@ public class SmartHomeDashboard extends JFrame{
             listOpenClose.setListData(itemsArr);
         }
     }
-    public static void loginClicked(String username, String password){
-        // User Authentication
-        User user = UserManager.findUser(username, password);
-        if(user != null) {
-            loginFrame.setVisible(false);
 
-            // User type
-            if(user instanceof Child) {
-                System.out.println("It is a child");
-                // Show house simulator for child
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username);
-            } else if (user instanceof Parent) {
-                System.out.println("It is a parent");
-                // Show house simulator for parent
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username);
-            } else if (user instanceof Guest) {
-                System.out.println("It is a guest");
-                // Show house simulator for guest
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username);
+    /**
+     * Methods that sets up the Edit simulation frame.
+     */
+    public void setUpEditFrame(){
+        editFrame.setBounds(xEdit, yEdit, widthEdit, heightEdit);
+        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW));
+        editFrame.setVisible(true);
+    }
+
+    public void blockWindow(String name, boolean blocked){
+        house.blockWindow(name, blocked);
+    }
+
+    /**
+     *
+     * @param name a String containing the name of the window being checked.
+     * @return boolean true if window is blocked false otherwise.
+     */
+    public boolean isWindowBlocked(String name){
+        for(Room room : house.getRoomsList()){
+            for(Smartobj obj : room.getSmartObjects()){
+                if(obj.getName().equalsIgnoreCase(name) && obj.getType() == SmartObjectType.WINDOW){
+                    Window window = (Window)obj;
+                    return window.isBlocked();
+                }
             }
-            if(dashboard != null) {
-                dashboard.setBounds(xPosD, yPosD, DashWidth, DashHeight);
-                dashboard.setVisible(true);
-                dashboard.setResizable(false);
-            }
-        } else {
-            System.out.println("Login failed");
-            //display failed login message
         }
-    }
-
-    public static void setUpLoginFrame() {
-        //Show login frame
-        loginFrame.setBounds(xPos, yPos, frameWidth, frameHeight);
-        loginFrame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new SmartHomeDashboard("Smart Home Simulator", "", "");
-        frame.setVisible(true);
+        return false;
     }
 }

@@ -26,7 +26,6 @@ public class House {
                 tempList.add(obj.getName());
             }
         }
-
     }
     //shouldnt be used for now
     /**
@@ -69,7 +68,7 @@ public class House {
     }
 
     public Room[] getRoomsList(){
-        Room[] list = null;
+        Room[] list = new Room[rooms.length];
 
         for(int i=0; i<rooms.length; i++){
             list[i] = rooms[i].clone();
@@ -92,5 +91,11 @@ public class House {
 
     public List<String> getHouseItemValue(SmartObjectType key){
         return houseItems.get(key);
+    }
+
+    public void blockWindow(String name, boolean blocked){
+        for(Room room : rooms){
+            room.blockWindow(name, blocked);
+        }
     }
 }

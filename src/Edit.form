@@ -31,7 +31,7 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
           </hspacer>
-          <component id="5dfbb" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+          <component id="5dfbb" class="javax.swing.JComboBox" binding="comboWindows">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -91,7 +91,7 @@
               <text value="User : "/>
             </properties>
           </component>
-          <component id="e2deb" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+          <component id="e2deb" class="javax.swing.JComboBox" binding="comboUsers">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -105,7 +105,7 @@
               <text value="Location :"/>
             </properties>
           </component>
-          <component id="da837" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+          <component id="da837" class="javax.swing.JComboBox" binding="comboLocations">
             <constraints>
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>

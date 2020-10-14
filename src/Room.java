@@ -122,6 +122,14 @@ public class Room {
         temperature = desiredtemp;
     }
 
+    public void blockWindow(String name, boolean blocked){
+        for(Smartobj obj : smartobjects){
+            if(obj.getName().equalsIgnoreCase(name) && obj.getType() == SmartObjectType.WINDOW){
+                Window window = (Window)obj;
+                window.setblocked(blocked);
+            }
+        }
+    }
     public Room clone(){
         return new Room(this);
     }
