@@ -180,7 +180,7 @@ public class SmartHomeDashboard extends JFrame{
         editUsrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditUserProfile("Edit User Profile",Type.getText(), Username.getText()).setVisible(true);
+                new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText()).setVisible(true);
             }
         });
         LogOutButton.addActionListener(new ActionListener() {

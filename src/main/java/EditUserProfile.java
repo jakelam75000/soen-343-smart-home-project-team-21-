@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EditUserProfile extends JFrame {
     private JLabel username;
@@ -14,10 +16,11 @@ public class EditUserProfile extends JFrame {
     private JPanel mainPanel;
     private JButton confirmChangesButton;
     private JButton deleteUserButton;
+    private String callinguser;
 
-    public EditUserProfile(String title, String curtype,String Username) {
+    public EditUserProfile(String title, String curtype,String userna, String calluser) {
         super(title);
-        currentUsername.setText(Username);
+        currentUsername.setText(userna);
         if (curtype.equals("CHILD")){
             parentRadio.setEnabled(false);
             guestRadio.setEnabled(false);
@@ -34,15 +37,41 @@ public class EditUserProfile extends JFrame {
             strangerRadio.setEnabled(false);
             guestRadio.setSelected(true);
         }
+        callinguser = calluser;
         this.setContentPane(mainPanel);
         this.pack();
     }
 
     public static void main(String[] args){
 
-        JFrame frame = new EditUserProfile("Edit User Profile","PARENT","mt");
+        JFrame frame = new EditUserProfile("Edit User Profile","PARENT","mt", "noone");
         frame.setVisible(true);
     }
+/*
+    public void addActionListeners(){
+        confirmChangesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("working up to here");
+                if (!UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()))return;
+                String type = "error";
+                if (parentRadio.isSelected())type = UserTypes.PARENT.toString();
+                else if (childRadio.isSelected())type = UserTypes.CHILD.toString();
+                else if (guestRadio.isSelected())type = UserTypes.GUEST.toString();
+                else if (strangerRadio.isSelected())type = UserTypes.STRANGER.toString();
+                if (type.equals("error")) return;
+                UserManager.removeUser(currentUsername.getText());
+                UserManager.addUser(currentUsername.getText(), newPassword.getText(), type);
+            }
+        });
+        deleteUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (callinguser.equals(currentUsername) || !UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()))return;
+                UserManager.removeUser(currentUsername.getText());
+            }
+        });
+    }*/
 
 
 }
