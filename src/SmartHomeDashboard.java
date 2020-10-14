@@ -336,6 +336,12 @@ public class SmartHomeDashboard extends JFrame{
         editFrame.setVisible(true);
     }
 
+    /**
+     * Method that blocks/unblocks a given window
+     *
+     * @param name String that is the name of the window
+     * @param blocked boolean that is the desired state of the window
+     */
     public void blockWindow(String name, boolean blocked){
         house.blockWindow(name, blocked);
     }

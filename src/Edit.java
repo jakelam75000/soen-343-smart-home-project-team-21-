@@ -16,29 +16,32 @@ public class Edit extends JFrame {
     private JButton confirmObjButton;
 
 
-        public Edit(String title) {
-            super(title);
-            this.setContentPane(mainPanel);
-            this.pack();
+    public Edit(String title) {
+        super(title);
+        this.setContentPane(mainPanel);
+        this.pack();
 
-            addActionListeners();
-        }
+        addActionListeners();
+    }
 
-        public void addActionListeners(){
-            confirmObjButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Main.blockWindow(comboWindows.getItemAt(comboWindows.getSelectedIndex()), blockedCheckBox.isSelected());
-                }
-            });
+    /**
+     * Adding all the action listeners.
+     */
+    public void addActionListeners(){
+        confirmObjButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.blockWindow(comboWindows.getItemAt(comboWindows.getSelectedIndex()), blockedCheckBox.isSelected());
+            }
+        });
 
-            comboWindows.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    blockedCheckBox.setSelected(Main.isWindowBlocked(comboWindows.getItemAt(comboWindows.getSelectedIndex())));
-                }
-            });
-        }
+        comboWindows.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                blockedCheckBox.setSelected(Main.isWindowBlocked(comboWindows.getItemAt(comboWindows.getSelectedIndex())));
+            }
+        });
+    }
 
     /**
      * Method that sets up the edit window everytime it is open.
@@ -71,13 +74,6 @@ public class Edit extends JFrame {
             }
 
 
-
-        }
-
-        public static void main(String[] args) {
-
-            JFrame frame = new Edit("Edit");
-            frame.setVisible(true);
 
         }
 }

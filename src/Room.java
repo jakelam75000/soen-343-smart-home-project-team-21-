@@ -55,27 +55,43 @@ public class Room {
             tempList.add(obj.getName());
         }
     }
+
     /**
-    accesor method
+     * Accessor for name attribute
+     *
+     * @return String
      */
     public String getName(){
         return name;
     }
 
+    /**
+     * Accessor method for smartObjects
+     *
+     * @return Smartobj[] list of all smartObjects in room.
+     */
     public Smartobj[] getSmartObjects(){
         Smartobj[] objects = new Smartobj[smartobjects.length];
 
         for(int i=0; i<objects.length; i++){
             objects[i] = smartobjects[i].clone();
         }
-
         return objects;
     }
 
+    /**
+     * Accessor method that return the itemMap hashmap
+     *
+     * @return HashMap a clone of itemMap.
+     */
     public HashMap<SmartObjectType, String> getItemMap(){
         return (HashMap<SmartObjectType, String>)itemMap.clone();
     }
 
+    /**
+     * Accessor method that return all the key to ItemMap hashmap.
+     * @return List<SmartObjectType> a list of all the keys to the ItemMap hashmap
+     */
     public List<SmartObjectType> getItemMapKeys(){
         List<SmartObjectType> keys = new ArrayList<SmartObjectType>();
 
@@ -84,6 +100,12 @@ public class Room {
         return keys;
     }
 
+    /**
+     * Accessor method that returns the List of Strings corresponding to the SmartObjectType in the room.
+     *
+     * @param key SmartObjectType that is the key of the itemMap hashmap with all smartobjects
+     * @return List<String> names of all the smartobjects of type key.
+     */
     public List<String> getItemMapValue(SmartObjectType key){
         List<String> value = itemMap.get(key);
         return value;
@@ -122,6 +144,11 @@ public class Room {
         temperature = desiredtemp;
     }
 
+    /**
+     * Methods that can block and unblock a given window.
+     * @param name String name of the window to be blocked/unblocked
+     * @param blocked Boolean value that determines whether the window should be blocked or unblocked
+     */
     public void blockWindow(String name, boolean blocked){
         for(Smartobj obj : smartobjects){
             if(obj.getName().equalsIgnoreCase(name) && obj.getType() == SmartObjectType.WINDOW){
