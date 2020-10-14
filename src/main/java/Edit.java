@@ -49,7 +49,7 @@ public class Edit extends JFrame {
      * @param locations String[] array containing all locations in the house.
      * @param windows a List of type String containing all the windows in the house.
      */
-    public void setUpEditOptions(String[] locations, List<String> windows){
+    public void setUpEditOptions(String[] locations, List<String> windows, String[] users){
 
             //Clearing all previous options so that the can be updated in case user made changes
             comboUsers.removeAllItems();
@@ -57,13 +57,9 @@ public class Edit extends JFrame {
             comboWindows.removeAllItems();
 
             //Setting up all the comboboxes with their options
-            HashMap<String, Parent> parents = UserManager.getUserParent();
-            HashMap<String, Child> children = UserManager.getUserChild();
-            HashMap<String, Guest> guests = UserManager.getUserGuest();
-
-            parents.forEach((k, v) -> comboUsers.addItem(k));
-            children.forEach((k, v) -> comboUsers.addItem(k));
-            guests.forEach((k, v) -> comboUsers.addItem(k));
+            for(String user : users){
+                comboUsers.addItem(user);
+            }
 
             for(String location : locations){
                 comboLocations.addItem(location);

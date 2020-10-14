@@ -111,13 +111,10 @@ public class SmartHomeDashboard extends JFrame{
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
 
-        HashMap<String, Parent> parents = UserManager.getUserParent();
-        HashMap<String, Child> children = UserManager.getUserChild();
-        HashMap<String, Guest> guests = UserManager.getUserGuest();
-
-        parents.forEach((k, v) -> comboUsers.addItem(k));
-        children.forEach((k, v) -> comboUsers.addItem(k));
-        guests.forEach((k, v) -> comboUsers.addItem(k));
+        String[] users = UserManager.getUsernames();
+        for(String user : users){
+            comboUsers.addItem(user);
+        }
     }
 
     public void addActionListeners() {
@@ -332,7 +329,7 @@ public class SmartHomeDashboard extends JFrame{
      */
     public void setUpEditFrame(){
         editFrame.setBounds(xEdit, yEdit, widthEdit, heightEdit);
-        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW));
+        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames());
         editFrame.setVisible(true);
     }
 
