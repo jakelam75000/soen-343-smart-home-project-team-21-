@@ -38,13 +38,14 @@ public class Main {
                 // Show house simulator for guest
                 dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username);
             }
+            else if (user instanceof Stranger)System.out.println("Login failed, trying to login as stranger");
             if(dashboard != null) {
                 dashboard.setBounds(xDash, yDash, widthDash, heightDash);
                 dashboard.setVisible(true);
                 dashboard.setResizable(false);
             }
         } else {
-            System.out.println("Login failed");
+                System.out.println("Login failed");
             //display failed login message
         }
     }
