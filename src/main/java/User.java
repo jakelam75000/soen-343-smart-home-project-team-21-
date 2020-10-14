@@ -1,6 +1,7 @@
 public class User {
     private String username;
     private String password;
+    private String location;
 
     public User(String username, String password) {
         this.username = username;
@@ -21,5 +22,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setLocation(String loc){
+        location = loc;
+    }
+
+    public String getLocation(){
+        return location;
     }
 }

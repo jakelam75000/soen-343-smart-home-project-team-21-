@@ -20,7 +20,23 @@ public class UserManager {
         // User it not valid
         return null;
     }
+    public static void ChangeUserLocation(String username, String location) {
+        if(userParent.get(username) != null) {
+            userParent.get(username).setLocation(location);
+        }
+        if(userChild.get(username) != null) {
+            userChild.get(username).setLocation(location);
+        }
+        if(userGuest.get(username) != null) {
+            userGuest.get(username).setLocation(location);
+        }
+    }
+   /* public static void TestLocation(String username){
+        if(userParent.get(username) != null) { System.out.println(userParent.get(username).getLocation());}
+        if(userChild.get(username) != null) { System.out.println(userChild.get(username).getLocation());}
+        if(userGuest.get(username) != null) { System.out.println(userGuest.get(username).getLocation());}
 
+    }*/
     public static void addUser(String username, String password, String type) {
         if (authenticate.get(username) != null){
             System.out.println("Username already exists");

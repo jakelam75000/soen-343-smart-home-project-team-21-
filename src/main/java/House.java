@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/*
+/**
 class house, holds the house rooms, name and smartobjects by extension
 @author Jake Lamothe
 @version 0.1

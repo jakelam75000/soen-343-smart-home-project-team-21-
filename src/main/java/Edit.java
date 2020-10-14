@@ -41,6 +41,12 @@ public class Edit extends JFrame {
                 blockedCheckBox.setSelected(Main.isWindowBlocked(comboWindows.getItemAt(comboWindows.getSelectedIndex())));
             }
         });
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserManager.ChangeUserLocation(userLabel.getText(),locationLabel.getText());
+            }
+        });
     }
 
     /**
