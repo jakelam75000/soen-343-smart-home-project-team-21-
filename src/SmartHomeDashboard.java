@@ -45,7 +45,7 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel dateLabel;
     private JLabel currentLocLabel;
     private JLabel timeLabel;
-    private JButton button1;
+    private JButton LogOutButton;
     private JPanel SHS;
     private JPanel SHC;
     private JPanel SHP;
@@ -88,12 +88,7 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDashboardOptions();
         addActionListeners();
-        editUsrButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new EditUserProfile("Edit User Profile").setVisible(true);
-            }
-        });
+
     }
 
     /**
@@ -115,7 +110,7 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
 
         //Setting the "Location" combobox
-        String[] locations = currentHouse.getroomnames();
+        String[] locations = currentHouse.getRoomNames();
         for(String x : locations) comboLocation.addItem(x);
 
         //Setting "Time" spinners
@@ -176,6 +171,20 @@ public class SmartHomeDashboard extends JFrame{
                 timeLabel.setText(s);
             }
         });
+        editUsrButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EditUserProfile("Edit User Profile").setVisible(true);
+            }
+        });
+        LogOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dashboard.setVisible(false);
+                loginFrame = new Login("Login");
+                setUpLoginFrame();
+            }
+        });
     }
 
     /**
@@ -215,65 +224,108 @@ public class SmartHomeDashboard extends JFrame{
      */
     public void setUpSHCItems(){
 
-        String currentLocation = currentLocLabel.getText();
-        String[] roomNames = currentHouse.getroomnames();
-        Room currentRoom = null;
-        List<SmartObjectType> roomItems;
-        List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
+        //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
+        if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
 
-        for(int i=0; i<roomNames.length; i++){
-            if(roomNames[i].equalsIgnoreCase(currentLocation)){
-                currentRoom = currentHouse.rooms[i];
-                break;
+            String currentLocation = currentLocLabel.getText();
+            String[] roomNames = currentHouse.getRoomNames();
+            Room currentRoom = null;
+            List<SmartObjectType> roomItems;
+            List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
+
+            //Figuring out which room object we are currently in.
+            for (int i = 0; i < roomNames.length; i++) {
+                if (roomNames[i].equalsIgnoreCase(currentLocation)) {
+                    currentRoom = currentHouse.rooms[i];
+                    break;
+                }
             }
+            if (currentRoom != null) {
+
+                //Getting all the different item categories in the room and displaying them.
+                roomItems = currentRoom.getItemMapKeys();
+                SmartObjectType[] roomItemsArr = new SmartObjectType[roomItems.size()];
+
+                for (int i = 0; i < roomItems.size(); i++) {
+                    roomItemsArr[i] = roomItems.get(i);
+                }
+
+                listItems.setListData(roomItemsArr);
+
+                if (listItems.getFirstVisibleIndex() != -1) {
+                    listItems.setSelectedIndex(0);
+                }
+
+            }
+
+            //Changing the items label to reflect current location.
+            itemsLabel.setText("Items in " + currentLocation);
         }
-        if(currentRoom != null){
+        else{
+            //Getting all the different item categories in the room and displaying them.
+            List<SmartObjectType> houseItems = currentHouse.getHouseItemsKeys();
+            SmartObjectType[] houseItemsArr = new SmartObjectType[houseItems.size()];
 
-            roomItems = currentRoom.getItemMapKeys();
-
-            SmartObjectType[] roomItemsArr = new SmartObjectType[roomItems.size()];
-
-            for(int i=0; i<roomItems.size(); i++){
-                roomItemsArr[i] = roomItems.get(i);
+            for (int i = 0; i < houseItems.size(); i++) {
+                houseItemsArr[i] = houseItems.get(i);
             }
 
-            listItems.setListData(roomItemsArr);
+            listItems.setListData(houseItemsArr);
 
-            if(listItems.getFirstVisibleIndex() != -1){
+            if (listItems.getFirstVisibleIndex() != -1) {
                 listItems.setSelectedIndex(0);
             }
 
+            //Changing the items back to items in case it was changed for child user.
+            itemsLabel.setText("Items");
+
         }
 
-        itemsLabel.setText("Items in "+currentLocation);
 
         setSHCOpenClose();
     }
 
+    /**
+     * Method that sets all the items in open/close that are related to the selected category of items in SHC.
+     */
     public void setSHCOpenClose(){
 
-        String currentLocation = currentLocLabel.getText();
-        String[] roomNames = currentHouse.getroomnames();
-        Room currentRoom = null;
+        //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
+        if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
+            String currentLocation = currentLocLabel.getText();
+            String[] roomNames = currentHouse.getRoomNames();
+            Room currentRoom = null;
 
-        for(int i=0; i<roomNames.length; i++){
-            if(roomNames[i].equalsIgnoreCase(currentLocation)){
-                currentRoom = currentHouse.rooms[i];
-                break;
+            for (int i = 0; i < roomNames.length; i++) {
+                if (roomNames[i].equalsIgnoreCase(currentLocation)) {
+                    currentRoom = currentHouse.rooms[i];
+                    break;
+                }
+            }
+
+            if (currentRoom != null) {
+                SmartObjectType selectedItem = listItems.getSelectedValue();
+                List<String> items = currentRoom.getItemMapValue(selectedItem);
+
+                String[] itemsArr = new String[items.size()];
+                for (int i = 0; i < items.size(); i++) {
+                    itemsArr[i] = items.get(i);
+                }
+
+                listOpenClose.setListData(itemsArr);
+
             }
         }
-
-        if(currentRoom != null){
+        else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
-            List<String> items = currentRoom.getItemMapValue(selectedItem);
+            List<String> items = currentHouse.getHouseItemValue(selectedItem);
 
             String[] itemsArr = new String[items.size()];
-            for(int i=0; i<items.size(); i++){
+            for (int i = 0; i < items.size(); i++) {
                 itemsArr[i] = items.get(i);
             }
 
             listOpenClose.setListData(itemsArr);
-
         }
     }
     public static void loginClicked(String username, String password){

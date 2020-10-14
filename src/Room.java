@@ -36,9 +36,24 @@ public class Room {
             List<String> tempList = itemMap.get(obj.getType());
             tempList.add(obj.getName());
         }
+    }
 
-        itemMap.forEach((k, v) -> System.out.println(k +": " + v.toString()));
+    public Room(Room room){
+        this.name = room.name;
+        this.temperature = room.temperature;
+        this.width = room.width;
+        this.length = room.length;
 
+        this.smartobjects = new Smartobj[room.smartobjects.length];
+        for(int i=0; i<smartobjects.length; i++){
+            this.smartobjects[i] = room.smartobjects[i].clone();
+        }
+
+        for(Smartobj obj : this.smartobjects) {
+            if (!this.itemMap.containsKey(obj.type)) this.itemMap.put(obj.getType(), new ArrayList<String>());
+            List<String> tempList = this.itemMap.get(obj.getType());
+            tempList.add(obj.getName());
+        }
     }
     /**
     accesor method
@@ -106,4 +121,9 @@ public class Room {
     public void setTemperature(double desiredtemp){
         temperature = desiredtemp;
     }
+
+    public Room clone(){
+        return new Room(this);
+    }
+
 }
