@@ -29,7 +29,7 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
 
@@ -39,7 +39,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
         userText.addKeyListener(new KeyAdapter() {
@@ -48,7 +48,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    SmartHomeDashboard.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
             }
         });
     }

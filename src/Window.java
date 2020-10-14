@@ -4,16 +4,23 @@ class window is a smart object which is stored in rooms
 @version 0.1
 @since 2020-09-30
  */
-public class window extends Smartobj  {
+public class Window extends Smartobj  {
     boolean blocked;
     boolean open;
     /*
     constructor
     */
-    public window (String name){
-        super(name);
+    public Window(String name){
+        super(name, SmartObjectType.WINDOW);
         blocked = false;
         open = false;
+    }
+
+    public Window(Window window){
+        super(window);
+        this.blocked = window.isBlocked();
+        this.open = window.isOpen();
+
     }
     /*
     mutator method
@@ -46,4 +53,9 @@ public class window extends Smartobj  {
     public String toString() {
         return "this is a window and its name is " + super.name +".\n";
     }
+
+    public Window clone(){
+        return new Window(this);
+    }
+
 }
