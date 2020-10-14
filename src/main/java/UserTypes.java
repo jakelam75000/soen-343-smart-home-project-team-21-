@@ -1,3 +1,3 @@
 public enum UserTypes {
-    PARENT, GUEST, CHILD
+    PARENT, GUEST, CHILD,STRANGER
 }
