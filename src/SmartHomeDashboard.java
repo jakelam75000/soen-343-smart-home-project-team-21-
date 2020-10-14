@@ -274,7 +274,6 @@ public class SmartHomeDashboard extends JFrame{
 
             listOpenClose.setListData(itemsArr);
 
-
         }
     }
     public static void loginClicked(String username, String password){
