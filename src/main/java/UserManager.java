@@ -65,6 +65,11 @@ public class UserManager {
         addUser("Guest", "password", UserTypes.GUEST.toString());
     }
 
+    public static String[] getUsernames() {
+        System.out.println(authenticate.keySet().toArray(new String[authenticate.size()]));
+        return authenticate.keySet().toArray(new String[authenticate.size()]);
+    }
+
     public static void clearUsers() {
         authenticate.clear();
         userParent.clear();

@@ -11,12 +11,12 @@ will eventually be convered to a function call like public house HouseReader ()
 @since 2020-09-30
  */
 public class HouseReader {
-    public static house loadhouse(String filename) {
+    public static House loadhouse(String filename) {
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
-        house mainhouse = null;
-        room[] listofrooms;
+        House mainhouse = null;
+        Room[] listofrooms;
         Smartobj[] smartobjByRoom;
         //temporary string for holding return values
         String s = null;
@@ -42,7 +42,7 @@ public class HouseReader {
                 s = lineReader.nextLine();
                 s = s.substring(s.indexOf(':')+2);
 
-                listofrooms = new room[Integer.parseInt(s)];
+                listofrooms = new Room[Integer.parseInt(s)];
 
                 for (int i= 0; i < listofrooms.length; i++){
                     s = lineReader.nextLine();
@@ -63,15 +63,15 @@ public class HouseReader {
                         s = lineReader.nextLine();
                         smartobjName = s.substring(s.indexOf(':')+2);
                         //to be exapanded with more types and if statements
-                        smartobjByRoom[j] = smartobjType.equalsIgnoreCase("window")? new window(smartobjName) : null;
+                        smartobjByRoom[j] = smartobjType.equalsIgnoreCase("window")? new Window(smartobjName) : null;
 
                         if(smartobjByRoom == null) {
                             System.out.println("an error has occured in assigning the type of the smart object " + smartobjName );
                         }
                     }
-                    listofrooms[i] = new room(smartobjByRoom,temproomname,temproomtempreture,temproomwidth,temproomlength);
+                    listofrooms[i] = new Room(smartobjByRoom,temproomname,temproomtempreture,temproomwidth,temproomlength);
                 }
-                mainhouse = new house(listofrooms,temphousename);
+                mainhouse = new House(listofrooms,temphousename);
             }
 
             lineReader.close();

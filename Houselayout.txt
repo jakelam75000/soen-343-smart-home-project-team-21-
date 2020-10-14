@@ -1,18 +1,18 @@
 House Name: TestHome
 rooms: 2
-room name: livingroom
+Room name: Living Room
 tempreture: 20.3
 width: 3.00 
 length: 2.00
 Smartobjects: 1
-Type: window
-name: livingroomwindow1
-room name: bedroom
+Type: Window
+name: Living Room Window 1
+Room name: Bedroom
 tempreture: 21.3
 width: 1.50 
 length: 2.60
 Smartobjects: 2
-Type: window
-name: bedroomwindow1
-Type: window
-name: bedroomwindow2
+Type: Window
+name: Bedroom Window 1
+Type: Window
+name: Bedroom Window 2
