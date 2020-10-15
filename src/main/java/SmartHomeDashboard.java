@@ -60,6 +60,7 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel itemsLabel;
     private Timer timer;
     private House house;
+    private EditUserProfile edituserp;
 
     private static Edit editFrame = new Edit("Edit");
 
@@ -180,7 +181,7 @@ public class SmartHomeDashboard extends JFrame{
         editUsrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditUserProfile("Edit User Profile").setVisible(true);
+                new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText()).setVisible(true);
             }
         });
         LogOutButton.addActionListener(new ActionListener() {
@@ -356,7 +357,7 @@ public class SmartHomeDashboard extends JFrame{
      */
     public void setUpEditFrame(){
         editFrame.setBounds(xEdit, yEdit, widthEdit, heightEdit);
-        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames());
+        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames(),Username.getText());
         editFrame.setVisible(true);
     }
 

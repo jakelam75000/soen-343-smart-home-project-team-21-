@@ -49,7 +49,7 @@ public class UserManager {
         }
 
         if (!type.equals("STRANGER"))authenticate.put(username, password);
-        else authenticate.put(username, null);
+        else authenticate.put(username, "null");
         if(type.equals(UserTypes.PARENT.toString())) {
             userParent.put(username, new Parent(username, password));
         } else if(type.equals(UserTypes.CHILD.toString())) {
@@ -90,7 +90,7 @@ public class UserManager {
         addUser("Child1", "abc", UserTypes.CHILD.toString());
         addUser("Child2", "123", UserTypes.CHILD.toString());
         addUser("Guest", "password", UserTypes.GUEST.toString());
-        addUser("Stranger1",null,UserTypes.STRANGER.toString());
+        addUser("Stranger1","null",UserTypes.STRANGER.toString());
     }
 
     public static String[] getUsernames() {

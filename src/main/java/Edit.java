@@ -14,7 +14,7 @@ public class Edit extends JFrame {
     private JComboBox<String> comboWindows;
     private JCheckBox blockedCheckBox;
     private JButton confirmObjButton;
-
+    private User currentuser;
 
     public Edit(String title) {
         super(title);
@@ -55,7 +55,7 @@ public class Edit extends JFrame {
      * @param locations String[] array containing all locations in the house.
      * @param windows a List of type String containing all the windows in the house.
      */
-    public void setUpEditOptions(String[] locations, List<String> windows, String[] users){
+    public void setUpEditOptions(String[] locations, List<String> windows, String[] users, String curruser){
 
             //Clearing all previous options so that the can be updated in case user made changes
             comboUsers.removeAllItems();
@@ -64,7 +64,7 @@ public class Edit extends JFrame {
 
             //Setting up all the comboboxes with their options
             for(String user : users){
-                comboUsers.addItem(user);
+                if (!user.equals(curruser))comboUsers.addItem(user);
             }
 
             for(String location : locations){
