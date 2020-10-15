@@ -28,7 +28,7 @@ public class Main {
             f = new File(housefilepath + ".txt");
             lasthousefilepath = housefilepath;
         } else if (lasthousefilepath != null) f = new File(lasthousefilepath + ".txt");
-        if(user != null && f.exists() && f.isFile()) {
+        if(user != null && f!=null && f.exists() && f.isFile()) {
             loginFrame.setVisible(false);
             // User type
             if(user instanceof Child) {
