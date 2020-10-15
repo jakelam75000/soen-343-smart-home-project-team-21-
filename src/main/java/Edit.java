@@ -22,6 +22,12 @@ public class Edit extends JFrame {
     private static final int width = 400;
     private static final int height = 300;
 
+    /**
+     * Parameterised contructor
+     *
+     * @param title String title of the frame
+     * @param caller SmartHomeDashboard pointer of the calling object.
+     */
     public Edit(String title, SmartHomeDashboard caller) {
         super(title);
         this.setContentPane(mainPanel);

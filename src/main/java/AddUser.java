@@ -18,18 +18,27 @@ public class AddUser extends JFrame{
     private AddUser self;
     private SmartHomeDashboard caller;
 
+    /**
+     * Parameterised constructor.
+     *
+     * @param title String title of the frame
+     * @param caller SmartHomeDashboard pointer referring to the caller
+     */
     public AddUser(String title, SmartHomeDashboard caller) {
         super(title);
 
         this.setContentPane(mainPanel);
         this.pack();
-
+        this.addGuest.setSelected(true);
         self = this;
         this.caller = caller;
 
         addActionListeners();
     }
 
+    /**
+     * Adds all the action listeners for the class.
+     */
     public void addActionListeners() {
         createUserButton.addActionListener(new ActionListener() {
             @Override
@@ -61,11 +70,4 @@ public class AddUser extends JFrame{
             }
         });
     }
-//    public static void main(String[] args) {
-//
-//        JFrame frame = new AddUser("Add User");
-//        frame.setSize(300,400);
-//        frame.setVisible(true);
-//
-//    }
 }
