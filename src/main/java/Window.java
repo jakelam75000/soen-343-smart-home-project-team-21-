@@ -1,8 +1,8 @@
-/*
-class window is a smart object which is stored in rooms
-@author Jake Lamothe
-@version 0.1
-@since 2020-09-30
+/**
+*class window is a smart object which is stored in rooms
+*@author Jake Lamothe
+*@version 0.1
+*@since 2020-09-30
  */
 public class Window extends Smartobj  {
     boolean blocked;
@@ -22,27 +22,37 @@ public class Window extends Smartobj  {
         this.open = window.isOpen();
 
     }
-    /*
-    mutator method
-    @param blockedornot is the new value of blocked [is the window blocked from closing)
+
+
+    /**
+     * mutator method
+     * @param blockedornot Boolean is the new value of blocked (is the window blocked from closing)
      */
-    public void setblocked( boolean blockedornot){
+    public void setBlocked(boolean blockedornot){
         blocked = blockedornot;
     }
     /*
    mutator method
    @param openorclosed is the new value of open [is the window open or closed)
     */
-    public void setopen (boolean openorclosed){
-        open = openorclosed;
+    public boolean setOpen (boolean openorclosed){
+        if(blocked){
+            return false;
+        }
+        else{
+            open = openorclosed;
+            return true;
+        }
     }
-    /*
-    accesor method
+
+    /**
+     *
+     * @return
      */
     public boolean isBlocked(){
         return blocked;
     }
-    /*
+    /**
     accesor method
      */
     public boolean isOpen(){

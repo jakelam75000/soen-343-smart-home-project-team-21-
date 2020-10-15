@@ -98,4 +98,12 @@ public class House {
             room.blockWindow(name, blocked);
         }
     }
+
+    public boolean openCloseObject(String name, boolean open){
+        boolean success = false;
+        for(Room room : rooms){
+            success = room.openCloseObject(name, open);
+        }
+        return success;
+    }
 }
