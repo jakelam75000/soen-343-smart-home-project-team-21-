@@ -243,7 +243,7 @@ public class SmartHomeDashboard extends JFrame{
             if(currentLocation.equalsIgnoreCase("Outside")){
                 listItems.setVisible(false);
                 itemsLabel.setText("Items " + currentLocation);
-                setSHCOpenClose();
+                setUpSHCOpenClose();
                 return;
             }else listItems.setVisible(true);
 
@@ -296,14 +296,14 @@ public class SmartHomeDashboard extends JFrame{
 
         }
 
-        setSHCOpenClose();
+        setUpSHCOpenClose();
 
     }
 
     /**
      * Method that sets all the items in open/close that are related to the selected category of items in SHC.
      */
-    public void setSHCOpenClose(){
+    public void setUpSHCOpenClose(){
 
         //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
         if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
@@ -334,6 +334,7 @@ public class SmartHomeDashboard extends JFrame{
                 JCheckBox[] itemsArr = new JCheckBox[items.size()];
                 for (int i=0; i < items.size(); i++) {
                     itemsArr[i] = new JCheckBox(items.get(i));
+                    itemsArr[i].setSelected(isObjectOpen(items.get(i)));
                     int index = i;
                     itemsArr[i].addActionListener(new ActionListener() {
                         @Override
@@ -364,12 +365,18 @@ public class SmartHomeDashboard extends JFrame{
             JCheckBox[] itemsArr = new JCheckBox[items.size()];
             for(int i=0; i<items.size(); i++){
                 itemsArr[i] = new JCheckBox(items.get(i));
+                itemsArr[i].setSelected(isObjectOpen(items.get(i)));
                 int index = i;
                 itemsArr[i].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
                             itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                            printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                        }
+                        else{
+                            if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
+                            else  printToConsole(itemsArr[index].getText() + " was closed.");
                         }
                     }
                 });
@@ -395,6 +402,9 @@ public class SmartHomeDashboard extends JFrame{
      */
     public void blockWindow(String name, boolean blocked){
         house.blockWindow(name, blocked);
+        if(blocked) printToConsole(name + " status was changed to \"blocked\"");
+        else printToConsole(name + " status was changed to \"unblocked\"");
+
     }
 
     /**
@@ -414,6 +424,21 @@ public class SmartHomeDashboard extends JFrame{
         return false;
     }
 
+    public boolean isObjectOpen(String name){
+        for(Room room : house.getRoomsList()){
+            for(Smartobj obj : room.getSmartObjects()){
+                if(obj.getName().equalsIgnoreCase(name)){
+                    switch(obj.getType()){
+                        case WINDOW:
+                            Window object = (Window)obj;
+                            return object.isOpen();
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Prints updates to the console inside the Dashboard.
      *
@@ -422,7 +447,11 @@ public class SmartHomeDashboard extends JFrame{
     public void printToConsole(String text){
         String oldText = consoleText.getText();
         String[] currentTime = timeLabel.getText().split(":");
-        String current_Time_Formatted = currentTime[0] + ":" + currentTime[1];
-        consoleText.setText(oldText + "\n[" + current_Time_Formatted +"]: " + text);
+        String current_Time_Formatted = "";
+        if(currentTime.length > 2){
+            current_Time_Formatted = "["+currentTime[0] + ":" + currentTime[1]+"]:";
+        }
+
+        consoleText.setText(oldText + "\n" + current_Time_Formatted + text);
     }
 }

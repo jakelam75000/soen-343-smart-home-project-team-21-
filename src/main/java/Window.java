@@ -7,8 +7,9 @@
 public class Window extends Smartobj  {
     boolean blocked;
     boolean open;
+
     /**
-    *constructor
+    * constructor
     */
     public Window(String name){
         super(name, SmartObjectType.WINDOW);
