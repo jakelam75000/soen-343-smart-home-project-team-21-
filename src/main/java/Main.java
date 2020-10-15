@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.File;
 
 public class Main {
 
@@ -16,27 +17,32 @@ public class Main {
     private static final int yDash = 100;
     private static final int widthDash = 1100;
     private static final int heightDash = 600;
+    private static String lasthousefilepath = null;
 
 
-    public static void loginClicked(String username, String password){
+    public static void loginClicked(String username, String password, String housefilepath){
         // User Authentication
-        User user = UserManager.findUser(username, password);
-        if(user != null) {
+            User user = UserManager.findUser(username, password);
+            File f = null;
+        if (housefilepath!= null) {
+            f = new File(housefilepath + ".txt");
+            lasthousefilepath = housefilepath;
+        } else if (lasthousefilepath != null) f = new File(lasthousefilepath + ".txt");
+        if(user != null && f.exists() && f.isFile()) {
             loginFrame.setVisible(false);
-
             // User type
             if(user instanceof Child) {
                 System.out.println("It is a child");
                 // Show house simulator for child
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username,f.getPath());
             } else if (user instanceof Parent) {
                 System.out.println("It is a parent");
                 // Show house simulator for parent
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username,f.getPath());
             } else if (user instanceof Guest) {
                 System.out.println("It is a guest");
                 // Show house simulator for guest
-                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username);
+                dashboard = new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username,f.getPath());
             }
             else if (user instanceof Stranger)System.out.println("Login failed, trying to login as stranger");
             if(dashboard != null) {

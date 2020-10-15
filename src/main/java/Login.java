@@ -15,6 +15,7 @@ public class Login extends JFrame {
     private JLabel passwordLabel;
     private JButton loginButton;
     private JButton UploadFile;
+    private String filepath;
 
     public Login(String title) {
         super(title);
@@ -29,6 +30,11 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
                 fc.showOpenDialog(UploadFile);
+                if (fc.getSelectedFile()!= null) {
+                    filepath = fc.getSelectedFile().getAbsoluteFile().toString();
+                    filepath = filepath.replace(".txt", "");
+                }
+                else filepath=null;
             }
         });
     }
@@ -37,7 +43,7 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                Main.loginClicked(userText.getText(), new String(passwordText.getPassword()),filepath);
             }
         });
 
@@ -47,7 +53,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()),filepath);
             }
         });
         userText.addKeyListener(new KeyAdapter() {
@@ -56,7 +62,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()));
+                    Main.loginClicked(userText.getText(), new String(passwordText.getPassword()),filepath);
             }
         });
     }
