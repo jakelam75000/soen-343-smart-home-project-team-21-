@@ -68,6 +68,9 @@ public class Main {
         return dashboard.isWindowBlocked(name);
     }
 
+    public static void printToConsole(String text){
+        dashboard.printToConsole(text);
+    }
     public static void main(String[] args){
 
         setUpLoginFrame();

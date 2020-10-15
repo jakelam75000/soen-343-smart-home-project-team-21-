@@ -40,6 +40,8 @@ public class EditUserProfile extends JFrame {
         callinguser = calluser;
         this.setContentPane(mainPanel);
         this.pack();
+
+        addActionListeners();
     }
 
     public static void main(String[] args){
@@ -47,7 +49,7 @@ public class EditUserProfile extends JFrame {
         JFrame frame = new EditUserProfile("Edit User Profile","PARENT","mt", "noone");
         frame.setVisible(true);
     }
-/*
+
     public void addActionListeners(){
         confirmChangesButton.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +73,7 @@ public class EditUserProfile extends JFrame {
                 UserManager.removeUser(currentUsername.getText());
             }
         });
-    }*/
+    }
 
 
 }

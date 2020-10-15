@@ -340,6 +340,11 @@ public class SmartHomeDashboard extends JFrame{
                         public void actionPerformed(ActionEvent e) {
                             if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
                                 itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                                printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                            }
+                            else{
+                                if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
+                                else  printToConsole(itemsArr[index].getText() + " was closed.");
                             }
                         }
                     });
@@ -415,6 +420,9 @@ public class SmartHomeDashboard extends JFrame{
      * @param text String that is the text to be printed on the console.
      */
     public void printToConsole(String text){
-
+        String oldText = consoleText.getText();
+        String[] currentTime = timeLabel.getText().split(":");
+        String current_Time_Formatted = currentTime[0] + ":" + currentTime[1];
+        consoleText.setText(oldText + "\n[" + current_Time_Formatted +"]: " + text);
     }
 }
