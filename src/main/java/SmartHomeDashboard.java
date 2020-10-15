@@ -77,12 +77,12 @@ public class SmartHomeDashboard extends JFrame{
      * @param type String type of user that logged in.
      * @param username String username of the user that logged in.
      */
-    public SmartHomeDashboard(String title, String type, String username) {
+    public SmartHomeDashboard(String title, String type, String username, String housefilepath) {
         // Set up dashboard with correct parameters
         super(title);
         Type.setText(type);
         Username.setText(username);
-        house = HouseReader.loadhouse("Houselayout");
+        house = HouseReader.loadhouse(housefilepath);
         self = this;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

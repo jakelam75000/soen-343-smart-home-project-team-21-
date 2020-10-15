@@ -15,11 +15,20 @@ public class UserManagerTest {
         );
     }
 
+    // Initialize users
+    public static void initialize() {
+        UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
+        UserManager.addUser("Parent2", "password123", UserTypes.PARENT.toString());
+        UserManager.addUser("Child1", "abc", UserTypes.CHILD.toString());
+        UserManager.addUser("Child2", "123", UserTypes.CHILD.toString());
+        UserManager.addUser("Guest", "password", UserTypes.GUEST.toString());
+    }
+
     @Test
     public void testAddUser() {
         isEmpty();
 
-        UserManager.initialize();
+        initialize();
         // Should not be added because username already exists
         UserManager.addUser("Parent1", "password", UserTypes.PARENT.toString());
 
@@ -40,7 +49,7 @@ public class UserManagerTest {
         UserManager.removeUser("dina");
         isEmpty();
 
-        UserManager.initialize();
+        initialize();
 
         UserManager.removeUser("Parent2");
         UserManager.removeUser("Guest");
@@ -59,7 +68,7 @@ public class UserManagerTest {
 
     @Test
     public void testEditUser() {
-        // TO-DO
+
     }
 
     @AfterEach
