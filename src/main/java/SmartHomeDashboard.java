@@ -63,13 +63,22 @@ public class SmartHomeDashboard extends JFrame{
     private House house;
     private EditUserProfile edituserp;
 
+
     private static Edit editFrame = new Edit("Edit");
 
+    // Boundaries of the Edit window.
     private static final int xEdit = 300;
     private static final int yEdit = 200;
     private static final int widthEdit = 600;
     private static final int heightEdit = 300;
 
+    /**
+     * Parameterised constructor.
+     *
+     * @param title String title of the dashboard frame
+     * @param type String type of user that logged in.
+     * @param username String username of the user that logged in.
+     */
     public SmartHomeDashboard(String title, String type, String username) {
         // Set up dashboard with correct parameters
         super(title);
@@ -128,6 +137,9 @@ public class SmartHomeDashboard extends JFrame{
 
     }
 
+    /**
+     * Adds all action listeners to attributes of the class.
+     */
     public void addActionListeners() {
         addUserButton.addActionListener(new ActionListener() {
             @Override
@@ -409,6 +421,7 @@ public class SmartHomeDashboard extends JFrame{
     }
 
     /**
+     * Checks if window is blocked by an object.
      *
      * @param name a String containing the name of the window being checked.
      * @return boolean true if window is blocked false otherwise.
@@ -425,6 +438,12 @@ public class SmartHomeDashboard extends JFrame{
         return false;
     }
 
+    /**
+     * Checks if object is open or closed
+     *
+     * @param name String name of the object
+     * @return boolean true if item is open false otherwise
+     */
     public boolean isObjectOpen(String name){
         for(Room room : house.getRoomsList()){
             for(Smartobj obj : room.getSmartObjects()){
