@@ -61,6 +61,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel openClosePanel;
     private Timer timer;
     private House house;
+    private EditUserProfile edituserp;
 
     private static Edit editFrame = new Edit("Edit");
 
