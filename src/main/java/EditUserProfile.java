@@ -54,8 +54,8 @@ public class EditUserProfile extends JFrame {
         confirmChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("working up to here");
-                if (!UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()))return;
+                String username = currentUsername.getText();
+                if (!UserManager.isUserValid(username, new String(oldPassword.getPassword())))return;
                 String type = "error";
                 if (parentRadio.isSelected())type = UserTypes.PARENT.toString();
                 else if (childRadio.isSelected())type = UserTypes.CHILD.toString();
@@ -63,24 +63,25 @@ public class EditUserProfile extends JFrame {
                 else if (strangerRadio.isSelected())type = UserTypes.STRANGER.toString();
                 if (type.equals("error")) return;
                 System.out.println("the type is " + type );
-                UserManager.removeUser(currentUsername.getText());
-                UserManager.addUser(currentUsername.getText(), newPassword.getText(), type);
-                Main.printToConsole(currentUsername.getText() + "'s password has been updated.");
+                UserManager.removeUser(username);
+                UserManager.addUser(username, new String(newPassword.getPassword()), type);
+                Main.printToConsole(username + "'s password has been updated.");
             }
         });
         deleteUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()) && !UserManager.isUserValid(currentUsername.getText(),"null")){
+                String username = currentUsername.getText();
+                if (UserManager.isAdmin(username) || (!UserManager.isUserValid(username, new String(oldPassword.getPassword())) && !UserManager.isUserValid(username,"null"))){
                     return;
                 }
-                UserManager.removeUser(currentUsername.getText());
-                if (currentUsername.getText().equals(callingUser)) {
+                UserManager.removeUser(username);
+                if (username.equals(callingUser)) {
                     Main.logoutClicked();
                 }
 
                 Main.updateUsers();
-                Main.printToConsole(currentUsername.getText() + "'s account has been deleted.");
+                Main.printToConsole(username + "'s account has been deleted.");
                 self.setVisible(false);
             }
         });
