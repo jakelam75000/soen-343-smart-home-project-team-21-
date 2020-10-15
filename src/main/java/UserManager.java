@@ -7,10 +7,24 @@ public class UserManager {
     private static HashMap<String, Guest> userGuest = new HashMap<String, Guest>();
     private static HashMap<String, Stranger> userStranger = new HashMap<String, Stranger>();
 
+    /**
+     * Checks if username/password combination is valid.
+     *
+     * @param username String username to be checked
+     * @param password String password to be checked
+     * @return boolean true if authentication is successfu, false otherwise.
+     */
     public static boolean isUserValid(String username, String password) {
         return authenticate.get(username) != null && authenticate.get(username).equals(password);
     }
 
+    /**
+     * Returns the User object of a specific user.
+     *
+     * @param username String username to search
+     * @param password String password linked to user
+     * @return User pointer to the User object matching the username and password or null otherwise.
+     */
     public static User findUser(String username, String password) {
         if(isUserValid(username, password)) {
             if(userParent.get(username) != null) { return userParent.get(username);}
@@ -22,6 +36,13 @@ public class UserManager {
         // User it not valid
         return null;
     }
+
+    /**
+     * Updates the location of a user.
+     *
+     * @param username String username of user to be updated
+     * @param location String new location of the user
+     */
     public static void changeUserLocation(String username, String location) {
         if(userParent.get(username) != null) {
             userParent.get(username).setLocation(location);
@@ -36,12 +57,14 @@ public class UserManager {
             userStranger.get(username).setLocation(location);
         }
     }
-   /* public static void TestLocation(String username){
-        if(userParent.get(username) != null) { System.out.println(userParent.get(username).getLocation());}
-        if(userChild.get(username) != null) { System.out.println(userChild.get(username).getLocation());}
-        if(userGuest.get(username) != null) { System.out.println(userGuest.get(username).getLocation());}
 
-    }*/
+    /**
+     * Adds a new user.
+     *
+     * @param username String username of user to be added
+     * @param password String password of user to be added
+     * @param type String type of user to be added
+     */
     public static void addUser(String username, String password, String type) {
         if (authenticate.get(username) != null){
             System.out.println("Username already exists");
@@ -65,6 +88,11 @@ public class UserManager {
 
     }
 
+    /**
+     * Deletes a user.
+     *
+     * @param username String username to be deleted
+     */
     public static void removeUser(String username) {
         if(authenticate.get(username) == null) {
             System.out.println("User doesn't exist");
@@ -84,6 +112,9 @@ public class UserManager {
         System.out.println("Successfully removed");
     }
 
+    /**
+     * initializes user by creating some preset users.
+     */
     public static void initialize() {
         addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
         addUser("Parent2", "password123", UserTypes.PARENT.toString());
@@ -93,10 +124,18 @@ public class UserManager {
         addUser("Stranger1","null",UserTypes.STRANGER.toString());
     }
 
+    /**
+     * Returns all usernames.
+     *
+     * @return String[] containing all usernames.
+     */
     public static String[] getUsernames() {
         return authenticate.keySet().toArray(new String[authenticate.size()]);
     }
 
+    /**
+     * Deletes all users
+     */
     public static void clearUsers() {
         authenticate.clear();
         userParent.clear();
@@ -105,26 +144,57 @@ public class UserManager {
         userStranger.clear();
     }
 
-    public static int sizeAuthenticate() {
+    /**
+     * Returns the count of all users.
+     *
+     * @return int total number of users
+     */
+    public static int sizeAllUsers() {
         return authenticate.size();
     }
 
+    /**
+     * Returns the count of parent users.
+     *
+     * @return int number of parent users
+     */
     public static int sizeUserParent() {
         return userParent.size();
     }
 
+    /**
+     * Returns the count of child users.
+     *
+     * @return int number of child users
+     */
     public static int sizeUserChild() {
         return userChild.size();
     }
 
+    /**
+     * Returns the count of guest users.
+     *
+     * @return int number of guest users
+     */
     public static int sizeUserGuest() {
         return userGuest.size();
     }
 
+    /**
+     * Returns the count of stranger users.
+     *
+     * @return int number of stranger users
+     */
     public static int sizeUserStranger(){
         return userStranger.size();
     }
 
+    /**
+     * Returns the location of the passed username.
+     *
+     * @param username String username of user
+     * @return String the location of the passed username.
+     */
     public static String getUserLocation(String username){
         if(userParent.get(username) != null) {
             return userParent.get(username).getLocation();
@@ -138,7 +208,6 @@ public class UserManager {
         else if(userStranger.get(username) != null) {
             return userStranger.get(username).getLocation();
         }
-
         return "Outside";
     }
 }
