@@ -60,6 +60,7 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel itemsLabel;
     private Timer timer;
     private House house;
+    private EditUserProfile edituserp;
 
     private static Edit editFrame = new Edit("Edit");
 
