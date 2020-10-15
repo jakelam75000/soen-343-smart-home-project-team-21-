@@ -15,13 +15,15 @@ public class AddUser extends JFrame{
     private JButton createUserButton;
     private JButton goBackButton;
     private JRadioButton strangerRadioButton;
+    private AddUser self;
 
     public AddUser(String title) {
         super(title);
 
-
         this.setContentPane(mainPanel);
         this.pack();
+
+        self = this;
 
         addActionListeners();
     }
@@ -40,14 +42,28 @@ public class AddUser extends JFrame{
                 if(strangerRadioButton.isSelected()){
                     UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
                 }
+
+                Main.printToConsole(userText.getText() +" has been added.");
+
+                userText.setText("");
+                passwordText.setText("");
+
+                Main.updateUsers();
+            }
+        });
+
+        goBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                self.setVisible(false);
             }
         });
     }
-    public static void main(String[] args) {
-
-        JFrame frame = new AddUser("Add User");
-        frame.setSize(300,400);
-        frame.setVisible(true);
-
-    }
+//    public static void main(String[] args) {
+//
+//        JFrame frame = new AddUser("Add User");
+//        frame.setSize(300,400);
+//        frame.setVisible(true);
+//
+//    }
 }

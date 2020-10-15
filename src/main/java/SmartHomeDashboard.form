@@ -801,6 +801,7 @@
               <autoscrolls value="true"/>
               <background color="-6398032"/>
               <foreground color="-1350354"/>
+              <verticalScrollBarPolicy value="22"/>
             </properties>
             <border type="none"/>
             <children>

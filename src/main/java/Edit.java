@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.List;
 
 public class Edit extends JFrame {
@@ -41,10 +40,24 @@ public class Edit extends JFrame {
                 blockedCheckBox.setSelected(Main.isWindowBlocked(comboWindows.getItemAt(comboWindows.getSelectedIndex())));
             }
         });
+
+        comboUsers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comboLocations.setSelectedItem(UserManager.getUserLocation(comboUsers.getItemAt(comboUsers.getSelectedIndex())));
+            }
+        });
+
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserManager.ChangeUserLocation(userLabel.getText(),locationLabel.getText());
+                String username = comboUsers.getItemAt(comboUsers.getSelectedIndex());
+                String userLocation = comboLocations.getItemAt(comboLocations.getSelectedIndex());
+                String oldLocation = UserManager.getUserLocation(username);
+
+                UserManager.changeUserLocation(username, userLocation);
+
+                Main.printToConsole(username + " has moved from "+oldLocation+" to "+ userLocation+".");
             }
         });
     }
@@ -76,7 +89,6 @@ public class Edit extends JFrame {
                 comboWindows.addItem(window);
             }
 
-
-
+             comboLocations.setSelectedItem(UserManager.getUserLocation(comboUsers.getItemAt(comboUsers.getSelectedIndex())));
         }
 }
