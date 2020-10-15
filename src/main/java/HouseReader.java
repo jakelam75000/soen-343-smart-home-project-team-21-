@@ -1,16 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-/*
+/**
 reads a house layout file (no error checking) and puts the information into a house class, its corresponding room arrays and
 the rooms corresponding smartobj array
 
-will eventually be convered to a function call like public house HouseReader ()
-@author Jake Lamothe
 @version 0.1
 @since 2020-09-30
  */
 public class HouseReader {
+    /**
+     * loads information from a house.txt file and converts it into a house object
+     * @param filename the file path to the houselayout txt file
+     * @return House returns a house object loaded with the rooms and smartobj
+     */
     public static House loadhouse(String filename) {
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
@@ -32,7 +35,7 @@ public class HouseReader {
         String smartobjName = null;
         int smartobjtypenum = 0;
         try {
-            File houseFile = new File(filename+".txt");
+            File houseFile = new File(filename);
             Scanner lineReader = new Scanner(houseFile);
 
             if (lineReader.hasNextLine()){
