@@ -346,7 +346,7 @@ public class SmartHomeDashboard extends JFrame{
                 List<String> items = currentRoom.getItemMapValue(selectedItem);
 
                 openClosePanel.removeAll();
-                openClosePanel.setLayout(new GridLayout(items.size(), 1));
+                if (items!= null) openClosePanel.setLayout(new GridLayout(items.size(), 1));
 
                 JCheckBox[] itemsArr = new JCheckBox[items.size()];
                 for (int i=0; i < items.size(); i++) {

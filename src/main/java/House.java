@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
 class house, holds the house rooms, name and smartobjects by extension
-@author Jake Lamothe
 @version 0.1
 @since 2020-09-30
  */
@@ -59,6 +58,11 @@ public class House {
         }
         return s;
     }
+
+    /**
+     * meant to retrieve all the names of the rooms
+     * @return String[] a list of all the rooms named
+     */
     public String[] getRoomNames(){
         String[] s = new String[rooms.length];
         for (int i=0;i< rooms.length; i++){
@@ -67,6 +71,10 @@ public class House {
         return s;
     }
 
+    /**
+     * similar to getRoomNames() but returns the objects instead
+     * @return Room[] a list of all room objects
+     */
     public Room[] getRoomsList(){
         Room[] list = new Room[rooms.length];
 
