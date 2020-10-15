@@ -34,17 +34,18 @@ public class AddUser extends JFrame{
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addParent.isSelected() && !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("") ) {
+                if(addParent.isSelected() && passwordText.getPassword().length != 0 && !userText.getText().equals("") ) {
+                    System.out.println("the password is : "+ passwordText.getPassword());
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.PARENT.toString());
                     caller.printToConsole(userText.getText() +" has been added.");
-                } else if(addChild.isSelected()&& !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("")) {
+                } else if(addChild.isSelected()&& passwordText.getPassword().length != 0 && !userText.getText().equals("")) {
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.CHILD.toString());
                     caller.printToConsole(userText.getText() +" has been added.");
-                } else if (addGuest.isSelected()&& !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("")){
+                } else if (addGuest.isSelected()&& passwordText.getPassword().length != 0 && !userText.getText().equals("")){
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
                     caller.printToConsole(userText.getText() +" has been added.");
                 }
-                else if(strangerRadioButton.isSelected() && !userText.getText().toString().equals("")){
+                else if(strangerRadioButton.isSelected() && !userText.getText().equals("")){
                     UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
                     caller.printToConsole(userText.getText() +" has been added.");
                 }
