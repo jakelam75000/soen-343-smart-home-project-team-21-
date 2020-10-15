@@ -23,7 +23,7 @@ public class AddUser extends JFrame{
 
         this.setContentPane(mainPanel);
         this.pack();
-
+        strangerRadioButton.setSelected(true);
         self = this;
         this.caller = caller;
 
@@ -34,19 +34,20 @@ public class AddUser extends JFrame{
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addParent.isSelected()) {
+                if(addParent.isSelected() && !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("") ) {
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.PARENT.toString());
-                } else if(addChild.isSelected()) {
+                    caller.printToConsole(userText.getText() +" has been added.");
+                } else if(addChild.isSelected()&& !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("")) {
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.CHILD.toString());
-                } else if (addGuest.isSelected()){
+                    caller.printToConsole(userText.getText() +" has been added.");
+                } else if (addGuest.isSelected()&& !passwordText.getPassword().toString().equals("") && !userText.getText().toString().equals("")){
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
+                    caller.printToConsole(userText.getText() +" has been added.");
                 }
-                else if(strangerRadioButton.isSelected()){
+                else if(strangerRadioButton.isSelected() && !userText.getText().toString().equals("")){
                     UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
+                    caller.printToConsole(userText.getText() +" has been added.");
                 }
-
-                caller.printToConsole(userText.getText() +" has been added.");
-
                 userText.setText("");
                 passwordText.setText("");
 
