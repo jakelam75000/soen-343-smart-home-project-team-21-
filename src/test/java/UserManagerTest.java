@@ -8,7 +8,7 @@ public class UserManagerTest {
     public void isEmpty() {
         assertAll(
                 "Make sure all hashMaps are empty",
-                () -> assertEquals(0, UserManager.sizeAuthenticate()),
+                () -> assertEquals(0, UserManager.sizeAllUsers()),
                 () -> assertEquals(0, UserManager.sizeUserParent()),
                 () -> assertEquals(0, UserManager.sizeUserChild()),
                 () -> assertEquals(0, UserManager.sizeUserGuest())
@@ -25,7 +25,7 @@ public class UserManagerTest {
 
         assertAll(
                 "Make sure user have been added correctly",
-                () -> assertEquals(5, UserManager.sizeAuthenticate()),
+                () -> assertEquals(5, UserManager.sizeAllUsers()),
                 () -> assertEquals(2, UserManager.sizeUserParent()),
                 () -> assertEquals(2, UserManager.sizeUserChild()),
                 () -> assertEquals(1, UserManager.sizeUserGuest())
@@ -50,7 +50,7 @@ public class UserManagerTest {
 
         assertAll(
                 "Make sure user have been deleted correctly",
-                () -> assertEquals(2, UserManager.sizeAuthenticate()),
+                () -> assertEquals(2, UserManager.sizeAllUsers()),
                 () -> assertEquals(1, UserManager.sizeUserParent()),
                 () -> assertEquals(1, UserManager.sizeUserChild()),
                 () -> assertEquals(0, UserManager.sizeUserGuest())
