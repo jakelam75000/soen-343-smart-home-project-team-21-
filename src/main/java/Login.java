@@ -88,6 +88,7 @@ public class Login extends JFrame {
                     filepath = fc.getSelectedFile().getAbsoluteFile().toString();
                 }
                 else filepath=null;
+                System.out.println(filepath);
             }
         });
     }
