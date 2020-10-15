@@ -6,6 +6,7 @@ public class UserManager {
     private static HashMap<String, Child> userChild = new HashMap<String, Child>();
     private static HashMap<String, Guest> userGuest = new HashMap<String, Guest>();
     private static HashMap<String, Stranger> userStranger = new HashMap<String, Stranger>();
+    private static User admin;
 
     /**
      * Checks if username/password combination is valid.
@@ -71,8 +72,14 @@ public class UserManager {
             return;
         }
 
-        if (!type.equals("STRANGER"))authenticate.put(username, password);
-        else authenticate.put(username, "null");
+        // Add user to the authenticate hashmap
+        if (!type.equals("STRANGER")) {
+            authenticate.put(username, password);
+        } else {
+            authenticate.put(username, "null");
+        }
+
+        // Add user to the hashmap of its respective type
         if(type.equals(UserTypes.PARENT.toString())) {
             userParent.put(username, new Parent(username, password));
         } else if(type.equals(UserTypes.CHILD.toString())) {
@@ -98,6 +105,12 @@ public class UserManager {
             System.out.println("User doesn't exist");
             return;
         }
+
+        if(isAdmin(username)) {
+            System.out.println("Can't delete admin");
+            return;
+        }
+
         authenticate.remove(username);
         if(userParent.get(username) != null) {
             userParent.remove(username);
@@ -112,16 +125,16 @@ public class UserManager {
         System.out.println("Successfully removed");
     }
 
+    public static boolean isAdmin(String username) {
+        return admin == findUser(username, authenticate.get(username));
+    }
+
     /**
      * initializes user by creating some preset users.
      */
     public static void initialize() {
         addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
-        addUser("Parent2", "password123", UserTypes.PARENT.toString());
-        addUser("Child1", "abc", UserTypes.CHILD.toString());
-        addUser("Child2", "123", UserTypes.CHILD.toString());
-        addUser("Guest", "password", UserTypes.GUEST.toString());
-        addUser("Stranger1","null",UserTypes.STRANGER.toString());
+        admin = findUser("Parent1", "passwordabc");
     }
 
     /**
