@@ -103,6 +103,8 @@ public class House {
         boolean success = false;
         for(Room room : rooms){
             success = room.openCloseObject(name, open);
+            if(success) return success;
+
         }
         return success;
     }

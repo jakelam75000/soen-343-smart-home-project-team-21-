@@ -265,7 +265,7 @@
                   <minimumSize width="374" height="300"/>
                   <name value=""/>
                   <opaque value="true"/>
-                  <visible value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none">
                   <font/>

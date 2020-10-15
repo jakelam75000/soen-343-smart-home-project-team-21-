@@ -7,8 +7,9 @@
 public class Window extends Smartobj  {
     boolean blocked;
     boolean open;
-    /*
-    constructor
+
+    /**
+    * constructor
     */
     public Window(String name){
         super(name, SmartObjectType.WINDOW);
@@ -31,10 +32,11 @@ public class Window extends Smartobj  {
     public void setBlocked(boolean blockedornot){
         blocked = blockedornot;
     }
-    /*
-   mutator method
-   @param openorclosed is the new value of open [is the window open or closed)
-    */
+
+    /**
+     * mutator method
+     * @param openorclosed is the new value of open [is the window open or closed)
+     */
     public boolean setOpen (boolean openorclosed){
         if(blocked){
             return false;
