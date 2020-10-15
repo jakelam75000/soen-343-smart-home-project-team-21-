@@ -32,7 +32,7 @@ public class AddUser extends JFrame{
         this.addGuest.setSelected(true);
         self = this;
         this.caller = caller;
-
+        this.setResizable(false);
         addActionListeners();
     }
 

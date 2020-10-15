@@ -39,7 +39,7 @@ public class Login extends JFrame {
         this.pack();
 
         this.setBounds(x, y, width, height);
-
+        this.setResizable(false);
         addActionListeners();
 
         if (lasthousefilepath!=null){
