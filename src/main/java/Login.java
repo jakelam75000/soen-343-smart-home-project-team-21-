@@ -16,6 +16,7 @@ public class Login extends JFrame {
     private JLabel passwordLabel;
     private JButton loginButton;
     private JButton UploadFile;
+    private JLabel housefieldlabel;
     private String filepath;
     private static String lasthousefilepath = null;
 
@@ -46,6 +47,11 @@ public class Login extends JFrame {
                 else filepath=null;
             }
         });
+        if (lasthousefilepath!=null){
+            UploadFile.setVisible(false);
+            housefieldlabel.setVisible(false);
+
+        }
     }
 
     public void addActionListeners() {
@@ -85,12 +91,13 @@ public class Login extends JFrame {
     public void loginClicked(String username, String password, String houseFilePath){
         // User Authentication
         User user = UserManager.findUser(username, password);
-      
+
         File f = null;
         if (houseFilePath!= null) {
             f = new File(houseFilePath);
             lasthousefilepath = houseFilePath;
-        } else if (lasthousefilepath != null) f = new File(lasthousefilepath);
+        }
+        if (lasthousefilepath != null) f = new File(lasthousefilepath);
       
         if(user != null && f!=null && f.exists() && f.isFile()) {
             this.setVisible(false);
