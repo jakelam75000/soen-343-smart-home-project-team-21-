@@ -14,6 +14,7 @@ public class Login extends JFrame {
     private JLabel userLabel;
     private JLabel passwordLabel;
     private JButton loginButton;
+    private JButton UploadFile;
 
     public Login(String title) {
         super(title);
@@ -23,6 +24,13 @@ public class Login extends JFrame {
         this.pack();
 
         addActionListeners();
+        UploadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                fc.showOpenDialog(UploadFile);
+            }
+        });
     }
 
     public void addActionListeners() {
