@@ -39,7 +39,7 @@ public class EditUserProfile extends JFrame {
         callingUser = calluser;
         this.setContentPane(mainPanel);
         this.pack();
-      
+        this.setResizable(false);
         addActionListeners();
         self = this;
         this.caller = caller;

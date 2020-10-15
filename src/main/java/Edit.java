@@ -34,7 +34,7 @@ public class Edit extends JFrame {
         this.pack();
         this.setBounds(x, y,width, height);
         this.caller = caller;
-
+        this.setResizable(false);
         addActionListeners();
     }
 
