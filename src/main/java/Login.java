@@ -17,7 +17,7 @@ public class Login extends JFrame {
     private JButton loginButton;
     private JButton UploadFile;
     private String filepath;
-    private String lasthousefilepath = null;
+    private static String lasthousefilepath = null;
 
     //Bounds variables
     private static final int x = 300;
