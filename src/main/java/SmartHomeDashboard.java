@@ -477,5 +477,6 @@ public class SmartHomeDashboard extends JFrame{
         }
 
         consoleText.append("\n" + current_Time_Formatted + text);
+        consoleText.setRows(consoleText.getRows()+ 1);
     }
 }
