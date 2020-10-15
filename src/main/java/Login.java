@@ -42,7 +42,6 @@ public class Login extends JFrame {
                 fc.showOpenDialog(UploadFile);
                 if (fc.getSelectedFile()!= null) {
                     filepath = fc.getSelectedFile().getAbsoluteFile().toString();
-                    filepath = filepath.replace(".txt", "");
                 }
                 else filepath=null;
             }
@@ -89,9 +88,9 @@ public class Login extends JFrame {
       
         File f = null;
         if (houseFilePath!= null) {
-            f = new File(houseFilePath + ".txt");
+            f = new File(houseFilePath);
             lasthousefilepath = houseFilePath;
-        } else if (lasthousefilepath != null) f = new File(lasthousefilepath + ".txt");
+        } else if (lasthousefilepath != null) f = new File(lasthousefilepath);
       
         if(user != null && f!=null && f.exists() && f.isFile()) {
             this.setVisible(false);
