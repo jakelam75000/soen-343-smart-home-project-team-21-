@@ -61,6 +61,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel openClosePanel;
     private Timer timer;
     private House house;
+    private boolean welcomemessagedisplayed = false;
 
 
     private static Edit editFrame = new Edit("Edit");
@@ -240,6 +241,10 @@ public class SmartHomeDashboard extends JFrame{
         timeLabel.setText(hour + ":" + minute + ":" + second);
 
         setUpSHCItems();
+        if (!welcomemessagedisplayed) {
+            printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
+            welcomemessagedisplayed = true;
+        }
     }
 
     /**
@@ -346,27 +351,29 @@ public class SmartHomeDashboard extends JFrame{
                 List<String> items = currentRoom.getItemMapValue(selectedItem);
 
                 openClosePanel.removeAll();
-                if (items!= null) openClosePanel.setLayout(new GridLayout(items.size(), 1));
+                if (items!= null) {
+                    openClosePanel.setLayout(new GridLayout(items.size(), 1));
 
-                JCheckBox[] itemsArr = new JCheckBox[items.size()];
-                for (int i=0; i < items.size(); i++) {
-                    itemsArr[i] = new JCheckBox(items.get(i));
-                    itemsArr[i].setSelected(isObjectOpen(items.get(i)));
-                    int index = i;
-                    itemsArr[i].addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
-                                itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                                printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                    JCheckBox[] itemsArr = new JCheckBox[items.size()];
+                    for (int i = 0; i < items.size(); i++) {
+                        itemsArr[i] = new JCheckBox(items.get(i));
+                        itemsArr[i].setSelected(isObjectOpen(items.get(i)));
+                        int index = i;
+                        itemsArr[i].addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())) {
+                                    itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                                    printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                                } else {
+                                    if (itemsArr[index].isSelected())
+                                        printToConsole(itemsArr[index].getText() + " was opened.");
+                                    else printToConsole(itemsArr[index].getText() + " was closed.");
+                                }
                             }
-                            else{
-                                if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
-                                else  printToConsole(itemsArr[index].getText() + " was closed.");
-                            }
-                        }
-                    });
-                    openClosePanel.add(itemsArr[i]);
+                        });
+                        openClosePanel.add(itemsArr[i]);
+                    }
                 }
 
 
