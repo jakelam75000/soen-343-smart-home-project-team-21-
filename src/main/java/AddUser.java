@@ -38,10 +38,10 @@ public class AddUser extends JFrame{
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.PARENT.toString());
                 } else if(addChild.isSelected()) {
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.CHILD.toString());
-                } else {
+                } else if (addGuest.isSelected()){
                     UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
                 }
-                if(strangerRadioButton.isSelected()){
+                else if(strangerRadioButton.isSelected()){
                     UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
                 }
 
