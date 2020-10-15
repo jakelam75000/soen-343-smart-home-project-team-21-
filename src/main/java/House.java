@@ -11,7 +11,7 @@ public class House {
     Room[] rooms;
     String name;
     private HashMap<SmartObjectType, List<String>> houseItems = new HashMap<SmartObjectType, List<String>>();
-    /*
+    /**
     constructor
      */
     public House(Room[] listrom, String nam ){
@@ -28,8 +28,8 @@ public class House {
     }
     //shouldnt be used for now
     /**
-    a mutator function which for now shouldn't be used
-    @param newroom This is the newest single room object to be added
+     * a mutator function which for now shouldn't be used
+     * @param newroom This is the newest single room object to be added
      */
     public void addRooms(Room newroom){
         Room[] temprooms = new Room[rooms.length+1];
@@ -49,7 +49,8 @@ public class House {
     }
 
     /**
-    to string override
+     * toString() override
+     * @return String listing information about the house.
      */
     public String toString(){
         String s = name + " has " + rooms.length + " rooms.\n\n";
@@ -60,7 +61,7 @@ public class House {
     }
 
     /**
-     * meant to retrieve all the names of the rooms
+     * Meant to retrieve all the names of the rooms.
      * @return String[] a list of all the rooms named
      */
     public String[] getRoomNames(){
@@ -72,7 +73,8 @@ public class House {
     }
 
     /**
-     * similar to getRoomNames() but returns the objects instead
+     * Similar to getRoomNames() but returns the objects instead
+     *
      * @return Room[] a list of all room objects
      */
     public Room[] getRoomsList(){
@@ -101,6 +103,12 @@ public class House {
         return houseItems.get(key);
     }
 
+    /**
+     * (Un)Blocks a window with an arbitrary object.
+     *
+     * @param name String name of the window to be (un)blocked.
+     * @param blocked boolean true if window must be blocked, false if it must be unblocked.
+     */
     public void blockWindow(String name, boolean blocked){
         for(Room room : rooms){
             room.blockWindow(name, blocked);
@@ -108,10 +116,11 @@ public class House {
     }
 
     /**
-     * Searches
-     * @param name
-     * @param open
-     * @return
+     * Searches all the rooms for the specified object and opens/closes it.
+     *
+     * @param name String name of the object to be opened/closed.
+     * @param open boolean true if object should be opened, false if it should be closed.
+     * @return boolean true if the object was successfully opened/closed, false otherwise.
      */
     public boolean openCloseObject(String name, boolean open){
         boolean success = false;

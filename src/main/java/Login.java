@@ -26,6 +26,11 @@ public class Login extends JFrame {
     private static final int width = 400;
     private static final int height = 300;
 
+    /**
+     * Parameterised constructor.
+     *
+     * @param title String title of the frame.
+     */
     public Login(String title) {
         super(title);
 
@@ -36,24 +41,16 @@ public class Login extends JFrame {
         this.setBounds(x, y, width, height);
 
         addActionListeners();
-        UploadFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                fc.showOpenDialog(UploadFile);
-                if (fc.getSelectedFile()!= null) {
-                    filepath = fc.getSelectedFile().getAbsoluteFile().toString();
-                }
-                else filepath=null;
-            }
-        });
+
         if (lasthousefilepath!=null){
             UploadFile.setVisible(false);
             housefieldlabel.setVisible(false);
-
         }
     }
 
+    /**
+     * Adding all the action listeners.
+     */
     public void addActionListeners() {
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -71,6 +68,7 @@ public class Login extends JFrame {
                     loginClicked(userText.getText(), new String(passwordText.getPassword()), filepath);
             }
         });
+
         userText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -78,6 +76,18 @@ public class Login extends JFrame {
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
                     loginClicked(userText.getText(), new String(passwordText.getPassword()), filepath);
+            }
+        });
+
+        UploadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                fc.showOpenDialog(UploadFile);
+                if (fc.getSelectedFile()!= null) {
+                    filepath = fc.getSelectedFile().getAbsoluteFile().toString();
+                }
+                else filepath=null;
             }
         });
     }
@@ -123,13 +133,4 @@ public class Login extends JFrame {
         }
     }
 
-
-    public static void main(String[] args) {
-
-        JFrame frame = new Login("My Smart Home");
-        frame.setVisible(true);
-
-        frame.setSize(400,500);
-
-    }
 }
