@@ -72,7 +72,7 @@ public class Login extends JFrame {
                 super.keyPressed(e);
 
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                    loginClicked(userText.getText(), new String(passwordText.getPassword()), filepath);r
+                    loginClicked(userText.getText(), new String(passwordText.getPassword()), filepath);
             }
         });
     }
@@ -83,14 +83,14 @@ public class Login extends JFrame {
      * @param username String username entered
      * @param password String password entered
      */
-    public void loginClicked(String username, String password){
+    public void loginClicked(String username, String password, String houseFilePath){
         // User Authentication
         User user = UserManager.findUser(username, password);
       
         File f = null;
-        if (housefilepath!= null) {
-            f = new File(housefilepath + ".txt");
-            lasthousefilepath = housefilepath;
+        if (houseFilePath!= null) {
+            f = new File(houseFilePath + ".txt");
+            lasthousefilepath = houseFilePath;
         } else if (lasthousefilepath != null) f = new File(lasthousefilepath + ".txt");
       
         if(user != null && f!=null && f.exists() && f.isFile()) {
