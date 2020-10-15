@@ -107,6 +107,12 @@ public class House {
         }
     }
 
+    /**
+     * Searches
+     * @param name
+     * @param open
+     * @return
+     */
     public boolean openCloseObject(String name, boolean open){
         boolean success = false;
         for(Room room : rooms){

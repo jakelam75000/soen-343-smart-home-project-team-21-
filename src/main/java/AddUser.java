@@ -16,14 +16,16 @@ public class AddUser extends JFrame{
     private JButton goBackButton;
     private JRadioButton strangerRadioButton;
     private AddUser self;
+    private SmartHomeDashboard caller;
 
-    public AddUser(String title) {
+    public AddUser(String title, SmartHomeDashboard caller) {
         super(title);
 
         this.setContentPane(mainPanel);
         this.pack();
 
         self = this;
+        this.caller = caller;
 
         addActionListeners();
     }
@@ -43,12 +45,12 @@ public class AddUser extends JFrame{
                     UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
                 }
 
-                Main.printToConsole(userText.getText() +" has been added.");
+                caller.printToConsole(userText.getText() +" has been added.");
 
                 userText.setText("");
                 passwordText.setText("");
 
-                Main.updateUsers();
+                caller.updateUsers();
             }
         });
 
