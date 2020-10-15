@@ -9,7 +9,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
     private JButton onOff;
     private JPanel Simulation;
-    private JButton editUserLocation;
+    private JButton editSimulation;
     private JTabbedPane tabbedPane1;
     private JPanel MIDPanel;
     private JPanel HouseLayout;
@@ -62,15 +62,13 @@ public class SmartHomeDashboard extends JFrame{
     private Timer timer;
     private House house;
     private boolean welcomemessagedisplayed = false;
+    private SmartHomeDashboard self;
 
-
-    private static Edit editFrame = new Edit("Edit");
-
-    // Boundaries of the Edit window.
-    private static final int xEdit = 300;
-    private static final int yEdit = 200;
-    private static final int widthEdit = 600;
-    private static final int heightEdit = 300;
+    //Bounds variables
+    private static final int x = 100;
+    private static final int y = 100;
+    private static final int width = 1100;
+    private static final int height = 600;
 
     /**
      * Parameterised constructor.
@@ -85,10 +83,14 @@ public class SmartHomeDashboard extends JFrame{
         Type.setText(type);
         Username.setText(username);
         house = HouseReader.loadhouse(housefilepath);
+        self = this;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
+
+        this.setBounds(x, y, width, height);
+        this.setResizable(false);
 
         setUpDashboardOptions();
         addActionListeners();
@@ -127,6 +129,9 @@ public class SmartHomeDashboard extends JFrame{
 
     }
 
+    /**
+     * Updates the user list in the SHS tab on the dashboard.
+     */
     public void updateUsers(){
         comboUsers.removeAllItems();
         if(Type.getText().equalsIgnoreCase("parent")){
@@ -148,14 +153,16 @@ public class SmartHomeDashboard extends JFrame{
         addUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddUser("Add User").setVisible(true);
+                new AddUser("Add User", self).setVisible(true);
 
             }
         });
-        editUserLocation.addActionListener(new ActionListener() {
+        editSimulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setUpEditFrame();
+                Edit edit = new Edit("Edit", self);
+                edit.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames(),Username.getText());
+                edit.setVisible(true);
             }
         });
         onOff.addActionListener(new ActionListener() {
@@ -199,13 +206,15 @@ public class SmartHomeDashboard extends JFrame{
         editUsrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText()).setVisible(true);
+                new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText(), self).setVisible(true);
             }
         });
         LogOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.logoutClicked();
+                Login loginFrame = new Login("Login");
+                loginFrame.setVisible(true);
+                self.setVisible(false);
             }
         });
     }
@@ -407,15 +416,6 @@ public class SmartHomeDashboard extends JFrame{
                 openClosePanel.add(itemsArr[i]);
             }
         }
-    }
-
-    /**
-     * Methods that sets up the Edit simulation frame.
-     */
-    public void setUpEditFrame(){
-        editFrame.setBounds(xEdit, yEdit, widthEdit, heightEdit);
-        editFrame.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames(),Username.getText());
-        editFrame.setVisible(true);
     }
 
     /**
