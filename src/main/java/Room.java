@@ -155,12 +155,27 @@ public class Room {
         for(Smartobj obj : smartobjects){
             if(obj.getName().equalsIgnoreCase(name) && obj.getType() == SmartObjectType.WINDOW){
                 Window window = (Window)obj;
-                window.setblocked(blocked);
+                window.setBlocked(blocked);
             }
         }
     }
+
+    public boolean openCloseObject(String name, boolean open){
+        for(Smartobj obj : smartobjects){
+            if(obj.getName().equalsIgnoreCase(name)){
+                SmartObjectType objType = obj.getType();
+                switch(objType){
+                    case WINDOW:
+                        Window object = (Window)obj;
+                        return object.setOpen(open);
+                }
+
+            }
+        }
+        return false;
+    }
+
     public Room clone(){
         return new Room(this);
     }
-
 }

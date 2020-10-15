@@ -600,8 +600,7 @@
                       </component>
                     </children>
                   </grid>
-                  <grid id="d96a" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
+                  <grid id="d96a" binding="openClosePanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                     <constraints>
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -609,19 +608,7 @@
                     <border type="none">
                       <color color="-9816448"/>
                     </border>
-                    <children>
-                      <component id="18c28" class="javax.swing.JList" binding="listOpenClose">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="50"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <inheritsPopupMenu value="false"/>
-                          <selectionBackground color="-9729602"/>
-                        </properties>
-                      </component>
-                    </children>
+                    <children/>
                   </grid>
                   <component id="a553" class="javax.swing.JLabel" binding="itemsLabel">
                     <constraints>

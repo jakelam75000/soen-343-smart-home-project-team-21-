@@ -1,8 +1,8 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SmartHomeDashboard extends JFrame{
@@ -58,6 +58,7 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;
+    private JPanel openClosePanel;
     private Timer timer;
     private House house;
     private EditUserProfile edituserp;
@@ -312,10 +313,8 @@ public class SmartHomeDashboard extends JFrame{
             Room currentRoom = null;
 
             if(currentLocation.equalsIgnoreCase("Outside")){
-                listOpenClose.setVisible(false);
+                openClosePanel.removeAll();
                 return;
-            } else {
-                listOpenClose.setVisible(true);
             }
 
 
@@ -330,12 +329,24 @@ public class SmartHomeDashboard extends JFrame{
                 SmartObjectType selectedItem = listItems.getSelectedValue();
                 List<String> items = currentRoom.getItemMapValue(selectedItem);
 
-                String[] itemsArr = new String[items.size()];
-                for (int i = 0; i < items.size(); i++) {
-                    itemsArr[i] = items.get(i);
+                openClosePanel.removeAll();
+                openClosePanel.setLayout(new GridLayout(items.size(), 1));
+
+                JCheckBox[] itemsArr = new JCheckBox[items.size()];
+                for (int i=0; i < items.size(); i++) {
+                    itemsArr[i] = new JCheckBox(items.get(i));
+                    int index = i;
+                    itemsArr[i].addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
+                                itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                            }
+                        }
+                    });
+                    openClosePanel.add(itemsArr[i]);
                 }
 
-                listOpenClose.setListData(itemsArr);
 
             }
         }
@@ -343,12 +354,23 @@ public class SmartHomeDashboard extends JFrame{
             SmartObjectType selectedItem = listItems.getSelectedValue();
             List<String> items = house.getHouseItemValue(selectedItem);
 
-            String[] itemsArr = new String[items.size()];
-            for (int i = 0; i < items.size(); i++) {
-                itemsArr[i] = items.get(i);
-            }
+            openClosePanel.removeAll();
+            openClosePanel.setLayout(new GridLayout(items.size(), 1));
 
-            listOpenClose.setListData(itemsArr);
+            JCheckBox[] itemsArr = new JCheckBox[items.size()];
+            for(int i=0; i<items.size(); i++){
+                itemsArr[i] = new JCheckBox(items.get(i));
+                int index = i;
+                itemsArr[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
+                            itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                        }
+                    }
+                });
+                openClosePanel.add(itemsArr[i]);
+            }
         }
     }
 
@@ -386,5 +408,14 @@ public class SmartHomeDashboard extends JFrame{
             }
         }
         return false;
+    }
+
+    /**
+     * Prints updates to the console inside the Dashboard.
+     *
+     * @param text String that is the text to be printed on the console.
+     */
+    public void printToConsole(String text){
+
     }
 }
