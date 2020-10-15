@@ -4,10 +4,8 @@ import java.awt.event.ActionListener;
 
 public class EditUserProfile extends JFrame {
     private JLabel username;
-    private JLabel oldPassword;
-    private JLabel newPassword;
-    private JTextField textField1;
-    private JTextField textField2;
+    private JLabel oldPasswordLabel;
+    private JLabel newPasswordLabel;
     private JLabel currentUsername;
     private JRadioButton parentRadio;
     private JRadioButton childRadio;
@@ -16,8 +14,10 @@ public class EditUserProfile extends JFrame {
     private JPanel mainPanel;
     private JButton confirmChangesButton;
     private JButton deleteUserButton;
-    private String callinguser;
-    private EditUserProfile p;
+    private JPasswordField oldPassword;
+    private JPasswordField newPassword;
+    private String callingUser;
+    private EditUserProfile self;
 
     public EditUserProfile(String title, String curtype,String userna, String calluser) {
         super(title);
@@ -27,23 +27,20 @@ public class EditUserProfile extends JFrame {
             guestRadio.setEnabled(false);
             strangerRadio.setEnabled(false);
             childRadio.setSelected(true);
-        }else if (curtype.equals("STRANGER")){
-            parentRadio.setEnabled(false);
-            guestRadio.setEnabled(false);
-            childRadio.setEnabled(false);
-            strangerRadio.setSelected(true);
         }else if (curtype.equals("GUEST")){
             parentRadio.setEnabled(false);
             childRadio.setEnabled(false);
             strangerRadio.setEnabled(false);
             guestRadio.setSelected(true);
+        } else if(curtype.equals("PARENT")){
+            parentRadio.setSelected(true);
         }
-        callinguser = calluser;
+        callingUser = calluser;
         this.setContentPane(mainPanel);
         this.pack();
       
         addActionListeners();
-        p = this;
+        self = this;
 
     }
 
@@ -58,7 +55,7 @@ public class EditUserProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("working up to here");
-                if (!UserManager.isUserValid(currentUsername.getText(), textField1.getText()))return;
+                if (!UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()))return;
                 String type = "error";
                 if (parentRadio.isSelected())type = UserTypes.PARENT.toString();
                 else if (childRadio.isSelected())type = UserTypes.CHILD.toString();
@@ -67,18 +64,24 @@ public class EditUserProfile extends JFrame {
                 if (type.equals("error")) return;
                 System.out.println("the type is " + type );
                 UserManager.removeUser(currentUsername.getText());
-                UserManager.addUser(currentUsername.getText(), textField2.getText(), type);
+                UserManager.addUser(currentUsername.getText(), newPassword.getText(), type);
+                Main.printToConsole(currentUsername.getText() + "'s password has been updated.");
             }
         });
         deleteUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ( !UserManager.isUserValid(currentUsername.getText(), textField1.getText()) && !UserManager.isUserValid(currentUsername.getText(),"null"))return;
-                UserManager.removeUser(currentUsername.getText());
-                if (currentUsername.getText().equals(callinguser)) {
-                    Main.logoutClicked();
-                    p.setVisible(false);
+                if (!UserManager.isUserValid(currentUsername.getText(), oldPassword.getText()) && !UserManager.isUserValid(currentUsername.getText(),"null")){
+                    return;
                 }
+                UserManager.removeUser(currentUsername.getText());
+                if (currentUsername.getText().equals(callingUser)) {
+                    Main.logoutClicked();
+                }
+
+                Main.updateUsers();
+                Main.printToConsole(currentUsername.getText() + "'s account has been deleted.");
+                self.setVisible(false);
             }
         });
     }

@@ -71,6 +71,15 @@ public class Main {
     public static void printToConsole(String text){
         dashboard.printToConsole(text);
     }
+
+    public static void updateUsers(){
+        dashboard.updateUsers();
+    }
+
+//    public static String getUserLocation(String name) {
+//        return UserManager.getUserLocation(name);
+//    }
+
     public static void main(String[] args){
 
         setUpLoginFrame();
@@ -80,4 +89,6 @@ public class Main {
         // This is to read house layout file submitted by user (right now it is hardcoded to HouseLayout.txt
         //HouseReader.readHouseLayout("Houselayout.txt");
     }
+
+
 }

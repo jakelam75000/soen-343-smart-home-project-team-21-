@@ -61,7 +61,6 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel openClosePanel;
     private Timer timer;
     private House house;
-    private EditUserProfile edituserp;
 
 
     private static Edit editFrame = new Edit("Edit");
@@ -123,6 +122,12 @@ public class SmartHomeDashboard extends JFrame{
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
 
+        updateUsers();
+
+    }
+
+    public void updateUsers(){
+        comboUsers.removeAllItems();
         if(Type.getText().equalsIgnoreCase("parent")){
             String[] users = UserManager.getUsernames();
             for (String user : users) {
@@ -133,8 +138,6 @@ public class SmartHomeDashboard extends JFrame{
             comboUsers.addItem(Username.getText());
             addUserButton.setEnabled(false);
         }
-
-
     }
 
     /**
@@ -164,8 +167,9 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
                     timer.stop();
-                    String curtime = timeLabel.getText();
-                    int[] times =timetest.Breakdowntime(curtime);
+
+                    String currentTime = timeLabel.getText();
+                    int[] times =timetest.Breakdowntime(currentTime);
                     hourSpinner.setValue((double)times[2]);
                     minuteSpinner.setValue((double)times[1]);
                     secondSpinner.setValue((double)times[0]);
@@ -222,7 +226,7 @@ public class SmartHomeDashboard extends JFrame{
 
         //Setting current location
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
-        UserManager.ChangeUserLocation(Username.getText(),currentLocLabel.getText());
+        UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
        // UserManager.TestLocation(Username.getText());
         //Setting time
         hourInt = (int)Math.round((double)hourSpinner.getValue());
@@ -465,13 +469,13 @@ public class SmartHomeDashboard extends JFrame{
      * @param text String that is the text to be printed on the console.
      */
     public void printToConsole(String text){
-        String oldText = consoleText.getText();
         String[] currentTime = timeLabel.getText().split(":");
         String current_Time_Formatted = "";
-        if(currentTime.length > 2){
+
+        if(onOff.isSelected()){
             current_Time_Formatted = "["+currentTime[0] + ":" + currentTime[1]+"]:";
         }
 
-        consoleText.setText(oldText + "\n" + current_Time_Formatted + text);
+        consoleText.append("\n" + current_Time_Formatted + text);
     }
 }

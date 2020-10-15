@@ -22,17 +22,17 @@ public class UserManager {
         // User it not valid
         return null;
     }
-    public static void ChangeUserLocation(String username, String location) {
+    public static void changeUserLocation(String username, String location) {
         if(userParent.get(username) != null) {
             userParent.get(username).setLocation(location);
         }
-        if(userChild.get(username) != null) {
+        else if(userChild.get(username) != null) {
             userChild.get(username).setLocation(location);
         }
-        if(userGuest.get(username) != null) {
+        else if(userGuest.get(username) != null) {
             userGuest.get(username).setLocation(location);
         }
-        if(userStranger.get(username) != null) {
+        else if(userStranger.get(username) != null) {
             userStranger.get(username).setLocation(location);
         }
     }
@@ -120,7 +120,25 @@ public class UserManager {
     public static int sizeUserGuest() {
         return userGuest.size();
     }
+
     public static int sizeUserStranger(){
         return userStranger.size();
+    }
+
+    public static String getUserLocation(String username){
+        if(userParent.get(username) != null) {
+            return userParent.get(username).getLocation();
+        }
+        else if(userChild.get(username) != null) {
+            return userChild.get(username).getLocation();
+        }
+        else if(userGuest.get(username) != null) {
+            return userGuest.get(username).getLocation();
+        }
+        else if(userStranger.get(username) != null) {
+            return userStranger.get(username).getLocation();
+        }
+
+        return "Outside";
     }
 }
