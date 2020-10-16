@@ -115,7 +115,7 @@ public class SimulationParameterTest {
                 () -> assertEquals("2", comboDate.getItemAt(comboDate.getSelectedIndex())),
                 () -> assertEquals("Wednesday", comboDay.getItemAt(comboDay.getSelectedIndex())),
                 () -> assertEquals("March", comboMonth.getItemAt(comboMonth.getSelectedIndex())),
-                () -> assertEquals("2020", comboYear.getItemAt(comboYear.getSelectedIndex()))
+                () -> assertEquals("2000", comboYear.getItemAt(comboYear.getSelectedIndex()))
 
         );
 
