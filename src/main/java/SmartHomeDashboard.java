@@ -54,7 +54,6 @@ public class SmartHomeDashboard extends JFrame{
     private JList<SmartObjectType> listItems;
     private JList<String> listOpenClose;
     private JSpinner outSideTemp;
-    private JLabel imageLayout;
     private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;

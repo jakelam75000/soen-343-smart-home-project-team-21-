@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -79,6 +80,9 @@ public class HouseReader {
             }
 
             lineReader.close();
+
+            // This is commented out for now
+            //loadHouseLayout(mainhouse);
         }
         catch (FileNotFoundException e) {
             System.out.println("an error has occured, file may be missing or misspelled");
@@ -86,6 +90,16 @@ public class HouseReader {
             return null;
         }
         return  mainhouse;
+    }
+
+    public static void loadHouseLayout(House mainHouse) {
+        // Created frame just to test we would want this to appear in the JPanel HouseLayout
+        JFrame frame = new JFrame();
+        frame.add(new DynamicLayout(mainHouse.getRoomsList()));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
 
