@@ -112,8 +112,8 @@ public class SmartHomeDashboard extends JFrame{
         for(String x : weekDays) comboDay.addItem(x);
         for(String x : months) comboMonth.addItem(x);
         for(int i=1; i<32; i++) comboDate.addItem(""+i);
-        for(int i=2020; i>1999; i--) comboYear.addItem(""+i);
-
+        for(int i=2000; i<=2025; i++) comboYear.addItem(""+i);
+        comboYear.setSelectedIndex(20);
         //Setting the "Location" combobox
         String[] locations = house.getRoomNames();
         for(String x : locations) comboLocation.addItem(x);
@@ -177,7 +177,7 @@ public class SmartHomeDashboard extends JFrame{
                     timer.stop();
 
                     String currentTime = timeLabel.getText();
-                    int[] times =timetest.Breakdowntime(currentTime);
+                    int[] times =Breakdowntime(currentTime);
                     hourSpinner.setValue((double)times[2]);
                     minuteSpinner.setValue((double)times[1]);
                     secondSpinner.setValue((double)times[0]);
@@ -199,7 +199,7 @@ public class SmartHomeDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s =timeLabel.getText();
-                s = timetest.updatetime(s);
+                s = updatetime(s);
                 timeLabel.setText(s);
             }
         });
@@ -485,6 +485,97 @@ public class SmartHomeDashboard extends JFrame{
 
         consoleText.append("\n" + current_Time_Formatted + text);
         consoleText.setRows(consoleText.getRows()+ 1);
+    }
+    /**
+     *  updates the date and time
+     *
+     * @param inputime string representing time in hr:min:sec format
+     * @return time to be updated to the label (date is done internally as this mehtod was taken from a different java class)
+     */
+    String updatetime(String inputime) {
+        String outputtime;
+        int temphr;
+        int tempmin;
+        int tempsec;
+        String second;
+        String hour;
+        String minute;
+        String date = comboDate.getItemAt(comboDate.getSelectedIndex());
+        String day = comboDay.getItemAt(comboDay.getSelectedIndex());
+        String month = comboMonth.getItemAt(comboMonth.getSelectedIndex());
+        String year = comboYear.getItemAt(comboYear.getSelectedIndex());
+        //format hr.min
+        int indexmid = inputime.indexOf(":");
+        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
+        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
+        temphr = Integer.parseInt(inputime.substring(0, indexmid));
+        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
+        if (tempsec > 58) {
+            tempsec = 0;
+            tempmin++;
+        } else tempsec++;
+        if (tempmin > 59){
+            tempmin =0;
+            temphr++;
+        }
+        if (temphr >= 24){
+            temphr=0;
+            int tempd =Integer.parseInt(date);
+            tempd++;
+
+            if (!day.contains("Sun")) {
+                day = comboDay.getItemAt(comboDay.getSelectedIndex() + 1);
+                comboDay.setSelectedItem(comboDay.getItemAt(comboDay.getSelectedIndex() + 1));
+            }
+            else {
+                day = comboDay.getItemAt( 0);
+                comboDay.setSelectedItem(comboDay.getItemAt(0));
+            }
+            if (tempd >31 && !month.contains("Dec")){
+                month = comboMonth.getItemAt(comboMonth.getSelectedIndex() +1);
+                comboMonth.setSelectedItem(comboMonth.getItemAt(comboMonth.getSelectedIndex() + 1));
+            }
+            else if (tempd >31 && month.contains("Dec")){
+                month = comboMonth.getItemAt(0);
+                comboMonth.setSelectedItem(comboMonth.getItemAt(0));
+                year = comboYear.getItemAt(comboYear.getSelectedIndex() +1);
+                comboYear.setSelectedItem(comboYear.getItemAt(comboYear.getSelectedIndex() + 1));
+                printToConsole("Happy new Years!");
+            }
+            if (tempd < 31)date = String.valueOf(tempd);
+            else date = "1";
+
+            dateLabel.setText(day.substring(0, 3) + " " + month.substring(0, 3) + " " + date + " " + year);
+        }
+        if (temphr <10) hour = "0" + temphr;
+        else hour = String.valueOf(temphr);
+        if (tempmin <10) minute = "0" + tempmin;
+        else minute = String.valueOf(tempmin);
+        if (tempsec <10) second = "0" + tempsec;
+        else second = String.valueOf(tempsec);
+        outputtime = hour+":"+minute+":"+second;
+        return outputtime;
+    }
+
+    /**
+     * breaksdown a time input hr:min:sec to an int array[] e.g. int[0] = hr, int [1] = min int[2] = sec
+     * @param inputime String of above mentioned format to represent time to be decomposed
+     * @return an int array representing a frame of time broken into different int elements
+     */
+    static int[] Breakdowntime(String inputime){
+        int[] a = new int[3];
+        int temphr;
+        int tempmin;
+        int tempsec;
+        int indexmid = inputime.indexOf(":");
+        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
+        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
+        temphr = Integer.parseInt(inputime.substring(0, indexmid));
+        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
+        a[0] = tempsec;
+        a[1] = tempmin;
+        a[2] = temphr;
+        return a;
     }
 
     /**
