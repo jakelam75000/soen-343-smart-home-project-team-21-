@@ -66,32 +66,33 @@ public class UserManager {
      * @param password String password of user to be added
      * @param type String type of user to be added
      */
-    public static void addUser(String username, String password, String type) {
+    public static boolean addUser(String username, String password, UserTypes type) {
         if (authenticate.get(username) != null){
             System.out.println("Username already exists");
-            return;
+            return false;
         }
 
         // Add user to the authenticate hashmap
-        if (!type.equals("STRANGER")) {
+        if (type != UserTypes.STRANGER) {
             authenticate.put(username, password);
         } else {
             authenticate.put(username, "null");
         }
 
         // Add user to the hashmap of its respective type
-        if(type.equals(UserTypes.PARENT.toString())) {
+        if(type == UserTypes.PARENT) {
             userParent.put(username, new Parent(username, password));
-        } else if(type.equals(UserTypes.CHILD.toString())) {
+        } else if(type == UserTypes.CHILD) {
             userChild.put(username, new Child(username, password));
-        } else if(type.equals(UserTypes.GUEST.toString())){
+        } else if(type == UserTypes.GUEST){
             userGuest.put(username, new Guest(username, password));
         }
-        else if (type.equals(UserTypes.STRANGER.toString())){
+        else if (type == UserTypes.STRANGER){
             userStranger.put(username, new Stranger(username));
         }
 
         System.out.println("Successfully added");
+        return true;
 
     }
 
@@ -100,17 +101,10 @@ public class UserManager {
      *
      * @param username String username to be deleted
      */
-    public static void removeUser(String username) {
-        if(authenticate.get(username) == null) {
-            System.out.println("User doesn't exist");
-            return;
+    public static boolean removeUser(String username, String password) {
+        if (isAdmin(username) || !isUserValid(username, password)){
+            return false;
         }
-
-        if(isAdmin(username)) {
-            System.out.println("Can't delete admin");
-            return;
-        }
-
         authenticate.remove(username);
         if(userParent.get(username) != null) {
             userParent.remove(username);
@@ -123,17 +117,25 @@ public class UserManager {
         }
 
         System.out.println("Successfully removed");
+        return true;
     }
 
     public static boolean isAdmin(String username) {
         return admin == findUser(username, authenticate.get(username));
     }
 
+    public static boolean editUser(String username, String oldPassword, String newPassword, UserTypes type) {
+        if (!isUserValid(username, oldPassword)) {
+            return false;
+        }
+        return removeUser(username, oldPassword) && addUser(username, newPassword, type);
+    }
+
     /**
      * initializes user by creating some preset users.
      */
     public static void initialize() {
-        addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
+        addUser("Parent1", "passwordabc", UserTypes.PARENT);
         admin = findUser("Parent1", "passwordabc");
     }
 

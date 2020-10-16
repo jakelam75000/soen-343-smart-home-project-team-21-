@@ -43,20 +43,26 @@ public class AddUser extends JFrame{
         createUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(addParent.isSelected() && passwordText.getPassword().length != 0 && !userText.getText().equals("") ) {
-                    System.out.println("the password is : "+ passwordText.getPassword());
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.PARENT.toString());
-                    caller.printToConsole(userText.getText() +" has been added.");
-                } else if(addChild.isSelected()&& passwordText.getPassword().length != 0 && !userText.getText().equals("")) {
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.CHILD.toString());
-                    caller.printToConsole(userText.getText() +" has been added.");
-                } else if (addGuest.isSelected()&& passwordText.getPassword().length != 0 && !userText.getText().equals("")){
-                    UserManager.addUser(userText.getText(), new String(passwordText.getPassword()), UserTypes.GUEST.toString());
-                    caller.printToConsole(userText.getText() +" has been added.");
-                }
-                else if(strangerRadioButton.isSelected() && !userText.getText().equals("")){
-                    UserManager.addUser(userText.getText(), null,UserTypes.STRANGER.toString());
-                    caller.printToConsole(userText.getText() +" has been added.");
+                String username = userText.getText();
+                String password = new String(passwordText.getPassword());
+                UserTypes type = null;
+                // Only can add user there is a password, username and type OR if user is of type stranger it does not need a password
+                if ((strangerRadioButton.isSelected() && !userText.getText().equals("")) ||
+                        (passwordText.getPassword().length != 0 && !userText.getText().equals(""))) {
+                    if(addParent.isSelected()) {
+                        type = UserTypes.PARENT;
+                    } else if(addChild.isSelected()) {
+                        type = UserTypes.CHILD;
+                    } else if (addGuest.isSelected()) {
+                        type = UserTypes.GUEST;
+                    } else if (strangerRadioButton.isSelected()) {
+                        type = UserTypes.STRANGER;
+                    }
+                    if(UserManager.addUser(username, password,type)) {
+                        caller.printToConsole(userText.getText() +" has been added.");
+                    } else {
+                        caller.printToConsole("This username already exists.");
+                    }
                 }
                 userText.setText("");
                 passwordText.setText("");

@@ -9,12 +9,12 @@ class room, which holds the name of the room and smartobjects in that room.
 @since 2020-09-30
  */
 public class Room {
-    Smartobj[] smartobjects;
-    HashMap<SmartObjectType, List<String>> itemMap = new HashMap<SmartObjectType, List<String>>();
-    String name;
-    double temperature;
-    double width;
-    double length;
+    private Smartobj[] smartobjects;
+    private HashMap<SmartObjectType, List<String>> itemMap = new HashMap<>();
+    private String name;
+    private double temperature;
+    private double width;
+    private double length;
 
     /**
     constructor
@@ -144,6 +144,10 @@ public class Room {
      */
     public void setTemperature(double desiredtemp){
         temperature = desiredtemp;
+    }
+
+    public double getTemperature() {
+        return temperature;
     }
 
     /**

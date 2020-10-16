@@ -82,7 +82,7 @@ public class SmartHomeDashboard extends JFrame{
         super(title);
         Type.setText(type);
         Username.setText(username);
-        house = HouseReader.loadhouse(housefilepath);
+        house = HouseReader.readAndLoadHouse(housefilepath);
         self = this;
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,7 +117,7 @@ public class SmartHomeDashboard extends JFrame{
         //Setting the "Location" combobox
         String[] locations = house.getRoomNames();
         for(String x : locations) comboLocation.addItem(x);
-        comboLocation.addItem("Outside");
+        comboLocation.addItem(LocationType.OUTSIDE.toString());
 
         //Setting "Time" spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
@@ -271,7 +271,7 @@ public class SmartHomeDashboard extends JFrame{
             List<SmartObjectType> roomItems;
             List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
 
-            if(currentLocation.equalsIgnoreCase("Outside")){
+            if(currentLocation.equals(LocationType.OUTSIDE.toString())){
                 listItems.setVisible(false);
                 itemsLabel.setText("Items " + currentLocation);
                 setUpSHCOpenClose();
@@ -281,7 +281,7 @@ public class SmartHomeDashboard extends JFrame{
             //Figuring out which room object we are currently in.
             for (int i = 0; i < roomNames.length; i++) {
                 if (roomNames[i].equalsIgnoreCase(currentLocation)) {
-                    currentRoom = house.rooms[i];
+                    currentRoom = house.getRoomAtIndex(i);
                     break;
                 }
             }
@@ -342,15 +342,15 @@ public class SmartHomeDashboard extends JFrame{
             String[] roomNames = house.getRoomNames();
             Room currentRoom = null;
 
-            if(currentLocation.equalsIgnoreCase("Outside")){
+            if(currentLocation.equals(LocationType.OUTSIDE.toString())){
                 openClosePanel.removeAll();
                 return;
             }
 
 
             for (int i = 0; i < roomNames.length; i++) {
-                if (roomNames[i].equalsIgnoreCase(currentLocation)) {
-                    currentRoom = house.rooms[i];
+                if (roomNames[i].equals(currentLocation)) {
+                    currentRoom = house.getRoomAtIndex(i);
                     break;
                 }
             }

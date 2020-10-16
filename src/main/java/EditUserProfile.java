@@ -56,41 +56,46 @@ public class EditUserProfile extends JFrame {
         confirmChangesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String username = currentUsername.getText();
-                if (!UserManager.isUserValid(username, new String(oldPassword.getPassword())))return;
+                String oldPasswordFormatted = new String(oldPassword.getPassword());
+                String newPasswordFormatted = new String(newPassword.getPassword());
 
-                String type = "error";
-                if (parentRadio.isSelected())type = UserTypes.PARENT.toString();
-                else if (childRadio.isSelected())type = UserTypes.CHILD.toString();
-                else if (guestRadio.isSelected())type = UserTypes.GUEST.toString();
-                else if (strangerRadio.isSelected())type = UserTypes.STRANGER.toString();
-                if (type.equals("error")) return;
-                System.out.println("the type is " + type );
+                UserTypes type = null;
+                if (parentRadio.isSelected())type = UserTypes.PARENT;
+                else if (childRadio.isSelected())type = UserTypes.CHILD;
+                else if (guestRadio.isSelected())type = UserTypes.GUEST;
+                else if (strangerRadio.isSelected())type = UserTypes.STRANGER;
+                if (type == null) return;
 
-                UserManager.removeUser(username);
-                UserManager.addUser(username, new String(newPassword.getPassword()), type);
-                caller.printToConsole(username + "'s password has been updated.");
+                //Check if we successfully edited the user
+                if (UserManager.editUser(username, oldPasswordFormatted, newPasswordFormatted, type)) {
+                    caller.printToConsole(username + "'s password and/or type has been updated.");
+                } else {
+                    caller.printToConsole(username + "'s password and/or type has failed to be updated please try again.");
+                }
             }
         });
         deleteUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = currentUsername.getText();
-                if (UserManager.isAdmin(username) || (!UserManager.isUserValid(username, new String(oldPassword.getPassword())) && !UserManager.isUserValid(username,"null"))){
-                    return;
-                }
-                UserManager.removeUser(username);
-                if (username.equals(callingUser)) {
-                    Login loginFrame = new Login("Login");
-                    loginFrame.setVisible(true);
+                String password = new String(oldPassword.getPassword());
+                if (UserManager.removeUser(username, password)) {
+                    if (username.equals(callingUser)) {
+                        Login loginFrame = new Login("Login");
+                        loginFrame.setVisible(true);
+                        self.setVisible(false);
+                        caller.setVisible(false);
+                    }
+
+                    caller.updateUsers();
+                    caller.printToConsole(username + "'s account has been deleted.");
+
                     self.setVisible(false);
-                    caller.setVisible(false);
+                } else {
+                    caller.printToConsole(username + "'s account has not been deleted please try again.");
                 }
-
-                caller.updateUsers();
-                caller.printToConsole(username + "'s account has been deleted.");
-
-                self.setVisible(false);
             }
         });
     }

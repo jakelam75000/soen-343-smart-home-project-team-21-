@@ -14,7 +14,7 @@ public class HouseReader {
      * @param filename the file path to the houselayout txt file
      * @return House returns a house object loaded with the rooms and smartobj
      */
-    public static House loadhouse(String filename) {
+    public static House readAndLoadHouse(String filename) {
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
@@ -49,7 +49,8 @@ public class HouseReader {
 
                 for (int i= 0; i < listofrooms.length; i++){
                     s = lineReader.nextLine();
-                    temproomname = s.substring(s.indexOf(':')+2);
+                    temproomname = s.substring(s.indexOf(':')+2).replaceAll("\\s+","").toUpperCase();
+                    temproomname = LocationType.valueOf(temproomname).toString();
                     s = lineReader.nextLine();
                     temproomtempreture = Double.parseDouble(s.substring(s.indexOf(':')+2));
                     s = lineReader.nextLine();
