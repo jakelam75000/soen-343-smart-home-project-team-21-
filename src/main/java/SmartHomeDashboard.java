@@ -486,4 +486,84 @@ public class SmartHomeDashboard extends JFrame{
         consoleText.append("\n" + current_Time_Formatted + text);
         consoleText.setRows(consoleText.getRows()+ 1);
     }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JComboBox<String> getComboDate() {
+        return comboDate;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JComboBox<String> getComboDay() {
+        return comboDay;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JComboBox<String> getComboMonth() {
+        return comboMonth;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JComboBox<String> getComboYear() {
+        return comboYear;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JSpinner getHourSpinner() {
+        return hourSpinner;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JSpinner getMinuteSpinner() {
+        return minuteSpinner;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JSpinner getSecondSpinner() {
+        return secondSpinner;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JSpinner getOutSideTemp() {
+        return outSideTemp;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JComboBox<String> getComboLocation() {
+        return comboLocation;
+    }
+
+    /**
+     * For testing
+     * @return
+     */
+    public JButton getOnOff() {
+        return onOff;
+    }
 }

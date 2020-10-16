@@ -99,7 +99,7 @@ public class Login extends JFrame {
      * @param username String username entered
      * @param password String password entered
      */
-    public void loginClicked(String username, String password, String houseFilePath){
+    public boolean loginClicked(String username, String password, String houseFilePath){
         // User Authentication
         User user = UserManager.findUser(username, password);
 
@@ -128,9 +128,10 @@ public class Login extends JFrame {
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username, f.getPath()).setVisible(true);
             }
             else if (user instanceof Stranger)System.out.println("Login failed, trying to login as stranger");
+            return true;
         } else {
             System.out.println("Login failed");
-            //display failed login message
+            return false;
         }
     }
 
