@@ -752,13 +752,13 @@
           </tabbedpane>
         </children>
       </grid>
-      <grid id="728d7" binding="HouseLayout" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="728d7" binding="HouseLayout" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="5" left="5" bottom="5" right="5"/>
         <constraints>
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <minimum-size width="360" height="-1"/>
-            <preferred-size width="360" height="-1"/>
-            <maximum-size width="360" height="-1"/>
+            <minimum-size width="360" height="360"/>
+            <preferred-size width="360" height="360"/>
+            <maximum-size width="360" height="360"/>
           </grid>
         </constraints>
         <properties>
@@ -768,22 +768,9 @@
           <title-color color="-4473925"/>
         </border>
         <children>
-          <component id="fdf08" class="javax.swing.JLabel" binding="imageLayout">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                <minimum-size width="350" height="350"/>
-                <preferred-size width="350" height="350"/>
-                <maximum-size width="350" height="350"/>
-              </grid>
-            </constraints>
-            <properties>
-              <icon value="icons/noImage.png"/>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="f976b" class="javax.swing.JLabel">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="House View"/>
