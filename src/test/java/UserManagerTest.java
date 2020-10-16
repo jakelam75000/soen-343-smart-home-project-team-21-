@@ -17,11 +17,11 @@ public class UserManagerTest {
 
     // Initialize users
     public static void initialize() {
-        UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT.toString());
-        UserManager.addUser("Parent2", "password123", UserTypes.PARENT.toString());
-        UserManager.addUser("Child1", "abc", UserTypes.CHILD.toString());
-        UserManager.addUser("Child2", "123", UserTypes.CHILD.toString());
-        UserManager.addUser("Guest", "password", UserTypes.GUEST.toString());
+        UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT);
+        UserManager.addUser("Parent2", "password123", UserTypes.PARENT);
+        UserManager.addUser("Child1", "abc", UserTypes.CHILD);
+        UserManager.addUser("Child2", "123", UserTypes.CHILD);
+        UserManager.addUser("Guest", "password", UserTypes.GUEST);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class UserManagerTest {
 
         initialize();
         // Should not be added because username already exists
-        UserManager.addUser("Parent1", "password", UserTypes.PARENT.toString());
+        UserManager.addUser("Parent1", "password", UserTypes.PARENT);
 
         assertAll(
                 "Make sure user have been added correctly",
@@ -46,16 +46,18 @@ public class UserManagerTest {
         isEmpty();
 
         // This should not remove anything since there are no users
-        UserManager.removeUser("dina");
+        UserManager.removeUser("Parent2", "password123");
         isEmpty();
 
         initialize();
 
-        UserManager.removeUser("Parent2");
-        UserManager.removeUser("Guest");
-        UserManager.removeUser("Child1");
+        UserManager.removeUser("Parent2", "password123");
+        UserManager.removeUser("Guest", "password");
+        UserManager.removeUser("Child1", "abc");
         //Should not remove since username does not exist
-        UserManager.removeUser("Friend");
+        UserManager.removeUser("Friend", "password");
+        //Should not remove because password not valid
+        UserManager.removeUser("Child2", "fail");
 
         assertAll(
                 "Make sure user have been deleted correctly",
@@ -68,7 +70,15 @@ public class UserManagerTest {
 
     @Test
     public void testEditUser() {
+        initialize();
 
+        assertAll(
+                "Make sure user have been edited correctly",
+                () -> assertEquals(false, UserManager.editUser("", "", "", null)),
+                () -> assertEquals(false, UserManager.editUser("Parent2", "wrong", "new", UserTypes.PARENT)),
+                () -> assertEquals(true, UserManager.editUser("Parent2", "password123", "new", UserTypes.PARENT)),
+                () -> assertEquals(true, UserManager.editUser("Guest", "password", "hello", UserTypes.CHILD))
+        );
     }
 
     @AfterEach

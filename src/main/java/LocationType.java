@@ -1,0 +1,3 @@
+public enum LocationType {
+    OUTSIDE, LIVINGROOM, BEDROOM, KITCHEN, GARAGE, OFFICE
+}

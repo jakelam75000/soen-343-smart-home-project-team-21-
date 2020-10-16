@@ -98,7 +98,7 @@ public class Edit extends JFrame {
             for(String location : locations){
                 comboLocations.addItem(location);
             }
-            comboLocations.addItem("Outside");
+            comboLocations.addItem(LocationType.OUTSIDE.toString());
 
             for(String window : windows){
                 comboWindows.addItem(window);

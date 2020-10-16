@@ -5,8 +5,8 @@
 *@since 2020-09-30
  */
 public class Window extends Smartobj  {
-    boolean blocked;
-    boolean open;
+    private boolean blocked;
+    private boolean open;
 
     /**
     * constructor

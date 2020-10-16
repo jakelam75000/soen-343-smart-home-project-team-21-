@@ -8,8 +8,8 @@ class house, holds the house rooms, name and smartobjects by extension
 @since 2020-09-30
  */
 public class House {
-    Room[] rooms;
-    String name;
+    private Room[] rooms;
+    private String name;
     private HashMap<SmartObjectType, List<String>> houseItems = new HashMap<SmartObjectType, List<String>>();
     /**
     constructor
@@ -72,6 +72,10 @@ public class House {
         return s;
     }
 
+    public int getRoomCount() {
+        return rooms.length;
+    }
+
     /**
      * Similar to getRoomNames() but returns the objects instead
      *
@@ -85,6 +89,10 @@ public class House {
         }
 
         return list;
+    }
+
+    public Room getRoomAtIndex(int i) {
+        return rooms[i];
     }
 
     public HashMap<SmartObjectType, String> getHouseItems(){
