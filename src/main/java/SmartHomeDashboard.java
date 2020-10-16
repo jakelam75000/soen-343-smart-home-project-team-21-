@@ -93,6 +93,7 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDashboardOptions();
         addActionListeners();
+        HouseLayout.add(new DynamicLayout(house.getRoomsList()));
     }
 
     /**
