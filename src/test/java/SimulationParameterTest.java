@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+
 import static org.junit.jupiter.api.Assertions.*;
-public class UserManagerTest {
+public class SimulationParameterTest {
 
     // Making sure all users are cleared
     public void isEmpty() {
@@ -79,6 +81,56 @@ public class UserManagerTest {
                 () -> assertEquals(true, UserManager.editUser("Parent2", "password123", "new", UserTypes.PARENT)),
                 () -> assertEquals(true, UserManager.editUser("Guest", "password", "hello", UserTypes.CHILD))
         );
+    }
+
+    @Test
+    public void testLogin() {
+        Login login = new Login("test");
+        initialize();
+
+        assertAll(
+                "Make sure user is logged in correctly",
+                () -> assertEquals(false, login.loginClicked("Child1", "123", "Houselayout.txt")),
+                () -> assertEquals(true, login.loginClicked("Parent1", "passwordabc", "Houselayout.txt")),
+                () -> assertEquals(true, login.loginClicked("Child1", "abc", "Houselayout.txt"))
+
+        );
+    }
+
+    @Test
+    public void testSetDateAndTime() {
+        SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
+        JComboBox<String> comboDate = smartHomeDashboard.getComboDate();
+        JComboBox<String> comboDay = smartHomeDashboard.getComboDay();
+        JComboBox<String> comboMonth = smartHomeDashboard.getComboMonth();
+        JComboBox<String> comboYear = smartHomeDashboard.getComboYear();
+
+        comboDate.setSelectedIndex(1);
+        comboDay.setSelectedIndex(2);
+        comboMonth.setSelectedIndex(2);
+        comboYear.setSelectedIndex(0);
+
+        assertAll(
+                "Make sure date is set properly",
+                () -> assertEquals("2", comboDate.getItemAt(comboDate.getSelectedIndex())),
+                () -> assertEquals("Wednesday", comboDay.getItemAt(comboDay.getSelectedIndex())),
+                () -> assertEquals("March", comboMonth.getItemAt(comboMonth.getSelectedIndex())),
+                () -> assertEquals("2020", comboYear.getItemAt(comboYear.getSelectedIndex()))
+
+        );
+
+        smartHomeDashboard.getHourSpinner().setValue(6);
+        smartHomeDashboard.getMinuteSpinner().setValue(12);
+        smartHomeDashboard.getSecondSpinner().setValue(33);
+
+        assertAll(
+                "Make sure time is set properly",
+                () -> assertEquals(6, smartHomeDashboard.getHourSpinner().getValue()),
+                () -> assertEquals(12, smartHomeDashboard.getMinuteSpinner().getValue()),
+                () -> assertEquals(33, smartHomeDashboard.getSecondSpinner().getValue())
+
+        );
+
     }
 
     @AfterEach

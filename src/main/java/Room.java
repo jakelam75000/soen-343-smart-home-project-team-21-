@@ -155,13 +155,15 @@ public class Room {
      * @param name String name of the window to be blocked/unblocked
      * @param blocked Boolean value that determines whether the window should be blocked or unblocked
      */
-    public void blockWindow(String name, boolean blocked){
+    public boolean blockWindow(String name, boolean blocked){
         for(Smartobj obj : smartobjects){
             if(obj.getName().equalsIgnoreCase(name) && obj.getType() == SmartObjectType.WINDOW){
                 Window window = (Window)obj;
                 window.setBlocked(blocked);
             }
         }
+
+        return blocked;
     }
 
     public boolean openCloseObject(String name, boolean open){
