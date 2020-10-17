@@ -116,7 +116,10 @@ public class Room {
         return value;
     }
 
-
+    /**
+     * retrusn an array of all the items names
+     * @return returns a string array of all the items names
+     */
     public String[] getItemNames(){
         String[] names = new String[smartobjects.length];
 
@@ -127,7 +130,10 @@ public class Room {
         return names;
     }
 
-
+    /**
+     * to string that formats the information to a string
+     * @return String the string that contains the infromation of the room
+     */
     @Override
     public String toString() {
         String s;
@@ -151,6 +157,10 @@ public class Room {
         temperature = desiredtemp;
     }
 
+    /**
+     * getter method
+     * @return double tempreture of the room
+     */
     public double getTemperature() {
         return temperature;
     }
@@ -171,6 +181,12 @@ public class Room {
         return blocked;
     }
 
+    /**
+     * Opens and closes an object
+     * @param name String the name of the window
+     * @param open Boolean the open or close value of the window
+     * @return Boolean value that returns if the operation was succesfull
+     */
     public boolean openCloseObject(String name, boolean open){
         for(Smartobj obj : smartobjects){
             if(obj.getName().equalsIgnoreCase(name)){
@@ -186,6 +202,10 @@ public class Room {
         return false;
     }
 
+    /**
+     * clones the room object
+     * @return Room a copy of the room
+     */
     public Room clone(){
         return new Room(this);
     }

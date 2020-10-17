@@ -5,6 +5,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+/**
+ * frame that holds the login information
+ */
 public class Login extends JFrame {
     private JPanel mainPanel;
     private JPanel topPanel;
@@ -53,6 +56,10 @@ public class Login extends JFrame {
      */
     public void addActionListeners() {
         loginButton.addActionListener(new ActionListener() {
+            /**
+             * calles the login clicked method to verify information adn then allow to proceed to the next frame
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 loginClicked(userText.getText(), new String(passwordText.getPassword()), filepath);
@@ -60,6 +67,10 @@ public class Login extends JFrame {
         });
 
         passwordText.addKeyListener(new KeyAdapter() {
+            /**
+             * allows for the user to login by pressing enter
+             * @param e ActionEvenet
+             */
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
@@ -70,6 +81,10 @@ public class Login extends JFrame {
         });
 
         userText.addKeyListener(new KeyAdapter() {
+            /**
+             * allows for the user to login by pressing enter
+             * @param e ActionEvenet
+             */
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
@@ -80,6 +95,10 @@ public class Login extends JFrame {
         });
 
         UploadFile.addActionListener(new ActionListener() {
+            /**
+             * allows for the user to choose the file via file explorer
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
