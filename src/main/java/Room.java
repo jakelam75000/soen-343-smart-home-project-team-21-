@@ -38,6 +38,11 @@ public class Room {
         }
     }
 
+    /**
+     * Copy constructor.
+     *
+     * @param room Room pointer to be copied.
+     */
     public Room(Room room){
         this.name = room.name;
         this.temperature = room.temperature;

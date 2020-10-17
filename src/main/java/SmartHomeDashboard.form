@@ -318,6 +318,7 @@
                         </constraints>
                         <properties>
                           <maximumRowCount value="7"/>
+                          <model/>
                         </properties>
                       </component>
                       <component id="6bc72" class="javax.swing.JComboBox" binding="comboDate">

@@ -29,6 +29,7 @@ public class DynamicLayout extends JPanel {
     public void generateAllRooms() {
         //width and height are the same
         int widthAndHeight;
+
         // We don't start at (0,0) because that belongs to the outside
         int initial = 20;
         int x = 0;

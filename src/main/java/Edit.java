@@ -104,6 +104,6 @@ public class Edit extends JFrame {
                 comboWindows.addItem(window);
             }
 
-             comboLocations.setSelectedItem(UserManager.getUserLocation(comboUsers.getItemAt(comboUsers.getSelectedIndex())));
-        }
+            comboLocations.setSelectedItem(UserManager.getUserLocation(comboUsers.getItemAt(comboUsers.getSelectedIndex())));
+    }
 }
