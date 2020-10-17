@@ -4,11 +4,11 @@ import java.awt.*;
 public abstract class RoomComponent{
 
     private JPanel container;
-    private Rectangle RoomRect;
+    private RoomRectangle RoomRect;
     private int relX;
     private int relY;
 
-    public RoomComponent(JPanel panel, Rectangle roomRect){
+    public RoomComponent(JPanel panel, RoomRectangle roomRect){
         this.RoomRect = roomRect;
         this.container = panel;
         this.relX = roomRect.getX();
@@ -49,7 +49,7 @@ public abstract class RoomComponent{
      *
      * @return roomRect attribute.
      */
-    public Rectangle getRoomRect(){
+    public RoomRectangle getRoomRect(){
         return RoomRect;
     }
 

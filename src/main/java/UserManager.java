@@ -138,6 +138,7 @@ public class UserManager {
      * initializes user by creating some preset users.
      */
     public static void initialize() {
+        addUser("a", "a", UserTypes.PARENT);
         addUser("Parent1", "passwordabc", UserTypes.PARENT);
         admin = findUser("Parent1", "passwordabc");
     }

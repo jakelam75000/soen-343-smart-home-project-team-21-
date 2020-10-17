@@ -16,7 +16,7 @@ public class DynamicLayout extends JPanel {
 
     //actual width and height is 360 x 360 but we need some extra space for outside
     private static double insideWidthAndHeight = 480;
-    private List<Rectangle> drawRooms = new ArrayList<>();
+    private List<RoomRectangle> drawRooms = new ArrayList<>();
     private Random random = new Random();
 
     /**
@@ -71,6 +71,10 @@ public class DynamicLayout extends JPanel {
         }
     }
 
+    public void reDraw(){
+        repaint();
+    }
+
     /**
      * Method that ads an individual room to the drawRooms array list
      * @param roomAdded int the index of the room to be added
@@ -85,7 +89,7 @@ public class DynamicLayout extends JPanel {
         int lightCount = 0;
         String roomName = rooms[roomAdded].getName();
         //Need to add logic for windows
-        drawRooms.add(new Rectangle(x, y, widthAndHeight, windowCount, doorCount, lightCount, roomName));
+        drawRooms.add(new RoomRectangle(x, y, widthAndHeight, windowCount, doorCount, lightCount, roomName));
         repaint();
 
     }
@@ -97,11 +101,12 @@ public class DynamicLayout extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        System.out.println("Funciton called");
-        for (Rectangle r : drawRooms) {
+
+        for (int i=0; i<drawRooms.size(); i++) {
+            RoomRectangle r = drawRooms.get(i);
             r.draw(g);
-            new WindowComponent(this, r).draw(g);
-            System.out.println("Called window draw.");
+            new WindowComponent(this, r, rooms[i]).draw(g);
+            new PeopleComponent(this, r, rooms[i].getName()).draw(g);
         }
 
 
