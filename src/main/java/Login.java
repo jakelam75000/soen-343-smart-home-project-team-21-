@@ -102,15 +102,15 @@ public class Login extends JFrame {
     public boolean loginClicked(String username, String password, String houseFilePath){
         // User Authentication
         User user = UserManager.findUser(username, password);
-
+        House temp;
         File f = null;
         if (houseFilePath!= null) {
             f = new File(houseFilePath);
             lasthousefilepath = houseFilePath;
         }
         if (lasthousefilepath != null) f = new File(lasthousefilepath);
-      
-        if(user != null && f!=null && f.exists() && f.isFile()) {
+        temp = HouseReader.readAndLoadHouse(f.getPath());
+        if(user != null && f!=null && f.exists() && f.isFile() && temp!=null) {
             this.setVisible(false);
 
             // User type

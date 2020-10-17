@@ -19,6 +19,10 @@ public class HouseReader {
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
+        if (!filename.contains(".txt")){
+            System.out.println("file is not a txt file");
+            return null;
+        }
         House mainhouse = null;
         Room[] listofrooms;
         Smartobj[] smartobjByRoom;

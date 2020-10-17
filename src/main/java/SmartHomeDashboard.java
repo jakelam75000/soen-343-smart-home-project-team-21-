@@ -580,7 +580,7 @@ public class SmartHomeDashboard extends JFrame{
 
     /**
      * For testing
-     * @return
+     * @return*
      */
     public JComboBox<String> getComboDate() {
         return comboDate;
