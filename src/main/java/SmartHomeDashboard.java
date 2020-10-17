@@ -11,14 +11,12 @@ import java.util.List;
 public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
     private JButton onOff;
-    private JPanel Simulation;
     private JButton editSimulation;
     private JTabbedPane tabbedPane1;
     private JPanel MIDPanel;
     private JPanel HouseLayout;
     private JPanel Console;
     private JTextArea consoleText;
-    private JLabel Image;
     private JLabel Type;
     private JLabel Username;
     private JComboBox<String> comboDate;
@@ -57,19 +55,22 @@ public class SmartHomeDashboard extends JFrame{
     private JList<SmartObjectType> listItems;
     private JList<String> listOpenClose;
     private JSpinner outSideTemp;
-    private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;
     private JPanel openClosePanel;
+    private JPanel Simulation;
+    private JLabel Image;
+    private JLabel Outsidetemplabel;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
     private SmartHomeDashboard self;
+    private DynamicLayout dynamicLayout;
 
     //Bounds variables
     private static final int x = 100;
     private static final int y = 100;
-    private static final int width = 1100;
+    private static final int width = 1300;
     private static final int height = 600;
 
     /**
@@ -94,9 +95,11 @@ public class SmartHomeDashboard extends JFrame{
         this.setBounds(x, y, width, height);
         this.setResizable(false);
 
+        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        HouseLayout.add(dynamicLayout);
+
         setUpDashboardOptions();
         addActionListeners();
-        HouseLayout.add(new DynamicLayout(house.getRoomsList()));
     }
 
     /**
@@ -122,6 +125,8 @@ public class SmartHomeDashboard extends JFrame{
         for(String x : locations) comboLocation.addItem(x);
         comboLocation.addItem(LocationType.OUTSIDE.toString());
 
+        UserManager.changeUserLocation(Username.getText(), comboLocation.getItemAt(comboLocation.getSelectedIndex()));
+
         //Setting "Time" spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
@@ -129,7 +134,6 @@ public class SmartHomeDashboard extends JFrame{
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
 
         updateUsers();
-
     }
 
     /**
@@ -147,6 +151,7 @@ public class SmartHomeDashboard extends JFrame{
             comboUsers.addItem(Username.getText());
             addUserButton.setEnabled(false);
         }
+        updateHouseLayout();
     }
 
     /**
@@ -162,7 +167,6 @@ public class SmartHomeDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddUser("Add User", self).setVisible(true);
-
             }
         });
 
@@ -380,7 +384,6 @@ public class SmartHomeDashboard extends JFrame{
                 return;
             }
 
-
             for (int i = 0; i < roomNames.length; i++) {
                 if (roomNames[i].equals(currentLocation)) {
                     currentRoom = house.getRoomAtIndex(i);
@@ -412,13 +415,13 @@ public class SmartHomeDashboard extends JFrame{
                                         printToConsole(itemsArr[index].getText() + " was opened.");
                                     else printToConsole(itemsArr[index].getText() + " was closed.");
                                 }
+
+                                updateHouseLayout();
                             }
                         });
                         openClosePanel.add(itemsArr[i]);
                     }
                 }
-
-
             }
         }
         else{
@@ -444,6 +447,7 @@ public class SmartHomeDashboard extends JFrame{
                             if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
                             else  printToConsole(itemsArr[index].getText() + " was closed.");
                         }
+                        updateHouseLayout();
                     }
                 });
                 openClosePanel.add(itemsArr[i]);
@@ -516,8 +520,9 @@ public class SmartHomeDashboard extends JFrame{
             current_Time_Formatted = "["+currentTime[0] + ":" + currentTime[1]+"]:";
         }
 
-        consoleText.append("\n" + current_Time_Formatted + text);
         consoleText.setRows(consoleText.getRows()+ 1);
+        consoleText.append("\n" + current_Time_Formatted + text);
+
     }
     /**
      *  updates the date and time
@@ -525,7 +530,7 @@ public class SmartHomeDashboard extends JFrame{
      * @param inputime string representing time in hr:min:sec format
      * @return time to be updated to the label (date is done internally as this mehtod was taken from a different java class)
      */
-    String updatetime(String inputime) {
+    public String updatetime(String inputime) {
         String outputtime;
         int temphr;
         int tempmin;
@@ -610,6 +615,12 @@ public class SmartHomeDashboard extends JFrame{
         a[1] = tempmin;
         a[2] = temphr;
         return a;
+    }
+
+    public void updateHouseLayout(){
+        HouseLayout.remove(dynamicLayout);
+        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        HouseLayout.add(dynamicLayout);
     }
 
     /**

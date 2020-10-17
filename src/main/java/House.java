@@ -100,8 +100,8 @@ public class House {
         return rooms[i];
     }
 
-    public HashMap<SmartObjectType, String> getHouseItems(){
-        return (HashMap<SmartObjectType, String>)houseItems.clone();
+    public HashMap<SmartObjectType, List<String>> getHouseItems(){
+        return (HashMap<SmartObjectType, List<String>>) houseItems.clone();
     }
 
     public List<SmartObjectType> getHouseItemsKeys(){

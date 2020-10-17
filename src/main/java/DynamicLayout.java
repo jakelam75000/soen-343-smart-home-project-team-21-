@@ -1,7 +1,5 @@
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,13 +9,14 @@ import javax.swing.*;
 /**
  * DynamicLayout is a class that generates a 2-d room layout based on the room objects that are passed to it.
  */
+
 public class DynamicLayout extends JPanel {
-    private Room[] rooms;
-    private int roomCount;
+    private final Room[] rooms;
+    private final int roomCount;
 
     //actual width and height is 360 x 360 but we need some extra space for outside
-    private static double insideWidthAndHeight = 320;
-    private List<Rectangle> drawRooms = new ArrayList<>();
+    private static double insideWidthAndHeight = 480;
+    private List<RoomRectangle> drawRooms = new ArrayList<>();
     private Random random = new Random();
 
     /**
@@ -28,7 +27,7 @@ public class DynamicLayout extends JPanel {
         this.rooms = rooms;
         this.roomCount = rooms.length;
         setBackground(Color.WHITE);
-        setPreferredSize(new Dimension(360, 360));
+        setPreferredSize(new Dimension(520, 520));
 
         generateAllRooms();
     }
@@ -72,6 +71,10 @@ public class DynamicLayout extends JPanel {
         }
     }
 
+    public void reDraw(){
+        repaint();
+    }
+
     /**
      * Method that ads an individual room to the drawRooms array list
      * @param roomAdded int the index of the room to be added
@@ -86,7 +89,7 @@ public class DynamicLayout extends JPanel {
         int lightCount = 0;
         String roomName = rooms[roomAdded].getName();
         //Need to add logic for windows
-        drawRooms.add(new Rectangle(x, y, widthAndHeight, windowCount, doorCount, lightCount, roomName));
+        drawRooms.add(new RoomRectangle(x, y, widthAndHeight, windowCount, doorCount, lightCount, roomName));
         repaint();
 
     }
@@ -98,8 +101,15 @@ public class DynamicLayout extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Rectangle s : drawRooms) {
-            s.draw(g);
+
+        for (int i=0; i<drawRooms.size(); i++) {
+            RoomRectangle r = drawRooms.get(i);
+            r.draw(g);
+            new WindowComponent(this, r, rooms[i]).draw(g);
+            new PeopleComponent(this, r, rooms[i].getName()).draw(g);
         }
+
+
     }
+
 }
