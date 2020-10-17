@@ -18,12 +18,20 @@ public class Rectangle {
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        Stroke stroke1 = new BasicStroke(6f);
+        Stroke stroke1 = new BasicStroke(2f);
 
-        g2d.setColor(Color.BLUE);
+        FontMetrics metrics = g.getFontMetrics();
+        // Determine the X coordinate for the text
+        int xOfString = x + (widthandHeight - metrics.stringWidth(roomName)) / 2;
+        // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+        int yOfString = y + ((widthandHeight - metrics.getHeight()) / 2) + metrics.getAscent();
+
+
+        g2d.setColor(Color.BLACK);
         g2d.setStroke(stroke1);
 
         g2d.drawRect(x, y, widthandHeight, widthandHeight);
+        g2d.drawString(roomName, xOfString, yOfString);
     }
 
 }

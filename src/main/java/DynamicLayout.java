@@ -13,14 +13,14 @@ public class DynamicLayout extends JPanel {
     private int roomCount;
 
     //actual width and height is 360 x 360 but we need some extra space for outside
-    private static double insideWidthAndHeight = 340;
+    private static double insideWidthAndHeight = 320;
     private List<Rectangle> drawRooms = new ArrayList<>();
     private Random random = new Random();
 
     public DynamicLayout(Room[] rooms) {
         this.rooms = rooms;
         this.roomCount = rooms.length;
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
         setPreferredSize(new Dimension(360, 360));
 
         generateAllRooms();
@@ -51,7 +51,7 @@ public class DynamicLayout extends JPanel {
                     break;
                 }
                 x = initial + i*widthAndHeight;
-                addRoom(i, x, y, widthAndHeight);
+                addRoom(roomsDone, x, y, widthAndHeight);
                 roomsDone++;
             }
             //set x back to initial
