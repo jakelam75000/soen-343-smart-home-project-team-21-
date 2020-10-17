@@ -58,6 +58,9 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;
     private JPanel openClosePanel;
+    private JPanel Simulation;
+    private JLabel Image;
+    private JLabel Outsidetemplabel;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
@@ -66,7 +69,7 @@ public class SmartHomeDashboard extends JFrame{
     //Bounds variables
     private static final int x = 100;
     private static final int y = 100;
-    private static final int width = 1100;
+    private static final int width = 1460;
     private static final int height = 600;
 
     /**
