@@ -1,10 +1,23 @@
 import java.awt.*;
 
+/**
+ * Class Rectangle to specify the rectangle to be drawn with a method to draw it
+ */
 public class Rectangle {
 
     int x, y, windowCount, doorCount, lightCount, widthandHeight;
     String roomName;
 
+    /**
+     *  Constructor
+     * @param x int position x
+     * @param y int position y
+     * @param widthAndHeight int width and height values
+     * @param windowCount int nubmer of windows
+     * @param doorCount int nubmer of doors
+     * @param lightCount int
+     * @param roomName String the name of the room that the rectangle represents
+     */
     public Rectangle(int x, int y, int widthAndHeight, int windowCount, int doorCount, int lightCount, String roomName) {
         this.x = x;
         this.y = y;
@@ -15,6 +28,10 @@ public class Rectangle {
         this.roomName = roomName;
     }
 
+    /**
+     * Draws the defined rectangle
+     * @param g is used to draw and direct the resulting image to the correct  jpanel
+     */
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 

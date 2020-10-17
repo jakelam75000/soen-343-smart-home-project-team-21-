@@ -17,6 +17,10 @@ public class Window extends Smartobj  {
         open = false;
     }
 
+    /**
+     * copy cosntructor
+     * @param window Window to be copied
+     */
     public Window(Window window){
         super(window);
         this.blocked = window.isBlocked();
@@ -61,11 +65,19 @@ public class Window extends Smartobj  {
         return open;
     }
 
+    /**
+     * Value of the obejct as a string
+     * @return String the value of the objest as a string
+     */
     @Override
     public String toString() {
         return "this is a window and its name is " + super.name +".\n";
     }
 
+    /**
+     * clones the window
+     * @return Window the new close of the window
+     */
     public Window clone(){
         return new Window(this);
     }

@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Frame that allows the user to change type and apsswords of users
+ */
 public class EditUserProfile extends JFrame {
     private JLabel username;
     private JLabel oldPasswordLabel;
@@ -20,6 +23,14 @@ public class EditUserProfile extends JFrame {
     private EditUserProfile self;
     private SmartHomeDashboard caller;
 
+    /**
+     * Constructor
+     * @param title String Name of the frame
+     * @param currentType String The current type of the Caller user
+     * @param username String the naem of the selected user
+     * @param calluser String the name of the user currently logged in
+     * @param caller SmartHomeDashboard a reference to the calling frame
+     */
     public EditUserProfile(String title, String currentType,String username, String calluser, SmartHomeDashboard caller) {
         super(title);
         currentUsername.setText(username);
@@ -54,6 +65,10 @@ public class EditUserProfile extends JFrame {
 
     public void addActionListeners(){
         confirmChangesButton.addActionListener(new ActionListener() {
+            /**
+             * Confirms the changes to be made
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -77,6 +92,10 @@ public class EditUserProfile extends JFrame {
             }
         });
         deleteUserButton.addActionListener(new ActionListener() {
+            /**
+             * confirms that the selected user is the one to be deleted (needs to have the correct password in oldpassword)
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = currentUsername.getText();
