@@ -91,6 +91,11 @@ public class House {
         return list;
     }
 
+    /**
+     * returns the room at a specified index
+     * @param i int index to be checked
+     * @return Room returns the room specified at the index i
+     */
     public Room getRoomAtIndex(int i) {
         return rooms[i];
     }
@@ -107,6 +112,11 @@ public class House {
         return keys;
     }
 
+    /**
+     *
+     * @param key SmartObjectType the smartobject type to retrieve the names for.
+     * @return returns a lsit of all objects of object type key
+     */
     public List<String> getHouseItemValue(SmartObjectType key){
         return houseItems.get(key);
     }

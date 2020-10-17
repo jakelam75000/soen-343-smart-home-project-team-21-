@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * main frame that holds the dashboard and acts as a central hub
+ */
 public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
     private JButton onOff;
@@ -149,6 +152,10 @@ public class SmartHomeDashboard extends JFrame{
     public void addActionListeners() {
 
         addUserButton.addActionListener(new ActionListener() {
+            /**
+             * opens the adduser frame
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddUser("Add User", self).setVisible(true);
@@ -157,6 +164,10 @@ public class SmartHomeDashboard extends JFrame{
         });
 
         editSimulation.addActionListener(new ActionListener() {
+            /**
+             * opens the edit frame
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 Edit edit = new Edit("Edit", self);
@@ -166,6 +177,10 @@ public class SmartHomeDashboard extends JFrame{
         });
 
         onOff.addActionListener(new ActionListener() {
+            /**
+             * turns the simulation on and off
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(onOff.isSelected()) {
@@ -197,6 +212,10 @@ public class SmartHomeDashboard extends JFrame{
         });
 
         timer = new Timer(1000, new ActionListener() {
+            /**
+             * timer that updates the date and time
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s =timeLabel.getText();
@@ -206,12 +225,20 @@ public class SmartHomeDashboard extends JFrame{
         });
 
         editUsrButton.addActionListener(new ActionListener() {
+            /**
+             * opens the edit user profiel frame
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText(), self).setVisible(true);
             }
         });
         LogOutButton.addActionListener(new ActionListener() {
+            /**
+             * allows the user to logout and return to login
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 Login loginFrame = new Login("Login");
@@ -330,6 +357,7 @@ public class SmartHomeDashboard extends JFrame{
         }
 
         setUpSHCOpenClose();
+        consoleText.setRows(consoleText.getRows()+1);
 
     }
 

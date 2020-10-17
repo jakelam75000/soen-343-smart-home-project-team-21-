@@ -1,5 +1,8 @@
 import java.util.HashMap;
 
+/**
+ * The class that handles user maintenance and interaction
+ */
 public class UserManager {
     private static HashMap<String, String> authenticate = new HashMap<String, String>();
     private static HashMap<String, Parent> userParent = new HashMap<String, Parent>();

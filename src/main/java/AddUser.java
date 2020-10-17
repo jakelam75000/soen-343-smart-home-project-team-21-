@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * frame that holds the adduser functionality
+ */
 public class AddUser extends JFrame{
     private JPanel mainPanel;
     private JLabel usernameAdd;
@@ -40,7 +43,13 @@ public class AddUser extends JFrame{
      * Adds all the action listeners for the class.
      */
     public void addActionListeners() {
+
         createUserButton.addActionListener(new ActionListener() {
+            /**
+             * Creates the user if it is within acceptable parameters and stores it in usermanager (only holds for the session)
+             * @param e ActionEvent
+             *
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = userText.getText();
@@ -72,6 +81,10 @@ public class AddUser extends JFrame{
         });
 
         goBackButton.addActionListener(new ActionListener() {
+            /**
+             * REturns to the previouse window
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 self.setVisible(false);

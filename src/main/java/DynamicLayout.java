@@ -6,6 +6,9 @@ import java.util.Random;
 
 import javax.swing.*;
 
+/**
+ * DynamicLayout is a class that generates a 2-d room layout based on the room objects that are passed to it.
+ */
 
 public class DynamicLayout extends JPanel {
     private final Room[] rooms;
@@ -16,6 +19,10 @@ public class DynamicLayout extends JPanel {
     private List<Rectangle> drawRooms = new ArrayList<>();
     private Random random = new Random();
 
+    /**
+     * constructor with parameters
+     * @param rooms Room[] is the array of rooms
+     */
     public DynamicLayout(Room[] rooms) {
         this.rooms = rooms;
         this.roomCount = rooms.length;
@@ -25,6 +32,9 @@ public class DynamicLayout extends JPanel {
         generateAllRooms();
     }
 
+    /**
+     * generates the 2-d layoud based on the room array that is passed to it through the constructor.
+     */
     public void generateAllRooms() {
         //width and height are the same
         int widthAndHeight;
@@ -61,6 +71,13 @@ public class DynamicLayout extends JPanel {
         }
     }
 
+    /**
+     * Method that ads an individual room to the drawRooms array list
+     * @param roomAdded int the index of the room to be added
+     * @param x int the x position of the room
+     * @param y int the y position of the room
+     * @param widthAndHeight int the dimensions of the room
+     */
     public void addRoom(int roomAdded, int x, int y, int widthAndHeight) {
         //TO-DO: window, door and light are set to 0 for now but we would have to create getters in Room.java to get the proper count
         int windowCount = 0;
@@ -73,6 +90,10 @@ public class DynamicLayout extends JPanel {
 
     }
 
+    /**
+     *
+     * @param g Graphics draws all the rooms from the drawrooms array lsit
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

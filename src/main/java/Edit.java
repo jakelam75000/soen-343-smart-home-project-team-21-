@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+/**
+ * Frame that holds the object to be manipulated and the users and their locations to be set
+ */
 public class Edit extends JFrame {
     private JPanel mainPanel;
     private JComboBox<String> comboUsers;
@@ -43,6 +46,10 @@ public class Edit extends JFrame {
      */
     public void addActionListeners(){
         confirmObjButton.addActionListener(new ActionListener() {
+            /**
+             * Blocks or unblocks the window depending on if its checked or not
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 caller.blockWindow(comboWindows.getItemAt(comboWindows.getSelectedIndex()), blockedCheckBox.isSelected());
@@ -50,6 +57,10 @@ public class Edit extends JFrame {
         });
 
         comboWindows.addActionListener(new ActionListener() {
+            /**
+             * sets the default value of the check box to if the window is blocked or not
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 blockedCheckBox.setSelected(caller.isWindowBlocked(comboWindows.getItemAt(comboWindows.getSelectedIndex())));
@@ -57,6 +68,10 @@ public class Edit extends JFrame {
         });
 
         comboUsers.addActionListener(new ActionListener() {
+            /**
+             * sets the default location of the user to their current location
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 comboLocations.setSelectedItem(UserManager.getUserLocation(comboUsers.getItemAt(comboUsers.getSelectedIndex())));
@@ -64,6 +79,10 @@ public class Edit extends JFrame {
         });
 
         confirmButton.addActionListener(new ActionListener() {
+            /**
+             * Sets the user's location to the new location
+             * @param e ActionEvenet
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = comboUsers.getItemAt(comboUsers.getSelectedIndex());

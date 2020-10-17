@@ -1,5 +1,6 @@
-import javax.swing.*;
-import java.awt.*;
+/**
+ * The main driver
+ */
 
 public class Main {
 
