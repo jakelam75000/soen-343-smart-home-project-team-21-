@@ -13,6 +13,8 @@ public class Rectangle {
         this.doorCount = doorCount;
         this.lightCount = lightCount;
         this.roomName = roomName;
+
+
     }
 
     public void draw(Graphics g) {
@@ -32,6 +34,60 @@ public class Rectangle {
 
         g2d.drawRect(x, y, widthandHeight, widthandHeight);
         g2d.drawString(roomName, xOfString, yOfString);
+    }
+
+    /**
+     * Getter for x attribute.
+     *
+     * @return x attribute.
+     */
+    public int getX(){
+        return this.x;
+    }
+
+    /**
+     * Getter for y attribute.
+     *
+     * @return y attribute.
+     */
+    public int getY(){
+        return this.y;
+    }
+
+    /**
+     * Getter for widthandHeight attribute.
+     *
+     * @return widthandHeight attribute.
+     */
+    public int getWidthandHeight(){
+        return this.widthandHeight;
+    }
+
+    /**
+     * Getter for doorCount attribute.
+     *
+     * @return doorCount attribute.
+     */
+    public int getDoorCount(){
+        return this.doorCount;
+    }
+
+    /**
+     * Getter for lightCount attribute.
+     *
+     * @return lightCount attribute.
+     */
+    public int getLightCount(){
+        return this.lightCount;
+    }
+
+    /**
+     * Getter for windowCount attribute.
+     *
+     * @return windowCount attribute.
+     */
+    public int getWindowCount(){
+        return this.windowCount;
     }
 
 }

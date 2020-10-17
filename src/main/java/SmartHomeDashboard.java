@@ -8,14 +8,12 @@ import java.util.List;
 public class SmartHomeDashboard extends JFrame{
     private JPanel mainPanel;
     private JButton onOff;
-    private JPanel Simulation;
     private JButton editSimulation;
     private JTabbedPane tabbedPane1;
     private JPanel MIDPanel;
     private JPanel HouseLayout;
     private JPanel Console;
     private JTextArea consoleText;
-    private JLabel Image;
     private JLabel Type;
     private JLabel Username;
     private JComboBox<String> comboDate;
@@ -54,7 +52,6 @@ public class SmartHomeDashboard extends JFrame{
     private JList<SmartObjectType> listItems;
     private JList<String> listOpenClose;
     private JSpinner outSideTemp;
-    private JLabel Outsidetemplabel;
     private JLabel outsidetempvalue;
     private JLabel itemsLabel;
     private JPanel openClosePanel;
@@ -488,8 +485,9 @@ public class SmartHomeDashboard extends JFrame{
             current_Time_Formatted = "["+currentTime[0] + ":" + currentTime[1]+"]:";
         }
 
-        consoleText.append("\n" + current_Time_Formatted + text);
         consoleText.setRows(consoleText.getRows()+ 1);
+        consoleText.append("\n" + current_Time_Formatted + text);
+
     }
     /**
      *  updates the date and time

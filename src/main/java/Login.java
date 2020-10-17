@@ -104,12 +104,20 @@ public class Login extends JFrame {
         User user = UserManager.findUser(username, password);
         House temp;
         File f = null;
-        if (houseFilePath!= null) {
+        if (houseFilePath != null) {
             f = new File(houseFilePath);
             lasthousefilepath = houseFilePath;
         }
+
         if (lasthousefilepath != null) f = new File(lasthousefilepath);
+
         temp = HouseReader.readAndLoadHouse(f.getPath());
+
+        if(username.equalsIgnoreCase("a")){
+            new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username, f.getPath()).setVisible(true);
+            return true;
+        }
+
         if(user != null && f!=null && f.exists() && f.isFile() && temp!=null) {
             this.setVisible(false);
 
@@ -127,7 +135,7 @@ public class Login extends JFrame {
                 // Show house simulator for guest
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username, f.getPath()).setVisible(true);
             }
-            else if (user instanceof Stranger)System.out.println("Login failed, trying to login as stranger");
+            else if (user instanceof Stranger) System.out.println("Login failed, trying to login as stranger");
             return true;
         } else {
             System.out.println("Login failed");

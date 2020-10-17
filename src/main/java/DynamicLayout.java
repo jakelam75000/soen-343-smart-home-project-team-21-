@@ -1,16 +1,15 @@
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.*;
 
+
 public class DynamicLayout extends JPanel {
-    private Room[] rooms;
-    private int roomCount;
+    private final Room[] rooms;
+    private final int roomCount;
 
     //actual width and height is 360 x 360 but we need some extra space for outside
     private static double insideWidthAndHeight = 320;
@@ -77,8 +76,14 @@ public class DynamicLayout extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Rectangle s : drawRooms) {
-            s.draw(g);
+        System.out.println("Funciton called");
+        for (Rectangle r : drawRooms) {
+            r.draw(g);
+            new WindowComponent(this, r).draw(g);
+            System.out.println("Called window draw.");
         }
+
+
     }
+
 }
