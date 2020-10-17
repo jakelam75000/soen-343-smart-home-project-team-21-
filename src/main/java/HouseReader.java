@@ -11,7 +11,8 @@ the rooms corresponding smartobj array
  */
 public class HouseReader {
     /**
-     * loads information from a house.txt file and converts it into a house object
+     * Loads information from a house.txt file and converts it into a house object.
+     *
      * @param filename the file path to the houselayout txt file
      * @return House returns a house object loaded with the rooms and smartobj
      */

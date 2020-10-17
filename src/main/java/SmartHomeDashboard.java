@@ -60,7 +60,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel openClosePanel;
     private Timer timer;
     private House house;
-    private boolean welcomemessagedisplayed = false;
+    private boolean welcomeMessageDisplayed = false;
     private SmartHomeDashboard self;
 
     //Bounds variables
@@ -150,6 +150,7 @@ public class SmartHomeDashboard extends JFrame{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
+
         addUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -157,6 +158,7 @@ public class SmartHomeDashboard extends JFrame{
 
             }
         });
+
         editSimulation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -165,6 +167,7 @@ public class SmartHomeDashboard extends JFrame{
                 edit.setVisible(true);
             }
         });
+
         onOff.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,6 +198,7 @@ public class SmartHomeDashboard extends JFrame{
                 }
             }
         });
+
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,6 +207,7 @@ public class SmartHomeDashboard extends JFrame{
                 timeLabel.setText(s);
             }
         });
+
         editUsrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -237,7 +242,7 @@ public class SmartHomeDashboard extends JFrame{
         //Setting current location
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
         UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
-        
+
         //Setting time
         hourInt = (int)Math.round((double)hourSpinner.getValue());
         minuteInt = (int)Math.round((double)minuteSpinner.getValue());
@@ -250,9 +255,9 @@ public class SmartHomeDashboard extends JFrame{
         timeLabel.setText(hour + ":" + minute + ":" + second);
 
         setUpSHCItems();
-        if (!welcomemessagedisplayed) {
+        if (!welcomeMessageDisplayed) {
             printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
-            welcomemessagedisplayed = true;
+            welcomeMessageDisplayed = true;
         }
     }
 
@@ -558,7 +563,8 @@ public class SmartHomeDashboard extends JFrame{
     }
 
     /**
-     * breaksdown a time input hr:min:sec to an int array[] e.g. int[0] = hr, int [1] = min int[2] = sec
+     * Breaksdown a time input hr:min:sec to an int array[] e.g. int[0] = hr, int [1] = min int[2] = sec.
+     *
      * @param inputime String of above mentioned format to represent time to be decomposed
      * @return an int array representing a frame of time broken into different int elements
      */

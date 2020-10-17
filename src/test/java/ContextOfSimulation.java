@@ -11,7 +11,6 @@ public class ContextOfSimulation {
         House testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
         Room room1 = testHouse.getRoomAtIndex(0);
         assertEquals(true, room1.blockWindow(room1.getName(), true));
-
     }
 
     @Test
