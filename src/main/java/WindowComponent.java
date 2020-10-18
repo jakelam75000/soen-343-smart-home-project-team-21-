@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class WindowComponent extends RoomComponent{
 
-    private ImageIcon image = new ImageIcon("src/main/java/icons/window_closed.png");
+    private ImageIcon image = new ImageIcon("src/main/java/icons/window.png");
     private ImageIcon scaledImage;
 
     private boolean open = false;
