@@ -61,6 +61,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel Simulation;
     private JLabel Image;
     private JLabel Outsidetemplabel;
+    private JScrollPane openCloseScroll;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
@@ -215,13 +216,14 @@ public class SmartHomeDashboard extends JFrame{
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
                 }
+                updateHouseLayout();
             }
         });
 
         timer = new Timer(1000, new ActionListener() {
             /**
              * timer that updates the date and time
-             * @param e ActionEvenet
+             * @param e ActionEvent
              */
             @Override
             public void actionPerformed(ActionEvent e) {

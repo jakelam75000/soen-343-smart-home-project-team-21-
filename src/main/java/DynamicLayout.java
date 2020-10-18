@@ -1,18 +1,19 @@
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javax.swing.*;
 
 /**
  * DynamicLayout is a class that generates a 2-d room layout based on the room objects that are passed to it.
  */
-
 public class DynamicLayout extends JPanel {
     private final Room[] rooms;
     private final int roomCount;
+
 
     //actual width and height is 360 x 360 but we need some extra space for outside
     private static double insideWidthAndHeight = 480;
@@ -69,10 +70,6 @@ public class DynamicLayout extends JPanel {
             //update row
             row++;
         }
-    }
-
-    public void reDraw(){
-        repaint();
     }
 
     /**
