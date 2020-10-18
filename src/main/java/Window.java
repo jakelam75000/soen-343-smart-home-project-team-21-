@@ -4,7 +4,7 @@
 *@version 0.1
 *@since 2020-09-30
  */
-public class Window extends Smartobj  {
+public class Window extends Smartobj implements Cloneable{
     private boolean blocked;
     private boolean open;
 
@@ -78,6 +78,7 @@ public class Window extends Smartobj  {
      * clones the window
      * @return Window the new close of the window
      */
+    @Override
     public Window clone(){
         return new Window(this);
     }

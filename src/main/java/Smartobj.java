@@ -6,7 +6,7 @@ child class
 @version 0.1
 @since 2020-09-30
  */
-public abstract class Smartobj {
+public abstract class Smartobj implements Cloneable{
     String name;
     SmartObjectType type;
 
@@ -50,11 +50,21 @@ public abstract class Smartobj {
      * @return String the string value of the obejct
      */
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return " this object is named "+ name+ "\n";
     }
 
+    /**
+     * Clone method.
+     *
+     * @return a copy of the Smartobj object.
+     */
+    @Override
     public abstract Smartobj clone();
 
 }

@@ -2,13 +2,13 @@
 
 ## Description
 This is a repo for our SOEN343 class. The goal is to build a Smart Home Simulator using the MVC structure. 
-This will be seperated into 3 deliveries where we will be implementing the following core functionalities: 
+This will be separated into 3 deliveries where we will be implementing the following core functionalities: 
 * Smart Home Simulator (SHS) 
 * House Layout
 * Smart Home Dashboard
 * Context of the Simulation
-* Smart Home Modules
-* Smart Home Core Functionality (SHC)
+* Smart Home Modulesio
+* Smart Home Core Functnality (SHC)
 * Smart Home Security Module (SHP)
 * Smart Heating Module (SHH)
 

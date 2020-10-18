@@ -72,6 +72,10 @@ public class House {
         return s;
     }
 
+    /**
+     * Getter for number of rooms
+     * @return number of rooms in the house.
+     */
     public int getRoomCount() {
         return rooms.length;
     }
@@ -100,10 +104,20 @@ public class House {
         return rooms[i];
     }
 
+    /**
+     * Returns a hashmap with <code>SmartObjectType</code> as the key and a <code>List<String></code> of item name as the values.
+     *
+     * @return all the items of the house mapped from type to the list of all the items.
+     */
     public HashMap<SmartObjectType, List<String>> getHouseItems(){
         return (HashMap<SmartObjectType, List<String>>) houseItems.clone();
     }
 
+    /**
+     * Returns a list of all the object types present in the house.
+     *
+     * @return a list of all the type of smart objects in the house.
+     */
     public List<SmartObjectType> getHouseItemsKeys(){
         List<SmartObjectType> keys = new ArrayList<SmartObjectType>();
 

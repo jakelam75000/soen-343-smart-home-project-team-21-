@@ -8,6 +8,12 @@ public abstract class RoomComponent{
     private int relX;
     private int relY;
 
+    /**
+     * Parameterised constructor.
+     *
+     * @param panel the panel inside which the room component will be drawn.
+     * @param roomRect the roomRect inside which the room component belongs.
+     */
     public RoomComponent(JPanel panel, RoomRectangle roomRect){
         this.RoomRect = roomRect;
         this.container = panel;
@@ -15,6 +21,11 @@ public abstract class RoomComponent{
         this.relY = roomRect.getY();
     }
 
+    /**
+     * Abstract method that all room component subclasses must implement to define how they should be drawn.
+     *
+     * @param g Graphics object.
+     */
     public abstract void draw(Graphics g);
 
     /**

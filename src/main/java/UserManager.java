@@ -123,10 +123,25 @@ public class UserManager {
         return true;
     }
 
+    /**
+     * Checks if the user is the admin user or not.
+     *
+     * @param username Username of the user to be checked.
+     * @return true if the user is the admin; false otherwise.
+     */
     public static boolean isAdmin(String username) {
         return admin == findUser(username, authenticate.get(username));
     }
 
+    /**
+     * Edits a user's information.
+     *
+     * @param username Username of the user to be edited.
+     * @param oldPassword the old password of the user to be edited.
+     * @param newPassword the new password of the user to be edited.
+     * @param type the type the user will be set to.
+     * @return true if the operation was successful; false otherwise.
+     */
     public static boolean editUser(String username, String oldPassword, String newPassword, UserTypes type) {
         if (!isUserValid(username, oldPassword)) {
             return false;
