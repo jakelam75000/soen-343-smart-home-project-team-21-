@@ -6,7 +6,9 @@ import javax.swing.*;
 import static org.junit.jupiter.api.Assertions.*;
 public class SimulationParameterTest {
 
-    // Making sure all users are cleared
+    /**
+     * Make sure their are no users
+     */
     public void isEmpty() {
         assertAll(
                 "Make sure all hashMaps are empty",
@@ -17,7 +19,9 @@ public class SimulationParameterTest {
         );
     }
 
-    // Initialize users
+    /**
+     * Initialize 5 users
+     */
     public static void initialize() {
         UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT);
         UserManager.addUser("Parent2", "password123", UserTypes.PARENT);
@@ -26,6 +30,11 @@ public class SimulationParameterTest {
         UserManager.addUser("Guest", "password", UserTypes.GUEST);
     }
 
+    /**
+     * Description: test if users can be added
+     * Context: users are initialized
+     * Expected: assertAll: assertEquals should give the following results in their respective order: 5, 2, 2, 1
+     */
     @Test
     public void testAddUser() {
         isEmpty();
@@ -43,6 +52,11 @@ public class SimulationParameterTest {
         );
     }
 
+    /**
+     * Description: test if users can be edited
+     * Context: users are initialized and then remove the following users: "Parent2", "Guest", "Child1"
+     * Expected: assertAll: assertEquals should give the following results in their respective order: 2, 1, 1, 0
+     */
     @Test
     public void testDeleteUser() {
         isEmpty();
@@ -70,6 +84,11 @@ public class SimulationParameterTest {
         );
     }
 
+    /**
+     * Description: test if users can be edited
+     * Context: users are initialized
+     * Expected: assertAll: assertEquals should give the following results in their respective order: false, false, true, true
+     */
     @Test
     public void testEditUser() {
         initialize();
@@ -83,6 +102,11 @@ public class SimulationParameterTest {
         );
     }
 
+    /**
+     * Description: This tests if user that already exists can be logged in
+     * Context: Login object is set, users are initialized
+     * Expected: assertAll: assertEquals should give the following results in their respective order: false, true, true
+     */
     @Test
     public void testLogin() {
         Login login = new Login("test");
@@ -97,6 +121,12 @@ public class SimulationParameterTest {
         );
     }
 
+    /**
+     * Description: This tests if date and time can be set
+     * Context: SmartHomeDashboard is created, index 1, 2, 2, 0 are selected for comboDate, comboDay, comboMonth, comboYear in that respective order
+     * Expected: first assertAll: assertEquals should give the following results in their respective order: "2", "Wednesday", "March", "2000"
+     *           second assertAll: assertEquals should give the following results in their respective order: 6, 12, 33
+     */
     @Test
     public void testSetDateAndTime() {
         SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
@@ -133,9 +163,11 @@ public class SimulationParameterTest {
 
     }
 
+    /**
+     * This is to clear all users
+     */
     @AfterEach
     public void cleanUp() {
         UserManager.clearUsers();
-
     }
 }
