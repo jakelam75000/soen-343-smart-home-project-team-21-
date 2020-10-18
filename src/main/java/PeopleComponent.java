@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Displays the number of people of each room.
+ */
 public class PeopleComponent extends RoomComponent{
 
     private ImageIcon image = new ImageIcon("src/main/java/icons/person.png");
@@ -8,6 +11,13 @@ public class PeopleComponent extends RoomComponent{
 
     private String roomName;
 
+    /**
+     * Parameterized constructor.
+     *
+     * @param panel the panel in which the house layout is displayed.
+     * @param roomRect the RoomRectangle object in which this window component is drawn.
+     * @param roomName the name of the room that corresponds to the roomRect.
+     */
     public PeopleComponent(JPanel panel, RoomRectangle roomRect, String roomName){
         super(panel, roomRect);
         scaledImage = new ImageIcon(image.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
@@ -16,6 +26,11 @@ public class PeopleComponent extends RoomComponent{
 
     }
 
+    /**
+     * Draws the people component.
+     *
+     * @param g Graphics object.
+     */
     @Override
     public void draw(Graphics g) {
 

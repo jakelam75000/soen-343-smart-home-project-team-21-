@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Displays the number of windows of each room.
+ */
 public class WindowComponent extends RoomComponent{
 
     private ImageIcon image = new ImageIcon("src/main/java/icons/window.png");
@@ -9,12 +12,24 @@ public class WindowComponent extends RoomComponent{
     private boolean open = false;
     private Room room;
 
+    /**
+     * Parameterized constructor.
+     *
+     * @param panel the panel in which the house loyout is displayed.
+     * @param roomRect the RoomRectangle object in which this window component is drawn.
+     * @param room the Room object that corresponds to the roomRect.
+     */
     public WindowComponent(JPanel panel, RoomRectangle roomRect, Room room){
         super(panel, roomRect);
         scaledImage = new ImageIcon(image.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         this.room = room;
     }
 
+    /**
+     * Draws the window component.
+     *
+     * @param g Graphics object.
+     */
     @Override
     public void draw(Graphics g) {
 

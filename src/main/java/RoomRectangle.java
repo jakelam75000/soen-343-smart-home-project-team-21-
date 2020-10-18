@@ -9,7 +9,8 @@ public class RoomRectangle {
     String roomName;
 
     /**
-     *  Constructor
+     *  Parameterised constructor.
+     *
      * @param x int position x
      * @param y int position y
      * @param widthAndHeight int width and height values
