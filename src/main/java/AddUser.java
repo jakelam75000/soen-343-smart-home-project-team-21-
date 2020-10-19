@@ -70,7 +70,7 @@ public class AddUser extends JFrame{
                     if(UserManager.addUser(username, password,type)) {
                         caller.printToConsole(userText.getText() +" has been added.");
                     } else {
-                        caller.printToConsole("This username already exists.");
+                        caller.printToConsole("The user was unable to be added.");
                     }
                 }
                 userText.setText("");

@@ -526,6 +526,7 @@ public class SmartHomeDashboard extends JFrame{
         consoleText.append("\n" + current_Time_Formatted + text);
 
     }
+
     /**
      *  updates the date and time
      *
@@ -619,6 +620,9 @@ public class SmartHomeDashboard extends JFrame{
         return a;
     }
 
+    /**
+     * Updates the house layout with the new information.
+     */
     public void updateHouseLayout(){
         HouseLayout.remove(dynamicLayout);
         dynamicLayout = new DynamicLayout(house.getRoomsList());

@@ -71,19 +71,12 @@ public class UserManager {
      */
     public static boolean addUser(String username, String password, UserTypes type) {
         if (authenticate.get(username) != null){
-            System.out.println("Username already exists");
             return false;
-        }
-
-        // Add user to the authenticate hashmap
-        if (type != UserTypes.STRANGER) {
-            authenticate.put(username, password);
-        } else {
-            authenticate.put(username, "null");
         }
 
         // Add user to the hashmap of its respective type
         if(type == UserTypes.PARENT) {
+            if(userParent.size() >= 2) return false;
             userParent.put(username, new Parent(username, password));
         } else if(type == UserTypes.CHILD) {
             userChild.put(username, new Child(username, password));
@@ -94,9 +87,14 @@ public class UserManager {
             userStranger.put(username, new Stranger(username));
         }
 
-        System.out.println("Successfully added");
-        return true;
+        // Add user to the authenticate hashmap
+        if (type != UserTypes.STRANGER) {
+            authenticate.put(username, password);
+        } else {
+            authenticate.put(username, "null");
+        }
 
+        return true;
     }
 
     /**
@@ -146,6 +144,12 @@ public class UserManager {
         if (!isUserValid(username, oldPassword)) {
             return false;
         }
+        //Checking if we are converting and account to parent user.
+        if(!(findUser(username, oldPassword) instanceof Parent) && type == UserTypes.PARENT){
+            //Checking if it is possible to add a new parent user.
+            if(userParent.size() >= 2) return false;
+        }
+
         return removeUser(username, oldPassword) && addUser(username, newPassword, type);
     }
 
