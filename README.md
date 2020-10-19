@@ -8,7 +8,7 @@ This will be separated into 3 deliveries where we will be implementing the follo
 * Smart Home Dashboard
 * Context of the Simulation
 * Smart Home Modulesio
-* Smart Home Core Functnality (SHC)
+* Smart Home Core Functionality (SHC)
 * Smart Home Security Module (SHP)
 * Smart Heating Module (SHH)
 
@@ -31,7 +31,7 @@ This will be separated into 3 deliveries where we will be implementing the follo
 * JUnit 5.4
 * Java Swing
 
-After dowloading everything needed, follow these steps:
+After downloading everything needed, follow these steps:
 * Clone the repo with the method of your choice.
 * Open an IDE (we recommend IntelliJ IDEA)
 * Open project in the following manner: `File -> New -> Project from Existing Sources` and select the cloned folder
