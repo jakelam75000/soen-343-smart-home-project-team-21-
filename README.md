@@ -7,7 +7,7 @@ This will be separated into 3 deliveries where we will be implementing the follo
 * House Layout
 * Smart Home Dashboard
 * Context of the Simulation
-* Smart Home Modulesio
+* Smart Home Modules
 * Smart Home Core Functionality (SHC)
 * Smart Home Security Module (SHP)
 * Smart Heating Module (SHH)
