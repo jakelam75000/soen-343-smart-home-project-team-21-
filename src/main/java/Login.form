@@ -9,6 +9,7 @@
       <background color="-5150523"/>
       <maximumSize width="21" height="21"/>
       <minimumSize width="24" height="54"/>
+      <visible value="true"/>
     </properties>
     <border type="empty">
       <size top="2" left="2" bottom="2" right="2"/>
@@ -152,6 +153,7 @@
         </constraints>
         <properties>
           <background color="-7433157"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
@@ -173,6 +175,7 @@
         </constraints>
         <properties>
           <background color="-5163488"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
