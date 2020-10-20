@@ -132,11 +132,6 @@ public class Login extends JFrame {
 
         temp = HouseReader.readAndLoadHouse(f.getPath());
 
-        if(username.equalsIgnoreCase("a")){
-            new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username, f.getPath()).setVisible(true);
-            return true;
-        }
-
         if(user != null && f!=null && f.exists() && f.isFile() && temp!=null) {
             this.setVisible(false);
 
@@ -160,6 +155,7 @@ public class Login extends JFrame {
             System.out.println("Login failed");
             return false;
         }
+
     }
 
 }
