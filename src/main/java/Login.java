@@ -10,7 +10,6 @@ import java.io.File;
  */
 public class Login extends JFrame {
     private JPanel mainPanel;
-    private JPanel topPanel;
     private JPanel middlePanel;
     private JPanel bottomPanel;
     private JPasswordField passwordText;
@@ -20,6 +19,9 @@ public class Login extends JFrame {
     private JButton loginButton;
     private JButton UploadFile;
     private JLabel housefieldlabel;
+    private JLabel username_passwordCheck;
+    private JPanel ErrorCheck;
+    private JPanel fileMissing;
     private String filepath;
     private static String lasthousefilepath = null;
 
@@ -27,7 +29,7 @@ public class Login extends JFrame {
     private static final int x = 300;
     private static final int y = 200;
     private static final int width = 400;
-    private static final int height = 300;
+    private static final int height = 350;
 
     /**
      * Parameterised constructor.
@@ -49,6 +51,8 @@ public class Login extends JFrame {
             UploadFile.setVisible(false);
             housefieldlabel.setVisible(false);
         }
+        ErrorCheck.setVisible(false);
+        fileMissing.setVisible(false);
     }
 
     /**
@@ -124,18 +128,14 @@ public class Login extends JFrame {
         House temp;
         File f = null;
         if (houseFilePath != null) {
-            f = new File(houseFilePath);
-            lasthousefilepath = houseFilePath;
+                f = new File(houseFilePath);
+                lasthousefilepath = houseFilePath;
         }
 
         if (lasthousefilepath != null) f = new File(lasthousefilepath);
 
-        temp = HouseReader.readAndLoadHouse(f.getPath());
-
-        if(username.equalsIgnoreCase("a")){
-            new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username, f.getPath()).setVisible(true);
-            return true;
-        }
+        if (f!=null)temp = HouseReader.readAndLoadHouse(f.getPath());
+        else temp = null;
 
         if(user != null && f!=null && f.exists() && f.isFile() && temp!=null) {
             this.setVisible(false);
@@ -157,9 +157,14 @@ public class Login extends JFrame {
             else if (user instanceof Stranger) System.out.println("Login failed, trying to login as stranger");
             return true;
         } else {
+            if (user == null)ErrorCheck.setVisible(true);
+            else ErrorCheck.setVisible(false);
+            if (f==null || !f.exists() || !f.isFile() || temp==null)fileMissing.setVisible(true);
+            else fileMissing.setVisible(false);
             System.out.println("Login failed");
             return false;
         }
+
     }
 
 }
