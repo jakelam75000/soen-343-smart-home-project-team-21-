@@ -10,7 +10,6 @@ import java.io.File;
  */
 public class Login extends JFrame {
     private JPanel mainPanel;
-    private JPanel topPanel;
     private JPanel middlePanel;
     private JPanel bottomPanel;
     private JPasswordField passwordText;
@@ -20,6 +19,9 @@ public class Login extends JFrame {
     private JButton loginButton;
     private JButton UploadFile;
     private JLabel housefieldlabel;
+    private JLabel username_passwordCheck;
+    private JPanel ErrorCheck;
+    private JPanel fileMissing;
     private String filepath;
     private static String lasthousefilepath = null;
 
@@ -27,7 +29,7 @@ public class Login extends JFrame {
     private static final int x = 300;
     private static final int y = 200;
     private static final int width = 400;
-    private static final int height = 300;
+    private static final int height = 350;
 
     /**
      * Parameterised constructor.
