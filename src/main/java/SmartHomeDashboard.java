@@ -62,6 +62,11 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel Image;
     private JLabel Outsidetemplabel;
     private JScrollPane openCloseScroll;
+    private JSpinner speedSpinner;
+    private JLabel SpeederLabel;
+    private JLabel automatedLabel;
+    private JScrollPane autoModeScroll;
+    private JPanel autoPanel;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
