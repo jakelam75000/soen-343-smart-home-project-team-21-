@@ -168,6 +168,7 @@ public class SmartHomeDashboard extends JFrame{
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
+        speedSpinner.setModel(new SpinnerNumberModel(1,0,10,0.25));
 
         updateUsers();
     }
@@ -247,6 +248,7 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
+                    timer.setDelay((int)(1000 / (double) speedSpinner.getValue()));
                     timer.start();
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
