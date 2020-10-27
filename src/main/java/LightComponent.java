@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that displays the light icon in the house view and its state
+ */
 public class LightComponent extends RoomComponent{
 
     private ImageIcon lightOnIcon = new ImageIcon("src/main/java/icons/light_on.png");
@@ -10,17 +13,27 @@ public class LightComponent extends RoomComponent{
     private boolean on = false;
     private Room room;
 
+    /**
+     * Constructor
+     * @param panel
+     * @param roomRect
+     * @param room
+     */
     public LightComponent(JPanel panel, RoomRectangle roomRect, Room room){
         super(panel, roomRect);
         scaledImage = new ImageIcon(lightOffIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         this.room = room;
     }
 
+    /**
+     * Draws the light component
+     * @param g Graphics object.
+     */
     @Override
     public void draw(Graphics g) {
 
         Smartobj[] objects = room.getSmartObjects();
-        boolean on = false;
+        boolean on = true;
         String isOn = "Off";
 
         for(Smartobj obj : objects){
