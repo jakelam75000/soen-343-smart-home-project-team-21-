@@ -22,7 +22,7 @@ public class Edit extends JFrame {
     //Bounds variables
     private static final int x = 300;
     private static final int y = 200;
-    private static final int width = 450;
+    private static final int width = 500;
     private static final int height = 300;
 
     /**
