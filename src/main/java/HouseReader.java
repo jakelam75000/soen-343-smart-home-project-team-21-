@@ -73,7 +73,9 @@ public class HouseReader {
                         s = lineReader.nextLine();
                         smartobjName = s.substring(s.indexOf(':')+2);
                         //to be exapanded with more types and if statements
-                        smartobjByRoom[j] = smartobjType.equalsIgnoreCase("window")? new Window(smartobjName) : null;
+                        smartobjByRoom[j] = null;
+                        if(smartobjType.equalsIgnoreCase("window"))smartobjByRoom[j] = new Window(smartobjName);
+                        else if (smartobjType.equalsIgnoreCase("door")) smartobjByRoom[j] = new Door(smartobjName);
 
                         if(smartobjByRoom == null) {
                             System.out.println("an error has occured in assigning the type of the smart object " + smartobjName );

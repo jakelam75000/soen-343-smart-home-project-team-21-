@@ -4,13 +4,15 @@ Room name: Living Room
 temperature: 20.3
 width: 2.00
 length: 2.00
-Smartobjects: 3
+Smartobjects: 4
 Type: Window
 name: Living Room Window 1
 Type: Window
 name: Living Room Window 2
 Type: Window
 name: Living Room Window 3
+Type: Door
+name: Entry Door1
 Room name: Bedroom
 temperature: 21.3
 width: 2.00
@@ -42,4 +44,6 @@ Room name: Garage
 temperature: 18.0
 width: 2.00
 length: 2.00
-Smartobjects: 0
+Smartobjects: 1
+Type: Door
+name: Garage door
