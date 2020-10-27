@@ -1,6 +1,5 @@
 /**
 *class window is a smart object which is stored in rooms
-*@author Jake Lamothe
 *@version 0.1
 *@since 2020-09-30
  */
