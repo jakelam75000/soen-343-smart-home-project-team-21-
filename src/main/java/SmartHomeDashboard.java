@@ -487,7 +487,7 @@ public class SmartHomeDashboard extends JFrame{
                     public void actionPerformed(ActionEvent e) {
                         if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
                             itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                            printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                            printToConsole(itemsArr[index].getText() + " is blocked/locked and cannot be opened/closed.");
                         }
                         else{
                             if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
