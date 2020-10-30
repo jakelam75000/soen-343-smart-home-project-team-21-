@@ -65,9 +65,9 @@ public class HouseReader {
                     temproomlength = Double.parseDouble(s.substring(s.indexOf(':')+2));
                     s = lineReader.nextLine();
 
-                    smartobjByRoom = new Smartobj[Integer.parseInt(s.substring(s.indexOf(':')+2))];
+                    smartobjByRoom = new Smartobj[Integer.parseInt(s.substring(s.indexOf(':')+2)) + 1];
 
-                    for (int j = 0; j< smartobjByRoom.length; j++){
+                    for (int j = 0; j< smartobjByRoom.length-1; j++){
                         s = lineReader.nextLine();
                         smartobjType = s.substring(s.indexOf(':')+2);
                         s = lineReader.nextLine();
@@ -81,6 +81,7 @@ public class HouseReader {
                             System.out.println("an error has occured in assigning the type of the smart object " + smartobjName );
                         }
                     }
+                    smartobjByRoom[smartobjByRoom.length-1] = new Light(temproomname + " light");
                     listofrooms[i] = new Room(smartobjByRoom,temproomname,temproomtempreture,temproomwidth,temproomlength);
                 }
                 mainhouse = new House(listofrooms,temphousename);
