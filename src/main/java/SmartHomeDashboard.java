@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -292,6 +294,13 @@ public class SmartHomeDashboard extends JFrame{
                 self.setVisible(false);
             }
         });
+        listItems.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                setUpSHCOpenClose();
+            }
+        });
     }
 
     /**
@@ -466,10 +475,8 @@ public class SmartHomeDashboard extends JFrame{
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
             List<String> items = house.getHouseItemValue(selectedItem);
-
             openClosePanel.removeAll();
             openClosePanel.setLayout(new GridLayout(items.size(), 1));
-
             JCheckBox[] itemsArr = new JCheckBox[items.size()];
             for(int i=0; i<items.size(); i++){
                 itemsArr[i] = new JCheckBox(items.get(i));
