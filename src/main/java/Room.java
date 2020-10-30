@@ -195,6 +195,12 @@ public class Room {
                     case WINDOW:
                         Window object = (Window)obj;
                         return object.setOpen(open);
+                    case DOOR:
+                        Door door = (Door)obj;
+                        return door.setOpen(open);
+                    case LIGHT:
+                        Light light = (Light)obj;
+                        return light.setON(open);
                 }
 
             }

@@ -33,8 +33,9 @@ public class Light extends Smartobj {
      * mutator method
      * @param ON
      */
-    public void setON(boolean ON) {
+    public boolean setON(boolean ON) {
         this.ON = ON;
+        return true;
     }
 
     /**
