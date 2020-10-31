@@ -474,6 +474,7 @@ public class SmartHomeDashboard extends JFrame{
         }
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
+            if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
             List<String> items = house.getHouseItemValue(selectedItem);
             openClosePanel.removeAll();
             openClosePanel.setLayout(new GridLayout(items.size(), 1));
@@ -484,14 +485,17 @@ public class SmartHomeDashboard extends JFrame{
                 int index = i;
                 itemsArr[i].addActionListener(new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
+                     public void actionPerformed(ActionEvent e) {
                         if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
-                            itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                            printToConsole(itemsArr[index].getText() + " is blocked/locked and cannot be opened/closed.");
+                           itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                            if (listItems.getSelectedValue().toString().contains("Window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                            else if (listItems.getSelectedValue().toString().contains("Door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
                         }
                         else{
-                            if(itemsArr[index].isSelected()) printToConsole(itemsArr[index].getText() + " was opened.");
-                            else  printToConsole(itemsArr[index].getText() + " was closed.");
+                            if(itemsArr[index].isSelected()&& (itemsArr[index].getText().contains("window") ||itemsArr[index].getText().contains("door"))) printToConsole(itemsArr[index].getText() + " was opened.");
+                            else if (itemsArr[index].getText().contains("window")||itemsArr[index].getText().contains("door")) printToConsole(itemsArr[index].getText() + " was closed.");
+                            else if (itemsArr[index].isSelected()&& itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned on.");
+                            else if (itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned off.");
                         }
                         updateHouseLayout();
                     }
