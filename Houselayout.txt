@@ -6,40 +6,40 @@ width: 2.00
 length: 2.00
 Smartobjects: 4
 Type: Window
-name: Living Room Window 1
+name: Living Room window 1
 Type: Window
-name: Living Room Window 2
+name: Living Room window 2
 Type: Window
-name: Living Room Window 3
+name: Living Room window 3
 Type: Door
-name: Entry Door1
+name: Entry door1
 Room name: Bedroom
 temperature: 21.3
 width: 2.00
 length: 2.00
 Smartobjects: 2
 Type: Window
-name: Bedroom Window 1
+name: Bedroom window 1
 Type: Window
-name: Bedroom Window 2
+name: Bedroom window 2
 Room name: Kitchen
 temperature: 22.0
 width: 2.00
 length: 2.00
 Smartobjects: 2
 Type: Window
-name: Kitchen Window 1
+name: Kitchen window 1
 Type: Window
-name: Kitchen Window 2
+name: Kitchen window 2
 Room name: Office
 temperature: 20.5
 width: 2.00
 length: 2.00
 Smartobjects: 2
 Type: Window
-name: Office Window 1
+name: Office window 1
 Type: Window
-name: Office Window 2
+name: Office window 2
 Room name: Garage
 temperature: 18.0
 width: 2.00

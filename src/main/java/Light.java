@@ -45,7 +45,7 @@ public class Light extends Smartobj {
     @Override
     public String toString() {
         String value = ON? "on":"off";
-        return "This is window " + super.name + " and it is "+ value +"\n";
+        return "This is light " + super.name + " and it is "+ value +"\n";
     }
 
     /**
