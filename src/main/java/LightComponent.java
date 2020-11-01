@@ -51,11 +51,12 @@ public class LightComponent extends RoomComponent{
 
         if (on) {
             isOn = "On";
+            scaledImage = new ImageIcon(lightOnIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         }
         else{
             isOn = "Off";
+            scaledImage = new ImageIcon(lightOffIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         }
-        scaledImage = new ImageIcon(lightOnIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
 
         FontMetrics metrics = g.getFontMetrics();
         int xIcon = getRelX() + (getRoomRect().getWidthandHeight()/2) + getRoomRect().getWidthandHeight()/10;
