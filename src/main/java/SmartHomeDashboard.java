@@ -250,7 +250,7 @@ public class SmartHomeDashboard extends JFrame{
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
-                    timer.setDelay((int)(1000 / (double) speedSpinner.getValue()));
+                    timer.setDelay((int)(1000 / (int)speedSpinner.getValue()));
                     timer.start();
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
