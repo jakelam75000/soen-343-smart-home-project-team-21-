@@ -34,11 +34,11 @@ class HouseReaderTest {
 
         assertAll(
                 "Make sure the number of smart objects in each room is correct.",
-                () -> assertEquals(3, room1.getSmartObjects().length),
-                () -> assertEquals(2, room2.getSmartObjects().length),
-                () -> assertEquals(2, room3.getSmartObjects().length),
-                () -> assertEquals(2, room4.getSmartObjects().length),
-                () -> assertEquals(0, room5.getSmartObjects().length)
+                () -> assertEquals(5, room1.getSmartObjects().length),
+                () -> assertEquals(3, room2.getSmartObjects().length),
+                () -> assertEquals(3, room3.getSmartObjects().length),
+                () -> assertEquals(3, room4.getSmartObjects().length),
+                () -> assertEquals(2, room5.getSmartObjects().length)
         );
 
         assertAll(
