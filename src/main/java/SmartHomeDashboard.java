@@ -104,6 +104,7 @@ public class SmartHomeDashboard extends JFrame{
     private boolean welcomeMessageDisplayed = false;
     private SmartHomeDashboard self;
     private DynamicLayout dynamicLayout;
+    private Timeholder th;
 
     //Bounds variables
     private static final int x = 100;
@@ -138,6 +139,7 @@ public class SmartHomeDashboard extends JFrame{
 
         setUpDashboardOptions();
         addActionListeners();
+        th = new Timeholder();
     }
 
     /**
@@ -251,6 +253,7 @@ public class SmartHomeDashboard extends JFrame{
                     onOff.setSelected(true);
                     setUpSimulation();
                     timer.setDelay((int)(1000 / (int)speedSpinner.getValue()));
+                    th.setSpeedfactor((int)(1000 / (int)speedSpinner.getValue()));
                     timer.start();
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
@@ -269,6 +272,7 @@ public class SmartHomeDashboard extends JFrame{
                 String s =timeLabel.getText();
                 s = updatetime(s);
                 timeLabel.setText(s);
+                th.setCurrenttime(s);
             }
         });
 
