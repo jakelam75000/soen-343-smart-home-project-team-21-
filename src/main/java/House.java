@@ -96,6 +96,41 @@ public class House {
     }
 
     /**
+     * Finds and returns
+     * @param name the name of the smart obj
+     * @return the smartobj as the general type (needs to be cast correctly from the calling side )
+     */
+    public boolean getSmartobjByName(String name){
+        boolean found = false;
+        for (int i=0; i<rooms.length; i++){
+            Smartobj[] objects = rooms[i].getSmartObjects();
+            for (int j=0; j< objects.length; j++){
+                if (objects[j].getName().contains(name))found = true;
+            }
+        }
+        return found;
+    }
+
+    /**
+     * sets a light that has the name name to the state state
+     * @param name the name of the light to be search for
+     * @param state boolean true or false (on or off)
+     * @return if it was found
+     */
+    public boolean setLightState(String name, boolean state){
+        if (name == null)return false;
+        for (int i=0; i<rooms.length;i++){
+            Smartobj[] temp = rooms[i].getSmartObjects();
+            for (int k=0; k<temp.length; k++){
+                if (temp[k].getName().contains(name) && temp[k].type==SmartObjectType.LIGHT){
+                    rooms[i].openCloseObject(name,state);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /**
      * returns the room at a specified index
      * @param i int index to be checked
      * @return Room returns the room specified at the index i
