@@ -99,6 +99,7 @@ public class SmartHomeDashboard extends JFrame{
     private JSpinner ToSchedualHoursSpinner;
     private JSpinner ToSchedualMinutesSpinner;
     private JSpinner ToSchedualSecondsSpinner;
+    private JCheckBox setToAutoModeCheckBox;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
@@ -441,6 +442,8 @@ public class SmartHomeDashboard extends JFrame{
 
             if (currentRoom != null) {
                 SmartObjectType selectedItem = listItems.getSelectedValue();
+                setToAutoModeCheckBox.setVisible(false);
+
                 List<String> items = currentRoom.getItemMapValue(selectedItem);
 
                 openClosePanel.removeAll();
@@ -474,6 +477,10 @@ public class SmartHomeDashboard extends JFrame{
         }
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
+
+            if (selectedItem.equals(SmartObjectType.LIGHT)) {setToAutoModeCheckBox.setVisible(true);}
+            else setToAutoModeCheckBox.setVisible(false);
+
             if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
             List<String> items = house.getHouseItemValue(selectedItem);
             openClosePanel.removeAll();
