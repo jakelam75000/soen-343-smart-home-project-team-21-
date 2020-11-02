@@ -323,6 +323,7 @@ public class SmartHomeDashboard extends JFrame{
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
         UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
 
+
         //Setting time
         hourInt = (int)Math.round((double)hourSpinner.getValue());
         minuteInt = (int)Math.round((double)minuteSpinner.getValue());
@@ -478,10 +479,11 @@ public class SmartHomeDashboard extends JFrame{
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
 
+            if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
+
             if (selectedItem.equals(SmartObjectType.LIGHT)) {setToAutoModeCheckBox.setVisible(true);}
             else setToAutoModeCheckBox.setVisible(false);
 
-            if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
             List<String> items = house.getHouseItemValue(selectedItem);
             openClosePanel.removeAll();
             openClosePanel.setLayout(new GridLayout(items.size(), 1));
@@ -511,6 +513,25 @@ public class SmartHomeDashboard extends JFrame{
             }
         }
     }
+
+//    public void autoModeON(String oldLoc, String newLoc) {
+//        boolean someoneInOld = false;
+//        if(!isAutoMode()) {
+//            return;
+//        }
+//
+//        for (String user : UserManager.getUsernames()) {
+//            if (UserManager.getUserLocation(user).equalsIgnoreCase(oldLoc)){
+//                someoneInOld = true;
+//                break;
+//            }
+//        }
+//
+//        if (!someoneInOld) {
+//            house.se
+//        }
+//
+//    }
 
     /**
      * Method that blocks/unblocks a given window
@@ -763,4 +784,9 @@ public class SmartHomeDashboard extends JFrame{
     public JButton getOnOff() {
         return onOff;
     }
+
+    public boolean isAutoMode (){
+       return setToAutoModeCheckBox.isSelected();
+    }
+
 }

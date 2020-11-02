@@ -8,7 +8,7 @@ public class PeopleComponent extends RoomComponent{
 
     private ImageIcon image = new ImageIcon("src/main/java/icons/person.png");
     private ImageIcon scaledImage;
-
+    private int userCount;
     private String roomName;
 
     /**
@@ -22,8 +22,6 @@ public class PeopleComponent extends RoomComponent{
         super(panel, roomRect);
         scaledImage = new ImageIcon(image.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         this.roomName = roomName;
-
-
     }
 
     /**
@@ -34,7 +32,7 @@ public class PeopleComponent extends RoomComponent{
     @Override
     public void draw(Graphics g) {
 
-        int userCount = 0;
+        userCount = 0;
 
         String[] usernames = UserManager.getUsernames();
         for(String username : usernames){
@@ -57,5 +55,9 @@ public class PeopleComponent extends RoomComponent{
         int stringY = yIcon + scaledImage.getIconHeight()/3*2;
 
         g2d.drawString(""+userCount, stringX, stringY);
+    }
+
+    public int getUserCount() {
+        return userCount;
     }
 }
