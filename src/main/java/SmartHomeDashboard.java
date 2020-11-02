@@ -172,6 +172,12 @@ public class SmartHomeDashboard extends JFrame{
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
         speedSpinner.setModel(new SpinnerNumberModel(1,1,100,1));
+        FromSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
+        FromSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        FromSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        ToSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
+        ToSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        ToSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
         updateUsers();
         setupSHPlights();
@@ -538,10 +544,6 @@ public class SmartHomeDashboard extends JFrame{
                                 if (lightindex == automatedlights.length)System.err.println("out of bounds index in setuplights");
                             }
                             automatedlights[lightindex] = itemsArr[index].getText();
-                            System.out.println("added light ");
-                            for (int k =0; k<automatedlights.length; k++){
-                                if (automatedlights[k]!=null)System.out.println(automatedlights[k]);
-                            }
                         }
                     if (!itemsArr[index].isSelected() ) {
                         int lightindex = 0;
@@ -559,10 +561,6 @@ public class SmartHomeDashboard extends JFrame{
                         }
                         automatedlights = temp;
                         printToConsole(itemsArr[index].getText() + " was removed from the automated list");
-                        System.out.println("removed light ");
-                        for (int k =0; k<automatedlights.length; k++){
-                            if (automatedlights[k]!=null)System.out.println(automatedlights[k]);
-                        }
                     }
                 }
             });
@@ -733,12 +731,10 @@ public class SmartHomeDashboard extends JFrame{
                     for (int i=0; i< automatedlights.length; i++){
                         if (automatedlights[i]!=null)house.setLightState(automatedlights[i],true);
                     }
-                    System.out.println("lights on");
                 } else{
                     for (int i=0; i< automatedlights.length; i++){
                         if (automatedlights[i]!=null)house.setLightState(automatedlights[i],false);
                     }
-                    System.out.println("lights off");
                 }
                 updateHouseLayout();
             }else {
@@ -746,12 +742,10 @@ public class SmartHomeDashboard extends JFrame{
                     for (int i=0; i< automatedlights.length; i++){
                         if (automatedlights[i]!=null)house.setLightState(automatedlights[i],true);
                     }
-                    System.out.println("lights on");
                 } else {
                     for (int i=0; i< automatedlights.length; i++){
                         if (automatedlights[i]!=null)house.setLightState(automatedlights[i],false);
                     }
-                    System.out.println("lights off");
                 }
                 updateHouseLayout();
             }
