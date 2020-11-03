@@ -169,7 +169,7 @@ public class SmartHomeDashboard extends JFrame{
 
         //Setting the "Location" and "Select location" comboBox
         Location.setLocationDropdowns(house.getRoomNames(), comboLocation, comboLocationAccessiblity);
-        Location.setUserLocation(Username, comboLocation, currentLocLabel);
+        Location.setUserLocation(Username.getText(), comboLocation, currentLocLabel);
 
         //Setting the "Accessibility
         Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
@@ -404,7 +404,7 @@ public class SmartHomeDashboard extends JFrame{
         dateLabel.setText(day.substring(0, 3) + " " + month.substring(0, 3) + " " + date + " " + year);
 
         //Setting current location
-        Location.setUserLocation(Username,comboLocation, currentLocLabel);
+        Location.setUserLocation(Username.getText(),comboLocation, currentLocLabel);
 
 
         //Setting time
@@ -1015,4 +1015,5 @@ public class SmartHomeDashboard extends JFrame{
     public JButton getOnOff() {
         return onOff;
     }
+
 }

@@ -23,12 +23,12 @@ public class Location {
 
     /**
      * user location label
-     * @param Username
+     * @param username
      * @param comboLocation
      * @param currentLocLabel
      */
-    public static void setUserLocation(JLabel Username, JComboBox<String> comboLocation, JLabel currentLocLabel) {
+    public static void setUserLocation(String username, JComboBox<String> comboLocation, JLabel currentLocLabel) {
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
-        UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
+        UserManager.changeUserLocation(username,currentLocLabel.getText());
     }
 }
