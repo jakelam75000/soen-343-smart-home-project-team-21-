@@ -1,4 +1,6 @@
-import javax.xml.stream.Location;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * Parent class of all user types
@@ -7,18 +9,30 @@ public class User {
     private String username;
     private String password;
     private String location;
+    private HashMap<LocationType, ArrayList> accessibilities = new  HashMap<>();
 
     /**
      * Constructor
      * @param username String the name of the account
-     * @param password String the apssword
+     * @param password String the password
      */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.location = LocationType.OUTSIDE.toString();
+        this.accessibilities = assignAccessibilities(accessibilities);
     }
 
+    /**
+     * Assigns accessibilities to each location
+     * @param accessibilities
+     * @return
+     */
+    private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+        EnumSet.allOf(LocationType.class)
+                .forEach(location -> accessibilities.put(location, new ArrayList()));
+        return accessibilities;
+    }
     /**
      * getter
      * @return String username
@@ -65,5 +79,21 @@ public class User {
      */
     public String getLocation(){
         return location;
+    }
+
+    /**
+     * getter
+     * @return
+     */
+    public HashMap<LocationType, ArrayList> getAccessibilities() {
+        return accessibilities;
+    }
+
+    /**
+     * setter
+     * @param accessibilities
+     */
+    public void setAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+        this.accessibilities = accessibilities;
     }
 }

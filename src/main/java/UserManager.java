@@ -42,6 +42,20 @@ public class UserManager {
     }
 
     /**
+     * Returns the User object of a specific user without checking password.
+     *
+     * @param username String username to search
+     * @return User pointer to the User object matching the username and password or null otherwise.
+     */
+    public static User findExistingUser(String username) {
+        if(userParent.get(username) != null) { return userParent.get(username);}
+        if(userChild.get(username) != null) { return userChild.get(username);}
+        if(userGuest.get(username) != null) { return userGuest.get(username);}
+        if(userStranger.get(username) != null) { return userStranger.get(username);}
+        return null;
+    }
+
+    /**
      * Updates the location of a user.
      *
      * @param username String username of user to be updated
@@ -159,6 +173,9 @@ public class UserManager {
     public static void initialize() {
         addUser("a", "a", UserTypes.PARENT);
         addUser("Parent1", "passwordabc", UserTypes.PARENT);
+        addUser("Guest", "guest", UserTypes.GUEST);
+        addUser("Stranger", "Stranger", UserTypes.STRANGER);
+        addUser("Child", "Child", UserTypes.CHILD);
         admin = findUser("Parent1", "passwordabc");
     }
 

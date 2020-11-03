@@ -42,7 +42,7 @@ public class SmartHomeDashboard extends JFrame{
     private JComboBox<String> comboUsers;
     private JButton addUserButton;
     private JLabel userAccessLabel;
-    private JComboBox<String> comboBox2;
+    private JComboBox<String> comboEnabledAccessibility;
     private JButton editUsrButton;
     private JButton addAccessButton;
     private JButton removeAccessButton;
@@ -101,6 +101,9 @@ public class SmartHomeDashboard extends JFrame{
     private JSpinner ToSchedualMinutesSpinner;
     private JSpinner ToSchedualSecondsSpinner;
     private JCheckBox setToAutoModeCheckBox;
+    private JComboBox comboDisabledAccessibility;
+    private JComboBox comboLocationAccessiblity;
+    private JLabel selectLocationLabel;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
@@ -161,12 +164,15 @@ public class SmartHomeDashboard extends JFrame{
         for(int i=1; i<32; i++) comboDate.addItem(""+i);
         for(int i=2000; i<=2025; i++) comboYear.addItem(""+i);
         comboYear.setSelectedIndex(20);
-        //Setting the "Location" combobox
-        String[] locations = house.getRoomNames();
-        for(String x : locations) comboLocation.addItem(x);
-        comboLocation.addItem(LocationType.OUTSIDE.toString());
 
-        UserManager.changeUserLocation(Username.getText(), comboLocation.getItemAt(comboLocation.getSelectedIndex()));
+        updateUsers();
+
+        //Setting the "Location" and "Select location" comboBox
+        Location.setLocationDropdowns(house.getRoomNames(), comboLocation, comboLocationAccessiblity);
+        Location.setUserLocation(Username, comboLocation, currentLocLabel);
+
+        //Setting the "Accessibility
+        Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
 
         //Setting all the spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
@@ -185,7 +191,6 @@ public class SmartHomeDashboard extends JFrame{
         TimerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
 
-        updateUsers();
         setupSHPlights();
     }
 
@@ -211,6 +216,26 @@ public class SmartHomeDashboard extends JFrame{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
+        comboUsers.addActionListener(new ActionListener() {
+            /**
+             * Updates the accessibility dropdown when new user is selected
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+            }
+        });
+        /**
+         * Updates the accessibility dropdown when new location is selected
+         * @param e
+         */
+        comboLocationAccessiblity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+            }
+        });
         awayModeCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -379,8 +404,7 @@ public class SmartHomeDashboard extends JFrame{
         dateLabel.setText(day.substring(0, 3) + " " + month.substring(0, 3) + " " + date + " " + year);
 
         //Setting current location
-        currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
-        UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
+        Location.setUserLocation(Username,comboLocation, currentLocLabel);
 
 
         //Setting time
