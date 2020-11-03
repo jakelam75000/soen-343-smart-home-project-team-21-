@@ -573,6 +573,10 @@ public class SmartHomeDashboard extends JFrame{
         }
     }
 
+    /**
+     * Method that checks how many rooms are occupied when auto mode for lights is engaged and changes the states
+     * of the lights to correspond (as well as house layout)
+     */
     public void autoModeClicked() {
         Set<String> pplInRooms = new HashSet<String>();
         for (String user : UserManager.getUsernames()) {
@@ -591,6 +595,12 @@ public class SmartHomeDashboard extends JFrame{
         updateHouseLayout();
     }
 
+    /**
+     * Method that takes a person's old and new locations for light auto mode in order to determine if lights
+     * are to be closed or turned on
+     * @param oldLoc
+     * @param newLoc
+     */
     public void autoLights(String oldLoc, String newLoc) {
         boolean someoneInOld = false;
         if(!isAutoMode()) {
