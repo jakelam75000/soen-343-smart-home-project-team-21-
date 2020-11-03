@@ -208,6 +208,11 @@ public class Room {
         return false;
     }
 
+    /**
+     * takes a smart object name and returns a boolean for its state
+     * @param name
+     * @return
+     */
     public boolean getObjectState(String name){
         for(Smartobj obj : smartobjects){
             if(obj.getName().equalsIgnoreCase(name)){
