@@ -16,7 +16,7 @@ public class Edit extends JFrame {
     private JComboBox<String> comboWindows;
     private JCheckBox blockedCheckBox;
     private JButton confirmObjButton;
-    private User currentuser;
+    private User currentUser;
     private SmartHomeDashboard caller;
 
     //Bounds variables
@@ -92,6 +92,7 @@ public class Edit extends JFrame {
                 UserManager.changeUserLocation(username, userLocation);
 
                 caller.autoLights(oldLocation, userLocation);
+                if(!userLocation.equalsIgnoreCase("outside")) caller.disableAwayMode();
 
                 caller.printToConsole(username + " has moved from "+oldLocation+" to "+ userLocation+".");
                 caller.updateHouseLayout();
