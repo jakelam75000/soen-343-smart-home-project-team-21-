@@ -619,7 +619,7 @@ public class SmartHomeDashboard extends JFrame{
             printToConsole(oldLoc +" light was turned off.");
         }
 
-        if (!house.getObjectState(newLoc+" light")){
+        if (!house.getObjectState(newLoc+" light") && !newLoc.equalsIgnoreCase("outside")){
             printToConsole(newLoc +" light was turned on.");
             house.openCloseObject(newLoc+" light", true);
         }
