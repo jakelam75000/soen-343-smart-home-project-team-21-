@@ -72,7 +72,7 @@ public class SmartHomeDashboard extends JFrame{
     private JPanel autoPanel;
     private JLabel AwayModeLabel;
     private JLabel NoteForAwayModeLabel;
-    private JCheckBox AwayModeCheckbox;
+    private JCheckBox awayModeCheckbox;
     private JPanel AwayModeCheckBoxPanel;
     private JLabel SetTimerLabel;
     private JPanel TimerPanel;
@@ -168,7 +168,7 @@ public class SmartHomeDashboard extends JFrame{
 
         UserManager.changeUserLocation(Username.getText(), comboLocation.getItemAt(comboLocation.getSelectedIndex()));
 
-        //Setting "Time" spinners
+        //Setting all the spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
@@ -180,6 +180,10 @@ public class SmartHomeDashboard extends JFrame{
         ToSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
         ToSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
         ToSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        TimerHoursSpinner.setModel(new SpinnerNumberModel(0, 0, 23, 1));
+        TimerMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        TimerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+
 
         updateUsers();
         setupSHPlights();
@@ -207,13 +211,30 @@ public class SmartHomeDashboard extends JFrame{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
-        AwayModeCheckbox.addActionListener(new ActionListener() {
+        awayModeCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (AwayModeCheckbox.isSelected())printToConsole("away mode enabled.");
-                else printToConsole("away mode disabled.");
+                if (awayModeCheckbox.isSelected()) {
+                    boolean houseEmpty = true;
+
+                    for(String user : UserManager.getUsernames()){
+                        if(!UserManager.getUserLocation(user).equalsIgnoreCase("outside")) houseEmpty = false;
+                    }
+
+                    if(!houseEmpty){
+                        awayModeCheckbox.setSelected(false);
+                        printToConsole("Away mode cannot be enable. There are people left in the house.");
+                    }
+                    else{
+                        printToConsole("Away mode enabled.");
+                    }
+                }
+                else {
+                    printToConsole("Away mode disabled.");
+                }
             }
         });
+
         addUserButton.addActionListener(new ActionListener() {
             /**
              * opens the adduser frame
@@ -275,6 +296,8 @@ public class SmartHomeDashboard extends JFrame{
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
                     autoLights(oldLocation, comboLocation.getItemAt(comboLocation.getSelectedIndex()));
+
+                    if(!currentLocLabel.getText().equalsIgnoreCase("Outside")) disableAwayMode();
                 }
                 updateHouseLayout();
             }
@@ -316,6 +339,7 @@ public class SmartHomeDashboard extends JFrame{
                 new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText(), self).setVisible(true);
             }
         });
+
         LogOutButton.addActionListener(new ActionListener() {
             /**
              * allows the user to logout and return to login
@@ -328,6 +352,7 @@ public class SmartHomeDashboard extends JFrame{
                 self.setVisible(false);
             }
         });
+
         listItems.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -788,7 +813,7 @@ public class SmartHomeDashboard extends JFrame{
         if (tempsec <10) second = "0" + tempsec;
         else second = String.valueOf(tempsec);
         outputtime = hour+":"+minute+":"+second;
-        if (AwayModeCheckbox.isSelected()) {
+        if (awayModeCheckbox.isSelected()) {
             int[] curtime = {temphr, tempmin, tempsec};
             int fromhour = (int) FromSchedualHoursSpinner.getValue();
             int frommin = (int) FromSchedualMinutesSpinner.getValue();
@@ -863,6 +888,17 @@ public class SmartHomeDashboard extends JFrame{
         dynamicLayout = new DynamicLayout(house.getRoomsList());
         HouseLayout.add(dynamicLayout);
     }
+
+//    /**
+//     * Checks if the house is currently empty.
+//     *
+//     * @return true if the house if empty; Otherwise returns false.
+//     */
+//    public boolean isHouseEmpty(){
+//
+//
+//        return true;
+//    }
 
     /**
      * For testing
@@ -946,6 +982,11 @@ public class SmartHomeDashboard extends JFrame{
 
     public boolean isAutoMode (){
        return setToAutoModeCheckBox.isSelected();
+    }
+
+    public void disableAwayMode(){
+        awayModeCheckbox.setSelected(false);
+        printToConsole("Away mode was disabled. There are users in the house.");
     }
 
 }
