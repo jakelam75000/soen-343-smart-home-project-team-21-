@@ -16,7 +16,7 @@ public class Edit extends JFrame {
     private JComboBox<String> comboWindows;
     private JCheckBox blockedCheckBox;
     private JButton confirmObjButton;
-    private User currentuser;
+    private User currentUser;
     private SmartHomeDashboard caller;
 
     //Bounds variables

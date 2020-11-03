@@ -217,6 +217,7 @@ public class SmartHomeDashboard extends JFrame{
                 if (awayModeCheckbox.isSelected()) {
                     boolean houseEmpty = true;
 
+                    //Checking if there are users still in the house.
                     for(String user : UserManager.getUsernames()){
                         if(!UserManager.getUserLocation(user).equalsIgnoreCase("outside")) houseEmpty = false;
                     }
@@ -580,10 +581,10 @@ public class SmartHomeDashboard extends JFrame{
 
         for (String room : house.getRoomNames()) {
             if (pplInRooms.contains(room)) {
-                house.setLightState(room+" light", true);
+                house.openCloseObject(room+" light", true);
             }
             else
-                house.setLightState(room+" light", false);
+                house.openCloseObject(room+" light", false);
         }
 
         setUpSHCOpenClose();
@@ -604,13 +605,13 @@ public class SmartHomeDashboard extends JFrame{
         }
 
         if (!someoneInOld){
-            house.setLightState(oldLoc +" light", false);
+            house.openCloseObject(oldLoc +" light", false);
             printToConsole(oldLoc +" light was turned off.");
         }
 
         if (!house.getObjectState(newLoc+" light")){
             printToConsole(newLoc +" light was turned on.");
-            house.setLightState(newLoc+" light", true);
+            house.openCloseObject(newLoc+" light", true);
         }
         setUpSHCOpenClose();
         updateHouseLayout();
@@ -826,22 +827,22 @@ public class SmartHomeDashboard extends JFrame{
             if (BeforeTimeCompare(fromtime,totime)) {
                 if (BeforeTimeCompare(curtime, totime) && BeforeTimeCompare(fromtime, curtime)) {
                     for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.setLightState(automatedlights[i],true);
+                        if (automatedlights[i]!=null) house.openCloseObject(automatedlights[i],true);
                     }
                 } else{
                     for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.setLightState(automatedlights[i],false);
+                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],false);
                     }
                 }
                 updateHouseLayout();
             }else {
                 if (BeforeTimeCompare(curtime,totime) || BeforeTimeCompare(fromtime,curtime)){
                     for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.setLightState(automatedlights[i],true);
+                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],true);
                     }
                 } else {
                     for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.setLightState(automatedlights[i],false);
+                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],false);
                     }
                 }
                 updateHouseLayout();
@@ -889,16 +890,17 @@ public class SmartHomeDashboard extends JFrame{
         HouseLayout.add(dynamicLayout);
     }
 
-//    /**
-//     * Checks if the house is currently empty.
-//     *
-//     * @return true if the house if empty; Otherwise returns false.
-//     */
-//    public boolean isHouseEmpty(){
-//
-//
-//        return true;
-//    }
+    public boolean isAutoMode (){
+        return setToAutoModeCheckBox.isSelected();
+    }
+
+    /**
+     * Disables the away mode and displays message in the console.
+     */
+    public void disableAwayMode(){
+        awayModeCheckbox.setSelected(false);
+        printToConsole("Away mode was disabled. There are users in the house.");
+    }
 
     /**
      * For testing
@@ -979,14 +981,4 @@ public class SmartHomeDashboard extends JFrame{
     public JButton getOnOff() {
         return onOff;
     }
-
-    public boolean isAutoMode (){
-       return setToAutoModeCheckBox.isSelected();
-    }
-
-    public void disableAwayMode(){
-        awayModeCheckbox.setSelected(false);
-        printToConsole("Away mode was disabled. There are users in the house.");
-    }
-
 }
