@@ -91,6 +91,7 @@ public class Edit extends JFrame {
 
                 UserManager.changeUserLocation(username, userLocation);
 
+                //calls autoLights function in smart home dashboard
                 caller.autoLights(oldLocation, userLocation);
                 if(!userLocation.equalsIgnoreCase("outside")) caller.disableAwayMode();
 

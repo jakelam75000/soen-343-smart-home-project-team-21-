@@ -180,6 +180,12 @@ public class House {
         return success;
     }
 
+    /**
+     * Takes a smart object name as a parameter and returns
+     * the state of the object
+     * @param name
+     * @return
+     */
     public boolean getObjectState(String name){
         for(Room room : rooms){
             if (room.getObjectState(name))
