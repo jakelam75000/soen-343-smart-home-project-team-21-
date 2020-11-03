@@ -28,7 +28,6 @@ public class Child extends User{
                 .forEach(location -> accessibilities.put(location, assignAccessibilityTypes()));
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.LIGHTCONTROL);
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.WINDOWCONTROL);
-        System.out.println("child" + accessibilities);
         return accessibilities;
     }
 
