@@ -10,6 +10,8 @@ public class Main {
 
         // Creates users
         UserManager.initialize();
+        // Initialize accessibility corresponding strings
+        Accessibility.initializeAccessibilities();
 
     }
 }
