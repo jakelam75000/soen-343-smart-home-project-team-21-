@@ -1,10 +1,11 @@
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -99,6 +100,7 @@ public class SmartHomeDashboard extends JFrame{
     private JSpinner ToSchedualHoursSpinner;
     private JSpinner ToSchedualMinutesSpinner;
     private JSpinner ToSchedualSecondsSpinner;
+    private JCheckBox setToAutoModeCheckBox;
     private Timer timer;
     private House house;
     private boolean welcomeMessageDisplayed = false;
@@ -247,6 +249,7 @@ public class SmartHomeDashboard extends JFrame{
                     onOff.setSelected(false);
                     tabbedPane1.setEnabledAt(0, true);
                     tabbedPane1.setEnabledAt(3, true);
+                    tabbedPane1.setEnabledAt(2, false);
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
                     timer.stop();
@@ -258,7 +261,10 @@ public class SmartHomeDashboard extends JFrame{
                     secondSpinner.setValue((double)times[0]);
                 }
                 else {
+                    String oldLocation = currentLocLabel.getText();
+                    System.out.println(currentLocLabel.getText() + " " + comboLocation.getItemAt(comboLocation.getSelectedIndex()));
                     tabbedPane1.setEnabledAt(1, true);
+                    tabbedPane1.setEnabledAt(2, true);
                     tabbedPane1.setEnabledAt(0, false);
                     tabbedPane1.setEnabledAt(3, false);
                     tabbedPane1.setSelectedIndex(1);
@@ -268,8 +274,22 @@ public class SmartHomeDashboard extends JFrame{
                     timer.start();
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
+                    autoLights(oldLocation, comboLocation.getItemAt(comboLocation.getSelectedIndex()));
                 }
                 updateHouseLayout();
+            }
+        });
+
+        setToAutoModeCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if (setToAutoModeCheckBox.isSelected()) {
+                   printToConsole("Lights auto mode is activated.");
+                   self.autoModeClicked();
+               }
+               else {
+                   printToConsole("Lights auto mode was deactivated.");
+               }
             }
         });
 
@@ -335,6 +355,7 @@ public class SmartHomeDashboard extends JFrame{
         //Setting current location
         currentLocLabel.setText(comboLocation.getItemAt(comboLocation.getSelectedIndex()));
         UserManager.changeUserLocation(Username.getText(),currentLocLabel.getText());
+
 
         //Setting time
         hourInt = (int)Math.round((double)hourSpinner.getValue());
@@ -455,6 +476,8 @@ public class SmartHomeDashboard extends JFrame{
 
             if (currentRoom != null) {
                 SmartObjectType selectedItem = listItems.getSelectedValue();
+                setToAutoModeCheckBox.setVisible(false);
+
                 List<String> items = currentRoom.getItemMapValue(selectedItem);
 
                 openClosePanel.removeAll();
@@ -488,7 +511,12 @@ public class SmartHomeDashboard extends JFrame{
         }
         else{
             SmartObjectType selectedItem = listItems.getSelectedValue();
+
             if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
+
+            if (selectedItem.equals(SmartObjectType.LIGHT)) {setToAutoModeCheckBox.setVisible(true);}
+            else setToAutoModeCheckBox.setVisible(false);
+
             List<String> items = house.getHouseItemValue(selectedItem);
             openClosePanel.removeAll();
             openClosePanel.setLayout(new GridLayout(items.size(), 1));
@@ -517,6 +545,50 @@ public class SmartHomeDashboard extends JFrame{
                 openClosePanel.add(itemsArr[i]);
             }
         }
+    }
+
+    public void autoModeClicked() {
+        Set<String> pplInRooms = new HashSet<String>();
+        for (String user : UserManager.getUsernames()) {
+            pplInRooms.add(UserManager.getUserLocation(user));
+        }
+
+        for (String room : house.getRoomNames()) {
+            if (pplInRooms.contains(room)) {
+                house.setLightState(room+" light", true);
+            }
+            else
+                house.setLightState(room+" light", false);
+        }
+
+        setUpSHCOpenClose();
+        updateHouseLayout();
+    }
+
+    public void autoLights(String oldLoc, String newLoc) {
+        boolean someoneInOld = false;
+        if(!isAutoMode()) {
+            return;
+        }
+
+        for (String user : UserManager.getUsernames()) {
+            if (UserManager.getUserLocation(user).equalsIgnoreCase(oldLoc)){
+                someoneInOld = true;
+                break;
+            }
+        }
+
+        if (!someoneInOld){
+            house.setLightState(oldLoc +" light", false);
+            printToConsole(oldLoc +" light was turned off.");
+        }
+
+        if (!house.getObjectState(newLoc+" light")){
+            printToConsole(newLoc +" light was turned on.");
+            house.setLightState(newLoc+" light", true);
+        }
+        setUpSHCOpenClose();
+        updateHouseLayout();
     }
 
     /**
@@ -753,12 +825,14 @@ public class SmartHomeDashboard extends JFrame{
         return outputtime;
 
     }
+
     public boolean BeforeTimeCompare(int[] a1, int[] a2){
         if (a1[0] < a2[0])return true;
         else if (a1[0] == a2[0] && a1[1] < a2[1])return true;
         else if (a1[0] == a2[0] && a1[1] == a2[1] && a1[2] < a2[2]) return true;
         return false;
     }
+
     /**
      * Breaksdown a time input hr:min:sec to an int array[] e.g. int[0] = hr, int [1] = min int[2] = sec.
      *
@@ -869,4 +943,9 @@ public class SmartHomeDashboard extends JFrame{
     public JButton getOnOff() {
         return onOff;
     }
+
+    public boolean isAutoMode (){
+       return setToAutoModeCheckBox.isSelected();
+    }
+
 }

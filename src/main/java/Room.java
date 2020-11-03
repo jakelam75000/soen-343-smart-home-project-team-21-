@@ -208,6 +208,26 @@ public class Room {
         return false;
     }
 
+    public boolean getObjectState(String name){
+        for(Smartobj obj : smartobjects){
+            if(obj.getName().equalsIgnoreCase(name)){
+                SmartObjectType objType = obj.getType();
+                switch(objType){
+                    case WINDOW:
+                        Window object = (Window)obj;
+                        return object.isOpen();
+                    case DOOR:
+                        Door door = (Door)obj;
+                        return door.isOpen();
+                    case LIGHT:
+                        Light light = (Light)obj;
+                        return light.isON();
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * clones the room object
      * @return Room a copy of the room

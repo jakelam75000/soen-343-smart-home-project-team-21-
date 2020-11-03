@@ -130,6 +130,7 @@ public class House {
         }
         return false;
     }
+
     /**
      * returns the room at a specified index
      * @param i int index to be checked
@@ -197,5 +198,13 @@ public class House {
 
         }
         return success;
+    }
+
+    public boolean getObjectState(String name){
+        for(Room room : rooms){
+            if (room.getObjectState(name))
+                return true;
+        }
+        return false;
     }
 }
