@@ -31,15 +31,18 @@ public class Accessibility {
         comboDisabledAccessibility.removeAllItems();
         // Initial setup of disabled accessibility dropdown
         setDisabledAccessibilityDropdown(comboDisabledAccessibility);
-        //Getting correct information to get user accessibilities
-        User user = UserManager.findExistingUser(comboUsers.getSelectedItem().toString());
-        LocationType locationType = LocationType.valueOf(comboLocationAccessiblity.getSelectedItem().toString());
-        ArrayList accessibilityType = user.getAccessibilities().get(locationType);
-        //Add accessibility to the correct dropdown
-        for(Object type : accessibilityType) {
-            String itemInDropdown = accessibilities.get(type);
-            comboEnabledAccessibility.addItem(itemInDropdown);
-            comboDisabledAccessibility.removeItem(itemInDropdown);
+        //Check if null
+        if(comboUsers.getSelectedItem() != null) {
+            //Getting correct information to get user accessibilities
+            User user = UserManager.findExistingUser(comboUsers.getSelectedItem().toString());
+            LocationType locationType = LocationType.valueOf(comboLocationAccessiblity.getSelectedItem().toString());
+            ArrayList accessibilityType = user.getAccessibilities().get(locationType);
+            //Add accessibility to the correct dropdown
+            for(Object type : accessibilityType) {
+                String itemInDropdown = accessibilities.get(type);
+                comboEnabledAccessibility.addItem(itemInDropdown);
+                comboDisabledAccessibility.removeItem(itemInDropdown);
+            }
         }
     }
 

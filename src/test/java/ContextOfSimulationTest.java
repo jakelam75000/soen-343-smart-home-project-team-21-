@@ -40,12 +40,10 @@ public class ContextOfSimulationTest {
      */
     @Test
     public void testChangeLocation() {
-        SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
-        JComboBox<String> comboLocation = smartHomeDashboard.getComboLocation();
-
-        comboLocation.setSelectedIndex(2);
-
-        assertEquals(LocationType.KITCHEN.toString(), comboLocation.getItemAt(comboLocation.getSelectedIndex()));
+        UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT);
+        UserManager.changeUserLocation("Parent1", "KITCHEN");
+        User user = UserManager.findUser("Parent1", "passwordabc");
+        assertEquals(LocationType.KITCHEN.toString(), user.getLocation());
     }
 
     /**
