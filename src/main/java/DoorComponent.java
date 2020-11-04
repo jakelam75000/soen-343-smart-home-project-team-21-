@@ -58,7 +58,7 @@ public class DoorComponent extends RoomComponent {
 
         String[] usernames = UserManager.getUsernames();
         for(String username : usernames){
-            if(UserManager.getUserLocation(username).equalsIgnoreCase(room.getName())) vistorCount++;
+            if(UserManager.getUserLocation(username).equalsIgnoreCase(room.getName()+"STOOP")) vistorCount++;
         }
 
         for(Smartobj obj : objects){
