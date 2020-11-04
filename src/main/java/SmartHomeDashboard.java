@@ -850,7 +850,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         if (tempsec <10) second = "0" + tempsec;
         else second = String.valueOf(tempsec);
         outputtime = hour+":"+minute+":"+second;
-        if (awayModeCheckbox.isSelected()) {
+        if (setToAutoModeCheckBox.isSelected()) {
             int[] curtime = {temphr, tempmin, tempsec};
             int fromhour = (int) fromSchedualHoursSpinner.getValue();
             int frommin = (int) fromSchedualMinutesSpinner.getValue();
@@ -883,6 +883,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
                 updateHouseLayout();
             }
+        }
+
+        if (awayModeCheckbox.isSelected()){
             if (Math.random() * (100) > 90 && !strangercalled){
                 UserManager.addUser("mc Burgle",null,UserTypes.STRANGER);
                 UserManager.changeUserLocation("mc Burgle","LIVINGROOM");
