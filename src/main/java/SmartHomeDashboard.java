@@ -337,7 +337,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
                 else {
                     String oldLocation = currentLocLabel.getText();
-                    System.out.println(currentLocLabel.getText() + " " + comboLocation.getItemAt(comboLocation.getSelectedIndex()));
                     tabbedPane1.setEnabledAt(1, true);
                     tabbedPane1.setEnabledAt(2, true);
                     tabbedPane1.setEnabledAt(0, false);
