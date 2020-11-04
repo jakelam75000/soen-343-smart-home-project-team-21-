@@ -139,6 +139,4 @@ public class AlertConfirmationWindow extends JFrame{
         else outputtime = "-" +hour+":"+minute+":"+second;
         return outputtime;
     }
-
-
 }

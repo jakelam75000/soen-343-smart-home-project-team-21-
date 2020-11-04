@@ -964,19 +964,19 @@
                           <text value="Seconds"/>
                         </properties>
                       </component>
-                      <component id="a7d51" class="javax.swing.JSpinner" binding="ToSchedualHoursSpinner">
+                      <component id="a7d51" class="javax.swing.JSpinner" binding="toSchedualHoursSpinner">
                         <constraints>
                           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="7f74a" class="javax.swing.JSpinner" binding="ToSchedualMinutesSpinner">
+                      <component id="7f74a" class="javax.swing.JSpinner" binding="toSchedualMinutesSpinner">
                         <constraints>
                           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="e19ca" class="javax.swing.JSpinner" binding="ToSchedualSecondsSpinner">
+                      <component id="e19ca" class="javax.swing.JSpinner" binding="toSchedualSecondsSpinner">
                         <constraints>
                           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
