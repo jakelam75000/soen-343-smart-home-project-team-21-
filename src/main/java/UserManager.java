@@ -265,4 +265,21 @@ public class UserManager {
         }
         return "Outside";
     }
+
+    public static UserTypes getUserType(String username){
+        if(userParent.get(username) != null) {
+            return UserTypes.PARENT;
+        }
+        else if(userChild.get(username) != null) {
+            return UserTypes.CHILD;
+        }
+        else if(userGuest.get(username) != null) {
+            return UserTypes.GUEST;
+        }
+        else if(userStranger.get(username) != null) {
+            return UserTypes.STRANGER;
+        }
+
+        return null;
+    }
 }

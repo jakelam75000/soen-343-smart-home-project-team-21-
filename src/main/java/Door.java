@@ -33,13 +33,7 @@ public class Door extends Smartobj implements Cloneable {
      *
      * @param lockedornot Boolean is the new value of locked (is the door locked from opening)
      */
-    public boolean setlocked(boolean lockedornot) {
-        if (open) return false;
-        else {
-            locked = lockedornot;
-            return true;
-        }
-    }
+    public void setlocked(boolean lockedornot) { locked = lockedornot; }
 
     /**
      * mutator method

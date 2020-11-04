@@ -182,6 +182,17 @@ public class Room {
     }
 
     /**
+     * sets all of the door objects in the room to locked
+     */
+    public void lockAllDoors(){
+        for (Smartobj obj : smartobjects){
+            if(obj.getType()==SmartObjectType.DOOR){
+                Door door = (Door)obj;
+                door.setlocked(true);
+            }
+        }
+    }
+    /**
      * Opens and closes an object
      * @param name String the name of the window
      * @param open Boolean the open or close value of the window

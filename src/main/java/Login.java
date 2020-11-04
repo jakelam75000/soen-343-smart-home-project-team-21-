@@ -155,6 +155,8 @@ public class Login extends JFrame {
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username, f.getPath()).setVisible(true);
             }
             else if (user instanceof Stranger) System.out.println("Login failed, trying to login as stranger");
+
+            this.dispose();
             return true;
         } else {
             if (user == null)ErrorCheck.setVisible(true);
