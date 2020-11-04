@@ -41,6 +41,19 @@ public class House {
     }
 
     /**
+     * Checking if there are users still in the house.
+     * @return
+     */
+    public static boolean isHouseEmpty() {
+        for(String user : UserManager.getUsernames()){
+            if(!UserManager.getUserLocation(user).equalsIgnoreCase("outside")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
     a mutator function which for now shouldn't be used
     @param listOfRooms This is the newest list of room object to be added
      */

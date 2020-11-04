@@ -262,19 +262,18 @@ public class SmartHomeDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (awayModeCheckbox.isSelected()) {
-                    boolean houseEmpty = true;
-
-                    //Checking if there are users still in the house.
-                    for(String user : UserManager.getUsernames()){
-                        if(!UserManager.getUserLocation(user).equalsIgnoreCase("outside")) houseEmpty = false;
-                    }
-
-                    if(!houseEmpty){
-                        awayModeCheckbox.setSelected(false);
-                        printToConsole("Away mode cannot be enable. There are people left in the house.");
+                    if (House.isHouseEmpty()){
+                        if(Accessibility.allowAwayMode(Username.getText())) {
+                            printToConsole("Away mode enabled.");
+                        } else {
+                            awayModeCheckbox.setSelected(false);
+                            printToConsole("Away mode cannot be enable. User does not have access to perform this action.");
+                        }
                     }
                     else{
                         printToConsole("Away mode enabled.");
+                        awayModeCheckbox.setSelected(false);
+                        printToConsole("Away mode cannot be enable. There are people left in the house.");
                     }
                 }
                 else {

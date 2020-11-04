@@ -14,9 +14,17 @@ public class Accessibility {
      * initial setup fro the disabled dropdown
      * @param comboDisabledAccessibility
      */
-    public static void setDisabledAccessibilityDropdown(JComboBox<String> comboDisabledAccessibility) {
-        EnumSet.allOf(AccessibilityType.class)
-                .forEach(accessibility -> comboDisabledAccessibility.addItem(accessibilitiesToString.get(accessibility)));
+    public static void setDisabledAccessibilityDropdown(JComboBox<String> comboDisabledAccessibility, LocationType location) {
+        for(AccessibilityType accessibility : AccessibilityType.values()) {
+            //away mode is only allowed to be used when user is outside
+            if(accessibility == AccessibilityType.AWAYMODE) {
+                if(location == LocationType.OUTSIDE) {
+                    comboDisabledAccessibility.addItem(accessibilitiesToString.get(accessibility));
+                }
+            } else {
+                comboDisabledAccessibility.addItem(accessibilitiesToString.get(accessibility));
+            }
+        }
     }
 
     /**
@@ -31,7 +39,7 @@ public class Accessibility {
         comboEnabledAccessibility.removeAllItems();
         comboDisabledAccessibility.removeAllItems();
         // Initial setup of disabled accessibility dropdown
-        setDisabledAccessibilityDropdown(comboDisabledAccessibility);
+        setDisabledAccessibilityDropdown(comboDisabledAccessibility, LocationType.valueOf(comboLocationAccessiblity.getSelectedItem().toString()));
         //Check if null
         if(comboUsers.getSelectedItem() != null) {
             //Getting correct information to get user accessibilities
@@ -128,6 +136,26 @@ public class Accessibility {
         }
         //Need to update dropdowns with new accessibilities
         setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+    }
+
+    /**
+     * Checks if user is outside and that away mode is in their accessibility list
+     * @param username
+     * @return
+     */
+    public static boolean allowAwayMode(String username) {
+        User user = UserManager.findExistingUser(username);
+        String location = UserManager.getUserLocation(username);
+        if(location.equalsIgnoreCase("outside")) {
+            ArrayList accessibilities = user.getAccessibilities().get(LocationType.OUTSIDE);
+            for(Object accessibility : accessibilities) {
+                if(accessibility == AccessibilityType.AWAYMODE) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 
     /**
