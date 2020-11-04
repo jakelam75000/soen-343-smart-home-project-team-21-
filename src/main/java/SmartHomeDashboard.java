@@ -111,6 +111,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
+    private  SHPObserver shp = SHPObserver.getInstance();
     //FOR TESTING THE SHP AWAY INTRUDER
 
     //Bounds variables
@@ -269,7 +270,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     if (isSomeoneHome() == null){
                         if(Accessibility.allowAwayMode(Username.getText())) {
                             String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
-                            attachObserver(new SHPObserver(alertTimer, (int)speedSpinner.getValue()));
+                            shp.setTimer(alertTimer);
+                            shp.setMultiplier((int)(speedSpinner.getValue()));
+                            attachObserver(shp);
                             house.LockAllDoors();
                             updateHouseLayout();
                             printToConsole("Away mode enabled.");
@@ -283,7 +286,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     }
                 }
                 else {
-                    detachObserver(new SHPObserver("", 1));
+                    detachObserver(shp);
                     printToConsole("Away mode disabled.");
                 }
             }
@@ -919,7 +922,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public void disableAwayMode(){
         awayModeCheckbox.setSelected(false);
-        detachObserver(new SHPObserver("", 1));
+        detachObserver(shp);
         printToConsole("Away mode was disabled. There are users in the house.");
     }
 

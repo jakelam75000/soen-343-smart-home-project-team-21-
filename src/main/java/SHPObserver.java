@@ -2,7 +2,7 @@ public class SHPObserver implements Observer{
 
     private String timer;
     private int multiplier;
-
+    private static SHPObserver instance;
     private boolean houseSafe = true;
     private boolean callCops = false;
     private boolean turnOffAwayMode = false;
@@ -10,16 +10,16 @@ public class SHPObserver implements Observer{
     private boolean currentAutomatedLightState = false;
 
     /**
-     * Parameterised constructor.
-     *
-     * @param timer amount of time before calling the cops in case of an emergency.
-     * @param multiplier the time multiplier
+    *lazy constructor for implementation singleton pattern
      */
-    public SHPObserver(String timer, int multiplier){
-        this.timer = timer;
-        this.multiplier = multiplier;
+    private SHPObserver(){
     }
-
+    static {
+        instance = new SHPObserver();
+    }
+    public static SHPObserver getInstance(){
+        return instance;
+    }
     /**
      * Getter for timer.
      *
@@ -29,6 +29,21 @@ public class SHPObserver implements Observer{
         return timer;
     }
 
+    /**
+     * setter method
+     * @param t desired time
+     */
+    public void setTimer(String t){
+        timer = t;
+    }
+
+    /**
+     * setter method
+     * @param mult multiplier value
+     */
+    public void setMultiplier(int mult){
+        multiplier = mult;
+    }
     /**
      * Getter for the multiplier
      *
