@@ -74,7 +74,7 @@ public class DoorComponent extends RoomComponent {
         }
 
         FontMetrics metrics = g.getFontMetrics();
-        int xIcon = getRelX() + (getRoomRect().getWidthandHeight()/2) - scaledImage.getIconWidth() - getRoomRect().getWidthandHeight()/10;
+        int xIcon = getRelX() + (getRoomRect().getWidthandHeight()/2) - scaledImage.getIconWidth()/2;
         int yIcon = getRelY() - 2*(metrics.getHeight()) + getRoomRect().getWidthandHeight();
         int endxIcon = xIcon + 25;
         int endyIcon = yIcon + 25;
@@ -91,7 +91,7 @@ public class DoorComponent extends RoomComponent {
         int stringY = yIcon + scaledImage.getIconHeight()*75/100;
         int stringX = xIcon + scaledImage.getIconWidth();
 
-        g2d.drawString(isLocked, stringX, stringY);
+
 
     }
 }
