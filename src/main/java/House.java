@@ -65,9 +65,19 @@ public class House {
      * @return String[] a list of all the rooms named
      */
     public String[] getRoomNames(){
-        String[] s = new String[rooms.length];
+        int k = rooms.length;
+        for (Room room : rooms){
+            if (room.hasDoor()) k++;
+        }
+        String[] s = new String[k];
+        k=0;
         for (int i=0;i< rooms.length; i++){
-            s[i]=rooms[i].getName();
+            s[k]=rooms[i].getName();
+            if (rooms[i].hasDoor()){
+                k++;
+                s[k] = rooms[i].getName() + "STOOP";
+            }
+            k++;
         }
         return s;
     }
