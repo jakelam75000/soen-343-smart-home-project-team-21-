@@ -216,6 +216,28 @@ public class SmartHomeDashboard extends JFrame{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
+        addAccessButton.addActionListener(new ActionListener() {
+            /**
+             * Updates the accessibility dropdown when new user is selected
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(comboDisabledAccessibility.getItemCount() > 0) {
+                    Accessibility.addAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                }
+            }
+        });
+        removeAccessButton.addActionListener(new ActionListener() {
+            /**
+             * Updates the accessibility dropdown when new user is selected
+             * @param e
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Accessibility.removeAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+            }
+        });
         comboUsers.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
