@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * main frame that holds the dashboard and acts as a central hub
  */
-public class SmartHomeDashboard extends JFrame{
+public class SmartHomeDashboard extends JFrame implements Observable{
     private JPanel mainPanel;
     private JButton onOff;
     private JButton editSimulation;
@@ -79,27 +79,27 @@ public class SmartHomeDashboard extends JFrame{
     private JLabel TimerHoursLabel;
     private JLabel TimerMinutesLabel;
     private JLabel TimerSecondsLabel;
-    private JSpinner TimerHoursSpinner;
-    private JSpinner TimerMinutesSpinner;
-    private JSpinner TimerSecondsSpinner;
+    private JSpinner timerHoursSpinner;
+    private JSpinner timerMinutesSpinner;
+    private JSpinner timerSecondsSpinner;
     private JLabel LightsRemainOnLabel;
     private JScrollPane LightsScrollPane;
-    private JPanel LightsListPanel;
+    private JPanel lightsListPanel;
     private JLabel DurationLightsLabel;
     private JLabel TimerFromLabel;
     private JLabel SchedualLightHoursLabel;
     private JLabel SchedualLightMinutesLabel;
     private JLabel SchedualLightSecondsLabel;
-    private JSpinner FromSchedualHoursSpinner;
-    private JSpinner FromSchedualMinutesSpinner;
-    private JSpinner FromSchedualSecondsSpinner;
+    private JSpinner fromSchedualHoursSpinner;
+    private JSpinner fromSchedualMinutesSpinner;
+    private JSpinner fromSchedualSecondsSpinner;
     private JLabel TimerToLabel;
     private JLabel ToSchedualHoursLabel;
     private JLabel ToSchedualMinutesLabel;
     private JLabel ToSchedualSecondsLabel;
-    private JSpinner ToSchedualHoursSpinner;
-    private JSpinner ToSchedualMinutesSpinner;
-    private JSpinner ToSchedualSecondsSpinner;
+    private JSpinner toSchedualHoursSpinner;
+    private JSpinner toSchedualMinutesSpinner;
+    private JSpinner toSchedualSecondsSpinner;
     private JCheckBox setToAutoModeCheckBox;
     private JComboBox comboDisabledAccessibility;
     private JComboBox comboLocationAccessiblity;
@@ -109,7 +109,9 @@ public class SmartHomeDashboard extends JFrame{
     private boolean welcomeMessageDisplayed = false;
     private SmartHomeDashboard self;
     private DynamicLayout dynamicLayout;
-    private String[] automatedlights;
+    private String[] automatedLights;
+    private List<Observer> observers = new ArrayList<Observer>();
+    //FOR TESTING THE SHP AWAY INTRUDER
 
     //Bounds variables
     private static final int x = 100;
@@ -180,15 +182,15 @@ public class SmartHomeDashboard extends JFrame{
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
         speedSpinner.setModel(new SpinnerNumberModel(1,1,100,1));
-        FromSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
-        FromSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-        FromSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-        ToSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
-        ToSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-        ToSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-        TimerHoursSpinner.setModel(new SpinnerNumberModel(0, 0, 23, 1));
-        TimerMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-        TimerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        fromSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
+        fromSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        fromSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        toSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
+        toSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        toSchedualSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        timerHoursSpinner.setModel(new SpinnerNumberModel(0, 0, 23, 1));
+        timerMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        timerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
 
         setupSHPlights();
@@ -248,35 +250,40 @@ public class SmartHomeDashboard extends JFrame{
                 Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
             }
         });
-        /**
-         * Updates the accessibility dropdown when new location is selected
-         * @param e
-         */
+
         comboLocationAccessiblity.addActionListener(new ActionListener() {
+            /**
+             * Updates the accessibility dropdown when new location is selected
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
             }
         });
+
         awayModeCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (awayModeCheckbox.isSelected()) {
-                    if (House.isHouseEmpty()){
+                    if (isSomeoneHome() == null){
                         if(Accessibility.allowAwayMode(Username.getText())) {
+                            String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
+                            attachObserver(new SHPObserver(alertTimer, (int)speedSpinner.getValue()));
+                            house.LockAllDoors();
+                            updateHouseLayout();
                             printToConsole("Away mode enabled.");
                         } else {
                             awayModeCheckbox.setSelected(false);
                             printToConsole("Away mode cannot be enable. User does not have access to perform this action.");
                         }
-                    }
-                    else{
-                        printToConsole("Away mode enabled.");
+                    } else{
                         awayModeCheckbox.setSelected(false);
                         printToConsole("Away mode cannot be enable. There are people left in the house.");
                     }
                 }
                 else {
+                    detachObserver(new SHPObserver("", 1));
                     printToConsole("Away mode disabled.");
                 }
             }
@@ -323,7 +330,7 @@ public class SmartHomeDashboard extends JFrame{
                     timer.stop();
 
                     String currentTime = timeLabel.getText();
-                    int[] times =Breakdowntime(currentTime);
+                    int[] times = Breakdowntime(currentTime);
                     hourSpinner.setValue((double)times[2]);
                     minuteSpinner.setValue((double)times[1]);
                     secondSpinner.setValue((double)times[0]);
@@ -365,7 +372,7 @@ public class SmartHomeDashboard extends JFrame{
 
         timer = new Timer(1000, new ActionListener() {
             /**
-             * timer that updates the date and time
+             * timer that updates the date and time. This also notifies all observers of the update.
              * @param e ActionEvent
              */
             @Override
@@ -373,6 +380,7 @@ public class SmartHomeDashboard extends JFrame{
                 String s =timeLabel.getText();
                 s = updatetime(s);
                 timeLabel.setText(s);
+                notifyObservers(self);
             }
         });
 
@@ -407,6 +415,7 @@ public class SmartHomeDashboard extends JFrame{
                 setUpSHCOpenClose();
             }
         });
+
     }
 
     /**
@@ -678,9 +687,9 @@ public class SmartHomeDashboard extends JFrame{
     public void setupSHPlights() {
         SmartObjectType selectedItem = SmartObjectType.LIGHT;
         List<String> items = house.getHouseItemValue(selectedItem);
-        automatedlights = new String[items.size()];
-        LightsListPanel.removeAll();
-        LightsListPanel.setLayout(new GridLayout(items.size(), 1));
+        automatedLights = new String[items.size()];
+        lightsListPanel.removeAll();
+        lightsListPanel.setLayout(new GridLayout(items.size(), 1));
         JCheckBox[] itemsArr = new JCheckBox[items.size()];
         for (int i = 0; i < items.size(); i++) {
             itemsArr[i] = new JCheckBox(items.get(i));
@@ -689,35 +698,35 @@ public class SmartHomeDashboard extends JFrame{
             itemsArr[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        if (itemsArr[index].isSelected() ) {
-                            printToConsole(itemsArr[index].getText() + " was added to the automated list");
-                            int lightindex = 0;
-                            while (automatedlights[lightindex] != null){
-                                lightindex++;
-                                if (lightindex == automatedlights.length)System.err.println("out of bounds index in setuplights");
-                            }
-                            automatedlights[lightindex] = itemsArr[index].getText();
+                    if (itemsArr[index].isSelected() ) {
+                        printToConsole(itemsArr[index].getText() + " was added to the automated list");
+                        int lightindex = 0;
+                        while (automatedLights[lightindex] != null){
+                            lightindex++;
+                            if (lightindex == automatedLights.length)System.err.println("out of bounds index in setuplights");
                         }
+                        automatedLights[lightindex] = itemsArr[index].getText();
+                    }
                     if (!itemsArr[index].isSelected() ) {
                         int lightindex = 0;
                         while (true) {
-                            if (automatedlights[lightindex] != null) {
-                                if (automatedlights[lightindex].equalsIgnoreCase(itemsArr[index].getText()))break;
+                            if (automatedLights[lightindex] != null) {
+                                if (automatedLights[lightindex].equalsIgnoreCase(itemsArr[index].getText()))break;
                             }
                             lightindex++;
-                            if (index == automatedlights.length)System.err.println("out of bounds index in setuplights");
+                            if (index == automatedLights.length)System.err.println("out of bounds index in setuplights");
                         }
-                        String[] temp = new String[automatedlights.length];
-                        for (int j =0; j< automatedlights.length-1; j++){
-                            if (j < lightindex)temp[j] = automatedlights[j];
-                            else temp[j] = automatedlights[j+1];
+                        String[] temp = new String[automatedLights.length];
+                        for (int j = 0; j< automatedLights.length-1; j++){
+                            if (j < lightindex)temp[j] = automatedLights[j];
+                            else temp[j] = automatedLights[j+1];
                         }
-                        automatedlights = temp;
+                        automatedLights = temp;
                         printToConsole(itemsArr[index].getText() + " was removed from the automated list");
                     }
                 }
             });
-            LightsListPanel.add(itemsArr[i]);
+            lightsListPanel.add(itemsArr[i]);
         }
     }
 
@@ -820,11 +829,10 @@ public class SmartHomeDashboard extends JFrame{
         String month = comboMonth.getItemAt(comboMonth.getSelectedIndex());
         String year = comboYear.getItemAt(comboYear.getSelectedIndex());
         //format hr.min
-        int indexmid = inputime.indexOf(":");
-        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
-        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
-        temphr = Integer.parseInt(inputime.substring(0, indexmid));
-        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
+        int[] temptime = Breakdowntime(inputime);
+        tempmin = temptime[1];
+        temphr = temptime[2];
+        tempsec = temptime[0];
         if (tempsec > 58) {
             tempsec = 0;
             tempmin++;
@@ -869,49 +877,7 @@ public class SmartHomeDashboard extends JFrame{
         if (tempsec <10) second = "0" + tempsec;
         else second = String.valueOf(tempsec);
         outputtime = hour+":"+minute+":"+second;
-        if (awayModeCheckbox.isSelected()) {
-            int[] curtime = {temphr, tempmin, tempsec};
-            int fromhour = (int) FromSchedualHoursSpinner.getValue();
-            int frommin = (int) FromSchedualMinutesSpinner.getValue();
-            int fromsec = (int) FromSchedualSecondsSpinner.getValue();
-            int[] fromtime = {fromhour, frommin, fromsec};
-            int tohour = (int) ToSchedualHoursSpinner.getValue();
-            int tomin = (int) ToSchedualMinutesSpinner.getValue();
-            int tosec = (int) ToSchedualSecondsSpinner.getValue();
-            int[] totime = {tohour, tomin, tosec};
-            if (BeforeTimeCompare(fromtime,totime)) {
-                if (BeforeTimeCompare(curtime, totime) && BeforeTimeCompare(fromtime, curtime)) {
-                    for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null) house.openCloseObject(automatedlights[i],true);
-                    }
-                } else{
-                    for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],false);
-                    }
-                }
-                updateHouseLayout();
-            }else {
-                if (BeforeTimeCompare(curtime,totime) || BeforeTimeCompare(fromtime,curtime)){
-                    for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],true);
-                    }
-                } else {
-                    for (int i=0; i< automatedlights.length; i++){
-                        if (automatedlights[i]!=null)house.openCloseObject(automatedlights[i],false);
-                    }
-                }
-                updateHouseLayout();
-            }
-        }
         return outputtime;
-
-    }
-
-    public boolean BeforeTimeCompare(int[] a1, int[] a2){
-        if (a1[0] < a2[0])return true;
-        else if (a1[0] == a2[0] && a1[1] < a2[1])return true;
-        else if (a1[0] == a2[0] && a1[1] == a2[1] && a1[2] < a2[2]) return true;
-        return false;
     }
 
     /**
@@ -954,6 +920,7 @@ public class SmartHomeDashboard extends JFrame{
      */
     public void disableAwayMode(){
         awayModeCheckbox.setSelected(false);
+        detachObserver(new SHPObserver("", 1));
         printToConsole("Away mode was disabled. There are users in the house.");
     }
 
@@ -1037,4 +1004,78 @@ public class SmartHomeDashboard extends JFrame{
         return onOff;
     }
 
+    /**
+     * Checks if someone is home and returns the type of one of the people at home.
+     *
+     * @return the type of the person at home; Null if nobody is in the house.
+     */
+    public UserTypes isSomeoneHome(){
+        for(String username : UserManager.getUsernames()){
+            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside")) return UserManager.getUserType(username);
+        }
+        return null;
+    }
+
+    /**
+     * Getter for current time.
+     *
+     * @return the current time.
+     */
+    public String getCurrentTime(){
+        return timeLabel.getText();
+    }
+
+    /**
+     * Getter for the scheduled time.
+     *
+     * @return the scheduled time.
+     */
+    public String getScheduleTime(){
+        String s = fromSchedualHoursSpinner.getValue() + ":" +fromSchedualMinutesSpinner.getValue() + ":" + fromSchedualSecondsSpinner.getValue();
+        s += ":";
+        s += toSchedualHoursSpinner.getValue() + ":" + toSchedualMinutesSpinner.getValue() + ":" + toSchedualSecondsSpinner.getValue();
+        return s;
+    }
+
+    /**
+     * Sets all automated lights to the state provided.
+     * @param state The state that the automated must be set to. (true = on, false = off)
+     */
+    public void setAutomatedLights(boolean state){
+        for(String light : automatedLights){
+            house.openCloseObject(light, state);
+        }
+        setUpSHCOpenClose();
+        updateHouseLayout();
+    }
+
+    /**
+     * Attaches an observer to this object.
+     *
+     * @param o The observer to be attached.
+     */
+    @Override
+    public void attachObserver(Observer o) {
+        this.observers.add(o);
+    }
+
+    /**
+     * Detaches an observer from this object.
+     *
+     * @param o The observer to be detached.
+     */
+    @Override
+    public void detachObserver(Observer o) {
+        observers.removeIf(observer -> observer.getClass().toString().equals(o.getClass().toString()));
+    }
+
+    /**
+     * Calls the <code>update()</code> method of all the observers attached to this object.
+     *
+     * @param observable a reference to the observable object to be updated. Usually it is a reference to the calling object.
+     */
+    @Override
+    public void notifyObservers(Observable observable) {
+        observers.forEach(observer -> observer.update(observable));
+    }
 }

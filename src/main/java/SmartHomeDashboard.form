@@ -435,7 +435,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <grid id="fc674" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="fc674" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="5" left="5" bottom="5" right="5"/>
                         <constraints/>
                         <properties>
@@ -463,16 +463,22 @@
                           <grid id="975ca" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
-                              <grid row="0" column="2" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                              <grid row="0" column="1" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="180" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <autoscrolls value="true"/>
+                            </properties>
                             <border type="none"/>
                             <children>
                               <component id="d7a06" class="javax.swing.JComboBox" binding="comboEnabledAccessibility">
                                 <constraints>
-                                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                                    <minimum-size width="185" height="-1"/>
+                                    <preferred-size width="185" height="-1"/>
+                                    <maximum-size width="185" height="-1"/>
+                                  </grid>
                                 </constraints>
                                 <properties>
                                   <model/>
@@ -504,7 +510,11 @@
                               </component>
                               <component id="d640f" class="javax.swing.JComboBox" binding="comboDisabledAccessibility">
                                 <constraints>
-                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                                    <minimum-size width="150" height="-1"/>
+                                    <preferred-size width="150" height="-1"/>
+                                    <maximum-size width="150" height="-1"/>
+                                  </grid>
                                 </constraints>
                                 <properties>
                                   <model/>
@@ -512,7 +522,11 @@
                               </component>
                               <component id="eaee7" class="javax.swing.JComboBox" binding="comboLocationAccessiblity">
                                 <constraints>
-                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                                    <minimum-size width="185" height="-1"/>
+                                    <preferred-size width="185" height="-1"/>
+                                    <maximum-size width="185" height="-1"/>
+                                  </grid>
                                 </constraints>
                                 <properties/>
                               </component>
@@ -534,19 +548,6 @@
                             </constraints>
                             <properties/>
                           </component>
-                          <grid id="d4ddb" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                            <margin top="0" left="0" bottom="0" right="0"/>
-                            <constraints>
-                              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                <minimum-size width="2" height="-1"/>
-                                <preferred-size width="2" height="-1"/>
-                                <maximum-size width="2" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                            <border type="none"/>
-                            <children/>
-                          </grid>
                           <component id="d3be" class="javax.swing.JButton" binding="editUsrButton">
                             <constraints>
                               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
@@ -832,19 +833,19 @@
                           <text value="Seconds"/>
                         </properties>
                       </component>
-                      <component id="98401" class="javax.swing.JSpinner" binding="TimerHoursSpinner">
+                      <component id="98401" class="javax.swing.JSpinner" binding="timerHoursSpinner">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="e8c2" class="javax.swing.JSpinner" binding="TimerMinutesSpinner">
+                      <component id="e8c2" class="javax.swing.JSpinner" binding="timerMinutesSpinner">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="e9a9f" class="javax.swing.JSpinner" binding="TimerSecondsSpinner">
+                      <component id="e9a9f" class="javax.swing.JSpinner" binding="timerSecondsSpinner">
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -873,7 +874,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <grid id="1e313" binding="LightsListPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="1e313" binding="lightsListPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints/>
                         <properties/>
@@ -922,19 +923,19 @@
                           <text value="Seconds"/>
                         </properties>
                       </component>
-                      <component id="d833a" class="javax.swing.JSpinner" binding="FromSchedualHoursSpinner">
+                      <component id="d833a" class="javax.swing.JSpinner" binding="fromSchedualHoursSpinner">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="73d11" class="javax.swing.JSpinner" binding="FromSchedualMinutesSpinner">
+                      <component id="73d11" class="javax.swing.JSpinner" binding="fromSchedualMinutesSpinner">
                         <constraints>
                           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="45075" class="javax.swing.JSpinner" binding="FromSchedualSecondsSpinner">
+                      <component id="45075" class="javax.swing.JSpinner" binding="fromSchedualSecondsSpinner">
                         <constraints>
                           <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -964,19 +965,19 @@
                           <text value="Seconds"/>
                         </properties>
                       </component>
-                      <component id="a7d51" class="javax.swing.JSpinner" binding="ToSchedualHoursSpinner">
+                      <component id="a7d51" class="javax.swing.JSpinner" binding="toSchedualHoursSpinner">
                         <constraints>
                           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="7f74a" class="javax.swing.JSpinner" binding="ToSchedualMinutesSpinner">
+                      <component id="7f74a" class="javax.swing.JSpinner" binding="toSchedualMinutesSpinner">
                         <constraints>
                           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="e19ca" class="javax.swing.JSpinner" binding="ToSchedualSecondsSpinner">
+                      <component id="e19ca" class="javax.swing.JSpinner" binding="toSchedualSecondsSpinner">
                         <constraints>
                           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>

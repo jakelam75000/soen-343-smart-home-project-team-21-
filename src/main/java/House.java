@@ -41,19 +41,6 @@ public class House {
     }
 
     /**
-     * Checking if there are users still in the house.
-     * @return
-     */
-    public static boolean isHouseEmpty() {
-        for(String user : UserManager.getUsernames()){
-            if(!UserManager.getUserLocation(user).equalsIgnoreCase("outside")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
     a mutator function which for now shouldn't be used
     @param listOfRooms This is the newest list of room object to be added
      */
@@ -123,7 +110,25 @@ public class House {
         }
         return found;
     }
-
+    /**
+     * sets a light that has the name name to the state state
+     * @param name the name of the light to be search for
+     * @param state boolean true or false (on or off)
+     * @return if it was found
+     */
+    public boolean setLightState(String name, boolean state){
+        if (name == null)return false;
+        for (int i=0; i<rooms.length;i++){
+            Smartobj[] temp = rooms[i].getSmartObjects();
+            for (int k=0; k<temp.length; k++){
+                if (temp[k].getName().contains(name) && temp[k].type==SmartObjectType.LIGHT){
+                    rooms[i].openCloseObject(name,state);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     /**
      * returns the room at a specified index
      * @param i int index to be checked
@@ -177,6 +182,15 @@ public class House {
         }
     }
 
+    /**
+     * Locks all doors in the house
+     * by calling the method of the same name in all rooms
+     */
+    public void LockAllDoors(){
+        for (Room room : rooms){
+            room.lockAllDoors();
+            }
+        }
     /**
      * Searches all the rooms for the specified object and opens/closes it.
      *
