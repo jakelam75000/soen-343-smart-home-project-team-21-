@@ -75,7 +75,7 @@ public class House {
             s[k]=rooms[i].getName();
             if (rooms[i].hasDoor()){
                 k++;
-                s[k] = rooms[i].getName() + "STOOP";
+                s[k] = rooms[i].getName() + "_STOOP";
             }
             k++;
         }
