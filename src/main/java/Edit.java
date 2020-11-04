@@ -38,6 +38,7 @@ public class Edit extends JFrame {
         this.setBounds(x, y,width, height);
         this.caller = caller;
         this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         addActionListeners();
     }
 
@@ -93,7 +94,6 @@ public class Edit extends JFrame {
 
                 //calls autoLights function in smart home dashboard
                 caller.autoLights(oldLocation, userLocation);
-                if(!userLocation.equalsIgnoreCase("outside")) caller.disableAwayMode();
 
                 caller.printToConsole(username + " has moved from "+oldLocation+" to "+ userLocation+".");
                 caller.updateHouseLayout();

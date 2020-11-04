@@ -54,6 +54,7 @@ public class EditUserProfile extends JFrame {
         addActionListeners();
         self = this;
         this.caller = caller;
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
