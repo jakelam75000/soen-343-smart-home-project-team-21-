@@ -47,20 +47,26 @@ public class DoorComponent extends RoomComponent {
             }
         }
 
-        //
+        // if no door are found we don't continue the function
         if(!containsDoor) return;
 
+        // This boolean will be used maybe ana future context for "really" locking the door.
         boolean open = false;
         Door door = null;
         String isLocked = "";
 
+        // Setting counter to 0 for starting getting who is at the door.
         vistorCount = 0;
 
+        // Getting the user that is in front of the door
         String[] usernames = UserManager.getUsernames();
+
+        // This For loop checks if someone is at the door and increments if it 1 or more.
         for(String username : usernames){
             if(UserManager.getUserLocation(username).equalsIgnoreCase(room.getName())) vistorCount++;
         }
 
+        // This for loop checks if the door is open or closed.
         for(Smartobj obj : objects){
             if(obj.getType() == SmartObjectType.DOOR){
                 door = (Door) obj;
@@ -74,6 +80,7 @@ public class DoorComponent extends RoomComponent {
             }
         }
 
+        // This if else condition assignes the right icon depending if the door is open or closed.
         if (!open && door.islocked() == true) {
             isLocked = "Locked";
             scaledImage = new ImageIcon(imageClose.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
@@ -90,6 +97,7 @@ public class DoorComponent extends RoomComponent {
         FontMetrics metrics = g.getFontMetrics();
 
 
+        // If no visitor are ditected we only draw the door else we include the icon of visitors and a counter
         if(vistorCount == 0) {
 
             int xIcon = getRelX() + (getRoomRect().getWidthandHeight()/2) - scaledImage.getIconWidth()/2;
