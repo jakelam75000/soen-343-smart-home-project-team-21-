@@ -130,6 +130,13 @@ public class Room {
         return names;
     }
 
+    public boolean hasDoor(){
+        for (int i=0; i<smartobjects.length; i++){
+            if (smartobjects[i].getType()==SmartObjectType.DOOR)return true;
+        }
+        return false;
+    }
+
     /**
      * to string that formats the information to a string
      * @return String the string that contains the infromation of the room

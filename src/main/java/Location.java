@@ -13,7 +13,7 @@ public class Location {
     public static void setLocationDropdowns(String[] locations, JComboBox<String> comboLocation, JComboBox comboLocationAccessiblity) {
         for(String x : locations) {
             comboLocation.addItem(x);
-            comboLocationAccessiblity.addItem(x);
+            if (!x.contains("STOOP")) comboLocationAccessiblity.addItem(x);
         }
         comboLocation.addItem(LocationType.OUTSIDE.toString());
         comboLocationAccessiblity.addItem(LocationType.OUTSIDE.toString());
