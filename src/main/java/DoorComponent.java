@@ -63,7 +63,7 @@ public class DoorComponent extends RoomComponent {
 
         // This For loop checks if someone is at the door and increments if it 1 or more.
         for(String username : usernames){
-            if(UserManager.getUserLocation(username).equalsIgnoreCase(room.getName()+"_STOOP")) vistorCount++;
+            if(UserManager.getUserLocation(username).equalsIgnoreCase(room.getName()+" STOOP")) vistorCount++;
         }
 
         // This for loop checks if the door is open or closed.
