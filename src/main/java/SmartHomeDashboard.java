@@ -210,6 +210,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         else{
             comboUsers.addItem(Username.getText());
             addUserButton.setEnabled(false);
+            addAccessButton.setEnabled(false);
+            removeAccessButton.setEnabled(false);
         }
         updateHouseLayout();
     }
@@ -226,7 +228,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(comboDisabledAccessibility.getItemCount() > 0) {
+                    printToConsole(comboDisabledAccessibility.getSelectedItem().toString() + " was added for " +
+                            comboUsers.getSelectedItem().toString() + " in " + comboLocationAccessiblity.getSelectedItem().toString());
                     Accessibility.addAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                } else {
+                    printToConsole("User has all accessibilities for this location. Additional accessibility cannot be added.");
                 }
             }
         });
@@ -237,7 +243,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Accessibility.removeAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                if(comboEnabledAccessibility.getItemCount() > 0 && Type.getText().equalsIgnoreCase("Parent")) {
+                    printToConsole(comboEnabledAccessibility.getSelectedItem().toString() + " was removed for " +
+                            comboUsers.getSelectedItem().toString() + " in " + comboLocationAccessiblity.getSelectedItem().toString());
+                    Accessibility.removeAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                } else {
+                    printToConsole("User has no accessibilities for this location. Additional accessibility cannot be deleted.");
+                }
             }
         });
         comboUsers.addActionListener(new ActionListener() {
