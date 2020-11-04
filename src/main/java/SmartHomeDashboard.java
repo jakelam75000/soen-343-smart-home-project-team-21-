@@ -111,6 +111,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedlights;
     private List<Observer> observers = new ArrayList<Observer>();
+    //FOR TESTING THE SHP AWAY INTRUDER
+    private boolean strangercalled = false;
 
     //Bounds variables
     private static final int x = 100;
@@ -800,11 +802,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         String month = comboMonth.getItemAt(comboMonth.getSelectedIndex());
         String year = comboYear.getItemAt(comboYear.getSelectedIndex());
         //format hr.min
-        int indexmid = inputime.indexOf(":");
-        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
-        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
-        temphr = Integer.parseInt(inputime.substring(0, indexmid));
-        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
+        int[] temptime = Breakdowntime(inputime);
+        tempmin = temptime[1];
+        temphr = temptime[2];
+        tempsec = temptime[0];
         if (tempsec > 58) {
             tempsec = 0;
             tempmin++;
@@ -881,6 +882,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     }
                 }
                 updateHouseLayout();
+            }
+            if (Math.random() * (100) > 90 && !strangercalled){
+                UserManager.addUser("mc Burgle",null,UserTypes.STRANGER);
+                UserManager.changeUserLocation("mc Burgle","LIVINGROOM");
+                notifyObservers(this);
+                strangercalled = true;
             }
         }
         return outputtime;
