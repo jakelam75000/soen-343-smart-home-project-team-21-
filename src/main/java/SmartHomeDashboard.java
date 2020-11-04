@@ -389,6 +389,15 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 setUpSHCOpenClose();
             }
         });
+        awayModeCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (awayModeCheckbox.isSelected()) {
+                    house.LockAllDoors();
+                    updateHouseLayout();
+                }
+            }
+        });
     }
 
     /**

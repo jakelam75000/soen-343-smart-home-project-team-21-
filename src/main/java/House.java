@@ -183,6 +183,15 @@ public class House {
     }
 
     /**
+     * Locks all doors in the house
+     * by calling the method of the same name in all rooms
+     */
+    public void LockAllDoors(){
+        for (Room room : rooms){
+            room.lockAllDoors();
+            }
+        }
+    /**
      * Searches all the rooms for the specified object and opens/closes it.
      *
      * @param name String name of the object to be opened/closed.
