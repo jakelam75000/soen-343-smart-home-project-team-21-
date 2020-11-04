@@ -97,6 +97,7 @@ public class Edit extends JFrame {
 
                 caller.printToConsole(username + " has moved from "+oldLocation+" to "+ userLocation+".");
                 caller.updateHouseLayout();
+                caller.notifyObservers(caller);
             }
         });
     }

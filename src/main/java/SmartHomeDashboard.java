@@ -112,7 +112,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private String[] automatedlights;
     private List<Observer> observers = new ArrayList<Observer>();
     //FOR TESTING THE SHP AWAY INTRUDER
-    private boolean strangercalled = false;
 
     //Bounds variables
     private static final int x = 100;
@@ -891,15 +890,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     }
                 }
                 updateHouseLayout();
-            }
-        }
-
-        if (awayModeCheckbox.isSelected()){
-            if (Math.random() * (100) > 90 && !strangercalled){
-                UserManager.addUser("mc Burgle",null,UserTypes.STRANGER);
-                UserManager.changeUserLocation("mc Burgle","LIVINGROOM");
-                notifyObservers(this);
-                strangercalled = true;
             }
         }
         return outputtime;
