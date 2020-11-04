@@ -232,13 +232,6 @@ public class Room {
         }
         return false;
     }
-    public void lockAllDoors(){
-        for (int i=0;i< smartobjects.length;i++){
-            if (smartobjects[i].getType()==SmartObjectType.DOOR){
-                //(Door)smartobjects[i]
-            }
-        }
-    }
 
     /**
      * clones the room object

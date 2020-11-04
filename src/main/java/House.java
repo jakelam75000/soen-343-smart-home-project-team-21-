@@ -211,9 +211,4 @@ public class House {
         }
         return false;
     }
-    public void lockAllDoors(){
-        for(Room room : rooms){
-
-        }
-    }
 }
