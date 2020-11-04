@@ -266,17 +266,20 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (awayModeCheckbox.isSelected()) {
-
-                    if(isSomeoneHome() != null){
+                    if (isSomeoneHome() == null){
+                        if(Accessibility.allowAwayMode(Username.getText())) {
+                            String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
+                            attachObserver(new SHPObserver(alertTimer, (int)speedSpinner.getValue()));
+                            house.LockAllDoors();
+                            updateHouseLayout();
+                            printToConsole("Away mode enabled.");
+                        } else {
+                            awayModeCheckbox.setSelected(false);
+                            printToConsole("Away mode cannot be enable. User does not have access to perform this action.");
+                        }
+                    } else{
                         awayModeCheckbox.setSelected(false);
                         printToConsole("Away mode cannot be enable. There are people left in the house.");
-                    }
-                    else{
-                        String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
-                        attachObserver(new SHPObserver(alertTimer, (int)speedSpinner.getValue()));
-                        house.LockAllDoors();
-                        updateHouseLayout();
-                        printToConsole("Away mode enabled.");
                     }
                 }
                 else {

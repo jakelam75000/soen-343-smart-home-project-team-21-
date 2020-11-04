@@ -18,8 +18,9 @@ public class Parent extends User{
      * @return
      */
     private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
-        EnumSet.allOf(LocationType.class)
-                .forEach(location -> accessibilities.put(location, assignAccessibilityTypes()));
+        for(LocationType location : LocationType.values()) {
+            accessibilities.put(location, assignAccessibilityTypes(location));
+        }
         return accessibilities;
     }
 
@@ -27,10 +28,17 @@ public class Parent extends User{
      * Creates ArrayList of accessibilities
      * @return
      */
-    private ArrayList assignAccessibilityTypes () {
+    private ArrayList assignAccessibilityTypes (LocationType locationType) {
         ArrayList accessibilityTypes = new ArrayList();
-        EnumSet.allOf(AccessibilityType.class)
-                .forEach(accessibility -> accessibilityTypes.add(accessibility));
+        for(AccessibilityType accessibility : AccessibilityType.values()) {
+            if(accessibility == AccessibilityType.AWAYMODE) {
+                if(locationType == LocationType.OUTSIDE) {
+                    accessibilityTypes.add(accessibility);
+                }
+            } else {
+                accessibilityTypes.add(accessibility);
+            }
+        }
         return accessibilityTypes;
     }
 

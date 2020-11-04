@@ -25,20 +25,12 @@ public class Child extends User{
      */
     private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
         EnumSet.allOf(LocationType.class)
-                .forEach(location -> accessibilities.put(location, assignAccessibilityTypes()));
+                .forEach(location -> accessibilities.put(location, new ArrayList()));
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.LIGHTCONTROL);
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.WINDOWCONTROL);
+        //Away mode can only be enabled when all user's are outside
+        accessibilities.get(LocationType.OUTSIDE).add(AccessibilityType.AWAYMODE);
         return accessibilities;
-    }
-
-    /**
-     * Creating accessibility ArrayList
-     * @return
-     */
-    private ArrayList assignAccessibilityTypes () {
-        ArrayList accessibilityTypes = new ArrayList();
-        accessibilityTypes.add(AccessibilityType.AWAYMODE);
-        return accessibilityTypes;
     }
 
     @Override
