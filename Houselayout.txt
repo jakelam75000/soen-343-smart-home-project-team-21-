@@ -32,7 +32,7 @@ name: Kitchen window 1
 Type: Window
 name: Kitchen window 2
 Type: Door
-name: Kitchen Door 1
+name: Kitchen door 1
 Room name: Office
 temperature: 20.5
 width: 2.00
