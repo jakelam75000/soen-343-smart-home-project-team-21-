@@ -89,8 +89,8 @@ public class Room {
      *
      * @return HashMap a clone of itemMap.
      */
-    public HashMap<SmartObjectType, String> getItemMap(){
-        return (HashMap<SmartObjectType, String>)itemMap.clone();
+    public HashMap<SmartObjectType, List<String>> getItemMap(){
+        return (HashMap<SmartObjectType, List<String>>)itemMap.clone();
     }
 
     /**
