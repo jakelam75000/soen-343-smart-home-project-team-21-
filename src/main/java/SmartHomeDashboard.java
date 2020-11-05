@@ -379,8 +379,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
                     autoLights(oldLocation, comboLocation.getItemAt(comboLocation.getSelectedIndex()));
-
-                    if(!currentLocLabel.getText().equalsIgnoreCase("Outside")) disableAwayMode();
                 }
                 updateHouseLayout();
             }
