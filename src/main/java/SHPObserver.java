@@ -105,6 +105,15 @@ public class SHPObserver implements Observer{
         return false;
     }
 
+    public void reset(){
+        houseSafe = true;
+        callCops = false;
+        turnOffAwayMode = false;
+        userAlerted = false;
+        currentAutomatedLightState = false;
+    }
+
+
     /**
      * Updates the observers by checking if there are people in the house when away mode is on.
      * (Needs to also check for automated lights)
@@ -118,10 +127,22 @@ public class SHPObserver implements Observer{
 
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
 
-        UserTypes someoneHome = shd.isSomeoneHome();
-        if(someoneHome == UserTypes.STRANGER) houseSafe = false;
-        else if(someoneHome == null) houseSafe = true;
-        else shd.disableAwayMode();
+        String personHome = shd.isSomeoneHome();
+
+        if(personHome != null) {
+            String personLocation = UserManager.getUserLocation(personHome);
+            if (personLocation.contains("STOOP")) {
+                if (UserManager.getUserType(personHome) != UserTypes.STRANGER) {
+                    turnOffAwayMode = true;
+                }
+            } else {
+                if (UserManager.getUserType(personHome) == UserTypes.STRANGER) {
+                    houseSafe = false;
+                } else {
+                    turnOffAwayMode = true;
+                }
+            }
+        }
 
         if(!houseSafe && !userAlerted){
             setTimer(shd.getAlertTimer());
@@ -136,11 +157,7 @@ public class SHPObserver implements Observer{
         }
 
         if(turnOffAwayMode){
-            houseSafe = true;
-            callCops = false;
-            turnOffAwayMode = false;
-            userAlerted = false;
-            currentAutomatedLightState = false;
+            reset();
             shd.disableAwayMode();
         }
 

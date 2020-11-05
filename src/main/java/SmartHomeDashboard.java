@@ -897,7 +897,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public void disableAwayMode(){
         awayModeCheckbox.setSelected(false);
         detachObserver(shp);
-        printToConsole("Away mode was disabled. There are users in the house.");
+        printToConsole("Away mode was disabled. There are users at the house.");
     }
 
     /**
@@ -985,9 +985,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      *
      * @return the type of the person at home; Null if nobody is in the house.
      */
-    public UserTypes isSomeoneHome(){
+    public String isSomeoneHome(){
         for(String username : UserManager.getUsernames()){
-            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside") && !UserManager.getUserLocation(username).contains("STOOP")) return UserManager.getUserType(username);
+            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside")) return username;
         }
         return null;
     }
@@ -1022,6 +1022,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         return timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
     }
 
+    /**
+     * return the time speed multiplier value.
+     *
+     * @return value of the time speed multiplier.
+     */
     public int getMultiplier(){
         return (int)speedSpinner.getValue();
     }
