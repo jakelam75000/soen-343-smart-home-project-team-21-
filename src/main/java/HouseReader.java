@@ -55,7 +55,8 @@ public class HouseReader {
                 for (int i= 0; i < listofrooms.length; i++){
                     s = lineReader.nextLine();
                     temproomname = s.substring(s.indexOf(':')+2).replaceAll("\\s+","").toUpperCase();
-                    temproomname = LocationType.valueOf(temproomname).toString();
+                    if (!temproomname.contains("STOOP"))temproomname = LocationType.valueOf(temproomname).toString();
+                    else temproomname =temproomname.replace("STOOP"," STOOP");
                     s = lineReader.nextLine();
                     temproomtempreture = Double.parseDouble(s.substring(s.indexOf(':')+2));
                     s = lineReader.nextLine();

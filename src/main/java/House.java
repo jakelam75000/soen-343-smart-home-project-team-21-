@@ -60,11 +60,7 @@ public class House {
         return s;
     }
 
-    /**
-     * Meant to retrieve all the names of the rooms.
-     * @return String[] a list of all the rooms named
-     * may need to turn stoops into rooms and add a static outside values
-     */
+    /*
     public String[] getRoomNames(){
         int k = rooms.length;
         for (Room room : rooms){
@@ -79,6 +75,18 @@ public class House {
                 s[k] = rooms[i].getName() + " STOOP";
             }
             k++;
+        }
+        return s;
+    }*/
+    /**
+     * Meant to retrieve all the names of the rooms.
+     * @return String[] a list of all the rooms named
+     * may need to turn stoops into rooms and add a static outside values
+     */
+    public String[] getRoomNames(){
+        String[] s = new String[rooms.length];
+        for (int i =0; i<rooms.length; i++){
+            s[i]= rooms[i].getName();
         }
         return s;
     }
