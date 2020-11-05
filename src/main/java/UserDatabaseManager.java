@@ -69,7 +69,6 @@ public class UserDatabaseManager {
 
             //Printing the usual formatting and other information to the Users file.
             pw.println("Format of file -> Username/Password/Type/LocationA:Access1,Access2,Access3;LocationB:Access1, Access2");
-            pw.println("The admin is the first user in the file");
             pw.println("");
 
             pw.println("Admin=" + UserManager.getAdminUsername());
