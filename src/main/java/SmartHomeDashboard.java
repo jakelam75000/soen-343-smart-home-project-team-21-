@@ -554,7 +554,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 if (!room.getName().contains("STOOP"))locationType = LocationType.valueOf(room.getName());
                 else locationType = LocationType.valueOf(room.getName().replace(" STOOP",""));
                 // If location is outside then only check OUTSIDE
-                if(  LocationType.valueOf(currentLocation) == LocationType.OUTSIDE) {
+                if(  LocationType.valueOf(currentLocation) == LocationType.OUTSIDE ||  LocationType.valueOf(currentLocation) == LocationType.STOOP) {
                     accessibilities = user.getAccessibilities().get(LocationType.OUTSIDE);
                 } else {
                     accessibilities = user.getAccessibilities().get(locationType);
