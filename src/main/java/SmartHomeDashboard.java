@@ -592,8 +592,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                  public void actionPerformed(ActionEvent e) {
                     if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
                        itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                        if (listItems.getSelectedValue().toString().contains("window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
-                        else if (listItems.getSelectedValue().toString().contains("door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
+                        if (itemsArr[index].getText().toString().contains("window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                        else if (itemsArr[index].getText().toString().contains("door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
                     }
                     else{
                         if(itemsArr[index].isSelected()&& (itemsArr[index].getText().contains("window") ||itemsArr[index].getText().contains("door"))) printToConsole(itemsArr[index].getText() + " was opened.");
@@ -992,7 +992,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public String isSomeoneHome(){
         for(String username : UserManager.getUsernames()){
-            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside")) return username;
+            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside") && !UserManager.getUserLocation(username).contains("STOOP")) return username;
         }
         return null;
     }
