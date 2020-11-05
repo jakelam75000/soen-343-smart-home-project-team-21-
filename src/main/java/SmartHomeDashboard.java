@@ -543,6 +543,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         //User's current location
         String currentLocation = user.getLocation();
+        if(currentLocation.contains("STOOP"))currentLocation = "STOOP";
 
         //Iterating through each room to get populate itemsForCheckbox arraylist
         for(Room room : rooms) {
@@ -553,7 +554,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 if (!room.getName().contains("STOOP"))locationType = LocationType.valueOf(room.getName());
                 else locationType = LocationType.valueOf(room.getName().replace(" STOOP",""));
                 // If location is outside then only check OUTSIDE
-                if(LocationType.valueOf(currentLocation) == LocationType.OUTSIDE) {
+                if(  LocationType.valueOf(currentLocation) == LocationType.OUTSIDE) {
                     accessibilities = user.getAccessibilities().get(LocationType.OUTSIDE);
                 } else {
                     accessibilities = user.getAccessibilities().get(locationType);
