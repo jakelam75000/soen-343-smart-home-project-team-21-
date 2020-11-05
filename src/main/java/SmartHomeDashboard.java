@@ -552,7 +552,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             if(smartObjInRoom != null) {
                 if (!room.getName().contains("STOOP"))locationType = LocationType.valueOf(room.getName());
                 else locationType = LocationType.valueOf(room.getName().replace(" STOOP",""));
-                accessibilities = user.getAccessibilities().get(locationType);
+                // If location is outside then only check OUTSIDE
+                if(LocationType.valueOf(currentLocation) == LocationType.OUTSIDE) {
+                    accessibilities = user.getAccessibilities().get(LocationType.OUTSIDE);
+                } else {
+                    accessibilities = user.getAccessibilities().get(locationType);
+                }
                 //check if that accessibility is present for that room
                 for(AccessibilityType accessibility : accessibilities) {
                     if(accessibility == accessibilityType) {
@@ -560,8 +565,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                         itemsForCheckbox.add(obj);
                     }
                 }
-                //This is to add accessibilities that user has when he is in that room CURRENT
-                if(room.getName().equals(currentLocation)) {
+                //This is to add accessibilities that user has when he is in that room CURRENT, this does not apply to OUTSIDE
+                if(LocationType.valueOf(currentLocation) != LocationType.OUTSIDE && room.getName().equals(currentLocation)) {
                     accessibilities = user.getAccessibilities().get(LocationType.CURRENT);
                     for(AccessibilityType accessibility : accessibilities) {
                         if(accessibility == accessibilityType) {
