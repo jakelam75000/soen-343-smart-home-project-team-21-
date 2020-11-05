@@ -298,7 +298,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                             shp.setMultiplier((int)(speedSpinner.getValue()));
                             attachObserver(shp);
                             house.LockAllDoors();
-                            printToConsole("all door locked");
+                            printToConsole("Garage, kitchen and entry way doors locked");
                             updateHouseLayout();
                             printToConsole("Away mode enabled.");
                         } else {
@@ -312,7 +312,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
                 else {
                     house.unlockAllDoors();
-                    printToConsole("all doors unlocked");
+                    printToConsole("Garage, kitchen and entry way doors unlocked");
                     detachObserver(shp);
                     printToConsole("Away mode disabled.");
                 }
