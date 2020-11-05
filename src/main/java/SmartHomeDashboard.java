@@ -593,7 +593,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
                        itemsArr[index].setSelected(!itemsArr[index].isSelected());
                         if (listItems.getSelectedValue().toString().contains("window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
-                        else if (listItems.getSelectedValue().toString().contains("Door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
+                        else if (listItems.getSelectedValue().toString().contains("door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
                     }
                     else{
                         if(itemsArr[index].isSelected()&& (itemsArr[index].getText().contains("window") ||itemsArr[index].getText().contains("door"))) printToConsole(itemsArr[index].getText() + " was opened.");
