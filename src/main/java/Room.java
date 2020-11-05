@@ -199,6 +199,15 @@ public class Room {
             }
         }
     }
+    public void unlockAllDoors(){
+        for (Smartobj obj : smartobjects){
+            if(obj.getType()==SmartObjectType.DOOR){
+                Door door = (Door)obj;
+                door.setlocked(false);
+
+            }
+        }
+    }
     /**
      * Opens and closes an object
      * @param name String the name of the window
