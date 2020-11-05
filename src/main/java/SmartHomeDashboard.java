@@ -5,6 +5,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
 import java.util.List;
 
@@ -219,6 +221,15 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                UserDatabaseManager.updateUserFile();
+                e.getWindow().dispose();
+            }
+        });
+
         addAccessButton.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
@@ -231,6 +242,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
             }
         });
+
         removeAccessButton.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected

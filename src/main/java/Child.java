@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class Child extends User{
 
-    private HashMap<LocationType, ArrayList> accessibilities = new HashMap<>();
+    private HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = new HashMap<>();
     /**
      *constructor that calls the parent User's constructor
      * @param username String the username of the user
@@ -23,7 +23,7 @@ public class Child extends User{
      * @param accessibilities
      * @return
      */
-    private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    private HashMap<LocationType, ArrayList<AccessibilityType>> assignAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         EnumSet.allOf(LocationType.class)
                 .forEach(location -> accessibilities.put(location, new ArrayList()));
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.LIGHTCONTROL);
@@ -34,12 +34,12 @@ public class Child extends User{
     }
 
     @Override
-    public HashMap<LocationType, ArrayList> getAccessibilities() {
+    public HashMap<LocationType, ArrayList<AccessibilityType>> getAccessibilities() {
         return accessibilities;
     }
 
     @Override
-    public void setAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    public void setAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         this.accessibilities = accessibilities;
     }
 }

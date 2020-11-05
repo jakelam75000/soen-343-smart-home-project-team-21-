@@ -112,8 +112,10 @@ public class SHPObserver implements Observer{
 
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
 
-        if(shd.isSomeoneHome() == UserTypes.STRANGER) houseSafe = false;
-        else houseSafe = true;
+        UserTypes someoneHome = shd.isSomeoneHome();
+        if(someoneHome == UserTypes.STRANGER) houseSafe = false;
+        else if(someoneHome == null) houseSafe = true;
+        else shd.disableAwayMode();
 
         if(!houseSafe && !userAlerted){
             new AlertConfirmationWindow(this).setVisible(true);

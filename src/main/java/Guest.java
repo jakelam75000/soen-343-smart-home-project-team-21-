@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Child class of User
  */
 public class Guest extends User{
-    private HashMap<LocationType, ArrayList> accessibilities = new HashMap<>();
+    private HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = new HashMap<>();
     /**
      *
      * @param username
@@ -22,9 +22,9 @@ public class Guest extends User{
      * @param accessibilities
      * @return
      */
-    private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    private HashMap<LocationType, ArrayList<AccessibilityType>> assignAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         EnumSet.allOf(LocationType.class)
-                .forEach(location -> accessibilities.put(location, new ArrayList()));
+                .forEach(location -> accessibilities.put(location, new ArrayList<AccessibilityType>()));
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.LIGHTCONTROL);
         accessibilities.get(LocationType.CURRENT).add(AccessibilityType.WINDOWCONTROL);
         return accessibilities;
@@ -35,7 +35,7 @@ public class Guest extends User{
      * @return
      */
     @Override
-    public HashMap<LocationType, ArrayList> getAccessibilities() {
+    public HashMap<LocationType, ArrayList<AccessibilityType>> getAccessibilities() {
         return accessibilities;
     }
 
@@ -44,7 +44,7 @@ public class Guest extends User{
      * @param accessibilities
      */
     @Override
-    public void setAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    public void setAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         this.accessibilities = accessibilities;
     }
 }

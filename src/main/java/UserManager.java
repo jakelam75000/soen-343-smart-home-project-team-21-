@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * The class that handles user maintenance and interaction
@@ -168,18 +173,6 @@ public class UserManager {
     }
 
     /**
-     * initializes user by creating some preset users.
-     */
-    public static void initialize() {
-        addUser("a", "a", UserTypes.PARENT);
-        addUser("Parent1", "passwordabc", UserTypes.PARENT);
-        addUser("Guest", "guest", UserTypes.GUEST);
-        addUser("Stranger", "Stranger", UserTypes.STRANGER);
-        addUser("Child", "Child", UserTypes.CHILD);
-        admin = findUser("Parent1", "passwordabc");
-    }
-
-    /**
      * Returns all usernames.
      *
      * @return String[] containing all usernames.
@@ -266,6 +259,12 @@ public class UserManager {
         return "Outside";
     }
 
+    /**
+     * Returns the type of the given username.
+     *
+     * @param username username of the user who's type is wanted.
+     * @return The type of the user corresponding to the given username.
+     */
     public static UserTypes getUserType(String username){
         if(userParent.get(username) != null) {
             return UserTypes.PARENT;
@@ -282,4 +281,27 @@ public class UserManager {
 
         return null;
     }
+
+    /**
+     * Getter for admin username.
+     *
+     * @return the username of the admin account
+     */
+    public static String getAdminUsername(){
+        return admin.getUsername();
+    }
+
+    /**
+     * Setter for the admin attribute.
+     *
+     * @param user User object that will be set as the admin account.
+     */
+    public static void setAdmin(User user){
+        admin = user;
+    }
+
+    public static String getUserPassword(String username){
+        return findExistingUser(username).getPassword();
+    }
+
 }
