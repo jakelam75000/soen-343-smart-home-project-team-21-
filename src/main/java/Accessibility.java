@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class Accessibility {
     private static HashMap<AccessibilityType, String> accessibilitiesToString = new HashMap<>();
     private static HashMap<String, AccessibilityType> stringToAccessibilities = new HashMap<>();
+    private static HashMap<SmartObjectType, AccessibilityType> smartObjToAccessibility = new HashMap<>();
 
     /**
      * initial setup fro the disabled dropdown
@@ -171,5 +172,17 @@ public class Accessibility {
         stringToAccessibilities.put("Turn on/off lights", AccessibilityType.LIGHTCONTROL);
         stringToAccessibilities.put("Lock/Unlock doors", AccessibilityType.DOORCONTROL);
         stringToAccessibilities.put("Turn on/off away mode", AccessibilityType.AWAYMODE);
+
+        smartObjToAccessibility.put(SmartObjectType.WINDOW, AccessibilityType.WINDOWCONTROL);
+        smartObjToAccessibility.put(SmartObjectType.LIGHT, AccessibilityType.LIGHTCONTROL);
+        smartObjToAccessibility.put(SmartObjectType.DOOR, AccessibilityType.DOORCONTROL);
+    }
+
+    /**
+     * this is to get accessibility for the corresponding object
+     * @return
+     */
+    public static HashMap<SmartObjectType, AccessibilityType> getSmartObjToAccessibility() {
+        return smartObjToAccessibility;
     }
 }

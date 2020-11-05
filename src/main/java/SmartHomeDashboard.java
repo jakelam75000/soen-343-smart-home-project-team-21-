@@ -213,6 +213,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         else{
             comboUsers.addItem(Username.getText());
             addUserButton.setEnabled(false);
+            addAccessButton.setEnabled(false);
+            removeAccessButton.setEnabled(false);
         }
         updateHouseLayout();
     }
@@ -238,7 +240,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(comboDisabledAccessibility.getItemCount() > 0) {
+                    printToConsole(comboDisabledAccessibility.getSelectedItem().toString() + " was added for " +
+                            comboUsers.getSelectedItem().toString() + " in " + comboLocationAccessiblity.getSelectedItem().toString());
                     Accessibility.addAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                } else {
+                    printToConsole("User has all accessibilities for this location. Additional accessibility cannot be added.");
                 }
             }
         });
@@ -250,7 +256,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Accessibility.removeAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                if(comboEnabledAccessibility.getItemCount() > 0 && Type.getText().equalsIgnoreCase("Parent")) {
+                    printToConsole(comboEnabledAccessibility.getSelectedItem().toString() + " was removed for " +
+                            comboUsers.getSelectedItem().toString() + " in " + comboLocationAccessiblity.getSelectedItem().toString());
+                    Accessibility.removeAccessibility(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+                } else {
+                    printToConsole("User has no accessibilities for this location. Additional accessibility cannot be deleted.");
+                }
             }
         });
         comboUsers.addActionListener(new ActionListener() {
@@ -473,73 +485,22 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * Updates the SHC with the items in the room the user is currently located.
      */
     public void setUpSHCItems(){
+        //Getting all the different item categories in the room and displaying them.
+        List<SmartObjectType> houseItems = house.getHouseItemsKeys();
+        SmartObjectType[] houseItemsArr = new SmartObjectType[houseItems.size()];
 
-        //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
-        if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
-
-
-            String currentLocation = currentLocLabel.getText();
-            String[] roomNames = house.getRoomNames();
-            Room currentRoom = null;
-            List<SmartObjectType> roomItems;
-            List<JCheckBox> openChecks = new ArrayList<JCheckBox>();
-
-            if(currentLocation.equals(LocationType.OUTSIDE.toString())){
-                listItems.setVisible(false);
-                itemsLabel.setText("Items " + currentLocation);
-                setUpSHCOpenClose();
-                return;
-            }else listItems.setVisible(true);
-
-            //Figuring out which room object we are currently in.
-            for (int i = 0; i < roomNames.length; i++) {
-                if (roomNames[i].equalsIgnoreCase(currentLocation)) {
-                    currentRoom = house.getRoomAtIndex(i);
-                    break;
-                }
-            }
-            if (currentRoom != null) {
-
-                //Getting all the different item categories in the room and displaying them.
-                roomItems = currentRoom.getItemMapKeys();
-                SmartObjectType[] roomItemsArr = new SmartObjectType[roomItems.size()];
-
-                for (int i = 0; i < roomItems.size(); i++) {
-                    roomItemsArr[i] = roomItems.get(i);
-                }
-
-                listItems.setListData(roomItemsArr);
-
-                if (listItems.getFirstVisibleIndex() != -1) {
-                    listItems.setSelectedIndex(0);
-                }
-
-            }
-
-            //Changing the items label to reflect current location.
-            itemsLabel.setText("Items in " + currentLocation);
-        }
-        else{
-            //Getting all the different item categories in the room and displaying them.
-            List<SmartObjectType> houseItems = house.getHouseItemsKeys();
-            SmartObjectType[] houseItemsArr = new SmartObjectType[houseItems.size()];
-
-            for (int i = 0; i < houseItems.size(); i++) {
-                houseItemsArr[i] = houseItems.get(i);
-            }
-
-            listItems.setListData(houseItemsArr);
-
-            if (listItems.getFirstVisibleIndex() != -1) {
-                listItems.setSelectedIndex(0);
-            }
-
-            //Changing the items back to items in case it was changed for child user.
-            itemsLabel.setText("Items");
-
-
+        for (int i = 0; i < houseItems.size(); i++) {
+            houseItemsArr[i] = houseItems.get(i);
         }
 
+        listItems.setListData(houseItemsArr);
+
+        if (listItems.getFirstVisibleIndex() != -1) {
+            listItems.setSelectedIndex(0);
+        }
+
+        //Changing the items back to items in case it was changed for child user.
+        itemsLabel.setText("Items");
         setUpSHCOpenClose();
         consoleText.setRows(consoleText.getRows()+1);
 
@@ -549,95 +510,85 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * Method that sets all the items in open/close that are related to the selected category of items in SHC.
      */
     public void setUpSHCOpenClose(){
+        // Get user to check accessibilities
+        User user = UserManager.findExistingUser(Username.getText());
+        SmartObjectType selectedItem = listItems.getSelectedValue();
 
-        //Checking if user is child, guest, or parent to see what items should be displayed in the SHC.
-        if(Type.getText().equalsIgnoreCase("Child") || Type.getText().equalsIgnoreCase("Guest")){
-            String currentLocation = currentLocLabel.getText();
-            String[] roomNames = house.getRoomNames();
-            Room currentRoom = null;
+        if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
 
-            if(currentLocation.equals(LocationType.OUTSIDE.toString())){
-                openClosePanel.removeAll();
-                return;
-            }
+        if (selectedItem.equals(SmartObjectType.LIGHT)) {setToAutoModeCheckBox.setVisible(true);}
+        else setToAutoModeCheckBox.setVisible(false);
 
-            for (int i = 0; i < roomNames.length; i++) {
-                if (roomNames[i].equals(currentLocation)) {
-                    currentRoom = house.getRoomAtIndex(i);
-                    break;
+        //These are the strings that will be in the checkboxes
+        Set<String> itemsForCheckbox = new HashSet<>();
+        Room[] rooms = house.getRoomsList();
+        //This is to get the corresponding accessibility to the smart object selected
+        AccessibilityType accessibilityType = Accessibility.getSmartObjToAccessibility().get(selectedItem);
+        //This is to store the specified room LocationType
+        LocationType locationType;
+        //This is to store all accessibility user has for the specified room
+        ArrayList<AccessibilityType> accessibilities;
+        //This is to get all smart objects for specific room and smart object type
+        List<String> smartObjInRoom;
+
+        //User's current location
+        String currentLocation = user.getLocation();
+
+        //Iterating through each room to get populate itemsForCheckbox arraylist
+        for(Room room : rooms) {
+            //This is to get all smart objects for specific room and smart object type
+            smartObjInRoom = room.getItemMap().get(selectedItem);
+            //Make sure that smart object selected is present
+            if(smartObjInRoom != null) {
+                locationType = LocationType.valueOf(room.getName());
+                accessibilities = user.getAccessibilities().get(locationType);
+                //check if that accessibility is present for that room
+                for(AccessibilityType accessibility : accessibilities) {
+                    if(accessibility == accessibilityType) {
+                        for(String obj : smartObjInRoom)
+                        itemsForCheckbox.add(obj);
+                    }
                 }
-            }
-
-            if (currentRoom != null) {
-                SmartObjectType selectedItem = listItems.getSelectedValue();
-                setToAutoModeCheckBox.setVisible(false);
-
-                List<String> items = currentRoom.getItemMapValue(selectedItem);
-
-                openClosePanel.removeAll();
-                if (items!= null) {
-                    openClosePanel.setLayout(new GridLayout(items.size(), 1));
-
-                    JCheckBox[] itemsArr = new JCheckBox[items.size()];
-                    for (int i = 0; i < items.size(); i++) {
-                        itemsArr[i] = new JCheckBox(items.get(i));
-                        itemsArr[i].setSelected(isObjectOpen(items.get(i)));
-                        int index = i;
-                        itemsArr[i].addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                if (!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())) {
-                                    itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                                    printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
-                                } else {
-                                    if (itemsArr[index].isSelected())
-                                        printToConsole(itemsArr[index].getText() + " was opened.");
-                                    else printToConsole(itemsArr[index].getText() + " was closed.");
-                                }
-
-                                updateHouseLayout();
+                //This is to add accessibilities that user has when he is in that room CURRENT
+                if(room.getName().equals(currentLocation)) {
+                    accessibilities = user.getAccessibilities().get(LocationType.CURRENT);
+                    for(AccessibilityType accessibility : accessibilities) {
+                        if(accessibility == accessibilityType) {
+                            for(String obj : smartObjInRoom) {
+                                itemsForCheckbox.add(obj);
                             }
-                        });
-                        openClosePanel.add(itemsArr[i]);
+                        }
                     }
                 }
             }
         }
-        else{
-            SmartObjectType selectedItem = listItems.getSelectedValue();
-
-            if (selectedItem==null)selectedItem = SmartObjectType.WINDOW;
-
-            if (selectedItem.equals(SmartObjectType.LIGHT)) {setToAutoModeCheckBox.setVisible(true);}
-            else setToAutoModeCheckBox.setVisible(false);
-
-            List<String> items = house.getHouseItemValue(selectedItem);
-            openClosePanel.removeAll();
-            openClosePanel.setLayout(new GridLayout(items.size(), 1));
-            JCheckBox[] itemsArr = new JCheckBox[items.size()];
-            for(int i=0; i<items.size(); i++){
-                itemsArr[i] = new JCheckBox(items.get(i));
-                itemsArr[i].setSelected(isObjectOpen(items.get(i)));
-                int index = i;
-                itemsArr[i].addActionListener(new ActionListener() {
-                    @Override
-                     public void actionPerformed(ActionEvent e) {
-                        if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
-                           itemsArr[index].setSelected(!itemsArr[index].isSelected());
-                            if (listItems.getSelectedValue().toString().contains("Window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
-                            else if (listItems.getSelectedValue().toString().contains("Door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
-                        }
-                        else{
-                            if(itemsArr[index].isSelected()&& (itemsArr[index].getText().contains("window") ||itemsArr[index].getText().contains("door"))) printToConsole(itemsArr[index].getText() + " was opened.");
-                            else if (itemsArr[index].getText().contains("window")||itemsArr[index].getText().contains("door")) printToConsole(itemsArr[index].getText() + " was closed.");
-                            else if (itemsArr[index].isSelected()&& itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned on.");
-                            else if (itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned off.");
-                        }
-                        updateHouseLayout();
+        // itemsForCheckbox to easily get value with index
+        List<String> itemsList = new ArrayList<>(itemsForCheckbox);
+        openClosePanel.removeAll();
+        openClosePanel.setLayout(new GridLayout(itemsList.size(), 1));
+        JCheckBox[] itemsArr = new JCheckBox[itemsList.size()];
+        for(int i=0; i<itemsForCheckbox.size(); i++){
+            itemsArr[i] = new JCheckBox(itemsList.get(i));
+            itemsArr[i].setSelected(isObjectOpen(itemsList.get(i)));
+            int index = i;
+            itemsArr[i].addActionListener(new ActionListener() {
+                @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(!house.openCloseObject(itemsArr[index].getText(), itemsArr[index].isSelected())){
+                       itemsArr[index].setSelected(!itemsArr[index].isSelected());
+                        if (listItems.getSelectedValue().toString().contains("Window"))printToConsole(itemsArr[index].getText() + " is blocked and cannot be opened/closed.");
+                        else if (listItems.getSelectedValue().toString().contains("Door")) printToConsole(itemsArr[index].getText() + " is locked and cannot be opened.");
                     }
-                });
-                openClosePanel.add(itemsArr[i]);
-            }
+                    else{
+                        if(itemsArr[index].isSelected()&& (itemsArr[index].getText().contains("window") ||itemsArr[index].getText().contains("door"))) printToConsole(itemsArr[index].getText() + " was opened.");
+                        else if (itemsArr[index].getText().contains("window")||itemsArr[index].getText().contains("door")) printToConsole(itemsArr[index].getText() + " was closed.");
+                        else if (itemsArr[index].isSelected()&& itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned on.");
+                        else if (itemsArr[index].getText().contains("light")) printToConsole(itemsArr[index].getText() + " was turned off.");
+                    }
+                    updateHouseLayout();
+                }
+            });
+            openClosePanel.add(itemsArr[i]);
         }
     }
 
