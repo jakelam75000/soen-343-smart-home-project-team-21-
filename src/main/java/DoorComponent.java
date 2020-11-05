@@ -9,6 +9,7 @@ public class DoorComponent extends RoomComponent {
     private ImageIcon imageClose = new ImageIcon("src/main/java/icons/closed-door.png");
     private ImageIcon imageOpen = new ImageIcon("src/main/java/icons/opened-door.png");
     private ImageIcon Imagepeople = new ImageIcon("src/main/java/icons/employees.png");
+    private ImageIcon doorLight = new ImageIcon("src/main/java/icons/icons8-doorlight.png");
     // This variable will be used for scaling the images
     private ImageIcon scaledImage;
     // This variable checks for the open state of the door
@@ -97,6 +98,7 @@ public class DoorComponent extends RoomComponent {
         FontMetrics metrics = g.getFontMetrics();
 
 
+
         // If no visitor are ditected we only draw the door else we include the icon of visitors and a counter
         if(vistorCount == 0) {
 
@@ -142,6 +144,25 @@ public class DoorComponent extends RoomComponent {
             g2d.drawString(""+vistorCount, stringX, stringY);
         }
 
+        boolean lightIsOn = false;
+        Light light;
+
+        for(Smartobj obj : objects){
+            if(obj.getType() == SmartObjectType.LIGHT && room.getName().contains("STOOP")){
+                light = (Light) obj;
+                if(light.isON())
+                    lightIsOn = true;
+                else lightIsOn = false;
+            }
+        }
+
+
+        if (lightIsOn) {
+            scaledImage = new ImageIcon(doorLight.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+            int xdoor = getRelX() + (getRoomRect().getWidthandHeight() / 2) - scaledImage.getIconWidth() / 2;
+            int ydoor = getRelY() - 3 * metrics.getHeight() + getRoomRect().getWidthandHeight();
+            scaledImage.paintIcon(getContainer(), g, xdoor, ydoor);
+        }
 
     }
 }
