@@ -72,6 +72,7 @@ public class SHPObserver implements Observer{
      */
     public void confirmAlert(){
         callCops = true;
+        turnOffAwayMode = true;
     }
 
     /**
