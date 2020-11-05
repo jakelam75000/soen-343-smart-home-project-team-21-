@@ -543,7 +543,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             smartObjInRoom = room.getItemMap().get(selectedItem);
             //Make sure that smart object selected is present
             if(smartObjInRoom != null) {
-                locationType = LocationType.valueOf(room.getName());
+                if (!room.getName().contains("STOOP"))locationType = LocationType.valueOf(room.getName());
+                else locationType = LocationType.valueOf(room.getName().replace(" STOOP",""));
                 accessibilities = user.getAccessibilities().get(locationType);
                 //check if that accessibility is present for that room
                 for(AccessibilityType accessibility : accessibilities) {
