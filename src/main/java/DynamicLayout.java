@@ -25,8 +25,19 @@ public class DynamicLayout extends JPanel {
      * @param rooms Room[] is the array of rooms
      */
     public DynamicLayout(Room[] rooms) {
-        this.rooms = rooms;
-        this.roomCount = rooms.length;
+        int nonStoopRooms = 0;
+        for (int i=0;i<rooms.length;i++){
+            if (!rooms[i].getName().contains("STOOP"))nonStoopRooms++;
+        }
+        this.rooms = new Room[nonStoopRooms];
+        int k =0;
+        for (int i=0; i<rooms.length; i++){
+            if (!rooms[i].getName().contains("STOOP")){
+                this.rooms[k] = rooms[i];
+                k++;
+            }
+        }
+        this.roomCount = nonStoopRooms;
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(520, 520));
 
