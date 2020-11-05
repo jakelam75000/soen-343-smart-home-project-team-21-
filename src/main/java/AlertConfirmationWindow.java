@@ -84,6 +84,7 @@ public class AlertConfirmationWindow extends JFrame{
                 decreasingTimer.setText(UpdateCountdowntimer(decreasingTimer.getText()));
                 if (!timeleft){
                     caller.confirmAlert();
+                    caller.cancelAlert();
                     timetillcops.stop();
                     self.setVisible(false);
 
