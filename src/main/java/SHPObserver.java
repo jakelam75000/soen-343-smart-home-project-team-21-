@@ -118,6 +118,8 @@ public class SHPObserver implements Observer{
         else shd.disableAwayMode();
 
         if(!houseSafe && !userAlerted){
+            setTimer(shd.getAlertTimer());
+            setMultiplier(shd.getMultiplier());
             new AlertConfirmationWindow(this).setVisible(true);
             userAlerted = true;
         }
@@ -128,6 +130,11 @@ public class SHPObserver implements Observer{
         }
 
         if(turnOffAwayMode){
+            houseSafe = true;
+            callCops = false;
+            turnOffAwayMode = false;
+            userAlerted = false;
+            currentAutomatedLightState = false;
             shd.disableAwayMode();
         }
 

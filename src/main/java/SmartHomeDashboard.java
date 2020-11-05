@@ -1005,6 +1005,19 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     /**
+     * Getter for the Alert timer.
+     *
+     * @return the alert timer time.
+     */
+    public String getAlertTimer(){
+        return timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
+    }
+
+    public int getMultiplier(){
+        return (int)speedSpinner.getValue();
+    }
+
+    /**
      * Sets all automated lights to the state provided.
      * @param state The state that the automated must be set to. (true = on, false = off)
      */
@@ -1043,6 +1056,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     @Override
     public void notifyObservers(Observable observable) {
-        observers.forEach(observer -> observer.update(observable));
+        for(int i=0; i<observers.size(); i++){
+            observers.get(i).update(observable);
+        }
     }
 }

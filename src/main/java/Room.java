@@ -155,7 +155,6 @@ public class Room {
         return s;
     }
 
-
     /**
     temporary mutator function
     @param desiredtemp is the new temperature of the room
@@ -208,6 +207,7 @@ public class Room {
             }
         }
     }
+
     /**
      * Opens and closes an object
      * @param name String the name of the window
