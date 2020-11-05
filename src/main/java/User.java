@@ -9,7 +9,7 @@ public class User {
     private String username;
     private String password;
     private String location;
-    private HashMap<LocationType, ArrayList> accessibilities = new  HashMap<>();
+    private HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = new  HashMap<>();
 
     /**
      * Constructor
@@ -28,7 +28,7 @@ public class User {
      * @param accessibilities
      * @return
      */
-    private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    private HashMap<LocationType, ArrayList<AccessibilityType>> assignAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         EnumSet.allOf(LocationType.class)
                 .forEach(location -> accessibilities.put(location, new ArrayList()));
         return accessibilities;
@@ -85,7 +85,7 @@ public class User {
      * getter
      * @return
      */
-    public HashMap<LocationType, ArrayList> getAccessibilities() {
+    public HashMap<LocationType, ArrayList<AccessibilityType>> getAccessibilities() {
         return accessibilities;
     }
 
@@ -93,7 +93,7 @@ public class User {
      * setter
      * @param accessibilities
      */
-    public void setAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    public void setAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         this.accessibilities = accessibilities;
     }
 }

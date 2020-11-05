@@ -73,9 +73,9 @@ public class Accessibility {
         Boolean checkDuplicate = false;
         //If the location is INSIDE all locations should be updated except for OUTSIDE
         if(locationType == LocationType.INSIDE) {
-            for (HashMap.Entry<LocationType, ArrayList> entry : user.getAccessibilities().entrySet()) {
+            for (HashMap.Entry<LocationType, ArrayList<AccessibilityType>> entry : user.getAccessibilities().entrySet()) {
                 if(entry.getKey() != LocationType.OUTSIDE){
-                    ArrayList updatedAccessibilities = entry.getValue();
+                    ArrayList<AccessibilityType> updatedAccessibilities = entry.getValue();
                     //Make sure that no duplicate values are added
                     for(Object type: updatedAccessibilities) {
                         if(accessibilityType == type) {
@@ -114,7 +114,7 @@ public class Accessibility {
         ArrayList updatedAccessibilities;
         //If the location is INSIDE all locations should be updated except for OUTSIDE
         if(locationType == LocationType.INSIDE) {
-            for (HashMap.Entry<LocationType, ArrayList> entry : user.getAccessibilities().entrySet()) {
+            for (HashMap.Entry<LocationType, ArrayList<AccessibilityType>> entry : user.getAccessibilities().entrySet()) {
                 if(entry.getKey() != LocationType.OUTSIDE){
                     updatedAccessibilities = entry.getValue();
                     for(int i = 0; i < updatedAccessibilities.size(); i++) {

@@ -6,7 +6,9 @@ import java.util.HashMap;
  * Child class of user for permission checking
  */
 public class Parent extends User{
-    private HashMap<LocationType, ArrayList> accessibilities = new HashMap<>();
+    private HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = new HashMap<>();
+
+
     public Parent(String username, String password) {
         super(username, password);
         this.accessibilities = assignAccessibilities(accessibilities);
@@ -17,7 +19,7 @@ public class Parent extends User{
      * @param accessibilities
      * @return
      */
-    private HashMap assignAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    private HashMap<LocationType, ArrayList<AccessibilityType>> assignAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         for(LocationType location : LocationType.values()) {
             accessibilities.put(location, assignAccessibilityTypes(location));
         }
@@ -28,8 +30,8 @@ public class Parent extends User{
      * Creates ArrayList of accessibilities
      * @return
      */
-    private ArrayList assignAccessibilityTypes (LocationType locationType) {
-        ArrayList accessibilityTypes = new ArrayList();
+    private ArrayList<AccessibilityType> assignAccessibilityTypes (LocationType locationType) {
+        ArrayList<AccessibilityType> accessibilityTypes = new ArrayList<AccessibilityType>();
         for(AccessibilityType accessibility : AccessibilityType.values()) {
             if(accessibility == AccessibilityType.AWAYMODE) {
                 if(locationType == LocationType.OUTSIDE) {
@@ -47,7 +49,7 @@ public class Parent extends User{
      * @param accessibilities
      */
     @Override
-    public void setAccessibilities(HashMap<LocationType, ArrayList> accessibilities) {
+    public void setAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         this.accessibilities = accessibilities;
     }
 
@@ -56,7 +58,7 @@ public class Parent extends User{
      * @return
      */
     @Override
-    public HashMap<LocationType, ArrayList> getAccessibilities() {
+    public HashMap<LocationType, ArrayList<AccessibilityType>> getAccessibilities() {
         return accessibilities;
     }
 }

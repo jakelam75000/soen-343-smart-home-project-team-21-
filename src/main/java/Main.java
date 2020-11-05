@@ -9,7 +9,7 @@ public class Main {
         loginFrame.setVisible(true);
 
         // Creates users
-        UserManager.initialize();
+        UserDatabaseManager.loadUsers();
         // Initialize accessibility corresponding strings
         Accessibility.initializeAccessibilities();
 
