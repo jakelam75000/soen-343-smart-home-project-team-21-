@@ -292,7 +292,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 if (awayModeCheckbox.isSelected()) {
                     if (isSomeoneHome() == null){
-                        if(Accessibility.allowAwayMode(Username.getText())) {
+                        if(Accessibility.allowAwayMode(Username.getText()) || UserManager.getUserType(Username.getText())==UserTypes.PARENT) {
                             String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
                             shp.setTimer(alertTimer);
                             shp.setMultiplier((int)(speedSpinner.getValue()));
@@ -980,7 +980,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public UserTypes isSomeoneHome(){
         for(String username : UserManager.getUsernames()){
-            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside")) return UserManager.getUserType(username);
+            if(!UserManager.getUserLocation(username).equalsIgnoreCase("outside") && !UserManager.getUserLocation(username).contains("STOOP")) return UserManager.getUserType(username);
         }
         return null;
     }
