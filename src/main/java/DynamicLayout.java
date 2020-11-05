@@ -12,6 +12,7 @@ import javax.swing.*;
  */
 public class DynamicLayout extends JPanel {
     private final Room[] rooms;
+    private final Room[] stooprooms;
     private final int roomCount;
 
 
@@ -30,11 +31,16 @@ public class DynamicLayout extends JPanel {
             if (!rooms[i].getName().contains("STOOP"))nonStoopRooms++;
         }
         this.rooms = new Room[nonStoopRooms];
+        stooprooms = new Room[rooms.length-nonStoopRooms];
         int k =0;
+        int l=0;
         for (int i=0; i<rooms.length; i++){
             if (!rooms[i].getName().contains("STOOP")){
                 this.rooms[k] = rooms[i];
                 k++;
+            }else {
+                stooprooms[l] = rooms[i];
+                l++;
             }
         }
         this.roomCount = nonStoopRooms;
@@ -111,12 +117,21 @@ public class DynamicLayout extends JPanel {
         super.paintComponent(g);
 
         for (int i=0; i<drawRooms.size(); i++) {
+            boolean attachedstoop = false;
+            int stoopindex = -1;
+            for (int k=0; k <stooprooms.length;k++){
+                if (stooprooms[k].getName().contains(rooms[i].getName())){
+                    attachedstoop = true;
+                    stoopindex = k;
+                }
+            }
             RoomRectangle r = drawRooms.get(i);
             r.draw(g);
             new WindowComponent(this, r, rooms[i]).draw(g);
             new PeopleComponent(this, r, rooms[i].getName()).draw(g);
             new LightComponent(this, r, rooms[i]).draw(g);
-            new DoorComponent(this, r, rooms[i]).draw(g);
+            if (!attachedstoop) new DoorComponent(this, r, rooms[i],null).draw(g);
+            else new DoorComponent(this, r, rooms[i],stooprooms[stoopindex]).draw(g);
         }
 
 

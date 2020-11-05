@@ -16,6 +16,7 @@ public class DoorComponent extends RoomComponent {
     private boolean open = false;
     // This get the name of the room we are in
     private Room room;
+    private Room stooproom;
     // This is a counter for visitors
     private int vistorCount;
 
@@ -26,10 +27,11 @@ public class DoorComponent extends RoomComponent {
      * @param roomRect the RoomRectangle object in which this window component is drawn.
      * @param room the name of the room that corresponds to the roomRect.
      */
-    public DoorComponent(JPanel panel, RoomRectangle roomRect, Room room){
+    public DoorComponent(JPanel panel, RoomRectangle roomRect, Room room,Room stoop){
         super(panel, roomRect);
         scaledImage = new ImageIcon(imageClose.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         this.room = room;
+        stooproom = stoop;
     }
 
     // This method is used for drawing the door in the House View
@@ -146,9 +148,9 @@ public class DoorComponent extends RoomComponent {
 
         boolean lightIsOn = false;
         Light light;
-
+        objects = stooproom.getSmartObjects();
         for(Smartobj obj : objects){
-            if(obj.getType() == SmartObjectType.LIGHT && room.getName().contains("STOOP")){
+            if(obj.getType() == SmartObjectType.LIGHT && stooproom.getName().contains("STOOP")){
                 light = (Light) obj;
                 if(light.isON())
                     lightIsOn = true;
