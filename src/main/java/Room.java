@@ -193,9 +193,18 @@ public class Room {
      */
     public void lockAllDoors(){
         for (Smartobj obj : smartobjects){
-            if(obj.getType()==SmartObjectType.DOOR){
+            if(obj.getType()==SmartObjectType.DOOR && (obj.getName().contains("Entry") || obj.getName().contains("Kitchen") || obj.getName().contains("Garage"))){
                 Door door = (Door)obj;
                 door.setlocked(true);
+            }
+        }
+    }
+    public void unlockAllDoors(){
+        for (Smartobj obj : smartobjects){
+            if(obj.getType()==SmartObjectType.DOOR && (obj.getName().contains("Entry") || obj.getName().contains("Kitchen") || obj.getName().contains("Garage"))){
+                Door door = (Door)obj;
+                door.setlocked(false);
+
             }
         }
     }

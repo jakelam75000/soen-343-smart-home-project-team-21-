@@ -202,6 +202,16 @@ public class House {
             room.lockAllDoors();
             }
         }
+
+    /**
+     * unlocks all door in the house
+     * by calling the method of the same name in each room
+     */
+    public void  unlockAllDoors(){
+            for (Room room : rooms){
+                room.unlockAllDoors();
+            }
+        }
     /**
      * Searches all the rooms for the specified object and opens/closes it.
      *
