@@ -509,7 +509,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         for (int i = 0; i < houseItems.size(); i++) {
             houseItemsArr[i] = houseItems.get(i);
         }
-
+        Arrays.stream(houseItemsArr).sorted();
         listItems.setListData(houseItemsArr);
 
         if (listItems.getFirstVisibleIndex() != -1) {
