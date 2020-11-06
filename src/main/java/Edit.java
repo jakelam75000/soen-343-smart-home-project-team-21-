@@ -54,6 +54,7 @@ public class Edit extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 caller.blockWindow(comboWindows.getItemAt(comboWindows.getSelectedIndex()), blockedCheckBox.isSelected());
+                caller.updateHouseLayout();
             }
         });
 
