@@ -3,11 +3,11 @@ public class SHPObserver implements Observer{
     private String timer;
     private int multiplier;
     private static SHPObserver instance;
-    private static boolean houseSafe = true;
-    private static boolean callCops = false;
-    private static boolean turnOffAwayMode = false;
-    private static boolean userAlerted = false;
-    private static boolean currentAutomatedLightState = false;
+    private boolean houseSafe = true;
+    private boolean callCops = false;
+    private boolean turnOffAwayMode = false;
+    private boolean userAlerted = false;
+    private boolean currentAutomatedLightState = false;
 
     /**
     *lazy constructor for implementation singleton pattern
