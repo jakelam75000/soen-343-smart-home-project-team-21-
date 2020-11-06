@@ -236,6 +236,19 @@ public class Room {
     }
 
     /**
+     * CLoses all the windows in the room
+     * @return boolean if the window can close
+     */
+    public boolean closeAllWindows(){
+        for (Smartobj obj : smartobjects){
+            if (obj.getType()==SmartObjectType.WINDOW){
+                Window window = (Window)obj;
+            if (!window.setOpen(false))return false;
+            }
+        }
+        return true;
+    }
+    /**
      * takes a smart object name and returns a boolean for its state
      * @param name
      * @return

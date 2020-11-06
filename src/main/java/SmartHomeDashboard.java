@@ -304,14 +304,19 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 if (awayModeCheckbox.isSelected()) {
                     if (isSomeoneHome() == null){
                         if(Accessibility.allowAwayMode(Username.getText()) || UserManager.getUserType(Username.getText())==UserTypes.PARENT) {
-                            String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
-                            shp.setTimer(alertTimer);
-                            shp.setMultiplier((int)(speedSpinner.getValue()));
-                            attachObserver(shp);
-                            house.LockAllDoors();
-                            printToConsole("Garage, kitchen and entry way doors locked");
-                            updateHouseLayout();
-                            printToConsole("Away mode enabled.");
+                            if (house.closeAllWindows()) {
+                                String alertTimer = timerHoursSpinner.getValue() + ":" + timerMinutesSpinner.getValue() + ":" + timerSecondsSpinner.getValue();
+                                shp.setTimer(alertTimer);
+                                shp.setMultiplier((int) (speedSpinner.getValue()));
+                                attachObserver(shp);
+                                house.LockAllDoors();
+                                printToConsole("Garage, kitchen and entry way doors locked");
+                                updateHouseLayout();
+                                printToConsole("Away mode enabled.");
+                            } else {
+                                printToConsole("Away mode not set! a Window is blocked");
+                                awayModeCheckbox.setSelected(false);
+                            }
                         } else {
                             awayModeCheckbox.setSelected(false);
                             printToConsole("Away mode cannot be enable. User does not have access to perform this action.");

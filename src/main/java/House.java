@@ -249,4 +249,15 @@ public class House {
         }
         return false;
     }
+
+    /**
+     * closes all the windows
+     * @return boolean was the operation succesfull
+     */
+    public boolean closeAllWindows(){
+        for(Room room : rooms){
+            if(!room.closeAllWindows())return false;
+        }
+        return true;
+    }
 }
