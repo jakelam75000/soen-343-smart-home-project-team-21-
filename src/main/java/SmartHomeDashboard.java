@@ -446,6 +446,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 Login loginFrame = new Login("Login");
+                loginFrame.setBounds(300, 200, 400, 320);
                 loginFrame.setVisible(true);
                 self.setVisible(false);
             }

@@ -30,7 +30,7 @@ public class Login extends JFrame {
     private static final int x = 300;
     private static final int y = 200;
     private static final int width = 400;
-    private static final int height = 350;
+    private static final int height = 370;
 
     /**
      * Parameterised constructor.
