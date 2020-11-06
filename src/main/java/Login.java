@@ -48,6 +48,8 @@ public class Login extends JFrame {
         this.setResizable(false);
         addActionListeners();
 
+        addPreviousFile.setSelected(true);
+
         if (lasthousefilepath!=null){
             UploadFile.setVisible(false);
             housefieldlabel.setVisible(false);

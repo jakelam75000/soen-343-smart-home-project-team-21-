@@ -139,7 +139,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         house = HouseReader.readAndLoadHouse(housefilepath);
         self = this;
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
 
@@ -228,9 +228,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                UserDatabaseManager.updateUserFile();
-                e.getWindow().dispose();
+                new SaveUsers("Save Current Users", self).setVisible(true);
             }
         });
 
@@ -276,6 +274,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
             }
         });
+
         comboUsers.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
