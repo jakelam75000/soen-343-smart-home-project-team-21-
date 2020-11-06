@@ -588,6 +588,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         }
         // itemsForCheckbox to easily get value with index
         List<String> itemsList = new ArrayList<>(itemsForCheckbox);
+        Collections.sort(itemsList);
         openClosePanel.removeAll();
         openClosePanel.setLayout(new GridLayout(itemsList.size(), 1));
         JCheckBox[] itemsArr = new JCheckBox[itemsList.size()];
