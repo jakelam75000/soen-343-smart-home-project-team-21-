@@ -14,6 +14,10 @@ public class SHPObserver implements Observer{
      */
     private SHPObserver(){
     }
+
+    /**
+     * static Concsturctor
+     */
     static {
         instance = new SHPObserver();
     }
