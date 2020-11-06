@@ -18,18 +18,24 @@ class HouseReaderTest {
 
         House testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
         Room room1 = testHouse.getRoomAtIndex(0);
-        Room room2 = testHouse.getRoomAtIndex(1);
-        Room room3 = testHouse.getRoomAtIndex(2);
-        Room room4 = testHouse.getRoomAtIndex(3);
-        Room room5 = testHouse.getRoomAtIndex(4);
-        assertEquals(5, testHouse.getRoomCount());
+        Room room2 = testHouse.getRoomAtIndex(2);
+        Room room3 = testHouse.getRoomAtIndex(3);
+        Room room4 = testHouse.getRoomAtIndex(5);
+        Room room5 = testHouse.getRoomAtIndex(6);
+        Room room6 = testHouse.getRoomAtIndex(1);
+        Room room7 = testHouse.getRoomAtIndex(4);
+        Room room8 = testHouse.getRoomAtIndex(7);
+        assertEquals(8, testHouse.getRoomCount());
         assertAll(
                 "Make sure that house layout names are properly read.",
                 () -> assertEquals(LocationType.LIVINGROOM.toString(), room1.getName()),
+                () -> assertEquals(LocationType.STOOP.toString(), room6.getName().replace("LIVINGROOM ","")),
                 () -> assertEquals(LocationType.BEDROOM.toString(), room2.getName()),
                 () -> assertEquals(LocationType.KITCHEN.toString(), room3.getName()),
+                () -> assertEquals(LocationType.STOOP.toString(), room7.getName().replace("KITCHEN ","")),
                 () -> assertEquals(LocationType.OFFICE.toString(), room4.getName()),
-                () -> assertEquals(LocationType.GARAGE.toString(), room5.getName())
+                () -> assertEquals(LocationType.GARAGE.toString(), room5.getName()),
+                () -> assertEquals(LocationType.STOOP.toString(), room8.getName().replace("GARAGE ",""))
         );
 
         assertAll(
@@ -38,7 +44,10 @@ class HouseReaderTest {
                 () -> assertEquals(3, room2.getSmartObjects().length),
                 () -> assertEquals(4, room3.getSmartObjects().length),
                 () -> assertEquals(3, room4.getSmartObjects().length),
-                () -> assertEquals(2, room5.getSmartObjects().length)
+                () -> assertEquals(2, room5.getSmartObjects().length),
+                () -> assertEquals(1, room6.getSmartObjects().length),
+                () -> assertEquals(1, room7.getSmartObjects().length),
+                () -> assertEquals(1, room8.getSmartObjects().length)
         );
 
         assertAll(
@@ -47,7 +56,10 @@ class HouseReaderTest {
                 () -> assertEquals(21.3, room2.getTemperature()),
                 () -> assertEquals(22.0, room3.getTemperature()),
                 () -> assertEquals(20.5, room4.getTemperature()),
-                () -> assertEquals(18.0, room5.getTemperature())
+                () -> assertEquals(18.0, room5.getTemperature()),
+                () -> assertEquals(20.3, room6.getTemperature()),
+                () -> assertEquals(20.3, room7.getTemperature()),
+                () -> assertEquals(20.3, room8.getTemperature())
         );
     }
 }
