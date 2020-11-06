@@ -22,6 +22,7 @@ public class Login extends JFrame {
     private JLabel username_passwordCheck;
     private JPanel ErrorCheck;
     private JPanel fileMissing;
+    private JCheckBox AddPreviousFile;
     private String filepath;
     private static String lasthousefilepath = null;
 
