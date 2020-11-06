@@ -22,7 +22,7 @@ public class Login extends JFrame {
     private JLabel username_passwordCheck;
     private JPanel ErrorCheck;
     private JPanel fileMissing;
-    private JCheckBox AddPreviousFile;
+    private JCheckBox addPreviousFile;
     private String filepath;
     private static String lasthousefilepath = null;
 
@@ -124,6 +124,11 @@ public class Login extends JFrame {
      * @param password String password entered
      */
     public boolean loginClicked(String username, String password, String houseFilePath){
+        // Creates users
+        UserDatabaseManager.loadUsers(addPreviousFile.isSelected());
+        // Initialize accessibility corresponding strings
+        Accessibility.initializeAccessibilities();
+
         // User Authentication
         User user = UserManager.findUser(username, password);
         House temp;

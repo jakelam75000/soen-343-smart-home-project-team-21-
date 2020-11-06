@@ -8,10 +8,5 @@ public class Main {
         Login loginFrame = new Login("Login");
         loginFrame.setVisible(true);
 
-        // Creates users
-        UserDatabaseManager.loadUsers();
-        // Initialize accessibility corresponding strings
-        Accessibility.initializeAccessibilities();
-
     }
 }

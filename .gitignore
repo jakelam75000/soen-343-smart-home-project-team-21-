@@ -11,4 +11,5 @@ Output/
 
 *.iml
 
-Users.txt
+Previous_Users.txt
+OutputLog.txt

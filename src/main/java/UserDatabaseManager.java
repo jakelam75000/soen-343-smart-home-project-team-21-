@@ -12,9 +12,22 @@ public class UserDatabaseManager {
      *
      * Sets up usernames, passwords, type and accessibilities. Also assigns an admin account.
      */
-    public static void loadUsers(){
+    public static void loadUsers(boolean loadPrevious){
         try {
-            Scanner sc = new Scanner(new File("Users.txt"));
+            Scanner sc = null;
+            File file = null;
+            if(loadPrevious){
+                file = new File("Previous_Users.txt");
+                if(!file.exists()){
+                    file = new File("Default_Users.txt");
+                }
+            }
+            else {
+                file = new File("Default_Users.txt");
+            }
+
+            sc = new Scanner(file);
+
             //Getting rid of the line with the format example and the other useless lines
             sc.nextLine();
             sc.nextLine();
@@ -64,7 +77,7 @@ public class UserDatabaseManager {
      */
     public static void updateUserFile(){
         try{
-            String fileName = "Users.txt";
+            String fileName = "Previous_Users.txt";
             PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
 
             //Printing the usual formatting and other information to the Users file.
@@ -103,6 +116,4 @@ public class UserDatabaseManager {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
