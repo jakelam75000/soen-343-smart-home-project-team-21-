@@ -20,23 +20,31 @@ public class AddUser extends JFrame{
     private JRadioButton strangerRadioButton;
     private AddUser self;
     private SmartHomeDashboard caller;
+    private static AddUser instance = new AddUser("Add User");
 
     /**
      * Parameterised constructor.
      *
      * @param title String title of the frame
-     * @param caller SmartHomeDashboard pointer referring to the caller
      */
-    public AddUser(String title, SmartHomeDashboard caller) {
+    private AddUser(String title) {
         super(title);
 
         this.setContentPane(mainPanel);
         this.pack();
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.addGuest.setSelected(true);
         self = this;
-        this.caller = caller;
         this.setResizable(false);
         addActionListeners();
+    }
+
+    public static AddUser getInstance(){
+        return instance;
+    }
+
+    public void setCaller(SmartHomeDashboard caller){
+        this.caller = caller;
     }
 
     /**

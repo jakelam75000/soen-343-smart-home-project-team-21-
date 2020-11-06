@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Frame that allows the user to change type and apsswords of users
@@ -22,18 +24,27 @@ public class EditUserProfile extends JFrame {
     private String callingUser;
     private EditUserProfile self;
     private SmartHomeDashboard caller;
+    private static EditUserProfile instance = new EditUserProfile("Edit User Profile");
 
     /**
      * Constructor
      * @param title String Name of the frame
-     * @param currentType String The current type of the Caller user
-     * @param username String the naem of the selected user
-     * @param calluser String the name of the user currently logged in
-     * @param caller SmartHomeDashboard a reference to the calling frame
      */
-    public EditUserProfile(String title, String currentType,String username, String calluser, SmartHomeDashboard caller) {
+    private EditUserProfile(String title) {
         super(title);
-        currentUsername.setText(username);
+        this.setContentPane(mainPanel);
+        this.pack();
+        this.setResizable(false);
+        addActionListeners();
+        self = this;
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    public static EditUserProfile getInstance(){
+        return instance;
+    }
+
+    public void setCurrentType(String currentType){
         if (currentType.equals("CHILD")){
             parentRadio.setEnabled(false);
             guestRadio.setEnabled(false);
@@ -46,25 +57,36 @@ public class EditUserProfile extends JFrame {
             guestRadio.setSelected(true);
         } else if(currentType.equals("PARENT")){
             parentRadio.setSelected(true);
+            childRadio.setEnabled(true);
+            strangerRadio.setEnabled(true);
+            guestRadio.setEnabled(true);
+            parentRadio.setEnabled(true);
         }
-        callingUser = calluser;
-        this.setContentPane(mainPanel);
-        this.pack();
-        this.setResizable(false);
-        addActionListeners();
-        self = this;
-        this.caller = caller;
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
     }
 
-//    public static void main(String[] args){
-//
-//        JFrame frame = new EditUserProfile("Edit User Profile","PARENT","mt", "none");
-//        frame.setVisible(true);
-//    }
+    public void setUsername(String username){
+        currentUsername.setText(username);
+    }
+
+    public void setCallingUser(String callingUser){
+        this.callingUser = callingUser;
+    }
+
+    public void setCaller(SmartHomeDashboard caller){
+        this.caller = caller;
+    }
+
+
 
     public void addActionListeners(){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                oldPassword.setText("");
+                newPassword.setText("");
+            }
+        });
+
         confirmChangesButton.addActionListener(new ActionListener() {
             /**
              * Confirms the changes to be made
@@ -87,6 +109,8 @@ public class EditUserProfile extends JFrame {
                 //Check if we successfully edited the user
                 if (UserManager.editUser(username, oldPasswordFormatted, newPasswordFormatted, type)) {
                     caller.printToConsole(username + "'s password and/or type has been updated.");
+                    oldPassword.setText("");
+                    newPassword.setText("");
                 } else {
                     caller.printToConsole(username + "'s password and/or type has failed to be updated please try again.");
                 }
@@ -111,6 +135,8 @@ public class EditUserProfile extends JFrame {
 
                     caller.updateUsers();
                     caller.printToConsole(username + "'s account has been deleted.");
+                    oldPassword.setText("");
+                    newPassword.setText("");
 
                     self.setVisible(false);
                 } else {

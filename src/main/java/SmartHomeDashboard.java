@@ -115,8 +115,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
-    private  SHPObserver shp = SHPObserver.getInstance();
-    //FOR TESTING THE SHP AWAY INTRUDER
+
+    //Singleton instances
+    private SHPObserver shp = SHPObserver.getInstance();
+    private Edit edit = Edit.getInstance();
+    private SaveUsers saveUsers = SaveUsers.getInstance();
+    private AddUser addUser = AddUser.getInstance();
+    private EditUserProfile editUserProfile = EditUserProfile.getInstance();
 
     //Bounds variables
     private static final int x = 100;
@@ -148,6 +153,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         dynamicLayout = new DynamicLayout(house.getRoomsList());
         HouseLayout.add(dynamicLayout);
+
+        edit.setCaller(this);
+        saveUsers.setCaller(this);
+        addUser.setCaller(this);
+        editUserProfile.setCurrentType(type);
+        editUserProfile.setCallingUser(username);
+        editUserProfile.setCaller(this);
 
         setUpDashboardOptions();
         addActionListeners();
@@ -228,7 +240,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new SaveUsers("Save Current Users", self).setVisible(true);
+                saveUsers.setVisible(true);
             }
         });
 
@@ -341,7 +353,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddUser("Add User", self).setVisible(true);
+                addUser.setVisible(true);
             }
         });
 
@@ -352,7 +364,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                Edit edit = new Edit("Edit", self);
                 edit.setUpEditOptions(house.getRoomNames(), house.getHouseItemValue(SmartObjectType.WINDOW), UserManager.getUsernames(),Username.getText());
                 edit.setVisible(true);
             }
@@ -433,7 +444,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EditUserProfile("Edit User Profile",Type.getText(), comboUsers.getSelectedItem().toString(),Username.getText(), self).setVisible(true);
+                editUserProfile.setUsername(comboUsers.getSelectedItem().toString());
+                editUserProfile.setVisible(true);
             }
         });
 

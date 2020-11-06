@@ -23,6 +23,7 @@ public class Login extends JFrame {
     private JPanel ErrorCheck;
     private JPanel fileMissing;
     private JCheckBox addPreviousFile;
+    private JLabel loadPreviousUsersLabel;
     private String filepath;
     private static String lasthousefilepath = null;
 
@@ -53,6 +54,8 @@ public class Login extends JFrame {
         if (lasthousefilepath!=null){
             UploadFile.setVisible(false);
             housefieldlabel.setVisible(false);
+            addPreviousFile.setVisible(false);
+            loadPreviousUsersLabel.setVisible(false);
         }
         ErrorCheck.setVisible(false);
         fileMissing.setVisible(false);
@@ -150,19 +153,15 @@ public class Login extends JFrame {
 
             // User type
             if(user instanceof Child) {
-                System.out.println("It is a child");
                 // Show house simulator for child
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.CHILD.toString(), username, f.getPath()).setVisible(true);
             } else if (user instanceof Parent) {
-                System.out.println("It is a parent");
                 // Show house simulator for parent
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.PARENT.toString(), username, f.getPath()).setVisible(true);
             } else if (user instanceof Guest) {
-                System.out.println("It is a guest");
                 // Show house simulator for guest
                 new SmartHomeDashboard("Smart Home Simulator", UserTypes.GUEST.toString(), username, f.getPath()).setVisible(true);
             }
-            else if (user instanceof Stranger) System.out.println("Login failed, trying to login as stranger");
 
             this.dispose();
             return true;
@@ -171,7 +170,6 @@ public class Login extends JFrame {
             else ErrorCheck.setVisible(false);
             if (f==null || !f.exists() || !f.isFile() || temp==null)fileMissing.setVisible(true);
             else fileMissing.setVisible(false);
-            System.out.println("Login failed");
             return false;
         }
 

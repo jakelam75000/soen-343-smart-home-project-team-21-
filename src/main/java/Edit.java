@@ -18,6 +18,7 @@ public class Edit extends JFrame {
     private JButton confirmObjButton;
     private User currentUser;
     private SmartHomeDashboard caller;
+    private static Edit instance = new Edit("Edit");
 
     //Bounds variables
     private static final int x = 300;
@@ -29,18 +30,25 @@ public class Edit extends JFrame {
      * Parameterised contructor
      *
      * @param title String title of the frame
-     * @param caller SmartHomeDashboard pointer of the calling object.
      */
-    public Edit(String title, SmartHomeDashboard caller) {
+    private Edit(String title) {
         super(title);
         this.setContentPane(mainPanel);
         this.pack();
         this.setBounds(x, y,width, height);
-        this.caller = caller;
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         addActionListeners();
     }
+
+    public static Edit getInstance(){
+        return instance;
+    }
+
+    public void setCaller(SmartHomeDashboard caller){
+        this.caller = caller;
+    }
+
 
     /**
      * Adding all the action listeners.

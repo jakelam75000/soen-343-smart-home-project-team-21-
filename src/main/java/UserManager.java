@@ -122,6 +122,11 @@ public class UserManager {
      * @param username String username to be deleted
      */
     public static boolean removeUser(String username, String password) {
+        if(getUserType(username) == UserTypes.STRANGER){
+            userStranger.remove(username);
+            authenticate.remove(username);
+            return true;
+        }
         if (isAdmin(username) || !isUserValid(username, password)){
             return false;
         }
@@ -132,11 +137,8 @@ public class UserManager {
             userChild.remove(username);
         } else if(userGuest.get(username) != null) {
             userGuest.remove(username);
-        }else if(userStranger.get(username) != null) {
-            userStranger.remove(username);
         }
 
-        System.out.println("Successfully removed");
         return true;
     }
 

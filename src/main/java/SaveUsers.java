@@ -10,24 +10,32 @@ public class SaveUsers extends JFrame{
     private JPanel mainPanel;
     private SmartHomeDashboard caller;
     private SaveUsers self;
+    private static SaveUsers instance = new SaveUsers("Save Users");
 
     //Bounds variables
     private static final int x = 300;
     private static final int y = 200;
-    private static final int width = 560;
-    private static final int height = 300;
+    private static final int width = 375;
+    private static final int height = 225;
 
-    public SaveUsers(String title, SmartHomeDashboard caller){
+    private SaveUsers(String title){
         super(title);
         this.setContentPane(mainPanel);
         this.pack();
         this.setBounds(x, y,width, height);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.caller = caller;
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.self = this;
 
         addActionListeners();
+    }
+
+    public static SaveUsers getInstance(){
+        return instance;
+    }
+
+    public void setCaller(SmartHomeDashboard caller){
+        this.caller = caller;
     }
 
     public void addActionListeners(){
