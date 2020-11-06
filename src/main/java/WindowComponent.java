@@ -8,6 +8,8 @@ public class WindowComponent extends RoomComponent{
 
     private ImageIcon image = new ImageIcon("src/main/java/icons/window.png");
     private ImageIcon scaledImage;
+    private ImageIcon blockedImage = new ImageIcon("src/main/java/icons/X.png");
+    private ImageIcon scaledBlocked;
 
     private boolean open = false;
     private Room room;
@@ -35,6 +37,7 @@ public class WindowComponent extends RoomComponent{
 
         int openWindows = 0;
         Smartobj[] objects = room.getSmartObjects();
+        int blocked = 0;
 
         boolean containsWindows = false;
         for(Smartobj obj : objects){
@@ -52,13 +55,23 @@ public class WindowComponent extends RoomComponent{
                 if(window.isOpen()){
                     openWindows++;
                 }
+                if(window.isBlocked()) {
+                    blocked++;
+                }
             }
         }
+
+        scaledBlocked = new ImageIcon(blockedImage.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
 
         FontMetrics metrics = g.getFontMetrics();
         int xIcon = getRelX() + (getRoomRect().getWidthandHeight()/2) - scaledImage.getIconWidth() - getRoomRect().getWidthandHeight()/10;
         int yIcon = getRelY() + metrics.getHeight() + getRoomRect().getWidthandHeight()/20;
         scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
+
+        int xBlock = xIcon;
+        int yBlock = getRelY() + metrics.getHeight() + getRoomRect().getWidthandHeight()/10 + scaledImage.getIconHeight();
+        scaledImage.paintIcon(getContainer(), g, xBlock, yBlock);
+        scaledBlocked.paintIcon(getContainer(), g, xBlock, yBlock);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -71,6 +84,10 @@ public class WindowComponent extends RoomComponent{
         int stringX = xIcon - (int)(metrics.stringWidth(""+openWindows)*2);
 
         g2d.drawString(""+openWindows, stringX, stringY);
+
+        int stringBY = yBlock + scaledImage.getIconHeight()*75/100;
+        g2d.drawString(""+blocked, stringX, stringBY);
+
 
     }
 
