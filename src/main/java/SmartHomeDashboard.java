@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.List;
 
@@ -789,6 +791,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         consoleText.setRows(consoleText.getRows()+ 1);
         consoleText.append("\n" + current_Time_Formatted + text);
+        try{
+            PrintWriter out = new PrintWriter("OutputLog.txt");
+            out.println(consoleText.getText());
+            out.close();
+        }catch (FileNotFoundException e){
+            System.err.println("Erorr with the file printer to log");
+        }
 
     }
 
