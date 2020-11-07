@@ -34,7 +34,9 @@ public class DoorComponent extends RoomComponent {
         stooproom = stoop;
     }
 
-    // This method is used for drawing the door in the House View
+    /**
+     * This method is used for drawing the door in the House View
+     */
     @Override
     public void draw(Graphics g) {
         Smartobj[] objects = room.getSmartObjects();
