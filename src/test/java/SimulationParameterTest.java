@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 public class SimulationParameterTest {
 
@@ -161,6 +164,33 @@ public class SimulationParameterTest {
 
         );
 
+    }
+
+    @Test
+    public void testAddingAccessibilites() {
+        initialize();
+        User child = UserManager.findUser("Child1", "abc");
+        HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = child.getAccessibilities();
+
+        assertFalse(accessibilities.get(LocationType.BEDROOM).contains(AccessibilityType.LIGHTCONTROL));
+
+        Accessibility.addAccessibilityForUser(LocationType.BEDROOM, child, AccessibilityType.LIGHTCONTROL);
+
+        assertTrue(accessibilities.get(LocationType.BEDROOM).contains(AccessibilityType.LIGHTCONTROL));
+
+    }
+
+    @Test
+    public void testRemovingAccessibilites() {
+        initialize();
+        User parent = UserManager.findUser("Parent1", "passwordabc");
+        HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = parent.getAccessibilities();
+
+        assertTrue(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
+
+        Accessibility.removeAccessibilityForUser(LocationType.LIVINGROOM, parent, AccessibilityType.WINDOWCONTROL);
+
+        assertFalse(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
     }
 
     /**

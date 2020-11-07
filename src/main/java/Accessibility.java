@@ -70,6 +70,18 @@ public class Accessibility {
         LocationType locationType = LocationType.valueOf(comboLocationAccessiblity.getSelectedItem().toString());
         //Getting Accessibility to be added
         AccessibilityType accessibilityType = stringToAccessibilities.get(comboDisabledAccessibility.getSelectedItem().toString());
+        addAccessibilityForUser(locationType, user, accessibilityType);
+        //Need to update dropdowns with new accessibilities
+        setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+    }
+
+    /**
+     * This updates the user's accessibilities
+     * @param locationType
+     * @param user
+     * @param accessibilityType
+     */
+    protected static void addAccessibilityForUser(LocationType locationType, User user, AccessibilityType accessibilityType) {
         //To make sure no duplicated values are added
         Boolean checkDuplicate = false;
         //If the location is INSIDE all locations should be updated except for OUTSIDE
@@ -94,8 +106,6 @@ public class Accessibility {
             //Location accessibility updated
             user.getAccessibilities().get(locationType).add(accessibilityType);
         }
-        //Need to update dropdowns with new accessibilities
-        setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
     }
 
     /**
@@ -112,6 +122,12 @@ public class Accessibility {
         LocationType locationType = LocationType.valueOf(comboLocationAccessiblity.getSelectedItem().toString());
         //Getting Accessibility to be added
         AccessibilityType accessibilityType = stringToAccessibilities.get(comboEnabledAccessibility.getSelectedItem().toString());
+        removeAccessibilityForUser(locationType, user, accessibilityType);
+        //Need to update dropdowns with new accessibilities
+        setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+    }
+
+    protected static void removeAccessibilityForUser(LocationType locationType, User user, AccessibilityType accessibilityType) {
         ArrayList updatedAccessibilities;
         //If the location is INSIDE all locations should be updated except for OUTSIDE
         if(locationType == LocationType.INSIDE) {
@@ -135,8 +151,6 @@ public class Accessibility {
                 }
             }
         }
-        //Need to update dropdowns with new accessibilities
-        setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
     }
 
     /**
