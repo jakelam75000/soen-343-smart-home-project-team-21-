@@ -151,7 +151,11 @@ public class SHPObserver implements Observer{
         if(!houseSafe && !userAlerted){
             setTimer(shd.getAlertTimer());
             setMultiplier(shd.getMultiplier());
-            new AlertConfirmationWindow(this).setVisible(true);
+            if(timer.equals("0:0:0")){
+                this.confirmAlert();
+            } else {
+                new AlertConfirmationWindow(this).setVisible(true);
+            }
             userAlerted = true;
         }
 
@@ -162,7 +166,8 @@ public class SHPObserver implements Observer{
 
         if(turnOffAwayMode){
             reset();
-            shd.disableAwayMode();
+            if(callCops) shd.disableAwayMode("A Stranger is in the house.");
+            else shd.disableAwayMode("There are users in the house.");
         }
 
         boolean setAutoLights = checkScheduled(shd.getCurrentTime(), shd.getScheduleTime());
