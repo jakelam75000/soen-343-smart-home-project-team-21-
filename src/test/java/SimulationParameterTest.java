@@ -166,6 +166,12 @@ public class SimulationParameterTest {
 
     }
 
+    /**
+     * Description: This tests accessibilities are added
+     * Context: Child is created and is initalized with its default accessibility, then LIGHTCONTROL is added for BEDROOM
+     * Expected: assertFalse (before LIGHTCONTROL is added) we check if BEDROOM does not have LIGHTCONTROL
+     *           assertTrue (after LIGHTCONTROL is added) we check if BEDROOM has LIGHTCONTROL
+     */
     @Test
     public void testAddingAccessibilites() {
         initialize();
@@ -180,6 +186,12 @@ public class SimulationParameterTest {
 
     }
 
+    /**
+     * Description: This tests accessibilities are removed
+     * Context: Parent is created and is initalized with its default accessibility, then WINDOWCONTROL is removed for LIVINGROOM
+     * Expected: assertTrue (before WINDOWCONTROL is removed) we check if LIVINGROOM has WINDOWCONTROL
+     *           assertFalse (after WINDOWCONTROL is removed) we check if LIVINGROOM does not have WINDOWCONTROL
+     */
     @Test
     public void testRemovingAccessibilites() {
         initialize();

@@ -11,6 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AwayModeTest {
 
+    /**
+     * Description: Test functionality of awayMode checkbox when users are inside the house
+     * Context: initialise user database with default users, initialise smarthomedashboard and select awayMode, change location of user to KITCHEN
+     * Expected: make sure the checkbox is no longer selected
+     */
     @Test
     public void testPplInHouse(){
         UserDatabaseManager.loadUsers(false);
@@ -26,6 +31,11 @@ public class AwayModeTest {
         assertFalse(awayCheck.isSelected());
     }
 
+    /**
+     * Description: Test functionality of awayMode checkbox when users enter the house
+     * Context: initialise user database with default users, set them all outside , initialise smarthomedashboard and select awayMode
+     * Expected: away mode should no longer be selected when parent enters house
+     */
     @Test
     public void testUserEntersHouse(){
         UserDatabaseManager.loadUsers(false);
@@ -50,6 +60,11 @@ public class AwayModeTest {
         assertFalse(awayCheck.isSelected());
     }
 
+    /**
+     * Description: Test functionality of alerting the cops
+     * Context: initialise user database with default users, set them all outside , initialise smarthomedashboard and select awayMode, set time 11:11:11
+     * Expected: after the timer set by the user passes the following message should be printed: "COPS ARE ON THEIR WAY"
+     */
     @Test
     public void testAlertCops(){
         UserDatabaseManager.loadUsers(false);
