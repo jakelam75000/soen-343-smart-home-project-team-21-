@@ -107,6 +107,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JCheckBox setToAutoModeCheckBox;
     private JComboBox comboDisabledAccessibility;
     private JComboBox comboLocationAccessiblity;
+    private JLabel houseLayoutText2;
+    private JLabel awayModeEnableLabel;
     private JLabel selectLocationLabel;
     private Timer timer;
     private House house;
@@ -116,6 +118,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
     JCheckBox[] itemsArr;
+
 
     //Singleton instances
     private SHPObserver shp = SHPObserver.getInstance();
@@ -153,7 +156,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.setResizable(false);
 
         dynamicLayout = new DynamicLayout(house.getRoomsList());
-        HouseLayout.add(dynamicLayout);
+        HouseLayout.add(dynamicLayout, BorderLayout.CENTER);
+
+
 
         edit.setCaller(this);
         saveUsers.setCaller(this);
@@ -322,6 +327,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                                 shp.setMultiplier((int) (speedSpinner.getValue()));
                                 attachObserver(shp);
                                 house.LockAllDoors();
+                                awayModeEnableLabel.setVisible(true);
                                 printToConsole("Garage, kitchen and entry way doors locked");
                                 updateHouseLayout();
                                 printToConsole("Away mode enabled.");
@@ -340,6 +346,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 }
                 else {
                     house.unlockAllDoors();
+                    awayModeEnableLabel.setVisible(false);
                     printToConsole("Garage, kitchen and entry way doors unlocked");
                     detachObserver(shp);
                     printToConsole("Away mode disabled.");
@@ -921,6 +928,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         HouseLayout.add(dynamicLayout);
     }
 
+    /**
+     * Checks if automode is selected.
+     *
+     * @return true if the auto mode is On; False otherwise.
+     */
     public boolean isAutoMode (){
         return setToAutoModeCheckBox.isSelected();
     }
@@ -931,6 +943,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public void disableAwayMode(String reason){
         awayModeCheckbox.setSelected(false);
         detachObserver(shp);
+        awayModeEnableLabel.setVisible(false);
         printToConsole("Away mode was disabled. " + reason);
     }
 

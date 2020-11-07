@@ -1038,7 +1038,7 @@
           </tabbedpane>
         </children>
       </grid>
-      <grid id="728d7" binding="HouseLayout" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+      <grid id="728d7" binding="HouseLayout" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <grid row="0" column="2" row-span="4" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="520" height="520"/>
@@ -1053,10 +1053,26 @@
           <title-color color="-4473925"/>
         </border>
         <children>
-          <component id="f976b" class="javax.swing.JLabel">
-            <constraints/>
+          <component id="537f3" class="javax.swing.JLabel" binding="houseLayoutText2">
+            <constraints border-constraint="North"/>
             <properties>
-              <text value="House View"/>
+              <horizontalAlignment value="0"/>
+              <maximumSize width="-1" height="30"/>
+              <minimumSize width="-1" height="30"/>
+              <preferredSize width="-1" height="30"/>
+              <text value="House Layout"/>
+            </properties>
+          </component>
+          <component id="9f260" class="javax.swing.JLabel" binding="awayModeEnableLabel">
+            <constraints border-constraint="South"/>
+            <properties>
+              <foreground color="-16738808"/>
+              <horizontalAlignment value="0"/>
+              <maximumSize width="-1" height="30"/>
+              <minimumSize width="-1" height="30"/>
+              <preferredSize width="-1" height="30"/>
+              <text value="Away Mode Enabled"/>
+              <visible value="false"/>
             </properties>
           </component>
         </children>
