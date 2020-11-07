@@ -41,7 +41,7 @@ public class Window extends Smartobj implements Cloneable{
      * @param openorclosed is the new value of open [is the window open or closed)
      */
     public boolean setOpen (boolean openorclosed){
-        if(blocked){
+        if(blocked && this.isOpen() != openorclosed){
             return false;
         }
         else{
