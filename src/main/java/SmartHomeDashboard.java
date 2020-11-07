@@ -927,10 +927,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     /**
      * Disables the away mode and displays message in the console.
      */
-    public void disableAwayMode(){
+    public void disableAwayMode(String reason){
         awayModeCheckbox.setSelected(false);
         detachObserver(shp);
-        printToConsole("Away mode was disabled. There are users at the house.");
+        printToConsole("Away mode was disabled. " + reason);
     }
 
     /**
@@ -1011,6 +1011,28 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public JButton getOnOff() {
         return onOff;
+    }
+
+    /**
+     * For Testing
+     * @return
+     */
+    public JCheckBox getAwayModeCheckbox(){ return awayModeCheckbox;}
+
+    /**
+     * For Testing
+     * @return
+     */
+    public void setCurrentTime(String time){
+        timeLabel.setText(time);
+    }
+
+    /**
+     * For Testing
+     * @return
+     */
+    public String getConsoleText(){
+        return consoleText.getText();
     }
 
     /**
