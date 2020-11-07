@@ -57,6 +57,10 @@ public class PeopleComponent extends RoomComponent{
         g2d.drawString(""+userCount, stringX, stringY);
     }
 
+    /**
+     * Returns the user count.
+     * @return
+     */
     public int getUserCount() {
         return userCount;
     }

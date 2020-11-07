@@ -49,11 +49,6 @@ public abstract class Smartobj implements Cloneable{
      * tostring
      * @return String the string value of the obejct
      */
-
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return " this object is named "+ name+ "\n";

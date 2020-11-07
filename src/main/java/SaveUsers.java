@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Window that prompts the user to select if they want to save the user changes or not.
+ */
 public class SaveUsers extends JFrame{
     private JButton dismissButton;
     private JButton saveButton;
@@ -18,6 +21,11 @@ public class SaveUsers extends JFrame{
     private static final int width = 375;
     private static final int height = 225;
 
+    /**
+     * Parameterised constructor.
+     *
+     * @param title String title of the frame.
+     */
     private SaveUsers(String title){
         super(title);
         this.setContentPane(mainPanel);
@@ -30,14 +38,25 @@ public class SaveUsers extends JFrame{
         addActionListeners();
     }
 
+    /**
+     * Getter for the single instance of SaveUsers.
+     * @return SaveUsers instance.
+     */
     public static SaveUsers getInstance(){
         return instance;
     }
 
+    /**
+     * Setter for the caller attribute.
+     * @param caller SmartHomeDashboard object.
+     */
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }
 
+    /**
+     * Adds all the action listeners for the class.
+     */
     public void addActionListeners(){
 
         dismissButton.addActionListener(new ActionListener() {

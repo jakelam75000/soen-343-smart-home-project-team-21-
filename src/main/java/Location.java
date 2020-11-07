@@ -4,6 +4,7 @@ import javax.swing.*;
  * Setting up location
  */
 public class Location {
+
     /**
      * initial location dropdown
      * @param locations

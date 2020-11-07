@@ -9,6 +9,7 @@ the rooms corresponding smartobj array
 @since 2020-09-30
  */
 public class HouseReader {
+
     /**
      * Loads information from a house.txt file and converts it into a house object.
      *
