@@ -1050,6 +1050,14 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     /**
+     * For Testing
+     * @return
+     */
+    public JCheckBox getAutoModeCheckBox(){
+        return setToAutoModeCheckBox;
+    }
+
+    /**
      * Checks if someone is home and returns the type of one of the people at home.
      *
      * @return the type of the person at home; Null if nobody is in the house.
