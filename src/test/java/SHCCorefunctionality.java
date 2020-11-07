@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SHCCorefunctionality {
 
     /**
-     * Testing the use case of SHC functionality
+     * Description: This method tests if the objects states are being changed form the front end to the back end
+     * Context: smart home dashboard object is set
+     * Expected: State of each object (1 light, 1 window, 1 door) should first be off and then on
      */
     @Test
     public void SHCfunctionalitytest(){
