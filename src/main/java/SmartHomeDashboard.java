@@ -117,6 +117,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
+    JCheckBox[] itemsArr;
 
 
     //Singleton instances
@@ -610,7 +611,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         Collections.sort(itemsList);
         openClosePanel.removeAll();
         openClosePanel.setLayout(new GridLayout(itemsList.size(), 1));
-        JCheckBox[] itemsArr = new JCheckBox[itemsList.size()];
+        itemsArr = new JCheckBox[itemsList.size()];
         for(int i=0; i<itemsForCheckbox.size(); i++){
             itemsArr[i] = new JCheckBox(itemsList.get(i));
             itemsArr[i].setSelected(isObjectOpen(itemsList.get(i)));
@@ -1171,4 +1172,22 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * @return DynamicLayout gets returned
      */
     public DynamicLayout getDynamicLayout(){return dynamicLayout;}
+
+    /**
+     * Getter method for house for testing
+     * @return The house object
+     */
+    public House getHouse(){return house;}
+
+    /**
+     * getter method for testing
+     * @return the jpanle of open close
+     */
+    public JCheckBox[] getOpenClosePanel(){return itemsArr;}
+
+    /**
+     * Getter method for testing
+     * @return the jlist of items
+     */
+    public JList<SmartObjectType> getListItems() { return listItems; }
 }
