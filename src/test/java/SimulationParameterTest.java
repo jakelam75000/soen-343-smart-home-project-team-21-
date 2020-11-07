@@ -92,13 +92,13 @@ public class SimulationParameterTest {
     @Test
     public void testEditUser() {
         initialize();
-
+        User b = UserManager.findExistingUser("Parent1");
         assertAll(
                 "Make sure user have been edited correctly",
                 () -> assertEquals(false, UserManager.editUser("", "", "", null)),
                 () -> assertEquals(false, UserManager.editUser("Parent2", "wrong", "new", UserTypes.PARENT)),
-                () -> assertEquals(true, UserManager.editUser("Parent2", "password123", "new", UserTypes.PARENT)),
-                () -> assertEquals(true, UserManager.editUser("Guest", "password", "hello", UserTypes.CHILD))
+                () -> assertEquals(true, UserManager.editUser("Parent1", "passwordabc", "new", UserTypes.PARENT)),
+                () -> assertEquals(true, UserManager.editUser("Guest", "Guest", "hello", UserTypes.CHILD))
         );
     }
 

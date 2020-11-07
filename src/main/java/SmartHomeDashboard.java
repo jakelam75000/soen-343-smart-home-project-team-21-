@@ -1129,4 +1129,27 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             observers.get(i).update(observable);
         }
     }
+
+    /**
+     * returns the speed spinner for testing
+     * @return jspinner speed multiplier spinner
+     */
+    public JSpinner getSpeedspinner(){
+        return speedSpinner;
+    }
+
+    /**
+     * run method for testing
+     */
+    public void run(boolean b){
+        onOff.setSelected(b);
+    }
+
+    /**
+     * getter method, returns the current delay of timer
+     * @return timer's delay
+     */
+    public int getTimerDelay(){
+        return timer.getDelay();
+    }
 }
