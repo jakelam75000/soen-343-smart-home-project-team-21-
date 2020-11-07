@@ -927,6 +927,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         HouseLayout.add(dynamicLayout);
     }
 
+    /**
+     * Checks if automode is selected.
+     *
+     * @return true if the auto mode is On; False otherwise.
+     */
     public boolean isAutoMode (){
         return setToAutoModeCheckBox.isSelected();
     }
