@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimulationParameterTest {
 
     /**
-     * Make sure their are no users
+     * Make sure there are no users
      */
     public void isEmpty() {
         assertAll(
@@ -27,7 +27,7 @@ public class SimulationParameterTest {
         UserManager.addUser("Parent2", "password123", UserTypes.PARENT);
         UserManager.addUser("Child1", "abc", UserTypes.CHILD);
         UserManager.addUser("Child2", "123", UserTypes.CHILD);
-        UserManager.addUser("Guest", "password", UserTypes.GUEST);
+        UserManager.addUser("Guest", "Guest", UserTypes.GUEST);
     }
 
     /**
@@ -68,7 +68,7 @@ public class SimulationParameterTest {
         initialize();
 
         UserManager.removeUser("Parent2", "password123");
-        UserManager.removeUser("Guest", "password");
+        UserManager.removeUser("Guest", "Guest");
         UserManager.removeUser("Child1", "abc");
         //Should not remove since username does not exist
         UserManager.removeUser("Friend", "password");

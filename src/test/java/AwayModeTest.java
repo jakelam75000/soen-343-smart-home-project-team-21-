@@ -76,9 +76,4 @@ public class AwayModeTest {
         assertTrue(shd.getConsoleText().contains("COPS ARE ON THEIR WAY!!!"));
 
     }
-
-
-
-
-
 }
