@@ -127,6 +127,12 @@ public class Accessibility {
         setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
     }
 
+    /**
+     * removing accessibility for user
+     * @param locationType
+     * @param user
+     * @param accessibilityType
+     */
     protected static void removeAccessibilityForUser(LocationType locationType, User user, AccessibilityType accessibilityType) {
         ArrayList updatedAccessibilities;
         //If the location is INSIDE all locations should be updated except for OUTSIDE

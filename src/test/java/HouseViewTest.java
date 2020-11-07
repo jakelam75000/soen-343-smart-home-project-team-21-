@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.*;
 public class HouseViewTest {
     /**
-     * Tsting if the house layout accpets the current number of rooms
+     * Description: Testing if the house layout accpets the current number of rooms
+     * Context: user are loaded from database with default users, smarthomedashboard is initialized with HouseLayout.txt
+     * Expected: the dynamic layout should compute that the house needs 5 rooms
      */
     @Test
     public void TestLoadedRooms(){

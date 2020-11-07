@@ -253,8 +253,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 if(comboDisabledAccessibility.getItemCount() > 0) {
                     String username = comboUsers.getSelectedItem().toString();
-                    if(!username.equals(Username.getText()) && UserManager.getUserType(username) == UserTypes.PARENT) {
-                        printToConsole("User cannot change accessibilities of another parent.");
+                    if(UserManager.getUserType(username) == UserTypes.STRANGER || (!username.equals(Username.getText()) && UserManager.getUserType(username) == UserTypes.PARENT)) {
+                        printToConsole("User cannot change accessibilities this type of user.");
                     } else {
                         printToConsole(comboDisabledAccessibility.getSelectedItem().toString() + " was added for " +
                                 username + " in " + comboLocationAccessiblity.getSelectedItem().toString());
@@ -275,8 +275,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 if(comboEnabledAccessibility.getItemCount() > 0 && Type.getText().equalsIgnoreCase("Parent")) {
                     String username = comboUsers.getSelectedItem().toString();
-                    if(!username.equals(Username.getText()) && UserManager.getUserType(username) == UserTypes.PARENT) {
-                        printToConsole("User cannot change accessibilities of another parent.");
+                    if(UserManager.getUserType(username) == UserTypes.STRANGER || (!username.equals(Username.getText()) && UserManager.getUserType(username) == UserTypes.PARENT)) {
+                        printToConsole("User cannot change accessibilities for this type of user.");
                     } else {
                         printToConsole(comboEnabledAccessibility.getSelectedItem().toString() + " was removed for " +
                             comboUsers.getSelectedItem().toString() + " in " + comboLocationAccessiblity.getSelectedItem().toString());
