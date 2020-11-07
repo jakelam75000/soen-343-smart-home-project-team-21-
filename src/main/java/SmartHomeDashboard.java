@@ -1152,4 +1152,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public int getTimerDelay(){
         return timer.getDelay();
     }
+
+    /**
+     * getter method for dynamic house layout
+     * @return DynamicLayout gets returned
+     */
+    public DynamicLayout getDynamicLayout(){return dynamicLayout;}
 }

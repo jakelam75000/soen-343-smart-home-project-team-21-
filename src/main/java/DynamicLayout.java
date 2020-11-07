@@ -136,5 +136,8 @@ public class DynamicLayout extends JPanel {
 
 
     }
+    public int getRoomCount(){
+        return roomCount;
+    }
 
 }
