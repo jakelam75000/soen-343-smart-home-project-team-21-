@@ -170,7 +170,6 @@ public class SHPObserver implements Observer{
 
         if(callCops){
             shd.printToConsole("COPS ARE ON THEIR WAY!!!");
-            callCops = false;
         }
 
         if(turnOffAwayMode){

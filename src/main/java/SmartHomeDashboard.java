@@ -329,6 +329,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                                 printToConsole("Garage, kitchen and entry way doors locked");
                                 updateHouseLayout();
                                 printToConsole("Away mode enabled.");
+                                self.setUpSHCOpenClose();
                             } else {
                                 printToConsole("Away mode not set! a Window is blocked");
                                 awayModeCheckbox.setSelected(false);
@@ -348,6 +349,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     printToConsole("Garage, kitchen and entry way doors unlocked");
                     detachObserver(shp);
                     printToConsole("Away mode disabled.");
+                    self.setUpSHCOpenClose();
                 }
             }
         });
