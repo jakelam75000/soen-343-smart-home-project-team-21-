@@ -16,8 +16,8 @@ public class SaveUsers extends JFrame{
     private static SaveUsers instance = new SaveUsers("Save Users");
 
     //Bounds variables
-    private static final int x = 300;
-    private static final int y = 200;
+    private static final int x = 700;
+    private static final int y = 250;
     private static final int width = 375;
     private static final int height = 225;
 

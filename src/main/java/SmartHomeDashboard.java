@@ -128,7 +128,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private EditUserProfile editUserProfile = EditUserProfile.getInstance();
 
     //Bounds variables
-    private static final int x = 100;
+    private static final int x = 200;
     private static final int y = 100;
     private static final int width = 1300;
     private static final int height = 650;
