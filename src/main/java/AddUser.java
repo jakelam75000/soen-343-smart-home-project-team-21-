@@ -39,10 +39,18 @@ public class AddUser extends JFrame{
         addActionListeners();
     }
 
+    /**
+     * Returns the single instance of the AddUser class.
+     * @return AddUser object.
+     */
     public static AddUser getInstance(){
         return instance;
     }
 
+    /**
+     * Setter for the caller attribute.
+     * @param caller SmartHomeDashboard
+     */
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }

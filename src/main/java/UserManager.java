@@ -302,6 +302,12 @@ public class UserManager {
         admin = user;
     }
 
+    /**
+     * Returns the password of a specific user.
+     *
+     * @param username String username of the user.
+     * @return String password of the user.
+     */
     public static String getUserPassword(String username){
         return findExistingUser(username).getPassword();
     }

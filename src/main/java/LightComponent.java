@@ -25,7 +25,6 @@ public class LightComponent extends RoomComponent{
         this.room = room;
     }
 
-
     /**
      * Draws the light component
      * @param g Graphics object.

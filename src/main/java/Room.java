@@ -248,6 +248,7 @@ public class Room {
         }
         return true;
     }
+
     /**
      * takes a smart object name and returns a boolean for its state
      * @param name

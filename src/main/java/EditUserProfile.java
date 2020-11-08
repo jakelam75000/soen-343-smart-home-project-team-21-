@@ -40,10 +40,18 @@ public class EditUserProfile extends JFrame {
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
+    /**
+     * Getter for the single instance of EditUserProfile class.
+     * @return EditUserProfile instance.
+     */
     public static EditUserProfile getInstance(){
         return instance;
     }
 
+    /**
+     * Setter for the current type of the user.
+     * @param currentType String current type of the user
+     */
     public void setCurrentType(String currentType){
         if (currentType.equals("CHILD")){
             parentRadio.setEnabled(false);
@@ -64,20 +72,33 @@ public class EditUserProfile extends JFrame {
         }
     }
 
+    /**
+     * Setter for the username of the user to be edited.
+     * @param username String username of the user to be edited.
+     */
     public void setUsername(String username){
         currentUsername.setText(username);
     }
 
+    /**
+     * Setter for he calling user.
+     * @param callingUser String the calling user.
+     */
     public void setCallingUser(String callingUser){
         this.callingUser = callingUser;
     }
 
+    /**
+     * Setter for the caller attribute.
+     * @param caller SmartHomeDashboard object.
+     */
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }
 
-
-
+    /**
+     * Adds all the actions listeners of the class.
+     */
     public void addActionListeners(){
         this.addWindowListener(new WindowAdapter() {
             @Override

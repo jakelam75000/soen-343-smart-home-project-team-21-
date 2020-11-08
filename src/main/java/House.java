@@ -11,6 +11,7 @@ public class House {
     private Room[] rooms;
     private String name;
     private HashMap<SmartObjectType, List<String>> houseItems = new HashMap<SmartObjectType, List<String>>();
+
     /**
     constructor
      */
@@ -26,7 +27,7 @@ public class House {
             }
         }
     }
-    //shouldnt be used for now
+
     /**
      * a mutator function which for now shouldn't be used
      * @param newroom This is the newest single room object to be added
@@ -60,24 +61,6 @@ public class House {
         return s;
     }
 
-    /*
-    public String[] getRoomNames(){
-        int k = rooms.length;
-        for (Room room : rooms){
-            if (room.hasDoor()) k++;
-        }
-        String[] s = new String[k];
-        k=0;
-        for (int i=0;i< rooms.length; i++){
-            s[k]=rooms[i].getName();
-            if (rooms[i].hasDoor()){
-                k++;
-                s[k] = rooms[i].getName() + " STOOP";
-            }
-            k++;
-        }
-        return s;
-    }*/
     /**
      * Meant to retrieve all the names of the rooms.
      * @return String[] a list of all the rooms named
@@ -129,6 +112,7 @@ public class House {
         }
         return found;
     }
+
     /**
      * sets a light that has the name name to the state state
      * @param name the name of the light to be search for
@@ -148,6 +132,7 @@ public class House {
         }
         return false;
     }
+
     /**
      * returns the room at a specified index
      * @param i int index to be checked

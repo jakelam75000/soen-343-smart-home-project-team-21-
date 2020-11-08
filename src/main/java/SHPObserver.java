@@ -1,3 +1,7 @@
+/**
+ * Observer Class for SHP component.
+ */
+
 public class SHPObserver implements Observer{
 
     private String timer;
@@ -29,6 +33,7 @@ public class SHPObserver implements Observer{
     public static SHPObserver getInstance(){
         return instance;
     }
+
     /**
      * Getter for timer.
      *
@@ -53,6 +58,7 @@ public class SHPObserver implements Observer{
     public void setMultiplier(int mult){
         multiplier = mult;
     }
+
     /**
      * Getter for the multiplier
      *
@@ -109,6 +115,9 @@ public class SHPObserver implements Observer{
         return false;
     }
 
+    /**
+     * Resets all the attributes of the class.
+     */
     public void reset(){
         houseSafe = true;
         callCops = false;
@@ -116,7 +125,6 @@ public class SHPObserver implements Observer{
         userAlerted = false;
         currentAutomatedLightState = false;
     }
-
 
     /**
      * Updates the observers by checking if there are people in the house when away mode is on.

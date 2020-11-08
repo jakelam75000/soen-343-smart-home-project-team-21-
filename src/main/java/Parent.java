@@ -9,6 +9,11 @@ public class Parent extends User{
     private HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = new HashMap<>();
 
 
+    /**
+     * Parameterised constructor.
+     * @param username
+     * @param password
+     */
     public Parent(String username, String password) {
         super(username, password);
         this.accessibilities = assignAccessibilities(accessibilities);

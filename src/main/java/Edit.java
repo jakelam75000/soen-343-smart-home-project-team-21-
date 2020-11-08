@@ -41,14 +41,21 @@ public class Edit extends JFrame {
         addActionListeners();
     }
 
+    /**
+     * Returns the single instance of Edit class.
+     * @return
+     */
     public static Edit getInstance(){
         return instance;
     }
 
+    /**
+     * Sets the caller attribute.
+     * @param caller SmartHomeDashboard object.
+     */
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }
-
 
     /**
      * Adding all the action listeners.
