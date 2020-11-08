@@ -149,8 +149,8 @@ public class SHPObserver implements Observer{
                 }
             } else {
                 if (UserManager.getUserType(personHome) == UserTypes.STRANGER) {
+                    if (houseSafe)shd.printToConsole("A stranger has been detected inside the home!");
                     houseSafe = false;
-                    shd.printToConsole("A stranger has been detected inside the home!");
                 } else {
                     turnOffAwayMode = true;
                 }
