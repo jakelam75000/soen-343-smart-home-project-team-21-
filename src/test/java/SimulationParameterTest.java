@@ -205,6 +205,78 @@ public class SimulationParameterTest {
         assertFalse(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
     }
 
+
+    /**
+     * Description: This tests storing users in a file and loading them back from that file.
+     * Context: Users are loaded; User "a" does not exist; "a" is added; users file is update and users are cleared; Users are loaded back; "a" is a valid user.
+     * Expected: assertFalse (before User "a" is added) we check if "a" exists.
+     *           assertTrue (after "a" is added) we check if was properly added.
+     *           assertFalse (after all users are cleared) we check if "a" has been removed.
+     *           assertTrue (after users are loaded back) we check if was loaded from the file.
+     */
+    @Test
+    public void testLoadPreviousUsers(){
+        UserDatabaseManager.loadUsers(false);
+
+        assertFalse(UserManager.isUserValid("a", "a"));
+
+        UserManager.addUser("a","a", UserTypes.PARENT);
+
+        assertTrue(UserManager.isUserValid("a", "a"));
+
+        UserDatabaseManager.updateUserFile();
+
+        UserManager.clearUsers();
+
+        assertFalse(UserManager.isUserValid("a", "a"));
+
+        UserDatabaseManager.loadUsers(true);
+
+        assertTrue(UserManager.isUserValid("a", "a"));
+    }
+
+    /**
+     * Description: This tests storing user accessibilities in a file and loading them back from that file.
+     * Context: Users are loaded from file; "Guest" is missing windowcontrol for living room; "Guest" is given
+     *          the WINDOWCONTROL accessibility for LIVINGROOM; Users are cleared and loaded back from file;
+     *          "Guest" has WINDOWCONTROL for LIVINGROOM;
+     * Expected: assertNotNull (after loading users) we check if "Guest" exists.
+     *           assertFalse (after loading users) we check if "Guest" has WINDOWCONTROL for LIVINGROOM.
+     *           assertTrue (after adding accessibility to "Guest") we check if "Guest" has WINDOWCONTROL for LIVINGROOM.
+     *           assertTrue (after users are loaded back) we check if was loaded from the file.
+     *           assertNotNull (after reloading users) we check if "Guest" exists.
+     *           assertTrue (after adding accessibility to "Guest") we check if "Guest" has WINDOWCONTROL for LIVINGROOM.
+     */
+    @Test
+    public void testLoadPreviousUsersAccessibility(){
+        UserDatabaseManager.loadUsers(false);
+        User guest = UserManager.findUser("Guest", "Guest");
+
+        assertNotNull(guest);
+
+        HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities = guest.getAccessibilities();
+
+        assertFalse(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
+
+        Accessibility.addAccessibilityForUser(LocationType.LIVINGROOM, guest, AccessibilityType.WINDOWCONTROL);
+
+        assertTrue(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
+
+        UserDatabaseManager.updateUserFile();
+
+        UserManager.clearUsers();
+
+        UserDatabaseManager.loadUsers(true);
+        guest = UserManager.findUser("Guest", "Guest");
+
+        assertNotNull(guest);
+
+        accessibilities = guest.getAccessibilities();
+
+        assertTrue(accessibilities.get(LocationType.LIVINGROOM).contains(AccessibilityType.WINDOWCONTROL));
+    }
+
+
     /**
      * This is to clear all users
      */
@@ -212,4 +284,7 @@ public class SimulationParameterTest {
     public void cleanUp() {
         UserManager.clearUsers();
     }
+
+
+
 }

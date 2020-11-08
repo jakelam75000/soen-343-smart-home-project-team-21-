@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,5 +91,13 @@ public class AwayModeTest {
 
         assertTrue(shd.getConsoleText().contains("COPS ARE ON THEIR WAY!!!"));
 
+    }
+
+    /**
+     * This is to clear all users
+     */
+    @AfterEach
+    public void cleanUp() {
+        UserManager.clearUsers();
     }
 }
