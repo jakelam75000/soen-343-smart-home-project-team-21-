@@ -192,9 +192,9 @@ public class House {
      */
     public void LockAllDoors(){
         for (Room room : rooms){
-                room.lockAllDoors();
-            }
+            room.lockAllDoors();
         }
+    }
 
     /**
      * unlocks all door in the house
