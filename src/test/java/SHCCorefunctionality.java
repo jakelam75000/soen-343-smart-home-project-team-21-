@@ -16,6 +16,7 @@ public class SHCCorefunctionality {
      * Context: smart home dashboard object is set
      * Expected: State of each object (1 light, 1 window, 1 door) should first be off and then on
      */
+    //Delivery 2: 3.3
     @Test
     public void SHCfunctionalitytest(){
         UserDatabaseManager.loadUsers(false);
@@ -59,6 +60,7 @@ public class SHCCorefunctionality {
      * Context: smart home dashboard object is set, onOff button & auto mode checkbox have been selected, checking state of lights
      * Expected: State of the light object should be changed
      */
+    //Delivery 2: 3.3
     @Test
    public void autoModeClickedTest(){
         UserDatabaseManager.loadUsers(false);
@@ -93,6 +95,7 @@ public class SHCCorefunctionality {
      *          method is being called on the changes in location, and state of lights are being checked.
      * Expected: assertAll: assertEquals should give the following results in their respective order: false, true, true
      */
+    //Delivery 2: 3.3
     @Test
     public void changeUserLocation(){
         UserDatabaseManager.loadUsers(false);

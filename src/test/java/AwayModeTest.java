@@ -1,6 +1,4 @@
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -17,6 +15,7 @@ public class AwayModeTest {
      * Context: initialise user database with default users, initialise smarthomedashboard and select awayMode, change location of user to KITCHEN
      * Expected: make sure the checkbox is no longer selected
      */
+    //Delivery 2: 3.4
     @Test
     public void testPplInHouse(){
         UserDatabaseManager.loadUsers(false);
@@ -37,6 +36,7 @@ public class AwayModeTest {
      * Context: initialise user database with default users, set them all outside , initialise smarthomedashboard and select awayMode
      * Expected: away mode should no longer be selected when parent enters house
      */
+    //Delivery 2: 3.4
     @Test
     public void testUserEntersHouse(){
         UserDatabaseManager.loadUsers(false);
@@ -66,6 +66,7 @@ public class AwayModeTest {
      * Context: initialise user database with default users, set them all outside , initialise smarthomedashboard and select awayMode, set time 11:11:11
      * Expected: after the timer set by the user passes the following message should be printed: "COPS ARE ON THEIR WAY"
      */
+    //Delivery 2: 3.4
     @Test
     public void testAlertCops(){
         UserDatabaseManager.loadUsers(false);

@@ -15,6 +15,7 @@ public class ContextOfSimulationTest {
      * Context: House is set with rooms and their respective smart objects
      * Expected: true
      */
+    //Delivery 1
     @Test
     public void testBlockWindow() {
         House testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
@@ -27,6 +28,7 @@ public class ContextOfSimulationTest {
      * Context: SmartHomeDashboard is created and the outside temperature is set to 25
      * Expected: 25
      */
+    //Delivery 1
     @Test
     public void testSetTemperature() {
         SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
@@ -41,6 +43,7 @@ public class ContextOfSimulationTest {
      * Context: SmartHomeDashboard is created and index 2 of comboLocation is selected
      * Expected: KITCHEN
      */
+    //Delivery 1
     @Test
     public void testChangeLocation() {
         UserManager.addUser("Parent1", "passwordabc", UserTypes.PARENT);
@@ -54,6 +57,7 @@ public class ContextOfSimulationTest {
      * Context: SmartHomeDashboard is created and onOFF is clicked
      * Expected: True
      */
+    //Delivery 1
     @Test
     public void testStartSimulation() {
         SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
@@ -67,6 +71,7 @@ public class ContextOfSimulationTest {
      * Expected: first assertAll: assertEquals should give the following results in their respective order: "2", "Wednesday", "March", "2000"
      *           second assertAll: assertEquals should give the following results in their respective order: 6, 12, 33
      */
+    //Delivery 1
     @Test
     public void testModifyDateAndTime() {
         SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
@@ -108,6 +113,7 @@ public class ContextOfSimulationTest {
      * TimerspeedTest, tests if the speed modifier is working
      * the timer in the test is because the timer needs time to update the delay
      */
+    //Delivery 2: 3.1
     @Test
     public void timespeedtest() {
         UserDatabaseManager.loadUsers(false);

@@ -38,6 +38,7 @@ public class SimulationParameterTest {
      * Context: users are initialized
      * Expected: assertAll: assertEquals should give the following results in their respective order: 5, 2, 2, 1
      */
+    // Delivery 1
     @Test
     public void testAddUser() {
         isEmpty();
@@ -60,6 +61,7 @@ public class SimulationParameterTest {
      * Context: users are initialized and then remove the following users: "Parent2", "Guest", "Child1"
      * Expected: assertAll: assertEquals should give the following results in their respective order: 2, 1, 1, 0
      */
+    // Delivery 1
     @Test
     public void testDeleteUser() {
         isEmpty();
@@ -92,6 +94,7 @@ public class SimulationParameterTest {
      * Context: users are initialized
      * Expected: assertAll: assertEquals should give the following results in their respective order: false, false, true, true
      */
+    // Delivery 1
     @Test
     public void testEditUser() {
         initialize();
@@ -110,6 +113,7 @@ public class SimulationParameterTest {
      * Context: Login object is set, users are initialized
      * Expected: assertAll: assertEquals should give the following results in their respective order: false, true, true
      */
+    // Delivery 1
     @Test
     public void testLogin() {
         Login login = new Login("test");
@@ -130,6 +134,7 @@ public class SimulationParameterTest {
      * Expected: first assertAll: assertEquals should give the following results in their respective order: "2", "Wednesday", "March", "2000"
      *           second assertAll: assertEquals should give the following results in their respective order: 6, 12, 33
      */
+    // Delivery 1
     @Test
     public void testSetDateAndTime() {
         SmartHomeDashboard smartHomeDashboard = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent1", "Houselayout.txt");
@@ -172,6 +177,7 @@ public class SimulationParameterTest {
      * Expected: assertFalse (before LIGHTCONTROL is added) we check if BEDROOM does not have LIGHTCONTROL
      *           assertTrue (after LIGHTCONTROL is added) we check if BEDROOM has LIGHTCONTROL
      */
+    // Delivery 2: 3.1
     @Test
     public void testAddingAccessibilites() {
         initialize();
@@ -192,6 +198,7 @@ public class SimulationParameterTest {
      * Expected: assertTrue (before WINDOWCONTROL is removed) we check if LIVINGROOM has WINDOWCONTROL
      *           assertFalse (after WINDOWCONTROL is removed) we check if LIVINGROOM does not have WINDOWCONTROL
      */
+    // Delivery 2: 3.1
     @Test
     public void testRemovingAccessibilites() {
         initialize();
@@ -214,6 +221,7 @@ public class SimulationParameterTest {
      *           assertFalse (after all users are cleared) we check if "a" has been removed.
      *           assertTrue (after users are loaded back) we check if was loaded from the file.
      */
+    // Delivery 2: 3.1
     @Test
     public void testLoadPreviousUsers(){
         UserDatabaseManager.loadUsers(false);
@@ -247,6 +255,7 @@ public class SimulationParameterTest {
      *           assertNotNull (after reloading users) we check if "Guest" exists.
      *           assertTrue (after adding accessibility to "Guest") we check if "Guest" has WINDOWCONTROL for LIVINGROOM.
      */
+    // Delivery 2: 3.1
     @Test
     public void testLoadPreviousUsersAccessibility(){
         UserDatabaseManager.loadUsers(false);
