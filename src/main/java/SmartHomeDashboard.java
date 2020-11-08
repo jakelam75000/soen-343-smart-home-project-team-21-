@@ -158,10 +158,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         dynamicLayout = new DynamicLayout(house.getRoomsList());
         HouseLayout.add(dynamicLayout, BorderLayout.CENTER);
 
-
-
         edit.setCaller(this);
-        saveUsers.setCaller(this);
         addUser.setCaller(this);
         editUserProfile.setCurrentType(type);
         editUserProfile.setCallingUser(username);
@@ -246,6 +243,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                saveUsers.setCaller(self);
                 saveUsers.setVisible(true);
             }
         });

@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 
 /**
@@ -26,9 +23,12 @@ public class Login extends JFrame {
     private JLabel loadPreviousUsersLabel;
     private String filepath;
     private static String lasthousefilepath = null;
+    private Login self;
+
+    private SaveUsers saveUsers = SaveUsers.getInstance();
 
     //Bounds variables
-    private static final int x = 300;
+    private static final int x = 600;
     private static final int y = 200;
     private static final int width = 400;
     private static final int height = 370;
@@ -41,7 +41,6 @@ public class Login extends JFrame {
     public Login(String title) {
         super(title);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
 
@@ -50,12 +49,24 @@ public class Login extends JFrame {
         addActionListeners();
 
         addPreviousFile.setSelected(true);
+        self = this;
 
         if (lasthousefilepath!=null){
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             UploadFile.setVisible(false);
             housefieldlabel.setVisible(false);
             addPreviousFile.setVisible(false);
             loadPreviousUsersLabel.setVisible(false);
+
+            this.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    saveUsers.setCaller(self);
+                    saveUsers.setVisible(true);
+                }
+            });
+        } else {
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         ErrorCheck.setVisible(false);
         fileMissing.setVisible(false);

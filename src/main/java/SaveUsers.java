@@ -11,7 +11,7 @@ public class SaveUsers extends JFrame{
     private JButton saveButton;
     private JButton cancelButton;
     private JPanel mainPanel;
-    private SmartHomeDashboard caller;
+    private JFrame caller;
     private SaveUsers self;
     private static SaveUsers instance = new SaveUsers("Save Users");
 
@@ -50,7 +50,7 @@ public class SaveUsers extends JFrame{
      * Setter for the caller attribute.
      * @param caller SmartHomeDashboard object.
      */
-    public void setCaller(SmartHomeDashboard caller){
+    public void setCaller(JFrame caller){
         this.caller = caller;
     }
 
