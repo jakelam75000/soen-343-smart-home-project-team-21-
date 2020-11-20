@@ -15,6 +15,7 @@ public class Room {
     private double temperature;
     private double width;
     private double length;
+    private double desiredTemp;
 
     /**
     constructor
@@ -30,6 +31,7 @@ public class Room {
         temperature = temp;
         width = wid;
         length = len;
+        desiredTemp = 10000;
 
         for(Smartobj obj : smartobjects) {
             if(!itemMap.containsKey(obj.type)) itemMap.put(obj.getType(), new ArrayList<String>());
@@ -48,6 +50,7 @@ public class Room {
         this.temperature = room.temperature;
         this.width = room.width;
         this.length = room.length;
+        this.desiredTemp = room.desiredTemp;
 
         this.smartobjects = new Smartobj[room.smartobjects.length];
         for(int i=0; i<smartobjects.length; i++){
@@ -280,5 +283,22 @@ public class Room {
      */
     public Room clone(){
         return new Room(this);
+    }
+
+    /**
+     * getter method for desired temp
+     * (100> null)
+     * @return double desired temp
+     */
+    public double getDesiredTemp() {
+        return desiredTemp;
+    }
+
+    /**
+     * setter for desired temp
+     * @param desiredTemp double the value to be set
+     */
+    public void setDesiredTemp(double desiredTemp) {
+        this.desiredTemp = desiredTemp;
     }
 }
