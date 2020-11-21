@@ -662,8 +662,11 @@
                   <tabbedpane title="SHC" enabled="false"/>
                 </constraints>
                 <properties>
+                  <autoscrolls value="true"/>
                   <background color="-5215293"/>
+                  <doubleBuffered value="true"/>
                   <enabled value="true"/>
+                  <focusable value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -777,7 +780,7 @@
                   <tabbedpane title="SHP" enabled="false"/>
                 </constraints>
                 <properties>
-                  <autoscrolls value="false"/>
+                  <autoscrolls value="true"/>
                   <background color="-5348413"/>
                   <enabled value="true"/>
                   <focusCycleRoot value="true"/>
@@ -1039,10 +1042,14 @@
               <grid id="73a3d" binding="SHH" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
-                  <tabbedpane title="SHH"/>
+                  <tabbedpane title="SHH" enabled="false"/>
                 </constraints>
                 <properties>
                   <background color="-5215293"/>
+                  <enabled value="true"/>
+                  <focusCycleRoot value="false"/>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
