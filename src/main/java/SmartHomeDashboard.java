@@ -109,6 +109,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JComboBox comboLocationAccessiblity;
     private JLabel houseLayoutText2;
     private JLabel awayModeEnableLabel;
+    private JButton ButtonSeasons;
     private JLabel selectLocationLabel;
     private Timer timer;
     private House house;
