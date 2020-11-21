@@ -110,6 +110,24 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JLabel houseLayoutText2;
     private JLabel awayModeEnableLabel;
     private JButton ButtonSeasons;
+    private JTextField zoneName;
+    private JComboBox listOfRooms;
+    private JButton addRoom;
+    private JComboBox addedRoomsList;
+    private JButton removeRoomFromZone;
+    private JButton createZone;
+    private JComboBox zonesCombo;
+    private JComboBox periodCombo;
+    private JSpinner temperatureZone;
+    private JButton setZoneTempButton;
+    private JLabel createZoneLabel;
+    private JLabel setDesTempPerZoneLabel;
+    private JComboBox roomChangeTemp;
+    private JSpinner tempRoomSpinner;
+    private JButton SetRoomTempButton;
+    private JSpinner winterTempSpinner;
+    private JSpinner summerTempSpinner;
+    private JButton setDefaultTempForSeasonsButton;
     private JLabel selectLocationLabel;
     private Timer timer;
     private House house;
@@ -388,7 +406,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 if(onOff.isSelected()) {
                     onOff.setSelected(false);
                     tabbedPane1.setEnabledAt(0, true);
-                    tabbedPane1.setEnabledAt(3, true);
+                    tabbedPane1.setEnabledAt(3, false);
                     tabbedPane1.setEnabledAt(2, false);
                     tabbedPane1.setEnabledAt(1, false);
                     tabbedPane1.setSelectedIndex(0);
@@ -405,7 +423,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     tabbedPane1.setEnabledAt(1, true);
                     tabbedPane1.setEnabledAt(2, true);
                     tabbedPane1.setEnabledAt(0, false);
-                    tabbedPane1.setEnabledAt(3, false);
+                    tabbedPane1.setEnabledAt(3, true);
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
