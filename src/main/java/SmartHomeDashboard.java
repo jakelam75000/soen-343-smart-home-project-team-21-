@@ -110,7 +110,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JLabel houseLayoutText2;
     private JLabel awayModeEnableLabel;
     private JButton ButtonSeasons;
-    private JTextField zoneName;
     private JComboBox listOfRooms;
     private JButton addRoom;
     private JComboBox addedRoomsList;
@@ -128,6 +127,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JSpinner winterTempSpinner;
     private JSpinner summerTempSpinner;
     private JButton setDefaultTempForSeasonsButton;
+    private JComboBox zoneCombo;
+    private JButton saveZoneButton;
     private JLabel selectLocationLabel;
     private Timer timer;
     private House house;

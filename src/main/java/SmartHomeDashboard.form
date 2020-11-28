@@ -1058,7 +1058,7 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Creating Zone"/>
+                      <text value="Creating/Modify Zone"/>
                     </properties>
                   </component>
                   <vspacer id="c3684">
@@ -1074,17 +1074,6 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="97335" class="javax.swing.JTextField" binding="zoneName">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="-1"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <text value=""/>
-                          <toolTipText value="Please Enter Zone Name"/>
-                        </properties>
-                      </component>
                       <component id="1a2c7" class="javax.swing.JLabel">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -1145,12 +1134,26 @@
                           <text value="Remove Room From Zone"/>
                         </properties>
                       </component>
+                      <component id="5353a" class="javax.swing.JComboBox" binding="zoneCombo">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties/>
+                      </component>
                       <component id="22af3" class="javax.swing.JButton" binding="createZone">
                         <constraints>
-                          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <text value="Create Zone"/>
+                        </properties>
+                      </component>
+                      <component id="fcf4" class="javax.swing.JButton" binding="saveZoneButton">
+                        <constraints>
+                          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="Save Changes"/>
                         </properties>
                       </component>
                     </children>
