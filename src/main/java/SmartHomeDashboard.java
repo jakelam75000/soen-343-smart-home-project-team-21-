@@ -150,7 +150,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private static final int x = 200;
     private static final int y = 100;
     private static final int width = 1300;
-    private static final int height = 650;
+    private static final int height = 670;
 
     /**
      * Parameterised constructor.
