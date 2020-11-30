@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Zone {
     private String name;
     private double desiredTemperature;
-    private double currentTemperature;
     private ArrayList<Room> rooms;
 
     public Zone(String name, double desiredTemperature, ArrayList<Room> rooms){
@@ -20,20 +19,12 @@ public class Zone {
         return desiredTemperature;
     }
 
-    public double getCurrentTemperature(){
-        return currentTemperature;
-    }
-
     public ArrayList<Room> getRooms(){
         return rooms;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCurrentTemperature(double currentTemperature) {
-        this.currentTemperature = currentTemperature;
     }
 
     public void setDesiredTemperature(double desiredTemperature) {

@@ -1220,18 +1220,26 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public JList<SmartObjectType> getListItems() { return listItems; }
 
-    public void setUpZoneTemperature(){
-        ArrayList<Zone> zones = house.getZones();
+    public void addZonesComboItem(String item){
+        zonesCombo.addItem(item);
+    }
 
-        for(Zone zone : zones){
-            zonesCombo.addItem(zone.getName());
+    public ArrayList<String> getZonesComboItems(){
+        ArrayList<String> items = new ArrayList<String>();
+
+        try{
+            for(int i=0;;i++){
+                items.add(zonesCombo.getItemAt(i));
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
 
-        periodCombo.addItem("Morning (6am - 2pm)");
-        periodCombo.addItem("Evening (2pm - 10pm)");
-        periodCombo.addItem("Night (10pm - 6am)");
-
-        tempZoneSpinner.setModel(new SpinnerNumberModel(0,-90,57,1));
+        return items;
 
     }
+
+    //Add setter and getter for other combos and spinners
+
 }
