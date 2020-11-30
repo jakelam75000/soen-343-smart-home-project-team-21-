@@ -55,10 +55,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JLabel currentLocLabel;
     private JLabel timeLabel;
     private JButton LogOutButton;
-    private JPanel SHS;
-    private JPanel SHC;
-    private JPanel SHP;
-    private JPanel SHH;
+    private JPanel SHSPanel;
+    private JPanel SHCPanel;
+    private JPanel SHPPanel;
+    private JPanel SHHPanel;
     private JList<SmartObjectType> listItems;
     private JList<String> listOpenClose;
     private JSpinner outSideTemp;
@@ -110,24 +110,24 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JLabel houseLayoutText2;
     private JLabel awayModeEnableLabel;
     private JButton ButtonSeasons;
-    private JComboBox listOfRooms;
+    private JComboBox<String> listOfRooms;
     private JButton addRoom;
-    private JComboBox addedRoomsList;
+    private JComboBox<String> addedRoomsList;
     private JButton removeRoomFromZone;
     private JButton createZone;
-    private JComboBox zonesCombo;
-    private JComboBox periodCombo;
-    private JSpinner temperatureZone;
+    private JComboBox<String> zonesCombo;
+    private JComboBox<String> periodCombo;
+    private JSpinner tempZoneSpinner;
     private JButton setZoneTempButton;
     private JLabel createZoneLabel;
     private JLabel setDesTempPerZoneLabel;
-    private JComboBox roomChangeTemp;
+    private JComboBox<String> roomChangeTemp;
     private JSpinner tempRoomSpinner;
     private JButton SetRoomTempButton;
     private JSpinner winterTempSpinner;
     private JSpinner summerTempSpinner;
     private JButton setDefaultTempForSeasonsButton;
-    private JComboBox zoneCombo;
+    private JComboBox<String> zoneNameCombo;
     private JButton saveZoneButton;
     private JLabel selectLocationLabel;
     private Timer timer;
@@ -146,6 +146,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private SaveUsers saveUsers = SaveUsers.getInstance();
     private AddUser addUser = AddUser.getInstance();
     private EditUserProfile editUserProfile = EditUserProfile.getInstance();
+    private SHH shh = SHH.getInstance();
 
     //Bounds variables
     private static final int x = 200;
@@ -344,7 +345,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                                 shp.setTimer(alertTimer);
                                 shp.setMultiplier((int) (speedSpinner.getValue()));
                                 attachObserver(shp);
-                                house.LockAllDoors();
+                                house.lockAllDoors(true);
                                 awayModeEnableLabel.setVisible(true);
                                 printToConsole("Garage, kitchen and entry way doors locked");
                                 updateHouseLayout();
@@ -364,7 +365,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     }
                 }
                 else {
-                    house.unlockAllDoors();
+                    house.lockAllDoors(false);
                     awayModeEnableLabel.setVisible(false);
                     printToConsole("Garage, kitchen and entry way doors unlocked");
                     detachObserver(shp);
@@ -1218,4 +1219,19 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * @return the jlist of items
      */
     public JList<SmartObjectType> getListItems() { return listItems; }
+
+    public void setUpZoneTemperature(){
+        ArrayList<Zone> zones = house.getZones();
+
+        for(Zone zone : zones){
+            zonesCombo.addItem(zone.getName());
+        }
+
+        periodCombo.addItem("Morning (6am - 2pm)");
+        periodCombo.addItem("Evening (2pm - 10pm)");
+        periodCombo.addItem("Night (10pm - 6am)");
+
+        tempZoneSpinner.setModel(new SpinnerNumberModel(0,-90,57,1));
+
+    }
 }

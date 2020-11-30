@@ -11,6 +11,7 @@ public class House {
     private Room[] rooms;
     private String name;
     private HashMap<SmartObjectType, List<String>> houseItems = new HashMap<SmartObjectType, List<String>>();
+    private ArrayList<Zone> zones;
 
     /**
     constructor
@@ -190,21 +191,12 @@ public class House {
      * Locks all doors in the house
      * by calling the method of the same name in all rooms
      */
-    public void LockAllDoors(){
+    public void lockAllDoors(boolean lock){
         for (Room room : rooms){
-            room.lockAllDoors();
+            room.lockAllDoors(lock);
         }
     }
 
-    /**
-     * unlocks all door in the house
-     * by calling the method of the same name in each room
-     */
-    public void  unlockAllDoors(){
-            for (Room room : rooms){
-                room.unlockAllDoors();
-            }
-        }
     /**
      * Searches all the rooms for the specified object and opens/closes it.
      *
@@ -245,4 +237,9 @@ public class House {
         }
         return true;
     }
+
+    public ArrayList<Zone> getZones(){
+        return (ArrayList<Zone>)zones.clone();
+    }
+
 }
