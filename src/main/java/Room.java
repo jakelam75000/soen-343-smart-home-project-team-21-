@@ -193,20 +193,11 @@ public class Room {
     /**
      * sets all of the door objects in the room to locked
      */
-    public void lockAllDoors(){
+    public void lockAllDoors(boolean lock){
         for (Smartobj obj : smartobjects){
             if(obj.getType()==SmartObjectType.DOOR && (obj.getName().contains("Entry") || obj.getName().contains("Kitchen") || obj.getName().contains("Garage"))){
                 Door door = (Door)obj;
-                door.setlocked(true);
-            }
-        }
-    }
-    public void unlockAllDoors(){
-        for (Smartobj obj : smartobjects){
-            if(obj.getType()==SmartObjectType.DOOR && (obj.getName().contains("Entry") || obj.getName().contains("Kitchen") || obj.getName().contains("Garage"))){
-                Door door = (Door)obj;
-                door.setlocked(false);
-
+                door.setlocked(lock);
             }
         }
     }

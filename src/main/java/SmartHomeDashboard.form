@@ -247,7 +247,7 @@
               <title-color color="-6398032"/>
             </border>
             <children>
-              <grid id="cfba6" binding="SHS" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="cfba6" binding="SHSPanel" layout-manager="GridLayoutManager" row-count="10" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <tabbedpane title="SHS"/>
@@ -656,7 +656,7 @@
                   </grid>
                 </children>
               </grid>
-              <grid id="51071" binding="SHC" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="51071" binding="SHCPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <tabbedpane title="SHC" enabled="false"/>
@@ -774,7 +774,7 @@
                   </scrollpane>
                 </children>
               </grid>
-              <grid id="64273" binding="SHP" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="64273" binding="SHPPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <tabbedpane title="SHP" enabled="false"/>
@@ -1039,7 +1039,7 @@
                   </grid>
                 </children>
               </grid>
-              <grid id="73a3d" binding="SHH" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="73a3d" binding="SHHPanel" layout-manager="GridLayoutManager" row-count="9" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <tabbedpane title="SHH" enabled="false"/>
@@ -1134,7 +1134,7 @@
                           <text value="Remove Room From Zone"/>
                         </properties>
                       </component>
-                      <component id="5353a" class="javax.swing.JComboBox" binding="zoneCombo">
+                      <component id="5353a" class="javax.swing.JComboBox" binding="zoneNameCombo">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -1218,7 +1218,7 @@
                           <text value="Temp:"/>
                         </properties>
                       </component>
-                      <component id="b2e17" class="javax.swing.JSpinner" binding="temperatureZone">
+                      <component id="b2e17" class="javax.swing.JSpinner" binding="tempZoneSpinner">
                         <constraints>
                           <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -1258,7 +1258,7 @@
                           <text value="Room:"/>
                         </properties>
                       </component>
-                      <component id="7cbfc" class="javax.swing.JComboBox" binding="roomChangeTemp">
+                      <component id="7cbfc" class="javax.swing.JComboBox" binding="roomTempCombo">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <minimum-size width="185" height="-1"/>
@@ -1282,7 +1282,7 @@
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="2bac2" class="javax.swing.JButton" binding="SetRoomTempButton">
+                      <component id="2bac2" class="javax.swing.JButton" binding="setRoomTempButton">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
