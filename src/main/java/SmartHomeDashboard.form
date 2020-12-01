@@ -1258,7 +1258,7 @@
                           <text value="Room:"/>
                         </properties>
                       </component>
-                      <component id="7cbfc" class="javax.swing.JComboBox" binding="roomChangeTemp">
+                      <component id="7cbfc" class="javax.swing.JComboBox" binding="roomTempCombo">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <minimum-size width="185" height="-1"/>
@@ -1282,7 +1282,7 @@
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="2bac2" class="javax.swing.JButton" binding="SetRoomTempButton">
+                      <component id="2bac2" class="javax.swing.JButton" binding="setRoomTempButton">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>

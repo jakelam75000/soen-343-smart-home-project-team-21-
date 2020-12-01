@@ -242,4 +242,23 @@ public class House {
         return (ArrayList<Zone>)zones.clone();
     }
 
+    public void setZoneTemp(String zoneName,PeriodsOfDay period, double temperature){
+        for(Zone zone : zones){
+            if(zone.getName().equalsIgnoreCase(zoneName)){
+                zone.setDesiredTemperature(period, temperature);
+                return;
+            }
+        }
+    }
+
+    public void setRoomDesiredTemp(String roomName, double temperature){
+        for(Room room : rooms){
+            if(room.getName().equalsIgnoreCase(roomName)) {
+                room.setDesiredTemp(temperature);
+                return;
+            }
+        }
+    }
+
+
 }
