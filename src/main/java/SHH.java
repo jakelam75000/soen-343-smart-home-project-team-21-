@@ -145,7 +145,7 @@ private PeriodsOfDay period;
      */
     private void autoheatrooms(Room[] rooms,SmartHomeDashboard shd){
         for (int i =0; i < rooms.length; i ++){
-            if (shd.getWintertemp() < rooms[i].getTemperature()){
+            if (shd.getWintertemp() > rooms[i].getTemperature()){
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
             }
         }
@@ -157,7 +157,7 @@ private PeriodsOfDay period;
      */
     private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
         for (int i =0; i < rooms.length; i ++){
-            if (shd.getSummertemp() > rooms[i].getTemperature()){
+            if (shd.getSummertemp() < rooms[i].getTemperature()){
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
