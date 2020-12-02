@@ -189,7 +189,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         editUserProfile.setCurrentType(type);
         editUserProfile.setCallingUser(username);
         editUserProfile.setCaller(this);
-
+        attachObserver(shh);
         setUpDashboardOptions();
         addActionListeners();
     }
@@ -577,7 +577,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         second = ((secondInt < 10) ? "0"+secondInt : ""+secondInt);
 
         timeLabel.setText(hour + ":" + minute + ":" + second);
-
         setUpSHCItems();
         shh.setUpRoomTempBlock(this);
         shh.setUpZoneTempBlock(this);
@@ -1339,4 +1338,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
     public int getWintertemp(){ return wintertemp; }
     public int getSummertemp(){return summertemp;}
+    public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
+    public Room[] getallrooms(){return house.getRoomsList();}
 }
