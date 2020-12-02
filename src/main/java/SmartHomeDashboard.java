@@ -1418,23 +1418,18 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
 
     public Room[] getallrooms(){return house.getRoomsList();}
+
     public boolean isItWinter(){
-        int tempmonth = -1 ,tempday;
-        if (Month.getText().contains("January"))tempmonth = 1;
-        else if (Month.getText().contains("February"))tempmonth = 2;
-        else if (Month.getText().contains("March"))tempmonth = 3;
-        else if (Month.getText().contains("April"))tempmonth = 4;
-        else if (Month.getText().contains("May"))tempmonth = 5;
-        else if (Month.getText().contains("June"))tempmonth = 6;
-        else if (Month.getText().contains("July"))tempmonth = 7;
-        else if (Month.getText().contains("August"))tempmonth = 8;
-        else if (Month.getText().contains("September"))tempmonth = 9;
-        else if (Month.getText().contains("October"))tempmonth = 10;
-        else if (Month.getText().contains("November"))tempmonth = 11;
-        else if (Month.getText().contains("December"))tempmonth = 12;
+
+        String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
+        int tempmonth = Months.valueOf(month).ordinal() + 1;
+
+        int tempday;
+
         String date = dateLabel.getText();
         String[] splits = date.split(" ");
         tempday = Integer.parseInt(splits[2]);
+
         if ( fromseasonsmonth[0] < toseasonsmonth[0] ){
             if (fromseasonsmonth[0] < tempmonth && tempmonth < toseasonsmonth[0])return true;
             else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
@@ -1451,6 +1446,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
             else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
         }
+
         return false;
     }
 

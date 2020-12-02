@@ -120,9 +120,6 @@ public class ZoneManager {
         }
     }
 
-    public static void updateRoomTemp(String zoneName){
-
-    }
     public static void updateDesiredTempPeriod(PeriodsOfDay period){
         for (Zone zone:zones.values()) { zone.updatedesiredTempPeriod(period); }
     }

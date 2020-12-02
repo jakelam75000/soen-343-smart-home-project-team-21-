@@ -51,6 +51,7 @@ public class Zone {
         }
 
     }
+
     public void updatedesiredTempPeriod(PeriodsOfDay period){
         for (Room room:rooms) { room.setDesiredTemp(desiredTemperature.get(period)); }
     }
@@ -58,6 +59,7 @@ public class Zone {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
+
     public boolean containsRoom(Room room){
         for (Room curoom:rooms) {
             if(curoom.getName().contains(room.getName()))return true;

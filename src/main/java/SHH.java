@@ -25,9 +25,9 @@ private PeriodsOfDay period;
             caller.addZonesComboItem(zone.getName());
         }
 
-        caller.addPeriodComboItem("Morning (6am - 2pm)");
-        caller.addPeriodComboItem("Evening (2pm - 10pm)");
-        caller.addPeriodComboItem("Night (10pm - 6am)");
+        caller.addPeriodComboItem("Morning (6:00 - 14:00)");
+        caller.addPeriodComboItem("Evening (14:00 - 22:00)");
+        caller.addPeriodComboItem("Night (22:00 - 6:00)");
 
         caller.setTempZoneSpinnerModel(new SpinnerNumberModel(0,-90,57,1));
     }
@@ -198,17 +198,19 @@ private PeriodsOfDay period;
             period = PeriodsOfDay.NIGHT;
         }
         ZoneManager.updateDesiredTempPeriod(period);
+        boolean isWinter = shd.isItWinter();
+
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.isAwayModeOn()){
-                if (shd.isItWinter()){
+                if (isWinter){
                     autoheatrooms(rooms,shd);
                 }else {
                     autocoolrooms(rooms,shd);
                 }
             }
             else{
-                if (shd.isItWinter()){
+                if (isWinter){
                     heatrooms(rooms,shd);
                 }else {
                     coolrooms(rooms,shd);
