@@ -1,8 +1,10 @@
 import javax.swing.*;
 
 public class SetSeasons {
-    private JComboBox WmonthsCombo1;
-    private JComboBox WmonthsCombo2;
     private JButton ConfimSeasonsButton;
     private JButton CancelSeasonButton;
+    private JSpinner startWinterMonthSpinner;
+    private JSpinner EndWinterMonthSpinner;
+    private JSpinner startWinterDaySpinner;
+    private JSpinner EndWinterDaySpinner;
 }
