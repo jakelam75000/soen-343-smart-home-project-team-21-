@@ -31,7 +31,7 @@ public class Room {
         temperature = temp;
         width = wid;
         length = len;
-        desiredTemp = 21;
+        desiredTemp = temp;
 
         for(Smartobj obj : smartobjects) {
             if(!itemMap.containsKey(obj.type)) itemMap.put(obj.getType(), new ArrayList<String>());
@@ -291,5 +291,19 @@ public class Room {
      */
     public void setDesiredTemp(double desiredTemp) {
         this.desiredTemp = desiredTemp;
+    }
+
+    /**
+     * attemps to open all windows
+     */
+    public boolean openAllwindows(){
+        boolean b = true;
+        for(int i = 0 ; i < smartobjects.length; i++){
+            if (smartobjects[i].getType() != SmartObjectType.WINDOW) continue;
+            Window w = (Window)smartobjects[i];
+            if (w!=null)
+                if (!w.setOpen(true)) b = false;
+        }
+        return b;
     }
 }

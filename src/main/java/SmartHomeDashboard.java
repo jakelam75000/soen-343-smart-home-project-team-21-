@@ -142,6 +142,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private int wintertemp;
     private int summertemp;
     JCheckBox[] itemsArr;
+    private int dayint;
 
 
     //Singleton instances
@@ -1417,5 +1418,44 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
 
     public Room[] getallrooms(){return house.getRoomsList();}
-  
+
+    public boolean isItWinter(){
+
+        String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
+        int tempmonth = Months.valueOf(month).ordinal() + 1;
+
+        int tempday;
+
+        String date = dateLabel.getText();
+        String[] splits = date.split(" ");
+        tempday = Integer.parseInt(splits[2]);
+
+        if ( fromseasonsmonth[0] < toseasonsmonth[0] ){
+            if (fromseasonsmonth[0] < tempmonth && tempmonth < toseasonsmonth[0])return true;
+            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
+            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
+        }
+        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] < toseasonsmonth[1]){
+            if (tempmonth == fromseasonsmonth[0] && tempday >= fromseasonsmonth[1] && tempday <= toseasonsmonth[1])return true;
+        }
+        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] > toseasonsmonth[1]){
+            if (tempmonth != fromseasonsmonth[0] || (tempday <= fromseasonsmonth[1] && tempday >= toseasonsmonth[1]))return true;
+        }
+        else if (fromseasonsmonth[0] > toseasonsmonth[0]){
+            if ((fromseasonsmonth[0] < tempmonth || tempmonth < toseasonsmonth[0]))return true;
+            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
+            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
+        }
+
+        return false;
+    }
+
+    public double getOutsidetemp(){
+        String s = outsidetempvalue.getText();
+        String[] sp = s.split("°");
+        return (double)Integer.parseInt(sp[0]);
+    }
+
+    public void setSummertemp(int tem){summertemp = tem;}
+
 }

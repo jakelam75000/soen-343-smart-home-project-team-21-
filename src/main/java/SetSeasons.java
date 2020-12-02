@@ -42,10 +42,10 @@ public class SetSeasons extends JFrame{
         ConfimSeasonsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int fmonth = (int)Math.round((double)startWinterMonthSpinner.getValue());
-                int fday =  (int)Math.round((double)startWinterDaySpinner.getValue());
-                int lmonth = (int)Math.round((double)EndWinterMonthSpinner.getValue());
-                int lday =  (int)Math.round((double)EndWinterDaySpinner.getValue());
+                int fmonth = (Integer)startWinterMonthSpinner.getValue();
+                int fday =  (Integer)startWinterDaySpinner.getValue();
+                int lmonth = (Integer)EndWinterMonthSpinner.getValue();
+                int lday =  (Integer)EndWinterDaySpinner.getValue();
                 caller.setfromseaons(fmonth,fday);
                 caller.settoseaons(lmonth,lday);
             }
