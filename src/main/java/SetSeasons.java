@@ -12,6 +12,7 @@ public class SetSeasons extends JFrame{
     private JPanel mainPanel;
     private SmartHomeDashboard caller;
     private static SetSeasons instance = new SetSeasons("SetSeasons");
+    SetSeasons self = this;
 
     //Bounds variables
     private static final int x = 300;
@@ -48,6 +49,13 @@ public class SetSeasons extends JFrame{
                 int lday =  (Integer)EndWinterDaySpinner.getValue();
                 caller.setfromseaons(fmonth,fday);
                 caller.settoseaons(lmonth,lday);
+                self.setVisible(false);
+            }
+        });
+        CancelSeasonButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                self.setVisible(false);
             }
         });
     }
