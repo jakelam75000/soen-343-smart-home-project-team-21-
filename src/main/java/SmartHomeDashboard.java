@@ -137,6 +137,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
+    private int[] fromseasonsmonth = new int[2];
+    private int[] toseasonsmonth = new int[2];
+    private int wintertemp;
+    private int summertemp;
     JCheckBox[] itemsArr;
 
 
@@ -148,6 +152,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private EditUserProfile editUserProfile = EditUserProfile.getInstance();
     private SHH shh = SHH.getInstance();
     private CreateZone createZoneForm = CreateZone.getInstance();
+    private SetSeasons seasonsFrame = SetSeasons.getInstance();
+
 
     //Bounds variables
     private static final int x = 200;
@@ -186,7 +192,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         editUserProfile.setCurrentType(type);
         editUserProfile.setCallingUser(username);
         editUserProfile.setCaller(this);
-
+        attachObserver(shh);
         setUpDashboardOptions();
         addActionListeners();
     }
@@ -236,7 +242,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         timerHoursSpinner.setModel(new SpinnerNumberModel(0, 0, 23, 1));
         timerMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
         timerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-
+        winterTempSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        summerTempSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
         setupSHPlights();
     }
@@ -327,7 +334,20 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 saveUsers.setVisible(true);
             }
         });
-
+        ButtonSeasons.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seasonsFrame.setCaller(self);
+                seasonsFrame.setVisible(true);
+            }
+        });
+        setDefaultTempForSeasonsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                wintertemp = (int)Math.round((double)winterTempSpinner.getValue());
+                summertemp = (int)Math.round((double)summerTempSpinner.getValue());
+            }
+        });
         addAccessButton.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
@@ -617,7 +637,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         second = ((secondInt < 10) ? "0"+secondInt : ""+secondInt);
 
         timeLabel.setText(hour + ":" + minute + ":" + second);
-
         setUpSHCItems();
         updateRoomTempBlock();
         updateZoneTempBlock();
@@ -1369,4 +1388,24 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public void updateRoomTempBlock(){
         shh.setUpRoomTempBlock(this);
     }
+
+    /**
+     * getters and setter for seasons and season temp
+     * @return
+     */
+    public int[] getfromseasons(){ return fromseasonsmonth;}
+    public int[] gettoseason(){return toseasonsmonth;}
+    public void setfromseaons(int month,int day){
+        fromseasonsmonth[0] = month;
+        fromseasonsmonth[1] = day;
+    }
+    public void settoseaons(int month,int day){
+        toseasonsmonth[0] = month;
+        toseasonsmonth[1] = day;
+    }
+    public int getWintertemp(){ return wintertemp; }
+    public int getSummertemp(){return summertemp;}
+    public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
+    public Room[] getallrooms(){return house.getRoomsList();}
+  
 }
