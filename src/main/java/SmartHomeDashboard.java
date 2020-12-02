@@ -1419,8 +1419,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public Room[] getallrooms(){return house.getRoomsList();}
     public boolean isItWinter(){
-       //{"January", "February", "March", "March", "March", "June", "July",
-        //                "August", "September", "October", "November", "December"};
         int tempmonth = -1 ,tempday;
         if (Month.getText().contains("January"))tempmonth = 1;
         else if (Month.getText().contains("February"))tempmonth = 2;
@@ -1457,7 +1455,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     public double getOutsidetemp(){
-        return (double)Integer.parseInt(outsidetempvalue.getText());
+        String s = outsidetempvalue.getText();
+        String[] sp = s.split("°");
+        return (double)Integer.parseInt(sp[0]);
     }
 
     public void setSummertemp(int tem){summertemp = tem;}

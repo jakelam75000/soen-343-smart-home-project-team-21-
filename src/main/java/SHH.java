@@ -129,12 +129,12 @@ private PeriodsOfDay period;
             if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
-                rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
-                if (rooms[i].getTemperature() <=0){
-                    shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
-                    //Todo
-                    // set the current zone or override to 1
+                if (rooms[i].getTemperature() <1){
+                    shd.printToConsole("Warning! Cold temperatures may burst pipes, changing this rooms zone temperature");
+                    for (Zone zone:ZoneManager.getZoneList()) {if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1); }
+                    rooms[i].setDesiredTemp(1);
                 }
+                else  rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
             }
         }
     }
@@ -162,7 +162,7 @@ private PeriodsOfDay period;
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
                 if (rooms[i].getTemperature() <=0){
-                    shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
+                    shd.printToConsole("Warning cold temperatures may burst pipes, raising temperature to 1 Celsius");
                     shd.setSummertemp(1);
                 }
                 //add windows condition
@@ -176,34 +176,33 @@ private PeriodsOfDay period;
      */
     @Override
     public void update(Observable o) {
-        //TOdo need to make the room objects in zone the same as the ones in shd (believe they are clones atm)
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
         int[] time = shd.Breakdowntime(shd.getCurrentTime());
         //ZoneManager.updatezonesDesiredTempPeriod(period);
         if (time[2] >=6 &&time[2] <14 ){
             if (period!= PeriodsOfDay.MORNING){
-                ZoneManager.updatezonesDesiredTempPeriod( PeriodsOfDay.MORNING);
+                ZoneManager.updateDesiredTempPeriod( PeriodsOfDay.MORNING);
             }
             period = PeriodsOfDay.MORNING;
         }
         else if (time[2] >=14 &&time[2] <22 ){
             if (period!= PeriodsOfDay.EVENING){
-                ZoneManager.updatezonesDesiredTempPeriod(PeriodsOfDay.EVENING);
+                ZoneManager.updateDesiredTempPeriod(PeriodsOfDay.EVENING);
             }
             period = PeriodsOfDay.EVENING;
         }
         else {
             if (period!= PeriodsOfDay.NIGHT){
-                ZoneManager.updatezonesDesiredTempPeriod(PeriodsOfDay.NIGHT);
+                ZoneManager.updateDesiredTempPeriod(PeriodsOfDay.NIGHT);
             }
             period = PeriodsOfDay.NIGHT;
         }
-        if (time[2] == 6 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
-        else if (time[2] == 14 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
-        else if (time[2] == 22 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
+        if (time[2] == 6 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
+        else if (time[2] == 14 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
+        else if (time[2] == 22 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
         //remove l8r, this line is for testing
-        ZoneManager.updatezonesDesiredTempPeriod(period);
+        ZoneManager.updateDesiredTempPeriod(period);
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.isAwayModeOn()){

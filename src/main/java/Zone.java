@@ -58,6 +58,12 @@ public class Zone {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
+    public boolean containsRoom(Room room){
+        for (Room curoom:rooms) {
+            if(curoom.getName().contains(room.getName()))return true;
+        }
+        return false;
+    }
 
     public Zone clone(){
         return new Zone(this);
