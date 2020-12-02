@@ -137,6 +137,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
+    private int[] fromseasonsmonth = new int[2];
+    private int[] toseasonsmonth = new int[2];
     JCheckBox[] itemsArr;
 
 
@@ -147,6 +149,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private AddUser addUser = AddUser.getInstance();
     private EditUserProfile editUserProfile = EditUserProfile.getInstance();
     private SHH shh = SHH.getInstance();
+    private SetSeasons seasonsFrame = SetSeasons.getInstance();
 
     //Bounds variables
     private static final int x = 200;
@@ -268,7 +271,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 saveUsers.setVisible(true);
             }
         });
-
+        ButtonSeasons.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seasonsFrame.setCaller(self);
+                seasonsFrame.setVisible(true);
+            }
+        });
         addAccessButton.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
@@ -1302,5 +1311,20 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void clearRoomTemp(){
         roomTempCombo.removeAllItems();
+    }
+
+    /**
+     * getters and setter for seasons
+     * @return
+     */
+    public int[] getfromseasons(){ return fromseasonsmonth;}
+    public int[] gettoseason(){return toseasonsmonth;}
+    public void setfromseaons(int month,int day){
+        fromseasonsmonth[0] = month;
+        fromseasonsmonth[1] = day;
+    }
+    public void settoseaons(int month,int day){
+        toseasonsmonth[0] = month;
+        toseasonsmonth[1] = day;
     }
 }
