@@ -115,13 +115,6 @@ public class ZoneManager {
         for(String name : zones.keySet()){
             if(name.equals(zoneName)){
                 zones.get(name).setDesiredTemperature(period, temperature);
-
-                //Changing the room temperatures to match their zone's temp
-                for(String room : roomToZone.keySet()){
-                    if(roomToZone.get(room).equals(zoneName)){
-                        house.setRoomDesiredTemp(room, temperature);
-                    }
-                }
                 return;
             }
         }

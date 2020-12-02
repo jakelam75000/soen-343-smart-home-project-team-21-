@@ -179,7 +179,6 @@ private PeriodsOfDay period;
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
         int[] time = shd.Breakdowntime(shd.getCurrentTime());
-        //ZoneManager.updatezonesDesiredTempPeriod(period);
         if (time[2] >=6 &&time[2] <14 ){
             if (period!= PeriodsOfDay.MORNING){
                 ZoneManager.updateDesiredTempPeriod( PeriodsOfDay.MORNING);
@@ -198,10 +197,6 @@ private PeriodsOfDay period;
             }
             period = PeriodsOfDay.NIGHT;
         }
-        if (time[2] == 6 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
-        else if (time[2] == 14 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
-        else if (time[2] == 22 && time[1] == 0 && time[0] == 0)ZoneManager.updateDesiredTempPeriod(period);
-        //remove l8r, this line is for testing
         ZoneManager.updateDesiredTempPeriod(period);
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
