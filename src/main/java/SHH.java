@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class SHH implements Observer{
 
     private static SHH instance;
-    private SmartHomeDashboard caller;
     static {
         instance = new SHH();
     }
@@ -14,7 +13,7 @@ public class SHH implements Observer{
     public static SHH getInstance(){
         return instance;
     }
-public void setCaller(SmartHomeDashboard shd){caller = shd;}
+
     public void setUpZoneTempBlock(SmartHomeDashboard shd){
         shd.clearZoneTemp();
 
@@ -98,9 +97,11 @@ public void setCaller(SmartHomeDashboard shd){caller = shd;}
         //Todo, if <0 rasie desired temp and sent a message to dashboard
         //Todo,if away mode set all rooms desired to winter or summer default
         //Todo move tmep by 0.1 deg for heat and 0.05 deg if cold
-        Room[] rooms = caller.getallrooms();
+        /*
+        Room[] rooms = o.getallrooms();
         for (int i =0; i < rooms.length; i ++){
 
         }
+        */
     }
 }
