@@ -111,8 +111,8 @@ private PeriodsOfDay period;
     private void coolrooms(Room[] rooms, SmartHomeDashboard shd){
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
-                if (shd.getOutsidetemp() < rooms[i].getTemperature())
-                    if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
                 if (rooms[i].getTemperature() <=0){
                     shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
@@ -142,8 +142,8 @@ private PeriodsOfDay period;
     private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
         for (int i =0; i < rooms.length; i ++){
             if (shd.getSummertemp() > rooms[i].getTemperature()){
-                if (shd.getOutsidetemp() < rooms[i].getTemperature())
-                    if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
                 if (rooms[i].getTemperature() <=0){
                     shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
