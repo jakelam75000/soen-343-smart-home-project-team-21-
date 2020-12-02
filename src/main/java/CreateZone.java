@@ -126,6 +126,7 @@ public class CreateZone extends JFrame{
                 clearAllField();
                 caller.updateZoneRooms();
                 caller.updateZoneTempBlock();
+                caller.updateRoomTempBlock();
             }
         });
     }
