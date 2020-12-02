@@ -11,7 +11,7 @@ public class House {
     private Room[] rooms;
     private String name;
     private HashMap<SmartObjectType, List<String>> houseItems = new HashMap<SmartObjectType, List<String>>();
-    private ArrayList<Zone> zones;
+    private ArrayList<Zone> zones = new ArrayList<Zone>();
 
     /**
     constructor
@@ -236,19 +236,6 @@ public class House {
             if(!room.closeAllWindows())return false;
         }
         return true;
-    }
-
-    public ArrayList<Zone> getZones(){
-        return (ArrayList<Zone>)zones.clone();
-    }
-
-    public void setZoneTemp(String zoneName,PeriodsOfDay period, double temperature){
-        for(Zone zone : zones){
-            if(zone.getName().equalsIgnoreCase(zoneName)){
-                zone.setDesiredTemperature(period, temperature);
-                return;
-            }
-        }
     }
 
     public void setRoomDesiredTemp(String roomName, double temperature){
