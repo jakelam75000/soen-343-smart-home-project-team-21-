@@ -133,5 +133,6 @@ public class ZoneManager {
 
     public static void setHouse(House h){
         house = h;
+
     }
 }

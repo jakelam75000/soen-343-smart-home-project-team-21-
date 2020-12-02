@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class SHH implements Observer{
+private PeriodsOfDay period;
 
     private static SHH instance;
     private SmartHomeDashboard caller;
@@ -105,20 +106,122 @@ public class SHH implements Observer{
 
         caller.getHouse().setRoomDesiredTemp(roomName, temperature);
     }
+    /**
+     * heats the rooms according to their own preferred temperature
+     * @param rooms the list of rooms to be checked
+     * @param shd a connection to smart home dashboard to get appropriate variables
+     */
+    private void heatrooms(Room[] rooms, SmartHomeDashboard shd){
+        for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
+                rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
+            }
+        }
+    }
 
+    /**
+     * cools the rooms according to their own preferred temperature
+     * @param rooms the list of rooms to be checked
+     * @param shd a connection to smart home dashboard to get appropriate variables
+     */
+    private void coolrooms(Room[] rooms, SmartHomeDashboard shd){
+        for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
+                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
+                rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                if (rooms[i].getTemperature() <=0){
+                    shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
+                    //Todo
+                    // set the current zone or override to 1
+                }
+            }
+        }
+    }
+    /**
+     * heats the rooms according to the set seasonal preferred temperature
+     * @param rooms the lsit of rooms to be checked
+     * @param shd a connection to smart home dashboard to get appropriate variables
+     */
+    private void autoheatrooms(Room[] rooms,SmartHomeDashboard shd){
+        for (int i =0; i < rooms.length; i ++){
+            if (shd.getWintertemp() < rooms[i].getTemperature()){
+                rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
+            }
+        }
+    }
+    /**
+     * cools the rooms according to the set seasonal preferred temperature
+     * @param rooms the lsit of rooms to be checked
+     * @param shd a connection to smart home dashboard to get appropriate variables
+     */
+    private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
+        for (int i =0; i < rooms.length; i ++){
+            if (shd.getSummertemp() > rooms[i].getTemperature()){
+                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
+                rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                if (rooms[i].getTemperature() <=0){
+                    shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
+                    shd.setSummertemp(1);
+                }
+                //add windows condition
+            }
+        }
+    }
+
+    /**
+     * the hvac system which changes the rooms temperature based on the zone or away mode
+     * @param o
+     */
     @Override
     public void update(Observable o) {
-        //Todo, move rooms temps to desired temp (check zone temp first)
-        //Todo, if summer, open windows instead of ac if outside is cooler
-        //Todo, if <0 rasie desired temp and sent a message to dashboard
-        //Todo,if away mode set all rooms desired to winter or summer default
-        //Todo move tmep by 0.1 deg for heat and 0.05 deg if cold
-        /*
+        //TOdo need to make the room objects in zone the same as the ones in shd (believe they are clones atm)
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
-        for (int i =0; i < rooms.length; i ++){
-
+        int[] time = shd.Breakdowntime(shd.getCurrentTime());
+        //ZoneManager.updatezonesDesiredTempPeriod(period);
+        if (time[2] >=6 &&time[2] <14 ){
+            if (period!= PeriodsOfDay.MORNING){
+                ZoneManager.updatezonesDesiredTempPeriod( PeriodsOfDay.MORNING);
+            }
+            period = PeriodsOfDay.MORNING;
         }
-        */
+        else if (time[2] >=14 &&time[2] <22 ){
+            if (period!= PeriodsOfDay.EVENING){
+                ZoneManager.updatezonesDesiredTempPeriod(PeriodsOfDay.EVENING);
+            }
+            period = PeriodsOfDay.EVENING;
+        }
+        else {
+            if (period!= PeriodsOfDay.NIGHT){
+                ZoneManager.updatezonesDesiredTempPeriod(PeriodsOfDay.NIGHT);
+            }
+            period = PeriodsOfDay.NIGHT;
+        }
+        if (time[2] == 6 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
+        else if (time[2] == 14 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
+        else if (time[2] == 22 && time[1] == 0 && time[0] == 0)ZoneManager.updatezonesDesiredTempPeriod(period);
+        //remove l8r, this line is for testing
+        ZoneManager.updatezonesDesiredTempPeriod(period);
+        for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getName().contains("STOOP"))continue;
+            if (shd.isAwayModeOn()){
+                if (shd.isItWinter()){
+                    autoheatrooms(rooms,shd);
+                }else {
+                    autocoolrooms(rooms,shd);
+                }
+            }
+            else{
+                if (shd.isItWinter()){
+                    heatrooms(rooms,shd);
+                }else {
+                    coolrooms(rooms,shd);
+                }
+            }
+        }
+
     }
+
 }
