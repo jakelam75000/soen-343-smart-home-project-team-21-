@@ -139,6 +139,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private List<Observer> observers = new ArrayList<Observer>();
     private int[] fromseasonsmonth = new int[2];
     private int[] toseasonsmonth = new int[2];
+    private int wintertemp;
+    private int summertemp;
     JCheckBox[] itemsArr;
 
 
@@ -235,7 +237,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         timerHoursSpinner.setModel(new SpinnerNumberModel(0, 0, 23, 1));
         timerMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
         timerSecondsSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
-
+        winterTempSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
+        summerTempSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 
         setupSHPlights();
     }
@@ -276,6 +279,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 seasonsFrame.setCaller(self);
                 seasonsFrame.setVisible(true);
+            }
+        });
+        setDefaultTempForSeasonsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                wintertemp = (int)Math.round((double)winterTempSpinner.getValue());
+                summertemp = (int)Math.round((double)summerTempSpinner.getValue());
             }
         });
         addAccessButton.addActionListener(new ActionListener() {
@@ -1314,7 +1324,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     /**
-     * getters and setter for seasons
+     * getters and setter for seasons and season temp
      * @return
      */
     public int[] getfromseasons(){ return fromseasonsmonth;}
@@ -1327,4 +1337,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         toseasonsmonth[0] = month;
         toseasonsmonth[1] = day;
     }
+    public int getWintertemp(){ return wintertemp; }
+    public int getSummertemp(){return summertemp;}
 }
