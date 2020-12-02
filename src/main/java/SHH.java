@@ -117,6 +117,7 @@ private PeriodsOfDay period;
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
             }
         }
+        shd.updateHouseLayout();
     }
 
     /**
@@ -137,6 +138,7 @@ private PeriodsOfDay period;
                 else  rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
             }
         }
+        shd.updateHouseLayout();
     }
     /**
      * heats the rooms according to the set seasonal preferred temperature

@@ -601,6 +601,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 shh.setZoneTemperature();
                 shh.updateRoomTempValue();
+                updateHouseLayout();
             }
         });
 
@@ -608,6 +609,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 shh.setRoomTemperature();
+                updateHouseLayout();
             }
         });
     }
@@ -1387,10 +1389,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void updateZoneTempBlock(){
         shh.updateZoneBlock();
+        updateHouseLayout();
     }
 
     public void updateRoomTempBlock(){
         shh.updateRoomTempValue();
+        updateHouseLayout();
     }
 
     /**

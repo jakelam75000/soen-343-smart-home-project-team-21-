@@ -29,8 +29,8 @@ public class HVACComponent extends RoomComponent {
                 scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
 
             FontMetrics metrics = g.getFontMetrics();
-            int xIcon = getRelX() + getRoomRect().getWidthandHeight()/2;
-            int yIcon = getRelY() + getRoomRect().getWidthandHeight()*2/3;
+            int xIcon = getRelX() + getRoomRect().getWidthandHeight()/2 - scaledImage.getIconWidth();
+            int yIcon = getRelY() + getRoomRect().getWidthandHeight()*2/3 - scaledImage.getIconHeight();
 
             scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
 
