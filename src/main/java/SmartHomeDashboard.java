@@ -579,7 +579,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         timeLabel.setText(hour + ":" + minute + ":" + second);
         setUpSHCItems();
         shh.setUpRoomTempBlock(this);
-        //shh.setUpZoneTempBlock(this);
+        shh.setUpZoneTempBlock(this);
         if (!welcomeMessageDisplayed) {
             printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
             welcomeMessageDisplayed = true;
