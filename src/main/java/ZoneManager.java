@@ -7,6 +7,7 @@ public class ZoneManager {
     private static HashMap<String,Zone> zones = new HashMap();
     //List rooms and their corresponding zone
     private static HashMap<String,String> roomToZone =new HashMap<>();
+    private static House house;
 
     //This is for the create zone form
     public static void setRoomNameDropdown(JComboBox roomNameCombo, String[] roomNames) {
@@ -57,7 +58,7 @@ public class ZoneManager {
         if(zones.get(name) != null) {
             return false;
         }
-        Zone zone = new Zone(name, 0, createRoomsArrayForZone(addedRoomNameCombo, rooms, name));
+        Zone zone = new Zone(name, 22, createRoomsArrayForZone(addedRoomNameCombo, rooms, name));
         zones.put(name,zone);
         return true;
     }
@@ -68,7 +69,7 @@ public class ZoneManager {
             for(int j = 0; j < rooms.length;j++) {
                 if(rooms[j].getName().equals(addedRooms.getItemAt(i).toString())) {
                     roomsForZone.add(rooms[j]);
-                    roomToZone.put(rooms[j].getName(),name);
+                    roomToZone.put(rooms[j].getName(), name);
                 }
             }
         }
@@ -114,8 +115,23 @@ public class ZoneManager {
         for(String name : zones.keySet()){
             if(name.equals(zoneName)){
                 zones.get(name).setDesiredTemperature(period, temperature);
+
+                //Changing the room temperatures to match their zone's temp
+                for(String room : roomToZone.keySet()){
+                    if(roomToZone.get(room).equals(zoneName)){
+                        house.setRoomDesiredTemp(room, temperature);
+                    }
+                }
                 return;
             }
         }
+    }
+
+    public static void updateRoomTemp(String zoneName){
+
+    }
+
+    public static void setHouse(House h){
+        house = h;
     }
 }

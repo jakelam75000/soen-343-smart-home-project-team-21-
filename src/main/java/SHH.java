@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class SHH implements Observer{
 
     private static SHH instance;
+    private SmartHomeDashboard caller;
     static {
         instance = new SHH();
     }
@@ -14,41 +15,56 @@ public class SHH implements Observer{
         return instance;
     }
 
-    public void setUpZoneTempBlock(SmartHomeDashboard shd){
-        shd.clearZoneTemp();
+    public void setCaller(SmartHomeDashboard shd){caller = shd;}
+
+    public void setUpZoneTempBlock(){
+        caller.clearZoneTemp();
 
         for(Zone zone : ZoneManager.getZoneList()){
-            shd.addZonesComboItem(zone.getName());
+            caller.addZonesComboItem(zone.getName());
         }
 
-        shd.addPeriodComboItem("Morning (6am - 2pm)");
-        shd.addPeriodComboItem("Evening (2pm - 10pm)");
-        shd.addPeriodComboItem("Night (10pm - 6am)");
+        caller.addPeriodComboItem("Morning (6am - 2pm)");
+        caller.addPeriodComboItem("Evening (2pm - 10pm)");
+        caller.addPeriodComboItem("Night (10pm - 6am)");
 
-        shd.setTempZoneSpinnerModel(new SpinnerNumberModel(0,-90,57,1));
+        caller.setTempZoneSpinnerModel(new SpinnerNumberModel(0,-90,57,1));
     }
 
-    public void setUpRoomTempBlock(SmartHomeDashboard shd){
-        shd.clearRoomTemp();
+    public void setUpRoomTempBlock(){
+        caller.clearRoomTemp();
 
-        for(Room room : shd.getHouse().getRoomsList()){
+        for(Room room : caller.getHouse().getRoomsList()){
             String roomName = room.getName();
             if(roomName.contains("STOOP") || roomName.equalsIgnoreCase("OUTSIDE"))
                 continue;
             else
-                shd.addRoomTempComboItem(room.getName());
+                caller.addRoomTempComboItem(room.getName());
         }
 
-        shd.setTempZoneSpinnerModel(new SpinnerNumberModel(0, -90, 57, 1));
+        caller.setTempZoneSpinnerModel(new SpinnerNumberModel(0, -90, 57, 1));
     }
 
-    public void updateZoneTempValue(SmartHomeDashboard shd){
-        String zoneName = shd.getSelectedZone();
+    public void updateZoneBlock(){
+        caller.clearZoneTemp();
+
+        for(Zone zone : ZoneManager.getZoneList()){
+            caller.addZonesComboItem(zone.getName());
+        }
+
+        updateZoneTempValue();
+    }
+
+    public void updateZoneTempValue(){
+        String periodName = caller.getSelectedPeriod();
+        if(periodName == null)
+            return;
+
+        periodName = periodName.split(" ")[0].toUpperCase();
+
+        String zoneName = caller.getSelectedZone();
 
         double temperature = 0;
-
-        String periodName = shd.getSelectedPeriod();
-        periodName = periodName.split(" ")[0].toUpperCase();
 
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
 
@@ -57,25 +73,25 @@ public class SHH implements Observer{
                 temperature = zone.getDesiredTemperature(period);
         }
 
-        shd.setTempZoneSpinnerValue(temperature);
+        caller.setTempZoneSpinnerValue(temperature);
     }
 
-    public void updateRoomTempValue(SmartHomeDashboard shd){
-        String roomName = shd.getSelectedRoom();
+    public void updateRoomTempValue(){
+        String roomName = caller.getSelectedRoom();
         double temperature = 0;
-        for (Room room : shd.getHouse().getRoomsList()){
+        for (Room room : caller.getHouse().getRoomsList()){
             if(room.getName().equals(roomName))
                 temperature = room.getDesiredTemp();
         }
 
-        shd.setTempRoomSpinnerValue(temperature);
+        caller.setTempRoomSpinnerValue(temperature);
     }
 
-    public void setZoneTemperature(SmartHomeDashboard shd){
-        String zoneName = shd.getSelectedZone();
-        double temperature = shd.getTempZoneSpinnerValue();
+    public void setZoneTemperature(){
+        String zoneName = caller.getSelectedZone();
+        double temperature = caller.getTempZoneSpinnerValue();
 
-        String periodName = shd.getSelectedPeriod();
+        String periodName = caller.getSelectedPeriod();
         periodName = periodName.split(" ")[0].toUpperCase();
 
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
@@ -83,11 +99,11 @@ public class SHH implements Observer{
         ZoneManager.setZoneTemp(zoneName, period, temperature);
     }
 
-    public void setRoomTemperature(SmartHomeDashboard shd){
-        String roomName = shd.getSelectedRoom();
-        double temperature = shd.getTempRoomSpinnerValue();
+    public void setRoomTemperature(){
+        String roomName = caller.getSelectedRoom();
+        double temperature = caller.getTempRoomSpinnerValue();
 
-        shd.getHouse().setRoomDesiredTemp(roomName, temperature);
+        caller.getHouse().setRoomDesiredTemp(roomName, temperature);
     }
 
     @Override
