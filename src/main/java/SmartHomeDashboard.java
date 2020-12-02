@@ -147,6 +147,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private AddUser addUser = AddUser.getInstance();
     private EditUserProfile editUserProfile = EditUserProfile.getInstance();
     private SHH shh = SHH.getInstance();
+    private CreateZone createZoneForm = CreateZone.getInstance();
 
     //Bounds variables
     private static final int x = 200;
@@ -181,6 +182,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         edit.setCaller(this);
         addUser.setCaller(this);
+        createZoneForm.setCaller(this);
         editUserProfile.setCurrentType(type);
         editUserProfile.setCallingUser(username);
         editUserProfile.setCaller(this);
@@ -216,6 +218,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         //Setting the "Accessibility
         Accessibility.setAccessibilitiesDropdown(comboEnabledAccessibility,comboDisabledAccessibility, comboLocationAccessiblity,comboUsers);
+        //Setting zones
+        updateZoneRooms();
 
         //Setting all the spinners
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
@@ -237,6 +241,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         setupSHPlights();
     }
 
+    public void updateZoneRooms() {
+        if(ZoneManager.getZoneSize() > 0) {
+            ZoneManager.setZoneDropdown(zoneNameCombo);
+            ZoneManager.setRoomDropdown(zoneNameCombo.getSelectedItem().toString(), listOfRooms, addedRoomsList, house.getRoomNames());
+        }
+    }
     /**
      * Updates the user list in the SHS tab on the dashboard.
      */
@@ -261,6 +271,54 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * Adds all action listeners to attributes of the class.
      */
     public void addActionListeners() {
+        addRoom.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ZoneManager.removeOrAddRoom(listOfRooms.getSelectedItem(), listOfRooms, addedRoomsList)) {
+                    printToConsole("Save changes for action to be performed.");
+                } else {
+                    printToConsole("Cannot perform this action.");
+                }
+            }
+        });
+        removeRoomFromZone.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ZoneManager.removeOrAddRoom(addedRoomsList.getSelectedItem(), addedRoomsList,listOfRooms)) {
+                    printToConsole("Save changes for action to be performed.");
+                } else {
+                    printToConsole("Cannot perform this action.");
+                }
+            }
+        });
+        saveZoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ZoneManager.modifyZone(house.getRoomsList(), zoneNameCombo.getSelectedItem().toString(), listOfRooms,addedRoomsList);
+                printToConsole("Zone has succesfully been added.");
+            }
+        });
+        zoneNameCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ZoneManager.getZoneSize() > 0 && zoneNameCombo.getSelectedItem() != null) {
+                    ZoneManager.setRoomDropdown(zoneNameCombo.getSelectedItem().toString(), listOfRooms, addedRoomsList, house.getRoomNames());
+                }
+            }
+        });
+        createZone.addActionListener(new ActionListener() {
+            /**
+             * opens the createZone frame
+             * @param e ActionEvenet
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createZoneForm.setRooms(house.getRoomsList());
+                createZoneForm.setRoomNames(house.getRoomNames());
+                createZoneForm.setVisible(true);
+            }
+        });
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -560,8 +618,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         timeLabel.setText(hour + ":" + minute + ":" + second);
 
         setUpSHCItems();
-        shh.setUpRoomTempBlock(this);
-        shh.setUpZoneTempBlock(this);
+        //shh.setUpRoomTempBlock(this);
+        //shh.setUpZoneTempBlock(this);
         if (!welcomeMessageDisplayed) {
             printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
             welcomeMessageDisplayed = true;
