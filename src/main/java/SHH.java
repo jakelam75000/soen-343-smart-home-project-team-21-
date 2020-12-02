@@ -114,6 +114,11 @@ private PeriodsOfDay period;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature())
                     if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                if (rooms[i].getTemperature() <=0){
+                    shd.printToConsole("Warning cold tempretures may burst pipes, raising temperature to 1 Celsius");
+                    //Todo
+                    // set the current zone or override to 1
+                }
             }
         }
     }
@@ -156,7 +161,6 @@ private PeriodsOfDay period;
     @Override
     public void update(Observable o) {
         //TOdo need to make the room objects in zone the same as the ones in shd (believe they are clones atm)
-        //Todo need to find a way to set the desired temp of a zone from here
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
         int[] time = shd.Breakdowntime(shd.getCurrentTime());
