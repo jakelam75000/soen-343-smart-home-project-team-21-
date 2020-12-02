@@ -142,6 +142,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private int wintertemp;
     private int summertemp;
     JCheckBox[] itemsArr;
+    private int dayint;
 
 
     //Singleton instances
@@ -603,6 +604,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         setRoomTempButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //TOdo print to console if not in a zone
                 shh.setRoomTemperature(self);
             }
         });
@@ -1407,5 +1409,48 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public int getSummertemp(){return summertemp;}
     public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
     public Room[] getallrooms(){return house.getRoomsList();}
-  
+    public boolean isItWinter(){
+       //{"January", "February", "March", "March", "March", "June", "July",
+        //                "August", "September", "October", "November", "December"};
+        int tempmonth = -1 ,tempday;
+        if (Month.getText().contains("January"))tempmonth = 1;
+        else if (Month.getText().contains("February"))tempmonth = 2;
+        else if (Month.getText().contains("March"))tempmonth = 3;
+        else if (Month.getText().contains("April"))tempmonth = 4;
+        else if (Month.getText().contains("May"))tempmonth = 5;
+        else if (Month.getText().contains("June"))tempmonth = 6;
+        else if (Month.getText().contains("July"))tempmonth = 7;
+        else if (Month.getText().contains("August"))tempmonth = 8;
+        else if (Month.getText().contains("September"))tempmonth = 9;
+        else if (Month.getText().contains("October"))tempmonth = 10;
+        else if (Month.getText().contains("November"))tempmonth = 11;
+        else if (Month.getText().contains("December"))tempmonth = 12;
+        String date = dateLabel.getText();
+        String[] splits = date.split(" ");
+        tempday = Integer.parseInt(splits[2]);
+        if ( fromseasonsmonth[0] < toseasonsmonth[0] ){
+            if (fromseasonsmonth[0] < tempmonth && tempmonth < toseasonsmonth[0])return true;
+            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
+            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
+        }
+        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] < toseasonsmonth[1]){
+            if (tempmonth == fromseasonsmonth[0] && tempday >= fromseasonsmonth[1] && tempday <= toseasonsmonth[1])return true;
+        }
+        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] > toseasonsmonth[1]){
+            if (tempmonth != fromseasonsmonth[0] || (tempday <= fromseasonsmonth[1] && tempday >= toseasonsmonth[1]))return true;
+        }
+        else if (fromseasonsmonth[0] > toseasonsmonth[0]){
+            if ((fromseasonsmonth[0] < tempmonth || tempmonth < toseasonsmonth[0]))return true;
+            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
+            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
+        }
+        return false;
+    }
+
+    public double getOutsidetemp(){
+        return (double)Integer.parseInt(outsidetempvalue.getText());
+    }
+
+    public void setSummertemp(int tem){summertemp = tem;}
+
 }

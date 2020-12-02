@@ -51,6 +51,9 @@ public class Zone {
         }
 
     }
+    public void updatedesiredTempPeriod(PeriodsOfDay period){
+        for (Room room:rooms) { room.setDesiredTemp(desiredTemperature.get(period)); }
+    }
 
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;

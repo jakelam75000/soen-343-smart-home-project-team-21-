@@ -118,4 +118,7 @@ public class ZoneManager {
             }
         }
     }
+    public static void updatezonesDesiredTempPeriod(PeriodsOfDay period){
+        for (Zone zone:zones.values()) { zone.updatedesiredTempPeriod(period); }
+    }
 }
