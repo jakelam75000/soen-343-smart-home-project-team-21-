@@ -347,8 +347,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         setDefaultTempForSeasonsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                wintertemp = (int)Math.round((double)winterTempSpinner.getValue());
-                summertemp = (int)Math.round((double)summerTempSpinner.getValue());
+                wintertemp = (Integer)winterTempSpinner.getValue();
+                summertemp = (Integer)summerTempSpinner.getValue();
             }
         });
         addAccessButton.addActionListener(new ActionListener() {
