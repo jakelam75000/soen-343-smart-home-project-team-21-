@@ -130,6 +130,7 @@ public class DynamicLayout extends JPanel {
             new WindowComponent(this, r, rooms[i]).draw(g);
             new PeopleComponent(this, r, rooms[i].getName()).draw(g);
             new LightComponent(this, r, rooms[i]).draw(g);
+            new HVACComponent(this, r, rooms[i]).draw(g);
             if (!attachedstoop) new DoorComponent(this, r, rooms[i],null).draw(g);
             else new DoorComponent(this, r, rooms[i],stooprooms[stoopindex]).draw(g);
         }
