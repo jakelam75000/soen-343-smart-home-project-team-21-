@@ -306,4 +306,14 @@ public class Room {
         }
         return b;
     }
+    public boolean isAWindowopen(){
+        boolean b = false;
+        for(int i = 0 ; i < smartobjects.length; i++){
+            if (smartobjects[i].getType() != SmartObjectType.WINDOW) continue;
+            Window w = (Window)smartobjects[i];
+            if (w!=null)
+                if (!w.isOpen()) b = true;
+        }
+        return b;
+    }
 }
