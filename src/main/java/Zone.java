@@ -17,6 +17,17 @@ public class Zone {
         this.rooms = rooms;
     }
 
+    public Zone(Zone zone){
+        this.name = zone.getName();
+
+        zone.desiredTemperature.forEach((k, v) -> this.desiredTemperature.put(k, v));
+
+        if(zone.rooms == null)
+            rooms = new ArrayList<>();
+        else
+            this.rooms = (ArrayList<Room>) zone.rooms.clone();
+    }
+
     public String getName(){
         return name;
     }
@@ -44,4 +55,9 @@ public class Zone {
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
+
+    public Zone clone(){
+        return new Zone(this);
+    }
+
 }

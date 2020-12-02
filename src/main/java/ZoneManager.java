@@ -101,4 +101,21 @@ public class ZoneManager {
     public static int getZoneSize() {
         return zones.size();
     }
+
+    public static ArrayList<Zone> getZoneList(){
+        ArrayList<Zone> zoneList = new ArrayList<Zone>();
+
+        zones.forEach((k, v) -> zoneList.add(v.clone()));
+
+        return zoneList;
+    }
+
+    public static void setZoneTemp(String zoneName,PeriodsOfDay period, double temperature){
+        for(String name : zones.keySet()){
+            if(name.equals(zoneName)){
+                zones.get(name).setDesiredTemperature(period, temperature);
+                return;
+            }
+        }
+    }
 }

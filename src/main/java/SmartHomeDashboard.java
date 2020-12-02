@@ -247,6 +247,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             ZoneManager.setRoomDropdown(zoneNameCombo.getSelectedItem().toString(), listOfRooms, addedRoomsList, house.getRoomNames());
         }
     }
+
     /**
      * Updates the user list in the SHS tab on the dashboard.
      */
@@ -618,8 +619,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         timeLabel.setText(hour + ":" + minute + ":" + second);
 
         setUpSHCItems();
-        //shh.setUpRoomTempBlock(this);
-        //shh.setUpZoneTempBlock(this);
+        updateRoomTempBlock();
+        updateZoneTempBlock();
         if (!welcomeMessageDisplayed) {
             printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
             welcomeMessageDisplayed = true;
@@ -1355,10 +1356,17 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void clearZoneTemp(){
         zonesCombo.removeAllItems();
-        periodCombo.removeAllItems();
     }
 
     public void clearRoomTemp(){
         roomTempCombo.removeAllItems();
+    }
+
+    public void updateZoneTempBlock(){
+        shh.setUpZoneTempBlock(this);
+    }
+
+    public void updateRoomTempBlock(){
+        shh.setUpRoomTempBlock(this);
     }
 }

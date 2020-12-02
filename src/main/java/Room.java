@@ -31,7 +31,7 @@ public class Room {
         temperature = temp;
         width = wid;
         length = len;
-        desiredTemp = 10000;
+        desiredTemp = 21;
 
         for(Smartobj obj : smartobjects) {
             if(!itemMap.containsKey(obj.type)) itemMap.put(obj.getType(), new ArrayList<String>());

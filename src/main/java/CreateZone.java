@@ -125,6 +125,7 @@ public class CreateZone extends JFrame{
                 caller.printToConsole(zoneName.getText() + " has been successfully created.");
                 clearAllField();
                 caller.updateZoneRooms();
+                caller.updateZoneTempBlock();
             }
         });
     }

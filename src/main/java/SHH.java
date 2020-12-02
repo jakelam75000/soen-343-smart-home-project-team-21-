@@ -18,7 +18,7 @@ public class SHH implements Observer{
     public void setUpZoneTempBlock(SmartHomeDashboard shd){
         shd.clearZoneTemp();
 
-        for(Zone zone : shd.getHouse().getZones()){
+        for(Zone zone : ZoneManager.getZoneList()){
             shd.addZonesComboItem(zone.getName());
         }
 
@@ -53,7 +53,7 @@ public class SHH implements Observer{
 
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
 
-        for (Zone zone : shd.getHouse().getZones()){
+        for (Zone zone : ZoneManager.getZoneList()){
             if(zone.getName().equals(zoneName))
                 temperature = zone.getDesiredTemperature(period);
         }
@@ -81,7 +81,7 @@ public class SHH implements Observer{
 
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
 
-        shd.getHouse().setZoneTemp(zoneName, period, temperature);
+        ZoneManager.setZoneTemp(zoneName, period, temperature);
     }
 
     public void setRoomTemperature(SmartHomeDashboard shd){
