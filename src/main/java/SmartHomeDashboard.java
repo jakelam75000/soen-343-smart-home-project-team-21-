@@ -1404,7 +1404,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     public double getTempRoomSpinnerValue(){
-        return (double)tempRoomSpinner.getValue();
+        if (tempRoomSpinner.getValue() instanceof  Integer){
+            int i = ((Integer) tempRoomSpinner.getValue()).intValue();
+            return (double) i;
+        }
+        else return (double)tempRoomSpinner.getValue();
     }
 
     public void clearZoneTemp(){
