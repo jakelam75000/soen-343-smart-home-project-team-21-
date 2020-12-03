@@ -98,6 +98,7 @@ private PeriodsOfDay period;
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
 
         ZoneManager.setZoneTemp(zoneName, period, temperature);
+        caller.updateHouseLayout();
     }
 
     public void setRoomTemperature(){
@@ -105,6 +106,7 @@ private PeriodsOfDay period;
         double temperature = caller.getTempRoomSpinnerValue();
 
         caller.getHouse().setRoomDesiredTemp(roomName, temperature);
+        caller.updateHouseLayout();
     }
     /**
      * heats the rooms according to their own preferred temperature
@@ -115,7 +117,9 @@ private PeriodsOfDay period;
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
+
                 closeallwindows = false;
+
                 rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
             }
         }
@@ -220,6 +224,7 @@ private PeriodsOfDay period;
                 }else {
                     autocoolrooms(rooms,shd);
                 }
+                shd.updateHouseLayout();
             }
             else{
                 if (isWinter){
@@ -227,6 +232,7 @@ private PeriodsOfDay period;
                 }else {
                     coolrooms(rooms,shd);
                 }
+                shd.updateHouseLayout();
             }
         }
         shd.updateHouseLayout();

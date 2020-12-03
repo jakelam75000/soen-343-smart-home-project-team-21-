@@ -308,6 +308,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 ZoneManager.modifyZone(house.getRoomsList(), zoneNameCombo.getSelectedItem().toString(), listOfRooms,addedRoomsList);
                 printToConsole("Zone has succesfully been added.");
+                updateHouseLayout();
             }
         });
         zoneNameCombo.addActionListener(new ActionListener() {
@@ -328,6 +329,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 createZoneForm.setRooms(house.getRoomsList());
                 createZoneForm.setRoomNames(house.getRoomNames());
                 createZoneForm.setVisible(true);
+                updateHouseLayout();
+
             }
         });
 
@@ -621,18 +624,25 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 shh.setZoneTemperature();
                 shh.updateRoomTempValue();
+                updateHouseLayout();
+
             }
         });
 
         setRoomTempButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
                     printToConsole("Guests can only change temperature of room they are currently in.");
                 } else {
                     shh.setRoomTemperature();
                     printToConsole("Temperature has successfully been updated.");
                 }
+
+                shh.setRoomTemperature();
+                updateHouseLayout();
+
             }
         });
     }
@@ -1421,10 +1431,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void updateZoneTempBlock(){
         shh.updateZoneBlock();
+        updateHouseLayout();
     }
 
     public void updateRoomTempBlock(){
         shh.updateRoomTempValue();
+        updateHouseLayout();
     }
 
     /**
