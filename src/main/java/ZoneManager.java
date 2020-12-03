@@ -37,19 +37,8 @@ public class ZoneManager {
         }
 
         for(String roomName : roomNames) {
-            Boolean notAdded = true;
-            for(Room room : roomsForAddedRoomList) {
-                if(roomName.equals(room.getName()) || roomName.contains(LocationType.STOOP.name()) ||
-                        (roomToZone.get(roomName) != null && !zoneName.equals(roomToZone.get(roomName)))) {
-                    notAdded = false;
-                    break;
-                }
-            }
-            if(notAdded) {
-                // have to check again
-                if(!roomName.contains(LocationType.STOOP.name())) {
-                    listOfRooms.addItem(roomName);
-                }
+            if(roomToZone.get(roomName) == null && !roomName.contains(LocationType.STOOP.name())) {
+                listOfRooms.addItem(roomName);
             }
         }
     }
