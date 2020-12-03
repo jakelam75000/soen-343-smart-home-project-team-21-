@@ -9,6 +9,7 @@ public class HVACComponent extends RoomComponent {
     private ImageIcon scaledImage;
 
     private Room room;
+    private boolean tempIsDesiredTemp = true;
 
     public HVACComponent(JPanel panel, RoomRectangle roomRect, Room room){
         super(panel, roomRect);
@@ -21,35 +22,59 @@ public class HVACComponent extends RoomComponent {
 
         double desiredTemp = room.getDesiredTemp();
         double currentTemp = room.getTemperature();
+        String displayTemp = String.format("%.2f", currentTemp) + "ºC";
+        int stringX;
+        int stringY;
+
+        tempIsDesiredTemp = desiredTemp == currentTemp;
 
 
-        String displayTemp = String.format("%.2f", currentTemp);;
+        FontMetrics metrics = g.getFontMetrics();
 
-        if (desiredTemp != currentTemp) {
-            if(desiredTemp < currentTemp) {
-                scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-            }
-            else {
-                scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-            }
-
-            FontMetrics metrics = g.getFontMetrics();
-            int xIcon = getRelX() + getRoomRect().getWidthandHeight()/2 - scaledImage.getIconWidth();
-            int yIcon = getRelY() + getRoomRect().getWidthandHeight()*2/3 -scaledImage.getIconHeight()/2;
-
-            scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
+        if (tempIsDesiredTemp) {
+            stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
+            stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
             Graphics2D g2d = (Graphics2D) g;
 
             Stroke stroke1 = new BasicStroke(2f);
 
-            int stringY = yIcon + scaledImage.getIconHeight()*75/100;
-            int stringX = xIcon + scaledImage.getIconWidth();
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(stroke1);
+            g2d.drawString(displayTemp, stringX, stringY);
 
+        } else {
+            if(!room.isAWindowopen()) {
+                if (desiredTemp < currentTemp) {
+                    scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+                } else {
+                    scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+                }
+
+                int xIcon = getRelX() + getRoomRect().getWidthandHeight() / 2 - scaledImage.getIconWidth() * 3 / 2;
+                int yIcon = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3 - scaledImage.getIconHeight() / 2;
+
+                scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
+
+                stringY = yIcon + scaledImage.getIconHeight()/2 + 2;
+                stringX = xIcon + scaledImage.getIconWidth();
+            }
+            else {
+                stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
+                stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
+
+            }
+
+
+
+            Graphics2D g2d = (Graphics2D) g;
+
+            Stroke stroke1 = new BasicStroke(2f);
+
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(stroke1);
             g2d.drawString(displayTemp, stringX, stringY);
         }
-        else {
 
-        }
     }
 }
