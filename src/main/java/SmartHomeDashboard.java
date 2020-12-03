@@ -143,6 +143,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private int summertemp;
     JCheckBox[] itemsArr;
     private int dayint;
+    private boolean firstSetUpOfSimulation = true;
 
 
     //Singleton instances
@@ -337,6 +338,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 saveUsers.setVisible(true);
             }
         });
+
         ButtonSeasons.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -344,6 +346,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 seasonsFrame.setVisible(true);
             }
         });
+
         setDefaultTempForSeasonsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -351,6 +354,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 summertemp = (Integer)summerTempSpinner.getValue();
             }
         });
+
         addAccessButton.addActionListener(new ActionListener() {
             /**
              * Updates the accessibility dropdown when new user is selected
@@ -663,8 +667,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
         timeLabel.setText(hour + ":" + minute + ":" + second);
         setUpSHCItems();
-        shh.setUpRoomTempBlock();
-        shh.setUpZoneTempBlock();
+
+        if(firstSetUpOfSimulation){
+            shh.setUpRoomTempBlock();
+            shh.setUpZoneTempBlock();
+            firstSetUpOfSimulation = false;
+        }
+
         if (!welcomeMessageDisplayed) {
             printToConsole("Welcome to your new Smart home " + Username.getText() + "!");
             welcomeMessageDisplayed = true;
@@ -1394,8 +1403,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         tempRoomSpinner.setValue(value);
     }
 
-    public int getTempRoomSpinnerValue(){
-        return (int)tempRoomSpinner.getValue();
+    public double getTempRoomSpinnerValue(){
+        return (double)tempRoomSpinner.getValue();
     }
 
     public void clearZoneTemp(){

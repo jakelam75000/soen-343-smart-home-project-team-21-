@@ -18,6 +18,13 @@ public class CreateZone extends JFrame{
     private CreateZone self;
     private static CreateZone instance = new CreateZone("CreateZone");
 
+    //Bounds variables
+    private static final int x = 300;
+    private static final int y = 200;
+    private static final int width = 560;
+    private static final int height = 300;
+
+
     /**
      * Parameterised contructor
      *
@@ -29,6 +36,7 @@ public class CreateZone extends JFrame{
         this.pack();
         self = this;
         this.setResizable(true);
+        this.setBounds(x, y, width, height);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.zoneNameWarning.setVisible(false);
         addActionListeners();
@@ -49,7 +57,6 @@ public class CreateZone extends JFrame{
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }
-
 
     public void setRooms(Room[] rooms){
         this.rooms = rooms;
