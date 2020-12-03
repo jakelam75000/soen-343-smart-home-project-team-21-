@@ -118,6 +118,7 @@ public class ZoneManager {
                 return;
             }
         }
+
     }
 
     public static void updateDesiredTempPeriod(PeriodsOfDay period){

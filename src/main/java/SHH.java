@@ -114,7 +114,7 @@ private PeriodsOfDay period;
     private void heatrooms(Room[] rooms, SmartHomeDashboard shd){
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
-                rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
+                rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
             }
         }
         shd.updateHouseLayout();
@@ -135,7 +135,7 @@ private PeriodsOfDay period;
                     for (Zone zone:ZoneManager.getZoneList()) {if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1); }
                     rooms[i].setDesiredTemp(1);
                 }
-                else  rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                else  rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
             }
         }
         shd.updateHouseLayout();

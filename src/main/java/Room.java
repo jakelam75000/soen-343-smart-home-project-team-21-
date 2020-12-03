@@ -164,6 +164,7 @@ public class Room {
      */
     public void setTemperature(double desiredtemp){
         temperature = desiredtemp;
+        System.out.println(this.name +" Temp: "+temperature);
     }
 
     /**
@@ -290,7 +291,7 @@ public class Room {
      * @param desiredTemp double the value to be set
      */
     public void setDesiredTemp(double desiredTemp) {
-        this.desiredTemp = desiredTemp;
+        this.desiredTemp = desiredTemp; System.out.println(this.name +" desiredTemp: "+desiredTemp);
     }
 
     /**

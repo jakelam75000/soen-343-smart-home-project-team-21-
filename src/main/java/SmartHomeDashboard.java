@@ -307,6 +307,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 ZoneManager.modifyZone(house.getRoomsList(), zoneNameCombo.getSelectedItem().toString(), listOfRooms,addedRoomsList);
                 printToConsole("Zone has succesfully been added.");
+                updateHouseLayout();
             }
         });
         zoneNameCombo.addActionListener(new ActionListener() {
@@ -327,6 +328,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 createZoneForm.setRooms(house.getRoomsList());
                 createZoneForm.setRoomNames(house.getRoomNames());
                 createZoneForm.setVisible(true);
+
             }
         });
 
@@ -602,6 +604,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 shh.setZoneTemperature();
                 shh.updateRoomTempValue();
                 updateHouseLayout();
+
             }
         });
 

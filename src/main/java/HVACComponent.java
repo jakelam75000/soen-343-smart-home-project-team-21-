@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 public class HVACComponent extends RoomComponent {
     private ImageIcon heatingIcon = new ImageIcon("src/main/java/icons/hot.png");
     private ImageIcon coolingIcon = new ImageIcon("src/main/java/icons/cold.png");
@@ -17,20 +18,24 @@ public class HVACComponent extends RoomComponent {
 
     @Override
     public void draw(Graphics g) {
+
         double desiredTemp = room.getDesiredTemp();
         double currentTemp = room.getTemperature();
-        String displayTemp = "" +currentTemp;
+
+
+        String displayTemp = String.format("%.2f", currentTemp);;
 
         if (desiredTemp != currentTemp) {
             if(desiredTemp < currentTemp) {
                 scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
             }
-            else
+            else {
                 scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+            }
 
             FontMetrics metrics = g.getFontMetrics();
             int xIcon = getRelX() + getRoomRect().getWidthandHeight()/2 - scaledImage.getIconWidth();
-            int yIcon = getRelY() + getRoomRect().getWidthandHeight()*2/3 - scaledImage.getIconHeight();
+            int yIcon = getRelY() + getRoomRect().getWidthandHeight()*2/3 -scaledImage.getIconHeight()/2;
 
             scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
 
@@ -43,6 +48,8 @@ public class HVACComponent extends RoomComponent {
 
             g2d.drawString(displayTemp, stringX, stringY);
         }
+        else {
 
+        }
     }
 }
