@@ -112,11 +112,14 @@ private PeriodsOfDay period;
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
     private void heatrooms(Room[] rooms, SmartHomeDashboard shd){
+        boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
-                rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
+                closeallwindows = false;
+                rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
             }
         }
+        if (closeallwindows)shd.getHouse().closeAllWindows();
     }
 
     /**
@@ -125,8 +128,10 @@ private PeriodsOfDay period;
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
     private void coolrooms(Room[] rooms, SmartHomeDashboard shd){
+        boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
+                 closeallwindows = false;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
                 if (rooms[i].getTemperature() <1){
@@ -134,9 +139,10 @@ private PeriodsOfDay period;
                     for (Zone zone:ZoneManager.getZoneList()) {if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1); }
                     rooms[i].setDesiredTemp(1);
                 }
-                else  rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                else  rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
             }
         }
+        if (closeallwindows)shd.getHouse().closeAllWindows();
     }
     /**
      * heats the rooms according to the set seasonal preferred temperature
@@ -144,11 +150,14 @@ private PeriodsOfDay period;
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
     private void autoheatrooms(Room[] rooms,SmartHomeDashboard shd){
+        boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (shd.getWintertemp() > rooms[i].getTemperature()){
-                rooms[i].setTemperature(rooms[i].getDesiredTemp() + 0.1);
+                closeallwindows = false;
+                rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
             }
         }
+        if (closeallwindows)shd.getHouse().closeAllWindows();
     }
     /**
      * cools the rooms according to the set seasonal preferred temperature
@@ -156,11 +165,13 @@ private PeriodsOfDay period;
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
     private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
+        boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (shd.getSummertemp() < rooms[i].getTemperature()){
+                closeallwindows = true;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
-                rooms[i].setTemperature(rooms[i].getDesiredTemp() - 0.05);
+                rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
                 if (rooms[i].getTemperature() <=0){
                     shd.printToConsole("Warning cold temperatures may burst pipes, raising temperature to 1 Celsius");
                     shd.setSummertemp(1);
@@ -168,6 +179,7 @@ private PeriodsOfDay period;
                 //add windows condition
             }
         }
+        if (closeallwindows)shd.getHouse().closeAllWindows();
     }
 
     /**
@@ -217,6 +229,7 @@ private PeriodsOfDay period;
                 }
             }
         }
+        shd.updateHouseLayout();
 
     }
 
