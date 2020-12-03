@@ -507,7 +507,19 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     tabbedPane1.setEnabledAt(1, true);
                     tabbedPane1.setEnabledAt(2, true);
                     tabbedPane1.setEnabledAt(0, false);
-                    tabbedPane1.setEnabledAt(3, true);
+                    if(Type.getText().equals(UserTypes.PARENT.toString()) || Type.getText().equals(UserTypes.GUEST.toString())) {
+                        tabbedPane1.setEnabledAt(3, true);
+                        if(Type.getText().equals(UserTypes.GUEST.toString())) {
+                            addRoom.setEnabled(false);
+                            removeRoomFromZone.setEnabled(false);
+                            createZone.setEnabled(false);
+                            saveZoneButton.setEnabled(false);
+                            setZoneTempButton.setEnabled(false);
+                            setDefaultTempForSeasonsButton.setEnabled(false);
+                        }
+                    } else {
+                        tabbedPane1.setEnabledAt(3, false);
+                    }
                     tabbedPane1.setSelectedIndex(1);
                     onOff.setSelected(true);
                     setUpSimulation();
@@ -592,7 +604,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         roomTempCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shh.updateRoomTempValue();
+                if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
+                    return;
+                } else {
+                    shh.updateRoomTempValue();
+                }
             }
         });
 
@@ -607,7 +623,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         setRoomTempButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shh.setRoomTemperature();
+                if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
+                    printToConsole("Guests can only change temperature of room they are currently in.");
+                } else {
+                    shh.setRoomTemperature();
+                    printToConsole("Temperature has successfully been updated.");
+                }
             }
         });
     }
