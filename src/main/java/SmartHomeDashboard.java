@@ -1517,9 +1517,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public int[] gettoseason(){return toseasonsmonth;}
 
     /**
-     * setter
-     * @param month int the day of the beggining of winter
-     * @param day int the day of the beggining of winter
+     * setter for fromseasons
+     * @param ar array containing the month and day
      */
     public void setfromseaons(int[] ar){
         fromseasonsmonth[0] = ar[0];
@@ -1527,9 +1526,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     /**
-     * setter
-     * @param month int the month of the end of winter
-     * @param day int the day of the end of winter
+     * setter for toseasons
+     * @param ar array containing the month and day
      */
     public void settoseaons(int[] ar){
         toseasonsmonth[0] = ar[0];
