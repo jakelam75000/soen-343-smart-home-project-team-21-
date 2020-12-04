@@ -48,7 +48,7 @@ public class HVACComponent extends RoomComponent {
 
         FontMetrics metrics = g.getFontMetrics();
 
-        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter)||(desiredTemp < currentTemp &&isitwinter)) {
+        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter)||(desiredTemp < currentTemp && isitwinter ) || (!room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter)) {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
@@ -62,7 +62,7 @@ public class HVACComponent extends RoomComponent {
             return;
         // if not, corresponding icons for cooling and heating are displayed
         } else {
-                if (desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter) {
+                if (desiredTemp < currentTemp && room.isAWindowopen() && !isitwinter) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
                 } else if (desiredTemp > currentTemp && isitwinter ) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
