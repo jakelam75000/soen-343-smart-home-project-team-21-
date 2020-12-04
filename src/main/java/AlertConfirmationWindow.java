@@ -33,8 +33,8 @@ public class AlertConfirmationWindow extends JFrame{
         this.caller = caller;
         multiplier = caller.getMultiplier();
         int[] formattime = SmartHomeDashboard.Breakdowntime(caller.getTimer());
-        int temphr = formattime[2];
-        int tempsec = formattime[0];
+        int temphr = formattime[0];
+        int tempsec = formattime[2];
         int tempmin = formattime[1];
         String hour,minute,second;
         if (temphr <10) hour = "0" + temphr;
@@ -107,8 +107,8 @@ public class AlertConfirmationWindow extends JFrame{
         String minute;
         int[] temptime = SmartHomeDashboard.Breakdowntime(inputime);
         tempmin = temptime[1];
-        temphr = temptime[2];
-        tempsec = temptime[0];
+        temphr = temptime[0];
+        tempsec = temptime[2];
         if (timeleft)tempsec--;
         else tempsec++;
         if (tempsec<0&& timeleft){

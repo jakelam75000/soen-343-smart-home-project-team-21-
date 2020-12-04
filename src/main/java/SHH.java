@@ -274,13 +274,13 @@ public class SHH implements Observer{
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
         int[] time = shd.Breakdowntime(shd.getCurrentTime());
-        if (time[2] >=6 &&time[2] <14 ){
+        if (time[0] >=6 &&time[0] <14 ){
             if (period!= PeriodsOfDay.MORNING){
                 ZoneManager.updateDesiredTempPeriod( PeriodsOfDay.MORNING);
             }
             period = PeriodsOfDay.MORNING;
         }
-        else if (time[2] >=14 &&time[2] <22 ){
+        else if (time[0] >=14 &&time[0] <22 ){
             if (period!= PeriodsOfDay.EVENING){
                 ZoneManager.updateDesiredTempPeriod(PeriodsOfDay.EVENING);
             }

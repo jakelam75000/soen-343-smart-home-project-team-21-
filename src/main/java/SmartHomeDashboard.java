@@ -506,26 +506,19 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 if(onOff.isSelected()) {
                     onOff.setSelected(false);
-                    tabbedPane1.setEnabledAt(0, true);
-                    tabbedPane1.setEnabledAt(3, false);
-                    tabbedPane1.setEnabledAt(2, false);
-                    tabbedPane1.setEnabledAt(1, false);
-                    tabbedPane1.setSelectedIndex(0);
+                    configureTabbedPanel(false);
                     timer.stop();
 
                     String currentTime = timeLabel.getText();
                     int[] times = Breakdowntime(currentTime);
-                    hourSpinner.setValue((double)times[2]);
+                    hourSpinner.setValue((double)times[0]);
                     minuteSpinner.setValue((double)times[1]);
-                    secondSpinner.setValue((double)times[0]);
+                    secondSpinner.setValue((double)times[2]);
                 }
                 else {
                     String oldLocation = currentLocLabel.getText();
-                    tabbedPane1.setEnabledAt(1, true);
-                    tabbedPane1.setEnabledAt(2, true);
-                    tabbedPane1.setEnabledAt(0, false);
+                    configureTabbedPanel(true);
                     if(Type.getText().equals(UserTypes.PARENT.toString()) || Type.getText().equals(UserTypes.GUEST.toString())) {
-                        tabbedPane1.setEnabledAt(3, true);
                         if(Type.getText().equals(UserTypes.GUEST.toString())) {
                             addRoom.setEnabled(false);
                             removeRoomFromZone.setEnabled(false);
@@ -537,7 +530,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     } else {
                         tabbedPane1.setEnabledAt(3, false);
                     }
-                    tabbedPane1.setSelectedIndex(1);
+
                     onOff.setSelected(true);
                     setUpSimulation();
                     timer.setDelay((int)(1000 / (int)speedSpinner.getValue()));
@@ -550,17 +543,14 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             }
         });
 
-        setToAutoModeCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               if (setToAutoModeCheckBox.isSelected()) {
-                   printToConsole("Lights auto mode is activated.");
-                   self.autoModeClicked();
-               }
-               else {
-                   printToConsole("Lights auto mode was deactivated.");
-               }
-            }
+        setToAutoModeCheckBox.addActionListener(e -> {
+           if (setToAutoModeCheckBox.isSelected()) {
+               printToConsole("Lights auto mode is activated.");
+               self.autoModeClicked();
+           }
+           else {
+               printToConsole("Lights auto mode was deactivated.");
+           }
         });
 
         timer = new Timer(1000, new ActionListener() {
@@ -603,58 +593,39 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             }
         });
 
-        listItems.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
+        listItems.addListSelectionListener(e -> setUpSHCOpenClose());
 
-                setUpSHCOpenClose();
-            }
+        zonesCombo.addActionListener(e -> shh.updateZoneTempSpinner());
+
+        roomTempCombo.addActionListener(e -> shh.updateRoomTempSpinner());
+
+        setZoneTempButton.addActionListener(e -> {
+            shh.setZoneTemperature();
+            shh.updateRoomTempSpinner();
+            updateHouseLayout();
         });
 
-        zonesCombo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                shh.updateZoneTempSpinner();
-            }
-        });
+        setRoomTempButton.addActionListener(e -> {
 
-        roomTempCombo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                shh.updateRoomTempSpinner();
-            }
-        });
-
-        setZoneTempButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                shh.setZoneTemperature();
-                shh.updateRoomTempSpinner();
+            if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
+                printToConsole("Guests can only change temperature of room they are currently in.");
+            } else {
+                shh.setRoomTemperature();
                 updateHouseLayout();
+                printToConsole("Temperature has successfully been updated.");
             }
+
         });
 
-        setRoomTempButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        periodCombo.addActionListener(e -> shh.updateZoneTempSpinner());
+    }
 
-                if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
-                    printToConsole("Guests can only change temperature of room they are currently in.");
-                } else {
-                    shh.setRoomTemperature();
-                    updateHouseLayout();
-                    printToConsole("Temperature has successfully been updated.");
-                }
-
-            }
-        });
-
-        periodCombo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                shh.updateZoneTempSpinner();
-            }
-        });
+    public void configureTabbedPanel(boolean simulationOn){
+        tabbedPane1.setEnabledAt(0, !simulationOn);
+        tabbedPane1.setEnabledAt(3, simulationOn);
+        tabbedPane1.setEnabledAt(2, simulationOn);
+        tabbedPane1.setEnabledAt(1, simulationOn);
+        tabbedPane1.setSelectedIndex(simulationOn ? 1 : 0);
     }
 
     /**
@@ -1027,11 +998,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         String day = comboDay.getItemAt(comboDay.getSelectedIndex());
         String month = comboMonth.getItemAt(comboMonth.getSelectedIndex());
         String year = comboYear.getItemAt(comboYear.getSelectedIndex());
+
         //format hr.min
         int[] temptime = Breakdowntime(inputime);
         tempmin = temptime[1];
-        temphr = temptime[2];
-        tempsec = temptime[0];
+        temphr = temptime[0];
+        tempsec = temptime[2];
         if (tempsec > 58) {
             tempsec = 0;
             tempmin++;
@@ -1087,17 +1059,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     static int[] Breakdowntime(String inputime){
         int[] a = new int[3];
-        int temphr;
-        int tempmin;
-        int tempsec;
-        int indexmid = inputime.indexOf(":");
-        int indexmid2 = inputime.substring(indexmid+1).indexOf(":");
-        tempmin = Integer.parseInt(inputime.substring(indexmid + 1,indexmid2+indexmid+1));
-        temphr = Integer.parseInt(inputime.substring(0, indexmid));
-        tempsec = Integer.parseInt(inputime.substring(indexmid2+2 +indexmid));
-        a[0] = tempsec;
-        a[1] = tempmin;
-        a[2] = temphr;
+
+        String[] strings = inputime.split(":");
+        for(int i=0; i<strings.length;i++){
+            a[i] = Integer.parseInt(strings[i].trim());
+        }
         return a;
     }
 
