@@ -14,6 +14,7 @@ public class DynamicLayout extends JPanel {
     private final Room[] rooms;
     private final Room[] stooprooms;
     private final int roomCount;
+    private boolean isitwinter;
 
 
     //actual width and height is 360 x 360 but we need some extra space for outside
@@ -25,13 +26,14 @@ public class DynamicLayout extends JPanel {
      * constructor with parameters
      * @param rooms Room[] is the array of rooms
      */
-    public DynamicLayout(Room[] rooms) {
+    public DynamicLayout(Room[] rooms,boolean b) {
         int nonStoopRooms = 0;
         for (int i=0;i<rooms.length;i++){
             if (!rooms[i].getName().contains("STOOP"))nonStoopRooms++;
         }
         this.rooms = new Room[nonStoopRooms];
         stooprooms = new Room[rooms.length-nonStoopRooms];
+        isitwinter = b;
         int k =0;
         int l=0;
         for (int i=0; i<rooms.length; i++){
@@ -130,7 +132,7 @@ public class DynamicLayout extends JPanel {
             new WindowComponent(this, r, rooms[i]).draw(g);
             new PeopleComponent(this, r, rooms[i].getName()).draw(g);
             new LightComponent(this, r, rooms[i]).draw(g);
-            new HVACComponent(this, r, rooms[i]).draw(g);
+            new HVACComponent(this, r, rooms[i], isitwinter).draw(g);
             if (!attachedstoop) new DoorComponent(this, r, rooms[i],null).draw(g);
             else new DoorComponent(this, r, rooms[i],stooprooms[stoopindex]).draw(g);
         }

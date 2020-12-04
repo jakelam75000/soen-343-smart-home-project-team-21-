@@ -186,7 +186,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.setBounds(x, y, width, height);
         this.setResizable(false);
 
-        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
         HouseLayout.add(dynamicLayout, BorderLayout.CENTER);
 
         edit.setCaller(this);
@@ -1094,7 +1094,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public void updateHouseLayout(){
         HouseLayout.remove(dynamicLayout);
-        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
         HouseLayout.add(dynamicLayout);
     }
 
@@ -1464,7 +1464,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public Room[] getallrooms(){return house.getRoomsList();}
 
     public boolean isItWinter(){
-
+        if (comboMonth.getSelectedItem() == null || dateLabel.getText().split(" ").length < 2)return false;
         String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
         int tempmonth = Months.valueOf(month).ordinal() + 1;
 

@@ -13,16 +13,19 @@ public class HVACComponent extends RoomComponent {
 
     private Room room;
     private boolean tempIsDesiredTemp = true;
+    private boolean isitwinter;
 
     /**
      * constructor method of the class
      * @param panel
      * @param roomRect
      * @param room
+     * @param b
      */
-    public HVACComponent(JPanel panel, RoomRectangle roomRect, Room room){
+    public HVACComponent(JPanel panel, RoomRectangle roomRect, Room room, boolean b){
         super(panel, roomRect);
         this.room = room;
+        isitwinter = b;
     }
 
 
@@ -45,9 +48,8 @@ public class HVACComponent extends RoomComponent {
 
         FontMetrics metrics = g.getFontMetrics();
 
-        //if the temp reached the desired temp then only the temperature is displayed, not the icons
-        if (tempIsDesiredTemp) {
-            stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  - 2;
+        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter)||(desiredTemp < currentTemp &&isitwinter)) {
+            stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
             Graphics2D g2d = (Graphics2D) g;
@@ -60,9 +62,9 @@ public class HVACComponent extends RoomComponent {
             return;
         // if not, corresponding icons for cooling and heating are displayed
         } else {
-                if (desiredTemp < currentTemp && !room.isAWindowopen()) {
+                if (desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else if (desiredTemp > currentTemp ) {
+                } else if (desiredTemp > currentTemp && isitwinter ) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
                 } else {return;}
 
