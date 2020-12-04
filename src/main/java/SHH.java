@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class SHH implements Observer{
 
@@ -6,9 +7,12 @@ public class SHH implements Observer{
     private static SHH instance;
     private SmartHomeDashboard caller;
     private static boolean hvacon = false;
+    private boolean[] hvacturnon;
+    private boolean first = true;
     static {
         instance = new SHH();
     }
+    private double autodesiredtemp;
 
     /**
      * empty constructor for shh
@@ -176,77 +180,43 @@ public class SHH implements Observer{
     }
 
     /**
-     * heats the rooms according to their own preferred temperature
+     * cools or heats the rooms according to their own preferred temperature
      * @param rooms the list of rooms to be checked
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
-    private void heatrooms(Room[] rooms, SmartHomeDashboard shd){
+    private void ManageRoomtemp(Room[] rooms, SmartHomeDashboard shd, PeriodsOfDay p){
         boolean closeallwindows = true;
-        for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getName().contains("STOOP"))continue;
-            if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()+0.04){
-
+        for (int i =0; i < rooms.length; i ++) {
+            if (!hvacturnon[i])continue;
+            if (rooms[i].getDesiredTemp() < rooms[i].getTemperature() - 0.04) {
+                if (rooms[i].getName().contains("STOOP") ) continue;
                 closeallwindows = false;
-
-                rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
-                if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()+0.04) rooms[i].setTemperature(rooms[i].getDesiredTemp());
-            }
-        }
-        if (closeallwindows){
-            hvacon = false;
-            shd.getHouse().closeAllWindows();
-        }
-    }
-
-    /**
-     * cools the rooms according to their own preferred temperature
-     * @param rooms the list of rooms to be checked
-     * @param shd a connection to smart home dashboard to get appropriate variables
-     */
-    private void coolrooms(Room[] rooms, SmartHomeDashboard shd, PeriodsOfDay p){
-        boolean closeallwindows = true;
-        for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()-0.04){
-                if (rooms[i].getName().contains("STOOP"))continue;
-                 closeallwindows = false;
-                if (shd.getOutsidetemp() < rooms[i].getTemperature())
-                    if (!rooms[i].openAllwindows()){
+                if (shd.getOutsidetemp() < rooms[i].getTemperature() && !caller.isItWinter())
+                    if (!rooms[i].openAllwindows()) {
                         rooms[i].closeAllWindows();
-                        shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                        shd.printToConsole("a Window in room " + rooms[i].getName() + " was blocked!");
                     }
-                if (shd.getOutsidetemp() >= rooms[i].getTemperature())
-                    if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
-                if (rooms[i].getTemperature() < 1){
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature()|| caller.isItWinter())
+                    if (!rooms[i].closeAllWindows())
+                        shd.printToConsole("a Window in room " + rooms[i].getName() + " was blocked!");
+                if (rooms[i].getTemperature() < 1) {
+                    rooms[i].setDesiredTemp(1);
                     shd.printToConsole("Warning! Cold temperatures may burst pipes, changing this rooms zone temperature");
-                    for (Zone zone:ZoneManager.getZoneList()) {
-                        if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1);
+                    for (Zone zone : ZoneManager.getZoneList()) {
+                        if (zone.containsRoom(rooms[i])) zone.setDesiredTemperature(period, 1);
                         else rooms[i].setDesiredTemp(1);
                     }
-                }
-                else  if (!rooms[i].isAWindowopen())rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
+                } else if (!rooms[i].isAWindowopen()) rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
                 else rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
-            }
-        }
-        if (closeallwindows){
-            hvacon = false;
-            shd.getHouse().closeAllWindows();
-        }
-    }
+            } else if (rooms[i].getDesiredTemp() > rooms[i].getTemperature() + 0.04) {
 
-    /**
-     * heats the rooms according to the set seasonal preferred temperature
-     * @param rooms the lsit of rooms to be checked
-     * @param shd a connection to smart home dashboard to get appropriate variables
-     */
-    private void autoheatrooms(Room[] rooms,SmartHomeDashboard shd){
-        boolean closeallwindows = true;
-        for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getName().contains("STOOP"))continue;
-            if (shd.getWintertemp() > rooms[i].getTemperature()+0.04){
                 closeallwindows = false;
+
                 rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
-                if (shd.getWintertemp() < rooms[i].getTemperature()+0.04) rooms[i].setTemperature(shd.getWintertemp());
+                if (rooms[i].getDesiredTemp() < rooms[i].getTemperature() + 0.04)
+                    rooms[i].setTemperature(rooms[i].getDesiredTemp());
             }
+            else hvacturnon[i] = false;
         }
         if (closeallwindows){
             hvacon = false;
@@ -254,36 +224,37 @@ public class SHH implements Observer{
         }
     }
 
-    /**
-     * cools the rooms according to the set seasonal preferred temperature
-     * @param rooms the lsit of rooms to be checked
-     * @param shd a connection to smart home dashboard to get appropriate variables
-     */
-    private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
+    public void autoManageRoomtemp(Room[] rooms, SmartHomeDashboard shd, double outsideTemp){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getName().contains("STOOP"))continue;
-            if (shd.getSummertemp() < rooms[i].getTemperature()-0.04){
+            if (rooms[i].getName().contains("STOOP") || !hvacturnon[i])continue;
+            if (outsideTemp < rooms[i].getTemperature()-0.04 || outsideTemp > rooms[i].getTemperature()+0.04){
                 closeallwindows = true;
-                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows()){
+                if (shd.getOutsidetemp() < rooms[i].getTemperature() && !shd.isItWinter()) if (!rooms[i].openAllwindows()){
                     rooms[i].closeAllWindows();
                     shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 }
-                if (shd.getOutsidetemp() >= rooms[i].getTemperature()) if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
-                if (rooms[i].getTemperature() <1){
+                if (shd.getOutsidetemp() >= rooms[i].getTemperature() && !shd.isItWinter()) if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.isItWinter())if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (rooms[i].getTemperature() <1 && shd.getSummertemp() != 1 && shd.getWintertemp() != 1){
                     shd.printToConsole("Warning cold temperatures may burst pipes, keeping temperature to 1 Celsius");
                     shd.setSummertemp(1);
+                    shd.setWintertemp(1);
                 }
-                if (!rooms[i].isAWindowopen())rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
-                else rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
+                if (!rooms[i].isAWindowopen() && outsideTemp < rooms[i].getTemperature()-0.04)rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
+                else if (outsideTemp < rooms[i].getTemperature()-0.04)rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
+                else if (outsideTemp > rooms[i].getTemperature()+0.04)rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
                 //add windows condition
             }
+            else hvacturnon[i] = false;
         }
         if (closeallwindows){
-            hvacon = false;
             shd.getHouse().closeAllWindows();
         }
+
     }
+
+
 
     /**
      * the hvac system which changes the rooms temperature based on the zone or away mode
@@ -292,7 +263,13 @@ public class SHH implements Observer{
     @Override
     public void update(Observable o) {
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
+        if (shd.isItWinter())autodesiredtemp = shd.getWintertemp();
+        else autodesiredtemp = shd.getSummertemp();
         Room[] rooms = shd.getallrooms();
+        if (first){
+            first = false;
+            hvacturnon = new boolean[rooms.length];
+        }
         int[] time = shd.breakDownTime(shd.getCurrentTime());
         if (time[0] >=6 &&time[0] <14 ){
             if (period!= PeriodsOfDay.MORNING){
@@ -314,62 +291,38 @@ public class SHH implements Observer{
         }
         ZoneManager.updateDesiredTempPeriod(period);
         boolean isWinter = shd.isItWinter();
-        if (hvacon) {
+
             if (shd.isAwayModeOn()) {
-                if (isWinter) {
-                    autoheatrooms(rooms, shd);
-                } else {
-                    autocoolrooms(rooms, shd);
-                }
-            } else {
-                if (isWinter) {
-                    heatrooms(rooms, shd);
-                } else {
-                    coolrooms(rooms, shd, period);
-                }
-            }
-        }
-        else fluctuate(rooms,period);
-        if (shd.isAwayModeOn() && isWinter) {
+                    autoManageRoomtemp(rooms, shd,autodesiredtemp);
+            } else ManageRoomtemp(rooms, shd, period);
+        fluctuate(rooms,period);
+        if (shd.isAwayModeOn()) {
             for (int i = 0; i < rooms.length; i++) {
-                if (rooms[i].getTemperature() <= shd.getWintertemp() - 0.25 && ! rooms[i].getName().contains("STOOP"))hvacon = true;
-            }
-        }
-        else if (shd.isAwayModeOn() && !isWinter){
-            for (int i = 0; i < rooms.length; i++) {
-                if (rooms[i].getTemperature() >= shd.getSummertemp() + 0.25 && ! rooms[i].getName().contains("STOOP"))hvacon = true;
-            }
-        }
-        else if (isWinter){
-            for (int i = 0; i < rooms.length; i++) {
-                if (rooms[i].getTemperature() <= rooms[i].getDesiredTemp() - 0.25 && ! rooms[i].getName().contains("STOOP"))hvacon = true;
+                if ((Math.abs(rooms[i].getTemperature() - autodesiredtemp) >=0.25 || Math.abs(rooms[i].getTemperature() - autodesiredtemp) >= 0.25 ) && ! rooms[i].getName().contains("STOOP") )hvacturnon[i] = true;
             }
         }
         else {
             for (int i = 0; i < rooms.length; i++) {
-                if (rooms[i].getTemperature() >= rooms[i].getDesiredTemp() + 0.25&& ! rooms[i].getName().contains("STOOP") )hvacon = true;
+                if (Math.abs(rooms[i].getTemperature() - rooms[i].getDesiredTemp()) >= 0.25 && ! rooms[i].getName().contains("STOOP"))hvacturnon[i] = true;
             }
-
         }
        shd.updateHouseLayout();
     }
     public void fluctuate( Room[] rooms,PeriodsOfDay period){
         for (int i =0; i < rooms.length; i++){
+            if (hvacturnon[i])continue;
             if (caller.getOutsidetemp() < rooms[i].getTemperature()){
                 rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
-                if (rooms[i].getTemperature() <1){
-                    for (Zone zone:ZoneManager.getZoneList()) {
-                        if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1);
-                        else rooms[i].setDesiredTemp(1);
-                    }
-                    caller.setSummertemp(1);
-                    caller.setWintertemp(1);
-                    caller.printToConsole("Warning cold temperatures may burst pipes, keeping temperature to 1 Celsius");
-                    rooms[i].setDesiredTemp(1);
-                }
             }
             else rooms[i].setTemperature(rooms[i].getTemperature() + 0.05);
         }
     }
-    public boolean isHvacon(){return hvacon;}
+    public boolean isHvacon(Room r ){
+        Room[] rooms = caller.getallrooms();
+    for (int i= 0 ; i < rooms.length; i++){
+        if (hvacturnon == null)return false;
+        if (rooms[i].getName().equalsIgnoreCase(r.getName()))return hvacturnon[i];
+    }
+    return false;
+    }
 }

@@ -39,21 +39,20 @@ public class HVACComponent extends RoomComponent {
      */
     @Override
     public void draw(Graphics g) {
-        boolean hvac = SHH.getInstance().isHvacon();
+        boolean hvac = SHH.getInstance().isHvacon(room);
         double desiredTemp = room.getDesiredTemp();
         double currentTemp = room.getTemperature();
         String displayTemp = String.format("%.2f", currentTemp) + "ºC";
         int stringX;
         int stringY;
-
         //boolean to check if the current temp is the same as the desired temp
         tempIsDesiredTemp = (desiredTemp == currentTemp || (desiredTemp < currentTemp + 0.005001 && desiredTemp > currentTemp - 0.005001));
         boolean isOutsideTempTheSame =(outsidetemp == currentTemp || (outsidetemp < currentTemp + 0.005001 && outsidetemp > currentTemp - 0.005001));
 
         FontMetrics metrics = g.getFontMetrics();
-        if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto && hvac) || (auto && !isitwinter && outsidetemp < currentTemp&& hvac)) {
+        if ((desiredTemp < currentTemp && !room.isAWindowopen()  && !auto && hvac)|| (auto && outsidetemp < currentTemp && hvac)) {
             scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-        } else if ((desiredTemp > currentTemp && isitwinter && !auto && hvac) ||(auto && isitwinter && outsidetemp > currentTemp&& hvac) ) {
+        } else if ((desiredTemp > currentTemp  && !auto && hvac) ||(auto  && outsidetemp > currentTemp && hvac )) {
             scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         } else {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
