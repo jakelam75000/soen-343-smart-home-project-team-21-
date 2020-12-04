@@ -52,7 +52,7 @@ public class HVACComponent extends RoomComponent {
 
         FontMetrics metrics = g.getFontMetrics();
 
-        if ( (tempIsDesiredTemp && !auto) || (auto && isOutsideTempTheSame)||(desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) ) {
+        if ( (tempIsDesiredTemp && !auto) || (auto && (isOutsideTempTheSame || (outsidetemp < currentTemp && isitwinter) || (outsidetemp > currentTemp && !isitwinter)))||(desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) ) {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
