@@ -42,6 +42,9 @@ public class SetSeasons extends JFrame{
     public void addActionListeners() {
         ConfimSeasonsButton.addActionListener(new ActionListener() {
             @Override
+            /**
+             * sets the season interval (its stored as a 2 int array)
+             */
             public void actionPerformed(ActionEvent e) {
                 int fmonth = (Integer)startWinterMonthSpinner.getValue();
                 int fday =  (Integer)startWinterDaySpinner.getValue();
@@ -54,6 +57,9 @@ public class SetSeasons extends JFrame{
         });
         CancelSeasonButton.addActionListener(new ActionListener() {
             @Override
+            /**
+             * meant to close the window
+             */
             public void actionPerformed(ActionEvent e) {
                 self.setVisible(false);
             }

@@ -1498,31 +1498,65 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     /**
-     * getters and setter for seasons and season temp
-     * @return
+     * getter
+     * @return int[] the to seasons array ([0] = month, [1] = day)
      */
     public int[] getfromseasons(){ return fromseasonsmonth;}
 
+    /**
+     * getter
+     * @return int[] the to seasons array ([0] = month, [1] = day)
+     */
     public int[] gettoseason(){return toseasonsmonth;}
 
+    /**
+     * setter
+     * @param month int the day of the beggining of winter
+     * @param day int the day of the beggining of winter
+     */
     public void setfromseaons(int month,int day){
         fromseasonsmonth[0] = month;
         fromseasonsmonth[1] = day;
     }
 
+    /**
+     * setter
+     * @param month int the month of the end of winter
+     * @param day int the day of the end of winter
+     */
     public void settoseaons(int month,int day){
         toseasonsmonth[0] = month;
         toseasonsmonth[1] = day;
     }
 
+    /**
+     * getter
+     * @return int winter temp
+     */
     public int getWintertemp(){ return wintertemp; }
 
+    /**
+     * getter
+     * @return int summer temp
+     */
     public int getSummertemp(){return summertemp;}
 
+    /**
+     * getter
+     * @return boolean if the system is in away mode
+     */
     public boolean isAwayModeOn(){return awayModeCheckbox.isSelected();}
 
+    /**
+     * getter
+     * @return returns all rooms from house
+     */
     public Room[] getallrooms(){return house.getRoomsList();}
 
+    /**
+     * checks if the current day is within the winter interval
+     * @return boolean if it is or isnt winter
+     */
     public boolean isItWinter(){
         if (comboMonth.getSelectedItem() == null || dateLabel.getText().split(" ").length < 2)return false;
         String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
@@ -1557,6 +1591,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         return false;
     }
 
+    /**
+     * getter
+     * @return double the outside temp value
+     */
     public double getOutsidetemp(){
         if (outsidetempvalue.getText().split("°")[0].equalsIgnoreCase(""))return 0;
         String s = outsidetempvalue.getText();
@@ -1564,6 +1602,10 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         return (double)Integer.parseInt(sp[0]);
     }
 
+    /**
+     * setter for summer temp
+     * @param tem int new summer temp
+     */
     public void setSummertemp(int tem){summertemp = tem;}
 
     /**

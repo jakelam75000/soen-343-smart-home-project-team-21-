@@ -9,14 +9,28 @@ public class SHH implements Observer{
         instance = new SHH();
     }
 
+    /**
+     * empty constructor for shh
+     */
     private SHH(){}
 
+    /**
+     * singleton implementation
+     * @return the only allowed instance
+     */
     public static SHH getInstance(){
         return instance;
     }
 
+    /**
+     * sets the caller object to shd (for getting rooms and other functions associated with SmartHomeDashboard
+     * @param shd smarthomedashboard that is using this instace of shh
+     */
     public void setCaller(SmartHomeDashboard shd){caller = shd;}
 
+    /**
+     * method used to set up the zone temperature block including the periods and desired temp spinner
+     */
     public void setUpZoneTempBlock(){
         caller.clearZoneTemp();
 
@@ -31,6 +45,9 @@ public class SHH implements Observer{
         caller.setTempZoneSpinnerModel(new SpinnerNumberModel(0,-90,57,1));
     }
 
+    /**
+     * method to set up the room temperature block for override
+     */
     public void setUpRoomTempBlock(){
         caller.clearRoomTemp();
 
@@ -45,6 +62,9 @@ public class SHH implements Observer{
         caller.setTempZoneSpinnerModel(new SpinnerNumberModel(0, -90, 57, 1));
     }
 
+    /**
+     * updates the zoneblock by clearing and getting the new values
+     */
     public void updateZoneBlock(){
         caller.clearZoneTemp();
 
@@ -55,6 +75,9 @@ public class SHH implements Observer{
         updateZoneTempSpinner();
     }
 
+    /**
+     *updates the zone temp spinner with the current zone tempreture
+     */
     public void updateZoneTempSpinner(){
         String periodName = caller.getSelectedPeriod();
         if(periodName == null)
@@ -76,6 +99,9 @@ public class SHH implements Observer{
         caller.setTempZoneSpinnerValue(temperature);
     }
 
+    /**
+     *method to update the room tempreture spinner
+     */
     public void updateRoomTempSpinner(){
         ZoneManager.updateDesiredTempPeriod(period);
 
@@ -91,6 +117,9 @@ public class SHH implements Observer{
         checkOverride(roomName, temperature, false);
     }
 
+    /**
+     *sets the zone temperature to the one from the spinner and clears overrides
+     */
     public void setZoneTemperature(){
         String zoneName = caller.getSelectedZone();
         double temperature = caller.getTempZoneSpinnerValue();
@@ -105,6 +134,9 @@ public class SHH implements Observer{
         caller.updateHouseLayout();
     }
 
+    /**
+     *sets the desired temperature of the selected room
+     */
     public void setRoomTemperature(){
         String roomName = caller.getSelectedRoom();
         double temperature = caller.getTempRoomSpinnerValue();
@@ -114,6 +146,12 @@ public class SHH implements Observer{
         checkOverride(roomName, temperature, true);
     }
 
+    /**
+     *checks if a given room is overridden (for the shh gui to show overridden)
+     * @param roomName
+     * @param temperature
+     * @param addToOverride
+     */
     private void checkOverride(String roomName, double temperature, boolean addToOverride){
         boolean roomInZone = false;
 

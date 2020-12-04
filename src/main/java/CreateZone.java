@@ -58,6 +58,10 @@ public class CreateZone extends JFrame{
         this.caller = caller;
     }
 
+    /**
+     *
+     * @param rooms
+     */
     public void setRooms(Room[] rooms){
         this.rooms = rooms;
     }
@@ -138,6 +142,9 @@ public class CreateZone extends JFrame{
         });
     }
 
+    /**
+     * clears all fields in create zone
+     */
     private void clearAllField() {
         zoneName.setText("");
         roomNameCombo.removeAllItems();
