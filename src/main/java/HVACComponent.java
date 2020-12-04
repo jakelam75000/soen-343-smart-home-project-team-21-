@@ -45,10 +45,9 @@ public class HVACComponent extends RoomComponent {
             return;
 
         } else {
-//            if(!room.isAWindowopen()) {
-                if (desiredTemp < currentTemp) {
+                if (desiredTemp < currentTemp && !room.isAWindowopen()) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else if (desiredTemp > currentTemp) {
+                } else if (desiredTemp > currentTemp ) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
                 } else {return;}
 
