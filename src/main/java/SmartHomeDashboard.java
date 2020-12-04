@@ -176,7 +176,14 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         super(title);
         Type.setText(type);
         Username.setText(username);
-        house = HouseReader.readAndLoadHouse(housefilepath);
+
+        try {
+            house = HouseReader.readAndLoadHouse(housefilepath);
+        }
+        catch(WrongExtensionException e){
+            System.out.println(e.getMessage());
+        }
+
         ZoneManager.setHouse(house);
         self = this;
 

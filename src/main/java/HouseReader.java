@@ -16,14 +16,12 @@ public class HouseReader {
      * @param filename the file path to the houselayout txt file
      * @return House returns a house object loaded with the rooms and smartobj
      */
-    public static House readAndLoadHouse(String filename) {
+    public static House readAndLoadHouse(String filename) throws WrongExtensionException{
 
         //try, catch and lines 12,13,14,15,18-20 were taken from https://www.w3schools.com/java/java_files_read.asp
         //these variables are storages for the objects
-        if (!filename.contains(".txt")){
-            System.out.println("file is not a txt file");
-            return null;
-        }
+        if (!filename.contains(".txt")) throw new WrongExtensionException("File is not a .txt file.");
+
         House mainhouse = null;
         Room[] listofrooms;
         Smartobj[] smartobjByRoom;

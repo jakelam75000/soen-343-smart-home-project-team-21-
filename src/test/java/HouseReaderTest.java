@@ -15,7 +15,13 @@ class HouseReaderTest {
     @Test
     public void testReadAndLoadHouse() {
 
-        House testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
+        House testHouse = null;
+        try {
+           testHouse =  HouseReader.readAndLoadHouse("Houselayout.txt");
+        } catch (WrongExtensionException e){
+            System.out.println(e.getMessage());
+            fail();
+        }
         Room room1 = testHouse.getRoomAtIndex(0);
         Room room2 = testHouse.getRoomAtIndex(2);
         Room room3 = testHouse.getRoomAtIndex(3);

@@ -156,7 +156,14 @@ public class Login extends JFrame {
 
         if (lasthousefilepath != null) f = new File(lasthousefilepath);
 
-        if (f!=null)temp = HouseReader.readAndLoadHouse(f.getPath());
+        if (f!=null) {
+            try {
+                temp = HouseReader.readAndLoadHouse(f.getPath());
+            } catch(WrongExtensionException e){
+                System.out.println(e.getMessage());
+                temp=null;
+            }
+        }
         else temp = null;
 
         if(user != null && f!=null && f.exists() && f.isFile() && temp!=null) {

@@ -5,8 +5,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContextOfSimulationTest {
 
@@ -18,7 +17,13 @@ public class ContextOfSimulationTest {
     //Delivery 1
     @Test
     public void testBlockWindow() {
-        House testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
+        House testHouse = null;
+        try {
+            testHouse = HouseReader.readAndLoadHouse("Houselayout.txt");
+        } catch(WrongExtensionException e){
+            System.out.println(e.getMessage());
+            fail();
+        }
         Room room1 = testHouse.getRoomAtIndex(0);
         assertEquals(true, room1.blockWindow(room1.getName(), true));
     }
