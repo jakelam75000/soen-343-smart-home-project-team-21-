@@ -314,7 +314,7 @@ public class Room {
             if (smartobjects[i].getType() != SmartObjectType.WINDOW) continue;
             Window w = (Window)smartobjects[i];
             if (w!=null)
-                if (!w.isOpen()) b = true;
+                if (w.isOpen()) b = true;
         }
         return b;
     }

@@ -48,11 +48,11 @@ public class HVACComponent extends RoomComponent {
 
         //boolean to check if the current temp is the same as the desired temp
         tempIsDesiredTemp = (desiredTemp == currentTemp || (desiredTemp < currentTemp + 0.005001 && desiredTemp > currentTemp - 0.005001));
-
+        boolean isOutsideTempTheSame =(outsidetemp == currentTemp || (outsidetemp < currentTemp + 0.005001 && outsidetemp > currentTemp - 0.005001));
 
         FontMetrics metrics = g.getFontMetrics();
 
-        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (!room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) || (!(auto && !isitwinter && outsidetemp < currentTemp) && !(auto && isitwinter && outsidetemp > currentTemp))) {
+        if ( (tempIsDesiredTemp && !auto) || (auto && isOutsideTempTheSame)||(desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) ) {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
@@ -66,7 +66,7 @@ public class HVACComponent extends RoomComponent {
             return;
         // if not, corresponding icons for cooling and heating are displayed
         } else {
-                if ((desiredTemp < currentTemp && room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
+                if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
                 } else if ((desiredTemp > currentTemp && isitwinter && !auto ) ||(auto && isitwinter && outsidetemp > currentTemp) ) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
