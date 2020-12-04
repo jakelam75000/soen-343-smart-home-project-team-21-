@@ -50,8 +50,10 @@ public class SetSeasons extends JFrame{
                 int fday =  (Integer)startWinterDaySpinner.getValue();
                 int lmonth = (Integer)EndWinterMonthSpinner.getValue();
                 int lday =  (Integer)EndWinterDaySpinner.getValue();
-                caller.setfromseaons(fmonth,fday);
-                caller.settoseaons(lmonth,lday);
+                int[] ar = {fmonth, fday};
+                caller.setfromseaons(ar);
+                int[] ar2 = {lmonth, lday};
+                caller.settoseaons(ar2);
                 self.setVisible(false);
             }
         });
