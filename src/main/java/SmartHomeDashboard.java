@@ -1580,6 +1580,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public void setSummertemp(int tem){summertemp = tem;}
 
     /**
+     * setter for witner temp
+     * @param temp int new winter temp
+     */
+    public void setWintertemp(int temp){wintertemp = temp;}
+
+    /**
      * Sets the label of the room temp spinner to either "Temp:" or "Temp: (Overridden)"
      * depending on the boolean value passed
      * @param overridden If true, includes "(Overridden)" in the label; If false, removes the "(Overriden)" from the label

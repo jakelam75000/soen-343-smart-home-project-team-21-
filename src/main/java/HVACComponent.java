@@ -39,7 +39,7 @@ public class HVACComponent extends RoomComponent {
      */
     @Override
     public void draw(Graphics g) {
-
+        boolean hvac = SHH.getInstance().isHvacon();
         double desiredTemp = room.getDesiredTemp();
         double currentTemp = room.getTemperature();
         String displayTemp = String.format("%.2f", currentTemp) + "ºC";
@@ -51,9 +51,9 @@ public class HVACComponent extends RoomComponent {
         boolean isOutsideTempTheSame =(outsidetemp == currentTemp || (outsidetemp < currentTemp + 0.005001 && outsidetemp > currentTemp - 0.005001));
 
         FontMetrics metrics = g.getFontMetrics();
-        if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
+        if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto && hvac) || (auto && !isitwinter && outsidetemp < currentTemp&& hvac)) {
             scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-        } else if ((desiredTemp > currentTemp && isitwinter && !auto ) ||(auto && isitwinter && outsidetemp > currentTemp) ) {
+        } else if ((desiredTemp > currentTemp && isitwinter && !auto && hvac) ||(auto && isitwinter && outsidetemp > currentTemp&& hvac) ) {
             scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
         } else {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
