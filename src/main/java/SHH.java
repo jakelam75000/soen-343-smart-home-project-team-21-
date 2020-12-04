@@ -211,7 +211,10 @@ public class SHH implements Observer{
                 if (rooms[i].getName().contains("STOOP"))continue;
                  closeallwindows = false;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature())
-                    if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                    if (!rooms[i].openAllwindows()){
+                        rooms[i].closeAllWindows();
+                        shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                    }
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature())
                     if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (rooms[i].getTemperature() < 1){
@@ -263,7 +266,10 @@ public class SHH implements Observer{
             if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.getSummertemp() < rooms[i].getTemperature()-0.04){
                 closeallwindows = true;
-                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows()){
+                    rooms[i].closeAllWindows();
+                    shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
+                }
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (rooms[i].getTemperature() <1){
                     shd.printToConsole("Warning cold temperatures may burst pipes, keeping temperature to 1 Celsius");
