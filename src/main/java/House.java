@@ -238,6 +238,12 @@ public class House {
         return true;
     }
 
+    /**
+     * Sets the a specific room's desired temperature
+     *
+     * @param roomName Name of the room.
+     * @param temperature The desired temperature the room will be set to
+     */
     public void setRoomDesiredTemp(String roomName, double temperature){
         for(Room room : rooms) {
             if (room.getName().equalsIgnoreCase(roomName)) {

@@ -180,6 +180,7 @@ public class SHH implements Observer{
         }
         if (closeallwindows)shd.getHouse().closeAllWindows();
     }
+
     /**
      * heats the rooms according to the set seasonal preferred temperature
      * @param rooms the lsit of rooms to be checked
@@ -197,6 +198,7 @@ public class SHH implements Observer{
         }
         if (closeallwindows)shd.getHouse().closeAllWindows();
     }
+
     /**
      * cools the rooms according to the set seasonal preferred temperature
      * @param rooms the lsit of rooms to be checked

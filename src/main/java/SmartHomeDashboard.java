@@ -1375,48 +1375,90 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public JList<SmartObjectType> getListItems() { return listItems; }
 
+    /**
+     * Adds the passed string to the zones combo box.
+     *
+     * @param item Item to be added to the zones combo box.
+     */
     public void addZonesComboItem(String item){
         zonesCombo.addItem(item);
     }
 
+    /**
+     * Adds the passed string to the period combo box.
+     *
+     * @param item Item to be added to the period combo box.
+     */
     public void addPeriodComboItem(String item){ periodCombo.addItem(item); }
 
+    /**
+     * @return The selected period in the period combo box.
+     */
     public String getSelectedPeriod(){
         return (String) periodCombo.getSelectedItem();
     }
 
+    /**
+     * @return The selected zone in the zones combo box.
+     */
     public String getSelectedZone(){
         return (String) zonesCombo.getSelectedItem();
     }
 
+    /**
+     * Sets the model of the zone temperature spinner.
+     * @param snm The model to be set to.
+     */
     public void setTempZoneSpinnerModel(SpinnerNumberModel snm){
         tempZoneSpinner.setModel(snm);
     }
 
+    /**
+     * Sets the value of the zone temperature spinner.
+     * @param value the new value of the zone spinner
+     */
     public void setTempZoneSpinnerValue(double value){
         tempZoneSpinner.setValue(value);
     }
 
+    /**
+     * @return the value of the zone temperature spinner
+     */
     public double getTempZoneSpinnerValue(){
         return Double.parseDouble(tempZoneSpinner.getValue().toString());
     }
 
-    public void addRoomTempComboItem(String item){
-        roomTempCombo.addItem(item);
-    }
+    /**
+     * Adds the passed string to the room temperature combo box.
+     *
+     * @param item Item to be added to the room temperature combo box.
+     */
+    public void addRoomTempComboItem(String item){ roomTempCombo.addItem(item); }
 
-    public String getSelectedRoom(){
-        return (String)roomTempCombo.getSelectedItem();
-    }
+    /**
+     * @return The selected room temperature combo item.
+     */
+    public String getSelectedRoom(){ return (String)roomTempCombo.getSelectedItem(); }
 
+    /**
+     * Sets the model of the room temp spinner.
+     * @param snm The model to be set to.
+     */
     public void setTempRoomSpinnerModel(SpinnerNumberModel snm){
         tempRoomSpinner.setModel(snm);
     }
 
+    /**
+     * Sets the value to the room temperature spinner.
+     * @param value The new value of the room tempeature spinner.
+     */
     public void setTempRoomSpinnerValue(double value){
         tempRoomSpinner.setValue(value);
     }
 
+    /**
+     * @return The room temperature spinner value.
+     */
     public double getTempRoomSpinnerValue(){
         if (tempRoomSpinner.getValue() instanceof  Integer){
             int i = ((Integer) tempRoomSpinner.getValue()).intValue();
@@ -1425,19 +1467,31 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         else return (double)tempRoomSpinner.getValue();
     }
 
+    /**
+     * Clears the zone temperature combo.
+     */
     public void clearZoneTemp(){
         zonesCombo.removeAllItems();
     }
 
+    /**
+     * Clears the room temperature combo.
+     */
     public void clearRoomTemp(){
         roomTempCombo.removeAllItems();
     }
 
+    /**
+     * Updates the zone temperature block.
+     */
     public void updateZoneTempBlock(){
         shh.updateZoneBlock();
         updateHouseLayout();
     }
 
+    /**
+     * Updates the room temperature block.
+     */
     public void updateRoomTempBlock(){
         shh.updateRoomTempSpinner();
         updateHouseLayout();
@@ -1512,6 +1566,11 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void setSummertemp(int tem){summertemp = tem;}
 
+    /**
+     * Sets the label of the room temp spinner to either "Temp:" or "Temp: (Overridden)"
+     * depending on the boolean value passed
+     * @param overridden If true, includes "(Overridden)" in the label; If false, removes the "(Overriden)" from the label
+     */
     public void setRoomTempOverridden(boolean overridden) {
         if(overridden){
             roomTempLabel.setText("Temp:(Overridden)");
