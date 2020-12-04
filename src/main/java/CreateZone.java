@@ -164,4 +164,20 @@ public class CreateZone extends JFrame{
         addedRoomNameCombo.removeAllItems();
         zoneNameWarning.setVisible(false);
     }
+
+    /**
+     * getter methods
+     * @return JtextField
+     */
+    public JTextField getZoneName(){return zoneName;}
+    /**
+     * getter methods
+     * @return Jbutton
+     */
+    public JButton getAddRoomButton(){return addRoomButton;}
+    /**
+     * getter methods
+     * @return Jbutton
+     */
+    public JButton getCreateZoneButton(){return createZoneButton;}
 }
