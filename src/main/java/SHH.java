@@ -226,12 +226,13 @@ private PeriodsOfDay period;
                 autocoolrooms(rooms,shd);
             }
         }
-        else{
-            if (isWinter){
-                heatrooms(rooms,shd);
-            }else {
-                coolrooms(rooms,shd);
+        else {
+            if (isWinter) {
+                heatrooms(rooms, shd);
+            } else {
+                coolrooms(rooms, shd);
             }
+        }
 //        }
        shd.updateHouseLayout();
 
