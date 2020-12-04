@@ -14,6 +14,8 @@ public class HVACComponent extends RoomComponent {
     private Room room;
     private boolean tempIsDesiredTemp = true;
     private boolean isitwinter;
+    private  boolean auto;
+    private double outsidetemp;
 
     /**
      * constructor method of the class
@@ -22,10 +24,12 @@ public class HVACComponent extends RoomComponent {
      * @param room
      * @param b
      */
-    public HVACComponent(JPanel panel, RoomRectangle roomRect, Room room, boolean b){
+    public HVACComponent(JPanel panel, RoomRectangle roomRect, Room room, boolean b, boolean a, double c){
         super(panel, roomRect);
         this.room = room;
         isitwinter = b;
+        auto = a;
+        outsidetemp = c;
     }
 
 
@@ -48,7 +52,7 @@ public class HVACComponent extends RoomComponent {
 
         FontMetrics metrics = g.getFontMetrics();
 
-        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter)||(desiredTemp < currentTemp && isitwinter ) || (!room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter)) {
+        if (tempIsDesiredTemp || (desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (!room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) || (!(auto && !isitwinter && outsidetemp < currentTemp) && !(auto && isitwinter && outsidetemp > currentTemp))) {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
@@ -62,9 +66,9 @@ public class HVACComponent extends RoomComponent {
             return;
         // if not, corresponding icons for cooling and heating are displayed
         } else {
-                if (desiredTemp < currentTemp && room.isAWindowopen() && !isitwinter) {
+                if ((desiredTemp < currentTemp && room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else if (desiredTemp > currentTemp && isitwinter ) {
+                } else if ((desiredTemp > currentTemp && isitwinter && !auto ) ||(auto && isitwinter && outsidetemp > currentTemp) ) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
                 } else {return;}
 

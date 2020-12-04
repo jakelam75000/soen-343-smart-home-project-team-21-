@@ -187,7 +187,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.setBounds(x, y, width, height);
         this.setResizable(false);
 
-        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
+        if (isItWinter())dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter(),isAwayModeOn(),getWintertemp());
+        else dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter(),isAwayModeOn(),getSummertemp());
         HouseLayout.add(dynamicLayout, BorderLayout.CENTER);
 
         edit.setCaller(this);
@@ -1099,7 +1100,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public void updateHouseLayout(){
         HouseLayout.remove(dynamicLayout);
-        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
+        if (isItWinter())dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter(),isAwayModeOn(),getWintertemp());
+        else dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter(),isAwayModeOn(),getSummertemp());
         HouseLayout.add(dynamicLayout);
     }
 
@@ -1503,6 +1505,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     public double getOutsidetemp(){
+        if (outsidetempvalue.getText().split("°")[0].equalsIgnoreCase(""))return 0;
         String s = outsidetempvalue.getText();
         String[] sp = s.split("°");
         return (double)Integer.parseInt(sp[0]);
