@@ -26,7 +26,7 @@ public class HVACComponent extends RoomComponent {
         int stringX;
         int stringY;
 
-        tempIsDesiredTemp = desiredTemp == currentTemp;
+        tempIsDesiredTemp = (desiredTemp == currentTemp || (desiredTemp < currentTemp + 0.005001 && desiredTemp > currentTemp - 0.005001));
 
 
         FontMetrics metrics = g.getFontMetrics();
