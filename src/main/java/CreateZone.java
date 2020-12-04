@@ -149,9 +149,10 @@ public class CreateZone extends JFrame{
     /**
      * clears all fields in create zone
      */
-    private void clearAllField() {
+    public void clearAllField() {
         zoneName.setText("");
         roomNameCombo.removeAllItems();
         addedRoomNameCombo.removeAllItems();
+        zoneNameWarning.setVisible(false);
     }
 }
