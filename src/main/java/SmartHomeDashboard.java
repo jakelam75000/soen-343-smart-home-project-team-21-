@@ -356,6 +356,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 wintertemp = (Integer)winterTempSpinner.getValue();
                 summertemp = (Integer)summerTempSpinner.getValue();
+                printToConsole("seasons temperature set!");
             }
         });
 
