@@ -15,7 +15,7 @@ public class ZoneManager {
     //This is for the create zone form
 
     /**
-     * prepares the dropdown for adding roomes to zone
+     * prepares the dropdown for adding rooms to zone
      * @param roomNameCombo the combo box that is having elements added to it
      * @param roomNames the list of all rooms as strings
      */
