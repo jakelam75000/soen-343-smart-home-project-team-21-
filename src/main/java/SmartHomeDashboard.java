@@ -137,8 +137,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private DynamicLayout dynamicLayout;
     private String[] automatedLights;
     private List<Observer> observers = new ArrayList<Observer>();
-    private int[] fromseasonsmonth = new int[2];
-    private int[] toseasonsmonth = new int[2];
+    private int[] fromseasonsmonth = {1,1};
+    private int[] toseasonsmonth = {1,1};
     private int wintertemp;
     private int summertemp;
     JCheckBox[] itemsArr;
@@ -1484,6 +1484,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         }
         else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] > toseasonsmonth[1]){
             if (tempmonth != fromseasonsmonth[0] || (tempday <= fromseasonsmonth[1] && tempday >= toseasonsmonth[1]))return true;
+        }
+        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] == toseasonsmonth[1]){
+            if (tempday == fromseasonsmonth[1] && tempmonth == fromseasonsmonth[0])return true;
         }
         else if (fromseasonsmonth[0] > toseasonsmonth[0]){
             if ((fromseasonsmonth[0] < tempmonth || tempmonth < toseasonsmonth[0]))return true;
