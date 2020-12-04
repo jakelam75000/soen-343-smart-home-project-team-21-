@@ -1,9 +1,8 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class SHH implements Observer{
-private PeriodsOfDay period;
 
+    private PeriodsOfDay period;
     private static SHH instance;
     private SmartHomeDashboard caller;
     static {
@@ -53,10 +52,10 @@ private PeriodsOfDay period;
             caller.addZonesComboItem(zone.getName());
         }
 
-        updateZoneTempValue();
+        updateZoneTempSpinner();
     }
 
-    public void updateZoneTempValue(){
+    public void updateZoneTempSpinner(){
         String periodName = caller.getSelectedPeriod();
         if(periodName == null)
             return;
@@ -77,7 +76,7 @@ private PeriodsOfDay period;
         caller.setTempZoneSpinnerValue(temperature);
     }
 
-    public void updateRoomTempValue(){
+    public void updateRoomTempSpinner(){
         String roomName = caller.getSelectedRoom();
         double temperature = 0;
         for (Room room : caller.getHouse().getRoomsList()){
@@ -86,6 +85,8 @@ private PeriodsOfDay period;
         }
 
         caller.setTempRoomSpinnerValue(temperature);
+
+        checkOverride(roomName, temperature, false);
     }
 
     public void setZoneTemperature(){
@@ -98,6 +99,7 @@ private PeriodsOfDay period;
         PeriodsOfDay period = PeriodsOfDay.valueOf(periodName);
 
         ZoneManager.setZoneTemp(zoneName, period, temperature);
+        ZoneManager.clearOverridden(zoneName);
         caller.updateHouseLayout();
     }
 
@@ -106,7 +108,32 @@ private PeriodsOfDay period;
         double temperature = caller.getTempRoomSpinnerValue();
 
         caller.getHouse().setRoomDesiredTemp(roomName, temperature);
+
+        checkOverride(roomName, temperature, true);
     }
+
+    private void checkOverride(String roomName, double temperature, boolean addToOverride){
+        boolean roomInZone = false;
+
+        for(Zone zone : ZoneManager.getZoneList()){
+            if(zone.containsRoom(new Room(new Smartobj[0], roomName, 0, 1, 1))){
+
+                if(addToOverride) ZoneManager.addOverridden(roomName, zone.getName());
+
+                roomInZone = true;
+
+                if(zone.getDesiredTemperature(period) != temperature) caller.setRoomTempOverridden(true);
+                else caller.setRoomTempOverridden(false);
+
+                break;
+            }
+        }
+
+
+
+        if(!roomInZone) caller.setRoomTempOverridden(false);
+    }
+
     /**
      * heats the rooms according to their own preferred temperature
      * @param rooms the list of rooms to be checked
@@ -235,9 +262,8 @@ private PeriodsOfDay period;
                 coolrooms(rooms, shd);
             }
         }
-//        }
-       shd.updateHouseLayout();
 
+       shd.updateHouseLayout();
     }
 
 }

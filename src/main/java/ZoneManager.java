@@ -107,15 +107,24 @@ public class ZoneManager {
                 return;
             }
         }
-
     }
 
     public static void updateDesiredTempPeriod(PeriodsOfDay period){
         for (Zone zone:zones.values()) { zone.updatedesiredTempPeriod(period); }
     }
 
+    public static void addOverridden(String roomName, String zoneName){
+        zones.get(zoneName).addOverridden(roomName);
+    }
+
+    public static void clearOverridden(String zoneName){
+        zones.get(zoneName).clearOverridden();
+    }
+
     public static void setHouse(House h){
         house = h;
 
     }
+
+
 }
