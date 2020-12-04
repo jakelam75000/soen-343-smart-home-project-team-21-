@@ -92,6 +92,7 @@ public class CreateZone extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 self.setVisible(false);
                 clearAllField();
+                caller.getCreateZone().setEnabled(true);
             }
         });
 
@@ -144,6 +145,7 @@ public class CreateZone extends JFrame{
                 caller.updateZoneRooms();
                 caller.updateZoneTempBlock();
                 caller.updateRoomTempBlock();
+                caller.getCreateZone().setEnabled(true);
             }
         });
 
@@ -151,6 +153,7 @@ public class CreateZone extends JFrame{
             @Override
             public void windowClosing(WindowEvent e) {
                 clearAllField();
+                caller.getCreateZone().setEnabled(true);
             }
         });
     }

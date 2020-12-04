@@ -336,8 +336,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 createZoneForm.setRooms(house.getRoomsList());
                 createZoneForm.setRoomNames(house.getRoomNames());
                 createZoneForm.setVisible(true);
+                createZone.setEnabled(false);
                 updateHouseLayout();
-
             }
         });
 
@@ -1623,4 +1623,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * @return SHH
      */
     public SHH getShh(){return shh;}
+
+    public JButton getCreateZone(){return createZone;}
 }
