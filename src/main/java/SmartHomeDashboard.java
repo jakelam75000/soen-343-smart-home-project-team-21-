@@ -335,12 +335,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
             }
         });
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                createZoneForm.clearAllField();
-            }
-        });
 
         this.addWindowListener(new WindowAdapter() {
             @Override
