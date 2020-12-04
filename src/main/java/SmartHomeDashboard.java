@@ -1626,4 +1626,33 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             roomTempLabel.setText("Temp:");
         }
     }
+
+    /**
+     * getter method for testing
+     * @return Jspinner
+     */
+    public JSpinner getTempZoneSpinner(){return  tempZoneSpinner;}
+
+    /**
+     * getter method for testing
+     * @return Jbutton
+     */
+    public JButton getSetZoneTempButton(){return setZoneTempButton;}
+
+    /**
+     * getter method for testing
+     * @return JComboBox<String>
+     */
+    public JComboBox<String> getPeriodCombo(){return periodCombo;}
+
+    /**
+     * getter method for testing
+     * @return JComboBox<String>
+     */
+    public JComboBox<String> getZonesCombo(){return zonesCombo;}
+    /**
+     * getter method for testing
+     * @return SHH
+     */
+    public SHH getShh(){return shh;}
 }
