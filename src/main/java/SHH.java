@@ -263,7 +263,7 @@ public class SHH implements Observer{
 
     /**
      * the hvac system which changes the rooms temperature based on the zone or away mode
-     * @param o
+     * @param o The object to be observed and updated
      */
     @Override
     public void update(Observable o) {
