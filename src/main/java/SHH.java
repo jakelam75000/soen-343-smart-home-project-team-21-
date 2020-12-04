@@ -77,6 +77,8 @@ public class SHH implements Observer{
     }
 
     public void updateRoomTempSpinner(){
+        ZoneManager.updateDesiredTempPeriod(period);
+
         String roomName = caller.getSelectedRoom();
         double temperature = 0;
         for (Room room : caller.getHouse().getRoomsList()){

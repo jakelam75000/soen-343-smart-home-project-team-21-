@@ -563,7 +563,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                String s =timeLabel.getText();
+                String s = timeLabel.getText();
                 s = updatetime(s);
                 timeLabel.setText(s);
                 notifyObservers(self);
@@ -624,7 +624,6 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 shh.setZoneTemperature();
                 shh.updateRoomTempSpinner();
                 updateHouseLayout();
-
             }
         });
 
