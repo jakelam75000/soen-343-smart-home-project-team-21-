@@ -6,6 +6,7 @@ public class Zone {
     private String name;
     private Map<PeriodsOfDay, Double> desiredTemperature = new HashMap<PeriodsOfDay, Double>();
     private ArrayList<Room> rooms;
+    private ArrayList<String> overriddenRooms = new ArrayList<>();
 
     public Zone(String name, double desiredTemperature, ArrayList<Room> rooms){
         this.name = name;
@@ -53,7 +54,9 @@ public class Zone {
     }
 
     public void updatedesiredTempPeriod(PeriodsOfDay period){
-        for (Room room:rooms) { room.setDesiredTemp(desiredTemperature.get(period)); }
+        for (Room room:rooms) {
+            if(!overriddenRooms.contains(room.getName())) room.setDesiredTemp(desiredTemperature.get(period));
+        }
     }
 
     public void setRooms(ArrayList<Room> rooms) {
@@ -65,6 +68,16 @@ public class Zone {
             if(curoom.getName().contains(room.getName()))return true;
         }
         return false;
+    }
+
+    public void addOverridden(String roomName){
+        if(overriddenRooms.contains(roomName)) return;
+
+        overriddenRooms.add(roomName);
+    }
+
+    public void clearOverridden(){
+        overriddenRooms.clear();
     }
 
     public Zone clone(){

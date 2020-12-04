@@ -129,6 +129,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     private JButton setDefaultTempForSeasonsButton;
     private JComboBox<String> zoneNameCombo;
     private JButton saveZoneButton;
+    private JLabel roomTempLabel;
     private JLabel selectLocationLabel;
     private Timer timer;
     private House house;
@@ -604,7 +605,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         zonesCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shh.updateZoneTempValue();
+                shh.updateZoneTempSpinner();
             }
         });
 
@@ -614,7 +615,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
                     return;
                 } else {
-                    shh.updateRoomTempValue();
+                    shh.updateRoomTempSpinner();
                 }
             }
         });
@@ -623,7 +624,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             @Override
             public void actionPerformed(ActionEvent e) {
                 shh.setZoneTemperature();
-                shh.updateRoomTempValue();
+                shh.updateRoomTempSpinner();
                 updateHouseLayout();
 
             }
@@ -1433,7 +1434,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     }
 
     public void updateRoomTempBlock(){
-        shh.updateRoomTempValue();
+        shh.updateRoomTempSpinner();
         updateHouseLayout();
     }
 
@@ -1505,4 +1506,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void setSummertemp(int tem){summertemp = tem;}
 
+    public void setRoomTempOverridden(boolean overridden) {
+        if(overridden){
+            roomTempLabel.setText("Temp:(Overridden)");
+        }
+        else{
+            roomTempLabel.setText("Temp:");
+        }
+    }
 }
