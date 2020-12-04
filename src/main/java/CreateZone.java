@@ -66,6 +66,10 @@ public class CreateZone extends JFrame{
         this.rooms = rooms;
     }
 
+    /**
+     * Sets the names of the rooms inside the room name combo box.
+     * @param roomNames a list of all the room names.
+     */
     public void setRoomNames(String[] roomNames){
         this.roomNames = roomNames;
         ZoneManager.setRoomNameDropdown(roomNameCombo, roomNames);

@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,14 +51,14 @@ class HouseReaderTest {
 
         assertAll(
                 "Make sure the temperature in each room is correct",
-                () -> assertEquals(20.3, room1.getTemperature()),
-                () -> assertEquals(21.3, room2.getTemperature()),
-                () -> assertEquals(22.0, room3.getTemperature()),
-                () -> assertEquals(20.5, room4.getTemperature()),
-                () -> assertEquals(18.0, room5.getTemperature()),
-                () -> assertEquals(20.3, room6.getTemperature()),
-                () -> assertEquals(20.3, room7.getTemperature()),
-                () -> assertEquals(20.3, room8.getTemperature())
+                () -> assertEquals(20, room1.getTemperature()),
+                () -> assertEquals(21, room2.getTemperature()),
+                () -> assertEquals(22, room3.getTemperature()),
+                () -> assertEquals(20, room4.getTemperature()),
+                () -> assertEquals(18, room5.getTemperature()),
+                () -> assertEquals(20, room6.getTemperature()),
+                () -> assertEquals(20, room7.getTemperature()),
+                () -> assertEquals(20, room8.getTemperature())
         );
     }
 }
