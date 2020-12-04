@@ -115,6 +115,7 @@ private PeriodsOfDay period;
     private void heatrooms(Room[] rooms, SmartHomeDashboard shd){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getName().contains("STOOP"))continue;
             if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
 
                 closeallwindows = false;
@@ -134,6 +135,7 @@ private PeriodsOfDay period;
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
+                if (rooms[i].getName().contains("STOOP"))continue;
                  closeallwindows = false;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) shd.getHouse().closeAllWindows();
@@ -153,8 +155,10 @@ private PeriodsOfDay period;
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
     private void autoheatrooms(Room[] rooms,SmartHomeDashboard shd){
+
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.getWintertemp() > rooms[i].getTemperature()){
                 closeallwindows = false;
                 rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
@@ -170,6 +174,7 @@ private PeriodsOfDay period;
     private void autocoolrooms(Room[] rooms, SmartHomeDashboard shd){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
+            if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.getSummertemp() < rooms[i].getTemperature()){
                 closeallwindows = true;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
@@ -214,24 +219,18 @@ private PeriodsOfDay period;
         }
         ZoneManager.updateDesiredTempPeriod(period);
         boolean isWinter = shd.isItWinter();
-
-//        for (int i =0; i < rooms.length; i ++){
-//            if (rooms[i].getName().contains("STOOP"))continue;
-            if (shd.isAwayModeOn()){
-                if (isWinter){
-                    autoheatrooms(rooms,shd);
-                }else {
-                    autocoolrooms(rooms,shd);
-                }
-                shd.updateHouseLayout();
+        if (shd.isAwayModeOn()){
+            if (isWinter){
+                autoheatrooms(rooms,shd);
+            }else {
+                autocoolrooms(rooms,shd);
             }
-            else{
-                if (isWinter){
-                    heatrooms(rooms,shd);
-                }else {
-                    coolrooms(rooms,shd);
-                }
-                shd.updateHouseLayout();
+        }
+        else{
+            if (isWinter){
+                heatrooms(rooms,shd);
+            }else {
+                coolrooms(rooms,shd);
             }
 //        }
        shd.updateHouseLayout();
