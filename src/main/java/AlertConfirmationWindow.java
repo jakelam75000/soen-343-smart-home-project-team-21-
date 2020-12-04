@@ -32,7 +32,7 @@ public class AlertConfirmationWindow extends JFrame{
         super("Intruder Detected!");
         this.caller = caller;
         multiplier = caller.getMultiplier();
-        int[] formattime = SmartHomeDashboard.Breakdowntime(caller.getTimer());
+        int[] formattime = SmartHomeDashboard.breakDownTime(caller.getTimer());
         int temphr = formattime[0];
         int tempsec = formattime[2];
         int tempmin = formattime[1];
@@ -105,7 +105,7 @@ public class AlertConfirmationWindow extends JFrame{
         String second;
         String hour;
         String minute;
-        int[] temptime = SmartHomeDashboard.Breakdowntime(inputime);
+        int[] temptime = SmartHomeDashboard.breakDownTime(inputime);
         tempmin = temptime[1];
         temphr = temptime[0];
         tempsec = temptime[2];

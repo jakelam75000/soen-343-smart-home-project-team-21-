@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class SHH implements Observer{
 
@@ -294,7 +293,7 @@ public class SHH implements Observer{
     public void update(Observable o) {
         SmartHomeDashboard shd = (SmartHomeDashboard)o;
         Room[] rooms = shd.getallrooms();
-        int[] time = shd.Breakdowntime(shd.getCurrentTime());
+        int[] time = shd.breakDownTime(shd.getCurrentTime());
         if (time[0] >=6 &&time[0] <14 ){
             if (period!= PeriodsOfDay.MORNING){
                 ZoneManager.updateDesiredTempPeriod( PeriodsOfDay.MORNING);

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import javax.swing.Timer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -510,7 +508,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     timer.stop();
 
                     String currentTime = timeLabel.getText();
-                    int[] times = Breakdowntime(currentTime);
+                    int[] times = breakDownTime(currentTime);
                     hourSpinner.setValue((double)times[0]);
                     minuteSpinner.setValue((double)times[1]);
                     secondSpinner.setValue((double)times[2]);
@@ -1000,7 +998,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         String year = comboYear.getItemAt(comboYear.getSelectedIndex());
 
         //format hr.min
-        int[] temptime = Breakdowntime(inputime);
+        int[] temptime = breakDownTime(inputime);
         tempmin = temptime[1];
         temphr = temptime[0];
         tempsec = temptime[2];
@@ -1057,7 +1055,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * @param inputime String of above mentioned format to represent time to be decomposed
      * @return an int array representing a frame of time broken into different int elements
      */
-    static int[] Breakdowntime(String inputime){
+    static int[] breakDownTime(String inputime){
         int[] a = new int[3];
 
         String[] strings = inputime.split(":");
@@ -1530,36 +1528,34 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public boolean isItWinter(){
         if (comboMonth.getSelectedItem() == null || dateLabel.getText().split(" ").length < 2)return false;
-        String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
-        int tempmonth = Months.valueOf(month).ordinal() + 1;
 
-        int tempday;
+        String tempMonth = ((String)comboMonth.getSelectedItem()).toUpperCase();
+        int month = Months.valueOf(tempMonth).ordinal() + 1;
+        int day = comboDay.getSelectedIndex();
 
-        String date = dateLabel.getText();
-        String[] splits = date.split(" ");
-        tempday = Integer.parseInt(splits[2]);
+        int currentDayCount = getDayCount(month, day);
+        int fromDayCount = getDayCount(fromseasonsmonth[0], fromseasonsmonth[1]);
+        int toDayCount =  getDayCount(toseasonsmonth[0], toseasonsmonth[1]);
 
-        if ( fromseasonsmonth[0] < toseasonsmonth[0] ){
-            if (fromseasonsmonth[0] < tempmonth && tempmonth < toseasonsmonth[0])return true;
-            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
-            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
-        }
-        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] < toseasonsmonth[1]){
-            if (tempmonth == fromseasonsmonth[0] && tempday >= fromseasonsmonth[1] && tempday <= toseasonsmonth[1])return true;
-        }
-        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] > toseasonsmonth[1]){
-            if (tempmonth != fromseasonsmonth[0] || (tempday <= fromseasonsmonth[1] && tempday >= toseasonsmonth[1]))return true;
-        }
-        else if (fromseasonsmonth[0] == toseasonsmonth[0] && fromseasonsmonth[1] == toseasonsmonth[1]){
-            if (tempday == fromseasonsmonth[1] && tempmonth == fromseasonsmonth[0])return true;
-        }
-        else if (fromseasonsmonth[0] > toseasonsmonth[0]){
-            if ((fromseasonsmonth[0] < tempmonth || tempmonth < toseasonsmonth[0]))return true;
-            else if (fromseasonsmonth[0] == tempmonth && fromseasonsmonth[1] <= tempday)return true;
-            else if (toseasonsmonth[0] == tempmonth && tempday <=fromseasonsmonth[1]) return true;
-        }
+       if(fromDayCount <= toDayCount) {
+           if (currentDayCount >= fromDayCount && currentDayCount < toDayCount) return true;
+           else return false;
+       }
+       else{
+           if(currentDayCount >= fromDayCount || currentDayCount < toDayCount) return true;
+           else return false;
+       }
+    }
 
-        return false;
+    /**
+     * Calculates the day number that the date corresponds to.
+     * (Jan 1st = 1, Dec 31st = 372, etc) (Each month has 32 days in our world)
+     * @param month The number value corresponding to the month
+     * @param day The number value corresponding to the day
+     * @return The value of the day in the year (out of 372 days)
+     */
+    public int getDayCount(int month, int day){
+        return ((month-1)*31)+day;
     }
 
     /**
