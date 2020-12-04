@@ -67,6 +67,7 @@ public class SetSeasons extends JFrame{
             }
         });
     }
+
     /**
      * Returns the single instance of Edit class.
      * @return
@@ -74,6 +75,7 @@ public class SetSeasons extends JFrame{
     public static SetSeasons getInstance(){
         return instance;
     }
+
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }

@@ -308,7 +308,10 @@ public class Room {
         return b;
     }
 
-
+    /**
+     * Checks if a window is open or not.
+     * @return true if a window is open; Otherwise returns false.
+     */
     public boolean isAWindowopen(){
         boolean b = false;
         for(int i = 0 ; i < smartobjects.length; i++){

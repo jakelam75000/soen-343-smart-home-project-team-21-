@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 /**
  * frame that holds the adduser functionality
@@ -17,10 +18,11 @@ public class AddUser extends JFrame{
     private JLabel addTypeLabel;
     private JButton createUserButton;
     private JButton goBackButton;
-    private JRadioButton strangerRadioButton;
+    private JRadioButton addStranger;
     private AddUser self;
     private SmartHomeDashboard caller;
     private static AddUser instance = new AddUser("Add User");
+    private ButtonGroup buttonGroup;
 
     /**
      * Parameterised constructor.
@@ -37,6 +39,12 @@ public class AddUser extends JFrame{
         self = this;
         this.setResizable(false);
         addActionListeners();
+
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(addParent);
+        buttonGroup.add(addChild);
+        buttonGroup.add(addGuest);
+        buttonGroup.add(addStranger);
     }
 
     /**
@@ -72,17 +80,20 @@ public class AddUser extends JFrame{
                 String password = new String(passwordText.getPassword());
                 UserTypes type = null;
                 // Only can add user there is a password, username and type OR if user is of type stranger it does not need a password
-                if ((strangerRadioButton.isSelected() && !userText.getText().equals("")) ||
+                if ((addStranger.isSelected() && !userText.getText().equals("")) ||
                         (passwordText.getPassword().length != 0 && !userText.getText().equals(""))) {
-                    if(addParent.isSelected()) {
-                        type = UserTypes.PARENT;
-                    } else if(addChild.isSelected()) {
-                        type = UserTypes.CHILD;
-                    } else if (addGuest.isSelected()) {
-                        type = UserTypes.GUEST;
-                    } else if (strangerRadioButton.isSelected()) {
-                        type = UserTypes.STRANGER;
+
+                    //Setting type to the value of the selected radio button.
+                    Enumeration<AbstractButton> enumeration = buttonGroup.getElements();
+                    while(enumeration.hasMoreElements()){
+                        JRadioButton button = (JRadioButton)enumeration.nextElement();
+                        if(button.isSelected()){
+                            System.out.println(button.getActionCommand());
+                            type = UserTypes.valueOf(button.getActionCommand().toUpperCase());
+                            break;
+                        }
                     }
+
                     if(UserManager.addUser(username, password,type)) {
                         caller.printToConsole(userText.getText() +" has been added.");
                     } else {
