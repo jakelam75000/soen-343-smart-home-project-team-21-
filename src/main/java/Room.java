@@ -164,6 +164,7 @@ public class Room {
      */
     public void setTemperature(double desiredtemp){
         temperature = desiredtemp;
+
     }
 
     /**
@@ -306,6 +307,7 @@ public class Room {
         }
         return b;
     }
+
     public boolean isAWindowopen(){
         boolean b = false;
         for(int i = 0 ; i < smartobjects.length; i++){

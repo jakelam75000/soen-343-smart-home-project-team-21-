@@ -186,7 +186,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         this.setBounds(x, y, width, height);
         this.setResizable(false);
 
-        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
         HouseLayout.add(dynamicLayout, BorderLayout.CENTER);
 
         edit.setCaller(this);
@@ -308,6 +308,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 ZoneManager.modifyZone(house.getRoomsList(), zoneNameCombo.getSelectedItem().toString(), listOfRooms,addedRoomsList);
                 printToConsole("Zone has succesfully been added.");
+                updateHouseLayout();
             }
         });
         zoneNameCombo.addActionListener(new ActionListener() {
@@ -328,6 +329,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                 createZoneForm.setRooms(house.getRoomsList());
                 createZoneForm.setRoomNames(house.getRoomNames());
                 createZoneForm.setVisible(true);
+                updateHouseLayout();
+
             }
         });
 
@@ -621,18 +624,23 @@ public class SmartHomeDashboard extends JFrame implements Observable{
             public void actionPerformed(ActionEvent e) {
                 shh.setZoneTemperature();
                 shh.updateRoomTempValue();
+                updateHouseLayout();
+
             }
         });
 
         setRoomTempButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
                     printToConsole("Guests can only change temperature of room they are currently in.");
                 } else {
                     shh.setRoomTemperature();
+                    updateHouseLayout();
                     printToConsole("Temperature has successfully been updated.");
                 }
+
             }
         });
     }
@@ -1086,7 +1094,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public void updateHouseLayout(){
         HouseLayout.remove(dynamicLayout);
-        dynamicLayout = new DynamicLayout(house.getRoomsList());
+        dynamicLayout = new DynamicLayout(house.getRoomsList(),isItWinter());
         HouseLayout.add(dynamicLayout);
     }
 
@@ -1421,10 +1429,12 @@ public class SmartHomeDashboard extends JFrame implements Observable{
 
     public void updateZoneTempBlock(){
         shh.updateZoneBlock();
+        updateHouseLayout();
     }
 
     public void updateRoomTempBlock(){
         shh.updateRoomTempValue();
+        updateHouseLayout();
     }
 
     /**
@@ -1454,7 +1464,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public Room[] getallrooms(){return house.getRoomsList();}
 
     public boolean isItWinter(){
-
+        if (comboMonth.getSelectedItem() == null || dateLabel.getText().split(" ").length < 2)return false;
         String month = ((String)comboMonth.getSelectedItem()).toUpperCase();
         int tempmonth = Months.valueOf(month).ordinal() + 1;
 

@@ -239,8 +239,8 @@ public class House {
     }
 
     public void setRoomDesiredTemp(String roomName, double temperature){
-        for(Room room : rooms){
-            if(room.getName().equalsIgnoreCase(roomName)) {
+        for(Room room : rooms) {
+            if (room.getName().equalsIgnoreCase(roomName)) {
                 room.setDesiredTemp(temperature);
                 return;
             }
