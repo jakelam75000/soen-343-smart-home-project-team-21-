@@ -613,11 +613,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         roomTempCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Type.getText().equals(UserTypes.GUEST.toString()) && !roomTempCombo.getSelectedItem().toString().equals(currentLocLabel.getText())) {
-                    return;
-                } else {
-                    shh.updateRoomTempSpinner();
-                }
+                shh.updateRoomTempSpinner();
             }
         });
 
@@ -643,6 +639,13 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     printToConsole("Temperature has successfully been updated.");
                 }
 
+            }
+        });
+
+        periodCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shh.updateZoneTempSpinner();
             }
         });
     }
