@@ -106,7 +106,6 @@ private PeriodsOfDay period;
         double temperature = caller.getTempRoomSpinnerValue();
 
         caller.getHouse().setRoomDesiredTemp(roomName, temperature);
-        caller.updateHouseLayout();
     }
     /**
      * heats the rooms according to their own preferred temperature
@@ -216,8 +215,8 @@ private PeriodsOfDay period;
         ZoneManager.updateDesiredTempPeriod(period);
         boolean isWinter = shd.isItWinter();
 
-        for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getName().contains("STOOP"))continue;
+//        for (int i =0; i < rooms.length; i ++){
+//            if (rooms[i].getName().contains("STOOP"))continue;
             if (shd.isAwayModeOn()){
                 if (isWinter){
                     autoheatrooms(rooms,shd);
@@ -234,8 +233,8 @@ private PeriodsOfDay period;
                 }
                 shd.updateHouseLayout();
             }
-        }
-        shd.updateHouseLayout();
+//        }
+       shd.updateHouseLayout();
 
     }
 

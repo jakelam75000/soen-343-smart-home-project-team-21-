@@ -6,7 +6,7 @@ public class HVACComponent extends RoomComponent {
     private ImageIcon heatingIcon = new ImageIcon("src/main/java/icons/hot.png");
     private ImageIcon coolingIcon = new ImageIcon("src/main/java/icons/cold.png");
 
-    private ImageIcon scaledImage;
+    private ImageIcon scaledImage = null;
 
     private Room room;
     private boolean tempIsDesiredTemp = true;
@@ -42,14 +42,15 @@ public class HVACComponent extends RoomComponent {
             g2d.setColor(Color.BLACK);
             g2d.setStroke(stroke1);
             g2d.drawString(displayTemp, stringX, stringY);
+            return;
 
         } else {
-            if(!room.isAWindowopen()) {
+//            if(!room.isAWindowopen()) {
                 if (desiredTemp < currentTemp) {
                     scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else {
+                } else if (desiredTemp > currentTemp) {
                     scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                }
+                } else {return;}
 
                 int xIcon = getRelX() + getRoomRect().getWidthandHeight() / 2 - scaledImage.getIconWidth() * 3 / 2;
                 int yIcon = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3 - scaledImage.getIconHeight() / 2;
@@ -58,12 +59,12 @@ public class HVACComponent extends RoomComponent {
 
                 stringY = yIcon + scaledImage.getIconHeight()/2 + 2;
                 stringX = xIcon + scaledImage.getIconWidth();
-            }
-            else {
-                stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
-                stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
-
-            }
+//            }
+//            else {
+//                stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
+//                stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
+//
+//            }
 
 
 

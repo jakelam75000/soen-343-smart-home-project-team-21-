@@ -637,11 +637,9 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     printToConsole("Guests can only change temperature of room they are currently in.");
                 } else {
                     shh.setRoomTemperature();
+                    updateHouseLayout();
                     printToConsole("Temperature has successfully been updated.");
                 }
-
-                shh.setRoomTemperature();
-                updateHouseLayout();
 
             }
         });
