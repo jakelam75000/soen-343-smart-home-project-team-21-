@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class SHH implements Observer{
 
@@ -199,7 +200,7 @@ public class SHH implements Observer{
      * @param rooms the list of rooms to be checked
      * @param shd a connection to smart home dashboard to get appropriate variables
      */
-    private void coolrooms(Room[] rooms, SmartHomeDashboard shd){
+    private void coolrooms(Room[] rooms, SmartHomeDashboard shd, PeriodsOfDay p){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()-0.04){
@@ -209,10 +210,12 @@ public class SHH implements Observer{
                     if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature())
                     if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
-                if (rooms[i].getTemperature() <1){
+                if (rooms[i].getTemperature() < 1){
                     shd.printToConsole("Warning! Cold temperatures may burst pipes, changing this rooms zone temperature");
-                    for (Zone zone:ZoneManager.getZoneList()) {if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1); }
-                    rooms[i].setDesiredTemp(1);
+                    for (Zone zone:ZoneManager.getZoneList()) {
+                        if(zone.containsRoom(rooms[i]))zone.setDesiredTemperature(period,1);
+                        else rooms[i].setDesiredTemp(1);
+                    }
                 }
                 else  rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
             }
@@ -251,11 +254,11 @@ public class SHH implements Observer{
                 closeallwindows = true;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) if (!rooms[i].closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
-                rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
                 if (rooms[i].getTemperature() <1){
                     shd.printToConsole("Warning cold temperatures may burst pipes, keeping temperature to 1 Celsius");
                     shd.setSummertemp(1);
                 }
+                else rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
                 //add windows condition
             }
         }
@@ -302,7 +305,7 @@ public class SHH implements Observer{
             if (isWinter) {
                 heatrooms(rooms, shd);
             } else {
-                coolrooms(rooms, shd);
+                coolrooms(rooms, shd,period);
             }
         }
 

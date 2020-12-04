@@ -156,7 +156,7 @@ public class ZoneManager {
     public static ArrayList<Zone> getZoneList(){
         ArrayList<Zone> zoneList = new ArrayList<Zone>();
 
-        zones.forEach((k, v) -> zoneList.add(v.clone()));
+        zones.forEach((k, v) -> zoneList.add(v));
 
         return zoneList;
     }
