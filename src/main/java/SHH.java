@@ -143,7 +143,7 @@ public class SHH implements Observer{
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
-            if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()){
+            if (rooms[i].getDesiredTemp()> rooms[i].getTemperature()+0.04){
 
                 closeallwindows = false;
 
@@ -161,7 +161,7 @@ public class SHH implements Observer{
     private void coolrooms(Room[] rooms, SmartHomeDashboard shd){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
-            if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()){
+            if (rooms[i].getDesiredTemp() < rooms[i].getTemperature()-0.04){
                 if (rooms[i].getName().contains("STOOP"))continue;
                  closeallwindows = false;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature())
@@ -188,7 +188,7 @@ public class SHH implements Observer{
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
-            if (shd.getWintertemp() > rooms[i].getTemperature()){
+            if (shd.getWintertemp() > rooms[i].getTemperature()+0.04){
                 closeallwindows = false;
                 rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
             }
@@ -204,7 +204,7 @@ public class SHH implements Observer{
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
             if (rooms[i].getName().contains("STOOP"))continue;
-            if (shd.getSummertemp() < rooms[i].getTemperature()){
+            if (shd.getSummertemp() < rooms[i].getTemperature()-0.04){
                 closeallwindows = true;
                 if (shd.getOutsidetemp() < rooms[i].getTemperature()) if (!rooms[i].openAllwindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
                 if (shd.getOutsidetemp() >= rooms[i].getTemperature()) if (!shd.getHouse().closeAllWindows())shd.printToConsole("a Window in room " + rooms[i].getName()+" was blocked!");
