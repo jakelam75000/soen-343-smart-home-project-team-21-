@@ -51,8 +51,11 @@ public class HVACComponent extends RoomComponent {
         boolean isOutsideTempTheSame =(outsidetemp == currentTemp || (outsidetemp < currentTemp + 0.005001 && outsidetemp > currentTemp - 0.005001));
 
         FontMetrics metrics = g.getFontMetrics();
-
-        if ( (tempIsDesiredTemp && !auto) || (auto && (isOutsideTempTheSame || (outsidetemp < currentTemp && isitwinter) || (outsidetemp > currentTemp && !isitwinter)))||(desiredTemp > currentTemp && !isitwinter && ! auto)||(desiredTemp < currentTemp && isitwinter&& ! auto ) || (room.isAWindowopen() && desiredTemp < currentTemp && !isitwinter&& ! auto) ) {
+        if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
+            scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        } else if ((desiredTemp > currentTemp && isitwinter && !auto ) ||(auto && isitwinter && outsidetemp > currentTemp) ) {
+            scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
+        } else {
             stringY = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3  + 2;
             stringX = getRelX() + getRoomRect().getWidthandHeight() / 2 - metrics.stringWidth(displayTemp) / 2;
 
@@ -64,24 +67,14 @@ public class HVACComponent extends RoomComponent {
             g2d.setStroke(stroke1);
             g2d.drawString(displayTemp, stringX, stringY);
             return;
-        // if not, corresponding icons for cooling and heating are displayed
-        } else {
-                if ((desiredTemp < currentTemp && !room.isAWindowopen() && !isitwinter && !auto) || (auto && !isitwinter && outsidetemp < currentTemp)) {
-                    scaledImage = new ImageIcon(coolingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else if ((desiredTemp > currentTemp && isitwinter && !auto ) ||(auto && isitwinter && outsidetemp > currentTemp) ) {
-                    scaledImage = new ImageIcon(heatingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-                } else {return;}
+        }
+        int xIcon = getRelX() + getRoomRect().getWidthandHeight() / 2 - scaledImage.getIconWidth() * 3 / 2;
+        int yIcon = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3 - scaledImage.getIconHeight() / 2;
 
-                int xIcon = getRelX() + getRoomRect().getWidthandHeight() / 2 - scaledImage.getIconWidth() * 3 / 2;
-                int yIcon = getRelY() + getRoomRect().getWidthandHeight() * 2 / 3 - scaledImage.getIconHeight() / 2;
+        scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
 
-                scaledImage.paintIcon(getContainer(), g, xIcon, yIcon);
-
-                stringY = yIcon + scaledImage.getIconHeight()/2 + 5;
-                stringX = xIcon + scaledImage.getIconWidth() + 1;
-            }
-
-
+        stringY = yIcon + scaledImage.getIconHeight()/2 + 5;
+        stringX = xIcon + scaledImage.getIconWidth() + 1;
             Graphics2D g2d = (Graphics2D) g;
 
             Stroke stroke1 = new BasicStroke(2f);
