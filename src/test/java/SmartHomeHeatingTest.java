@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -39,7 +38,6 @@ public class SmartHomeHeatingTest {
         cz.getCreateZoneButton().doClick();
 
         //ZONE IS CREATED SUCCESSFULLY AT THIS POINT.
-        System.out.println(ZoneManager.getZoneSize());
 
         shd.getOnOff().doClick();
         Timer t = new Timer(5000, new ActionListener() {
