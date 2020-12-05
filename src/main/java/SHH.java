@@ -209,6 +209,8 @@ public class SHH implements Observer{
                     }
                 } else if (!rooms[i].isAWindowopen()) rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
                 else rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
+                if (rooms[i].getDesiredTemp() > rooms[i].getTemperature() + 0.04)
+                    rooms[i].setTemperature(rooms[i].getDesiredTemp());
             } else if (rooms[i].getDesiredTemp() > rooms[i].getTemperature() + 0.04) {
 
                 closeallwindows = false;
