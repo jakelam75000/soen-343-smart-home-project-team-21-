@@ -198,6 +198,7 @@ public class ZoneManager {
      * @param zoneName the zone to have its overridden list cleared
      */
     public static void clearOverridden(String zoneName){
+        if (zoneName == "" || zoneName == null)return;
         zones.get(zoneName).clearOverridden();
     }
 
