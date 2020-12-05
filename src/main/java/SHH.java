@@ -211,7 +211,7 @@ public class SHH implements Observer{
                         else rooms[i].setDesiredTemp(1);
                     }
                 } else if (!rooms[i].isAWindowopen()) rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
-                else rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
+                else rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
                 if (rooms[i].getDesiredTemp() > rooms[i].getTemperature() + 0.04)
                     rooms[i].setTemperature(rooms[i].getDesiredTemp());
             } else if (rooms[i].getDesiredTemp() > rooms[i].getTemperature() + 0.04) {
@@ -253,9 +253,15 @@ public class SHH implements Observer{
                     shd.setSummertemp(1);
                     shd.setWintertemp(1);
                 }
-                if (!rooms[i].isAWindowopen() && outsideTemp < rooms[i].getTemperature()-0.04)rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
-                else if (outsideTemp < rooms[i].getTemperature()-0.04)rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
-                else if (outsideTemp > rooms[i].getTemperature()+0.04)rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
+                else if (outsideTemp < rooms[i].getTemperature()-0.04){
+                    rooms[i].setTemperature(rooms[i].getTemperature() - 0.1);
+                    if (outsideTemp > rooms[i].getTemperature() - 0.04)rooms[i].setTemperature(outsideTemp);
+                }
+                else if (outsideTemp > rooms[i].getTemperature()+0.04){
+
+                    rooms[i].setTemperature(rooms[i].getTemperature() + 0.1);
+                    if (outsideTemp < rooms[i].getTemperature() + 0.04)rooms[i].setTemperature(outsideTemp);
+                }
                 //add windows condition
             }
             else hvacturnon[i] = false;
