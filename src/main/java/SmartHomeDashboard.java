@@ -1611,7 +1611,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public JSpinner getTempZoneSpinner(){return  tempZoneSpinner;}
 
     /**
-     * getter method for testing
+     * getter method for TESTING
      * @return Jbutton
      */
     public JButton getSetZoneTempButton(){return setZoneTempButton;}
