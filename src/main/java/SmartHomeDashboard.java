@@ -1627,6 +1627,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      * @return JComboBox<String>
      */
     public JComboBox<String> getZonesCombo(){return zonesCombo;}
+
     /**
      * getter method for testing
      * @return SHH
@@ -1634,4 +1635,8 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     public SHH getShh(){return shh;}
 
     public JButton getCreateZone(){return createZone;}
+
+    public JButton getAddRoom(){ return addRoom;}
+
+    public JButton getSaveZoneButton(){return saveZoneButton;}
 }

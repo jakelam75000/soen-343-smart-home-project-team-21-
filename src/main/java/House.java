@@ -89,13 +89,14 @@ public class House {
      * @return Room[] a list of all room objects
      */
     public Room[] getRoomsList(){
-        Room[] list = new Room[rooms.length];
-
-        for(int i=0; i<rooms.length; i++){
-            list[i] = rooms[i];
-        }
-
-        return list;
+//        Room[] list = new Room[rooms.length];
+//
+//        for(int i=0; i<rooms.length; i++){
+//            list[i] = rooms[i];
+//        }
+//
+//        return list;
+        return rooms;
     }
 
     /**
