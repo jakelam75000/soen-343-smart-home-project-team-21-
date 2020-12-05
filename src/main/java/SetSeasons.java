@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Window that allows user to set the periods for Winter and Summer seasons.
+ */
 public class SetSeasons extends JFrame{
     private JButton ConfimSeasonsButton;
     private JButton CancelSeasonButton;
@@ -39,6 +42,9 @@ public class SetSeasons extends JFrame{
         addActionListeners();
     }
 
+    /**
+     * Adds all the action listeners for the different components of the class.
+     */
     public void addActionListeners() {
         ConfimSeasonsButton.addActionListener(new ActionListener() {
             @Override
@@ -76,6 +82,10 @@ public class SetSeasons extends JFrame{
         return instance;
     }
 
+    /**
+     * Setter for the caller attribute.
+     * @param caller
+     */
     public void setCaller(SmartHomeDashboard caller){
         this.caller = caller;
     }

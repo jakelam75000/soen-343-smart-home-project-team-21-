@@ -92,7 +92,7 @@ public class Zone {
      * updates all rooms (that are not overridden) desired tempreture for the period indicated
      * @param period PeriodOfDay the period of which it should be upated to
      */
-    public void updatedesiredTempPeriod(PeriodsOfDay period){
+    public void updateDesiredTempPeriod(PeriodsOfDay period){
         for (Room room:rooms) {
             if(!overriddenRooms.contains(room.getName())) room.setDesiredTemp(desiredTemperature.get(period));
         }

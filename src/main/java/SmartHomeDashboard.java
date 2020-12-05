@@ -1634,9 +1634,24 @@ public class SmartHomeDashboard extends JFrame implements Observable{
      */
     public SHH getShh(){return shh;}
 
+    /**
+     * For testing
+     * Getter of the creatZone button.
+     * @return
+     */
     public JButton getCreateZone(){return createZone;}
 
+    /**
+     * For testing
+     * Getter for the addRoom button.
+     * @return
+     */
     public JButton getAddRoom(){ return addRoom;}
 
+    /**
+     * For testing
+     * Getter for the save zone button.
+     * @return
+     */
     public JButton getSaveZoneButton(){return saveZoneButton;}
 }

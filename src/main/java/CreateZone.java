@@ -4,6 +4,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Window that allows user to create a new zone.
+ */
 public class CreateZone extends JFrame{
     private JTextField zoneName;
     private JPanel zoneNameWarning;
@@ -173,11 +176,13 @@ public class CreateZone extends JFrame{
      * @return JtextField
      */
     public JTextField getZoneName(){return zoneName;}
+
     /**
      * getter methods
      * @return Jbutton
      */
     public JButton getAddRoomButton(){return addRoomButton;}
+
     /**
      * getter methods
      * @return Jbutton

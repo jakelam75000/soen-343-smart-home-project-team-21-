@@ -30,7 +30,7 @@ public class SmartHomeHeatingTest {
      */
     //Delivery 3: 3.2
     @Test
-    public void SettingsZoneTempretureTest(){
+    public void SettingsZoneTemperatureTest(){
         UserDatabaseManager.loadUsers(false);
         SmartHomeDashboard shd = new SmartHomeDashboard("test", UserTypes.PARENT.toString(), "Parent", "Houselayout.txt");
         CreateZone cz = CreateZone.getInstance();
@@ -58,17 +58,3 @@ public class SmartHomeHeatingTest {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
