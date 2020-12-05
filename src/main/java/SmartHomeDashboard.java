@@ -243,7 +243,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
         hourSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 23.0, 1));
         minuteSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
         secondSpinner.setModel(new SpinnerNumberModel(0.0, 0.0, 59, 1));
-        outSideTemp.setModel(new SpinnerNumberModel(0,-90,57,1 ));
+        outSideTemp.setModel(new SpinnerNumberModel(22,-90,57,1 ));
         speedSpinner.setModel(new SpinnerNumberModel(1,1,100,1));
         fromSchedualHoursSpinner.setModel(new SpinnerNumberModel(0,0,23,1));
         fromSchedualMinutesSpinner.setModel(new SpinnerNumberModel(0, 0, 59, 1));

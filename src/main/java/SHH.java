@@ -9,6 +9,7 @@ public class SHH implements Observer{
     private static boolean hvacon = false;
     private boolean[] hvacturnon;
     private boolean first = true;
+    private boolean first2 = true;
     static {
         instance = new SHH();
     }
@@ -297,17 +298,29 @@ public class SHH implements Observer{
         }
         ZoneManager.updateDesiredTempPeriod(period);
         boolean isWinter = shd.isItWinter();
-
+        if (first2){
             if (shd.isAwayModeOn()) {
+                for (int i = 0; i < rooms.length; i++) {
+                    if ((Math.abs(rooms[i].getTemperature() - autodesiredtemp) >=1 || Math.abs(rooms[i].getTemperature() - autodesiredtemp) >= 1 ) && ! rooms[i].getName().contains("STOOP") )first2 = false;
+                }
+            }
+            else {
+                for (int i = 0; i < rooms.length; i++) {
+                    if (Math.abs(rooms[i].getTemperature() - rooms[i].getDesiredTemp()) >= 1 && ! rooms[i].getName().contains("STOOP"))first2 = false;
+                }
+            }
+
+        }
+            if (shd.isAwayModeOn() && !first2) {
                     autoManageRoomtemp(rooms, shd,autodesiredtemp);
-            } else ManageRoomtemp(rooms, shd, period);
+            } else if (!first2) ManageRoomtemp(rooms, shd, period);
         fluctuate(rooms);
-        if (shd.isAwayModeOn()) {
+        if (shd.isAwayModeOn() && !first2) {
             for (int i = 0; i < rooms.length; i++) {
                 if ((Math.abs(rooms[i].getTemperature() - autodesiredtemp) >=0.25 || Math.abs(rooms[i].getTemperature() - autodesiredtemp) >= 0.25 ) && ! rooms[i].getName().contains("STOOP") )hvacturnon[i] = true;
             }
         }
-        else {
+        else if (!first2){
             for (int i = 0; i < rooms.length; i++) {
                 if (Math.abs(rooms[i].getTemperature() - rooms[i].getDesiredTemp()) >= 0.25 && ! rooms[i].getName().contains("STOOP"))hvacturnon[i] = true;
             }
@@ -321,7 +334,7 @@ public class SHH implements Observer{
      */
     public void fluctuate( Room[] rooms){
         for (int i =0; i < rooms.length; i++){
-            if (hvacturnon[i])continue;
+            if (hvacturnon[i] || Math.abs(caller.getOutsidetemp() - rooms[i].getTemperature() ) < 0.01)continue;
             if (caller.getOutsidetemp() < rooms[i].getTemperature()){
                 rooms[i].setTemperature(rooms[i].getTemperature() - 0.05);
             }
