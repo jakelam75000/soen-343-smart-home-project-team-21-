@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * SHH observer class that manages the SHH tab in the SmartHomeDashboard and updates the HVAC
+ */
 public class SHH implements Observer{
 
     private PeriodsOfDay period;
@@ -262,8 +265,6 @@ public class SHH implements Observer{
         }
 
     }
-
-
 
     /**
      * the hvac system which changes the rooms temperature based on the zone or away mode

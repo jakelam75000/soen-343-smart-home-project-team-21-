@@ -1,3 +1,6 @@
+/**
+ * enum for the periods of the day.
+ */
 public enum PeriodsOfDay {
     MORNING, EVENING, NIGHT
     // morning: 6:00 - 13:59

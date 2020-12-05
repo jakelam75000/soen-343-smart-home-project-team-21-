@@ -27,7 +27,6 @@ public class Window extends Smartobj implements Cloneable{
 
     }
 
-
     /**
      * mutator method
      * @param blockedornot Boolean is the new value of blocked (is the window blocked from closing)
@@ -57,6 +56,7 @@ public class Window extends Smartobj implements Cloneable{
     public boolean isBlocked(){
         return blocked;
     }
+
     /**
     accesor method
      */

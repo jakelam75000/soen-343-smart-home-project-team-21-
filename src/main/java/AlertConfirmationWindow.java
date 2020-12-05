@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The alert window that is used to warn the user about an intruder in the house.
+ */
 public class AlertConfirmationWindow extends JFrame{
     private JLabel decreasingTimer;
     private JButton cancelAlertButton;

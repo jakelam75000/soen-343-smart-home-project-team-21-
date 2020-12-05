@@ -1,3 +1,6 @@
+/**
+ * Observable interface.
+ */
 public interface Observable {
 
     public void attachObserver(Observer o);

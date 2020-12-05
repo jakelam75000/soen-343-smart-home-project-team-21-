@@ -33,11 +33,19 @@ public class Child extends User{
         return accessibilities;
     }
 
+    /**
+     * Getter for Accessibilities
+     * @return
+     */
     @Override
     public HashMap<LocationType, ArrayList<AccessibilityType>> getAccessibilities() {
         return accessibilities;
     }
 
+    /**
+     * Setter for accessibilities
+     * @param accessibilities
+     */
     @Override
     public void setAccessibilities(HashMap<LocationType, ArrayList<AccessibilityType>> accessibilities) {
         this.accessibilities = accessibilities;

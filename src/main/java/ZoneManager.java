@@ -181,7 +181,7 @@ public class ZoneManager {
      * @param period the period of the day
      */
     public static void updateDesiredTempPeriod(PeriodsOfDay period){
-        for (Zone zone:zones.values()) { zone.updatedesiredTempPeriod(period); }
+        for (Zone zone:zones.values()) { zone.updateDesiredTempPeriod(period); }
     }
 
     /**
