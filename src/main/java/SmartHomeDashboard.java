@@ -143,6 +143,7 @@ public class SmartHomeDashboard extends JFrame implements Observable{
     JCheckBox[] itemsArr;
     private int dayint;
     private boolean firstSetUpOfSimulation = true;
+    private boolean firstTimeRun = true;
 
 
     //Singleton instances
@@ -535,6 +536,14 @@ public class SmartHomeDashboard extends JFrame implements Observable{
                     timer.start();
                     int temp = (int)outSideTemp.getValue();
                     outsidetempvalue.setText(temp +"°C");
+                    if (firstTimeRun){
+                        Room[] rooms = house.getRoomsList();
+                        for (int i =0 ; i < rooms.length; i++){
+                            rooms[i].setDesiredTemp(temp);
+                            rooms[i].setTemperature(temp);
+                        }
+                        firstTimeRun = false;
+                    }
                     autoLights(oldLocation, comboLocation.getItemAt(comboLocation.getSelectedIndex()));
                 }
                 updateHouseLayout();
