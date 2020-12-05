@@ -224,6 +224,12 @@ public class SHH implements Observer{
         }
     }
 
+    /**
+     * cools or heats the rooms according to the defualt season setting
+     * @param rooms list of all rooms in the house
+     * @param shd the smart home dashboard object
+     * @param outsideTemp the temperature of the desired home temperature
+     */
     public void autoManageRoomtemp(Room[] rooms, SmartHomeDashboard shd, double outsideTemp){
         boolean closeallwindows = true;
         for (int i =0; i < rooms.length; i ++){
@@ -295,7 +301,7 @@ public class SHH implements Observer{
             if (shd.isAwayModeOn()) {
                     autoManageRoomtemp(rooms, shd,autodesiredtemp);
             } else ManageRoomtemp(rooms, shd, period);
-        fluctuate(rooms,period);
+        fluctuate(rooms);
         if (shd.isAwayModeOn()) {
             for (int i = 0; i < rooms.length; i++) {
                 if ((Math.abs(rooms[i].getTemperature() - autodesiredtemp) >=0.25 || Math.abs(rooms[i].getTemperature() - autodesiredtemp) >= 0.25 ) && ! rooms[i].getName().contains("STOOP") )hvacturnon[i] = true;
@@ -308,7 +314,12 @@ public class SHH implements Observer{
         }
        shd.updateHouseLayout();
     }
-    public void fluctuate( Room[] rooms,PeriodsOfDay period){
+
+    /**
+     * fluctuates the room temp when its stable
+     * @param rooms list of all rooms
+     */
+    public void fluctuate( Room[] rooms){
         for (int i =0; i < rooms.length; i++){
             if (hvacturnon[i])continue;
             if (caller.getOutsidetemp() < rooms[i].getTemperature()){
@@ -317,6 +328,12 @@ public class SHH implements Observer{
             else rooms[i].setTemperature(rooms[i].getTemperature() + 0.05);
         }
     }
+
+    /**
+     * boolean check to see if the given room has its hvac turned on
+     * @param r the room to be checked
+     * @return boolean if its hvac is on
+     */
     public boolean isHvacon(Room r ){
         Room[] rooms = caller.getallrooms();
     for (int i= 0 ; i < rooms.length; i++){
