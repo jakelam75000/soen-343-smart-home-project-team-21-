@@ -1,0 +1,66 @@
+House Name: TestHome
+rooms: 8
+Room name: Living Room
+temperature: 20
+width: 2.00
+length: 2.00
+Smartobjects: 4
+Type: Window
+name: Living Room window 1
+Type: Window
+name: Living Room window 2
+Type: Window
+name: Living Room window 3
+Type: Door
+name: Entry door1
+Room name: Living Room stoop
+temperature: 20
+width: -1.00
+length: -1.00
+Smartobjects: 0
+Room name: Bedroom
+temperature: 21
+width: 2.00
+length: 2.00
+Smartobjects: 2
+Type: Window
+name: Bedroom window 1
+Type: Window
+name: Bedroom window 2
+Room name: Kitchen
+temperature: 22
+width: 2.00
+length: 2.00
+Smartobjects: 3
+Type: Window
+name: Kitchen window 1
+Type: Window
+name: Kitchen window 2
+Type: Door
+name: Kitchen door 1
+Room name: Kitchen stoop
+temperature: 20
+width: -1.00
+length: -1.00
+Smartobjects: 0
+Room name: Office
+temperature: 20
+width: 2.00
+length: 2.00
+Smartobjects: 2
+Type: Window
+name: Office window 1
+Type: Window
+name: Office window 2
+Room name: Garage
+temperature: 18
+width: 2.00
+length: 2.00
+Smartobjects: 1
+Type: Door
+name: Garage door
+Room name: Garage stoop
+temperature: 20
+width: -1.00
+length: -1.00
+Smartobjects: 0
